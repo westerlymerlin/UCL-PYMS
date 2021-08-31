@@ -1,0 +1,28 @@
+<RCC>
+  <qresource prefix="main">
+    <file>pyrolaser.png</file>
+    <file>iconPyMSRun.svg</file>
+    <file>QMS.png</file>
+    <file>iconGTRun.svg</file>
+    <file>pause.png</file>
+    <file>run.png</file>
+    <file>stop_down.png</file>
+    <file>stop_up.png</file>
+    <file>laser.png</file>
+    <file>main.png</file>
+  </qresource>
+  <qresource prefix="xy setup">
+    <file>arrorwe down.png</file>
+    <file>arrorwe left.png</file>
+    <file>arrorwe right.png</file>
+    <file>arrorwe up.png</file>
+    <file>arrorw down.png</file>
+    <file>arrorw left.png</file>
+    <file>arrorw right.png</file>
+    <file>arrorw up.png</file>
+  </qresource>
+  <qresource prefix="valves">
+    <file>valve green horizontal.png</file>
+    <file>valve green vertical.png</file>
+  </qresource>
+</RCC>

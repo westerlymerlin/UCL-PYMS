@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Gary Twinn gary@twinn.net</author>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1800</width>
+    <height>1000</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1800</width>
+    <height>1000</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1800</width>
+    <height>1000</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>10</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>PyMS - Python Mass Spectrometry</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="main.qrc">
+    <normaloff>:/main/iconPyMSRun.svg</normaloff>
+    <disabledoff>:/main/iconPyMSRun.svg</disabledoff>
+    <selectedoff>:/main/iconPyMSRun.svg</selectedoff>
+    <selectedon>:/main/iconPyMSRun.svg</selectedon>:/main/iconPyMSRun.svg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-color: rgb(255, 255, 255);
+font: 10pt &quot;Segoe UI&quot;;
+background-color: rgb(230, 230, 230);</string>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frmHeLine">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>100</y>
+      <width>950</width>
+      <height>852</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>949</width>
+      <height>852</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>950</width>
+      <height>852</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Click on the valves to operate</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="midLineWidth">
+     <number>1</number>
+    </property>
+    <widget class="QFrame" name="imgLaser">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>72</x>
+       <y>361</y>
+       <width>110</width>
+       <height>116</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/main/laser.png);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="spinLaserPower">
+     <property name="geometry">
+      <rect>
+       <x>83</x>
+       <y>560</y>
+       <width>100</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="decimals">
+      <number>0</number>
+     </property>
+     <property name="minimum">
+      <double>0.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>99.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve1" native="true">
+     <property name="geometry">
+      <rect>
+       <x>269</x>
+       <y>261</y>
+       <width>35</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve1">
+     <property name="geometry">
+      <rect>
+       <x>271</x>
+       <y>263</y>
+       <width>36</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>337</x>
+       <y>260</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve2">
+     <property name="geometry">
+      <rect>
+       <x>338</x>
+       <y>261</y>
+       <width>36</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve6" native="true">
+     <property name="geometry">
+      <rect>
+       <x>336</x>
+       <y>116</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve7" native="true">
+     <property name="geometry">
+      <rect>
+       <x>482</x>
+       <y>116</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve3" native="true">
+     <property name="geometry">
+      <rect>
+       <x>482</x>
+       <y>260</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve4" native="true">
+     <property name="geometry">
+      <rect>
+       <x>551</x>
+       <y>260</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve10" native="true">
+     <property name="geometry">
+      <rect>
+       <x>336</x>
+       <y>401</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve11" native="true">
+     <property name="geometry">
+      <rect>
+       <x>482</x>
+       <y>401</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve12" native="true">
+     <property name="geometry">
+      <rect>
+       <x>315</x>
+       <y>694</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green horizontal.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve8" native="true">
+     <property name="geometry">
+      <rect>
+       <x>408</x>
+       <y>188</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green vertical.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve5" native="true">
+     <property name="geometry">
+      <rect>
+       <x>407</x>
+       <y>521</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green vertical.png);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="wValve13" native="true">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>522</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/valves/valve green vertical.png);</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve6">
+     <property name="geometry">
+      <rect>
+       <x>338</x>
+       <y>115</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve7">
+     <property name="geometry">
+      <rect>
+       <x>484</x>
+       <y>116</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve8">
+     <property name="geometry">
+      <rect>
+       <x>409</x>
+       <y>189</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve3">
+     <property name="geometry">
+      <rect>
+       <x>485</x>
+       <y>260</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve4">
+     <property name="geometry">
+      <rect>
+       <x>554</x>
+       <y>262</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve10">
+     <property name="geometry">
+      <rect>
+       <x>339</x>
+       <y>401</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve11">
+     <property name="geometry">
+      <rect>
+       <x>484</x>
+       <y>400</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve5">
+     <property name="geometry">
+      <rect>
+       <x>408</x>
+       <y>518</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve13">
+     <property name="geometry">
+      <rect>
+       <x>481</x>
+       <y>519</y>
+       <width>36</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tbValve12">
+     <property name="geometry">
+      <rect>
+       <x>316</x>
+       <y>692</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblMS">
+     <property name="geometry">
+      <rect>
+       <x>453</x>
+       <y>6</y>
+       <width>200</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>OffLine</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QFrame" name="imgQMS">
+     <property name="geometry">
+      <rect>
+       <x>515</x>
+       <y>24</y>
+       <width>79</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/main/QMS.png);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLCDNumber" name="lcdElapsedTime">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>5</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>45</y>
+      <width>135</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Elapsed Time</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>251</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remaining Commands</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblStatus">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>75</y>
+      <width>571</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Status: Manual Control</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>76</y>
+      <width>191</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Batch</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>135</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Location / Sample</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tbStop">
+    <property name="geometry">
+     <rect>
+      <x>169</x>
+      <y>820</y>
+      <width>134</width>
+      <height>134</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Emergency STOP. Close all valves and switch off laser</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="main.qrc">
+      <normaloff>:/main/stop_up.png</normaloff>
+      <normalon>:/main/stop_down.png</normalon>:/main/stop_up.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>154</width>
+      <height>150</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="popupMode">
+     <enum>QToolButton::DelayedPopup</enum>
+    </property>
+    <property name="autoRaise">
+     <bool>true</bool>
+    </property>
+    <property name="arrowType">
+     <enum>Qt::NoArrow</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tbRun">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>810</y>
+      <width>84</width>
+      <height>44</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Press Run to start or Pause to halt at the end of currenct cycle</string>
+    </property>
+    <property name="text">
+     <string>Run</string>
+    </property>
+    <property name="icon">
+     <iconset resource="main.qrc">
+      <normaloff>:/main/run.png</normaloff>
+      <normalon>:/main/pause.png</normalon>:/main/run.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>84</width>
+      <height>44</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listCommands">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>370</y>
+      <width>301</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>45</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ion Gauge</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>45</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Turbo Gauge</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>45</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tank Gauge</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>560</y>
+      <width>251</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Batch Items  (Currrent / Next)</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listBatch">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>590</y>
+      <width>301</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="modelColumn">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="linePlanchet">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>301</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255)</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lineLocation">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>301</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lineIonPump">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>5</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lineTurboPump">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>5</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lineScrollPump">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>5</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lineXPosition">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>5</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lineYPosition">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>5</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>45</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>X Position</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>45</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Y Position</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frmImage">
+    <property name="geometry">
+     <rect>
+      <x>331</x>
+      <y>82</y>
+      <width>950</width>
+      <height>880</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/main/main.png);
+background-color: rgba(255, 255, 255, 0);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCurrent">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>301</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current Command</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>75</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Results</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableResults">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>100</y>
+      <width>500</width>
+      <height>851</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(61, 61, 61);</string>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="dragDropOverwriteMode">
+     <bool>false</bool>
+    </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::ContiguousSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <property name="textElideMode">
+     <enum>Qt::ElideLeft</enum>
+    </property>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Date</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignLeading|AlignVCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Data File</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignLeading|AlignVCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Sample</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignLeading|AlignVCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Best Fit</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignLeading|AlignVCenter</set>
+     </property>
+    </column>
+   </widget>
+   <widget class="QLabel" name="linePyrometer">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>5</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>45</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pyrometer</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="imgPyrometer">
+    <property name="geometry">
+     <rect>
+      <x>1453</x>
+      <y>5</y>
+      <width>49</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/main/pyrolaser.png);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+   </widget>
+   <zorder>frmImage</zorder>
+   <zorder>label_9</zorder>
+   <zorder>label_10</zorder>
+   <zorder>frmHeLine</zorder>
+   <zorder>lcdElapsedTime</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>lblStatus</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
+   <zorder>tbStop</zorder>
+   <zorder>tbRun</zorder>
+   <zorder>listCommands</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_7</zorder>
+   <zorder>label_8</zorder>
+   <zorder>listBatch</zorder>
+   <zorder>linePlanchet</zorder>
+   <zorder>lineLocation</zorder>
+   <zorder>lineIonPump</zorder>
+   <zorder>lineTurboPump</zorder>
+   <zorder>lineScrollPump</zorder>
+   <zorder>lineXPosition</zorder>
+   <zorder>lineYPosition</zorder>
+   <zorder>lblCurrent</zorder>
+   <zorder>label_11</zorder>
+   <zorder>tableResults</zorder>
+   <zorder>linePyrometer</zorder>
+   <zorder>label_12</zorder>
+   <zorder>imgPyrometer</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1800</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuBatch">
+    <property name="title">
+     <string>Batch</string>
+    </property>
+    <addaction name="actionStartNewBatch"/>
+   </widget>
+   <widget class="QMenu" name="menuXYController">
+    <property name="title">
+     <string>X-Y Controller</string>
+    </property>
+    <addaction name="actionXYOpenLogPage"/>
+    <addaction name="actionXYOpenStatusPage"/>
+    <addaction name="separator"/>
+    <addaction name="actionManualControl"/>
+   </widget>
+   <widget class="QMenu" name="menuValveController">
+    <property name="title">
+     <string>Valve Controller</string>
+    </property>
+    <addaction name="actionValveOpenStatusPage"/>
+    <addaction name="actionValveOpenLogPage"/>
+    <addaction name="separator"/>
+    <addaction name="actionCO2LaserOn"/>
+    <addaction name="actionCO2LaserOff"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string> | </string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Support</string>
+    </property>
+    <addaction name="actionViewPyMSLog"/>
+    <addaction name="actionViewPyMSSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionAboutPyMS"/>
+   </widget>
+   <widget class="QMenu" name="menuPump_Reader">
+    <property name="title">
+     <string>Pump Reader</string>
+    </property>
+    <addaction name="actionPumpOpenStatusPage"/>
+    <addaction name="actionPumpOpenLogPage"/>
+    <addaction name="separator"/>
+    <addaction name="actionPyroLaserOn"/>
+    <addaction name="actionPyroLaserOff"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuBatch"/>
+   <addaction name="menu"/>
+   <addaction name="menuXYController"/>
+   <addaction name="menuValveController"/>
+   <addaction name="menuPump_Reader"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionStartNewBatch">
+   <property name="text">
+    <string>Start New Batch</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new batch</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionXYOpenStatusPage">
+   <property name="text">
+    <string>Open Status Page</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionXYOpenLogPage">
+   <property name="text">
+    <string>Open Log Page</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionValveOpenStatusPage">
+   <property name="text">
+    <string>Open Status Page</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionValveOpenLogPage">
+   <property name="text">
+    <string>Open Log Page</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionManualControl">
+   <property name="text">
+    <string>Calibrate X-Y Stage</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionViewPyMSLog">
+   <property name="text">
+    <string>View PyMS Log</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionAboutPyMS">
+   <property name="text">
+    <string>About PyMS</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionViewPyMSSettings">
+   <property name="text">
+    <string>Vew PyMS Settings</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionEdit_Cycle_Steps">
+   <property name="text">
+    <string>Edit Cycle Steps</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionPumpOpenStatusPage">
+   <property name="text">
+    <string>Open Sataus Page</string>
+   </property>
+   <property name="toolTip">
+    <string>Open Status Page</string>
+   </property>
+  </action>
+  <action name="actionPumpOpenLogPage">
+   <property name="text">
+    <string>Open Log Page</string>
+   </property>
+  </action>
+  <action name="actionPyroLaserOn">
+   <property name="text">
+    <string>Pyrometer Laser On</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch on Pyrometer Location Laser</string>
+   </property>
+  </action>
+  <action name="actionPyroLaserOff">
+   <property name="text">
+    <string>Pyrometer Laser Off</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch Off Pyrometer Location Laser</string>
+   </property>
+  </action>
+  <action name="actionCO2LaserOn">
+   <property name="text">
+    <string>CO2 Laser On</string>
+   </property>
+  </action>
+  <action name="actionCO2LaserOff">
+   <property name="text">
+    <string>CO2 Laser Off</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>tbRun</tabstop>
+  <tabstop>listCommands</tabstop>
+  <tabstop>listBatch</tabstop>
+  <tabstop>spinLaserPower</tabstop>
+  <tabstop>tbStop</tabstop>
+ </tabstops>
+ <resources>
+  <include location="main.qrc"/>
+ </resources>
+ <connections/>
+</ui>
