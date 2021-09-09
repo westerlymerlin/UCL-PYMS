@@ -113,6 +113,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
             timerthread.start()
             valvereaderthread = threading.Timer(0.05, self.getvalvestatus)
             valvereaderthread.start()
+            msreaderthread = threading.Timer(0.1, ms.filereader)
+            msreaderthread.start()
             if not self.taskrunning:
                 taskrunnerthread = threading.Timer(0.2, self.timedevents)
                 taskrunnerthread.start()

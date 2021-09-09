@@ -700,7 +700,7 @@ background-color: rgb(230, 230, 230);</string>
     <property name="geometry">
      <rect>
       <x>910</x>
-      <y>45</y>
+      <y>46</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -713,7 +713,7 @@ background-color: rgb(230, 230, 230);</string>
     <property name="geometry">
      <rect>
       <x>1040</x>
-      <y>45</y>
+      <y>46</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -726,10 +726,13 @@ background-color: rgb(230, 230, 230);</string>
     <property name="geometry">
      <rect>
       <x>1170</x>
-      <y>45</y>
+      <y>46</y>
       <width>111</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Tank Gauge</string>
@@ -996,7 +999,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>45</y>
+      <y>46</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -1009,7 +1012,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="geometry">
      <rect>
       <x>730</x>
-      <y>45</y>
+      <y>46</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -1185,7 +1188,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="geometry">
      <rect>
       <x>1340</x>
-      <y>45</y>
+      <y>46</y>
       <width>111</width>
       <height>21</height>
      </rect>

@@ -1,12 +1,11 @@
 import struct
 import os
 import time
-import threading
 import sqlite3
 import numpy
 from scipy import stats
 from datetime import datetime
-from settings import settings, writesettings, running, friendlydirname
+from settings import settings, writesettings, friendlydirname
 
 
 def linbestfit(sampletime, m, m1, m4, hd_h):
@@ -47,7 +46,7 @@ class MSClass:
         self.batchitemid = 0
         self.laserpower = settings['laser']['power']
         self.dde = None
-        self.scheduler()
+        self.filereader()
 
     def resetclass(self):
         self.time = []
@@ -80,12 +79,6 @@ class MSClass:
 
     def check_quad_is_online(self):
         return self.quaddata[0]
-
-    def scheduler(self):
-        if running:
-            readerthread = threading.Timer(1, self.scheduler)
-            readerthread.start()
-        self.filereader()
 
     def filereader(self):
         filepath = self.readfile
