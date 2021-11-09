@@ -1219,6 +1219,43 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <number>0</number>
     </property>
    </widget>
+   <widget class="QLabel" name="lblAalarm">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>850</y>
+      <width>650</width>
+      <height>90</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 0);
+font: 600 12pt &quot;Segoe UI&quot;;
+color: rgb(255, 0, 0);
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
    <zorder>frmImage</zorder>
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
@@ -1250,6 +1287,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
    <zorder>linePyrometer</zorder>
    <zorder>label_12</zorder>
    <zorder>imgPyrometer</zorder>
+   <zorder>lblAalarm</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

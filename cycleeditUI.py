@@ -49,10 +49,10 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
 
     def loadcycles(self):
         database = sqlite3.connect(settings['database']['databasepath'])
-        cursorobj = database.cursor()
+        cursor_obj = database.cursor()
         sql_query = 'SELECT id, name from cycles WHERE enabled = 1'
-        cursorobj.execute(sql_query)
-        returnobjects = cursorobj.fetchall()
+        cursor_obj.execute(sql_query)
+        returnobjects = cursor_obj.fetchall()
         for cycle in returnobjects:
             self.cycleids.append(cycle[0])
             self.cycledescriptions.append(cycle[1])
@@ -63,10 +63,10 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
     def combochange(self):
         self.currentid = '%s' % (self.comboCycles.currentIndex() + 1)
         database = sqlite3.connect(settings['database']['databasepath'])
-        cursorobj = database.cursor()
+        cursor_obj = database.cursor()
         sql_query = """SELECT * from cyclesteps WHERE id  = ?"""
-        cursorobj.execute(sql_query, self.currentid)
-        self.cycle = cursorobj.fetchall()
+        cursor_obj.execute(sql_query, self.currentid)
+        self.cycle = cursor_obj.fetchall()
         self.refreshtable()
         self.rowselect()
 
@@ -124,15 +124,15 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
 
     def save_button_clicked(self):
         database = sqlite3.connect(settings['database']['databasepath'])
-        cursorobj = database.cursor()
+        cursor_obj = database.cursor()
         sql_query = """DELETE from cyclesteps WHERE id  = ?"""
-        cursorobj.execute(sql_query, self.currentid)
+        cursor_obj.execute(sql_query, self.currentid)
         sql_query = """INSERT into cyclesteps (id, time, target, command) VALUES (?, ?, ?, ?)"""
         for row in self.cycle:
             print(row)
-            cursorobj.execute(sql_query, row)
+            cursor_obj.execute(sql_query, row)
         database.commit()
-        cursorobj.execute("""VACUUM""")
+        cursor_obj.execute("""VACUUM""")
 
     def cancel_button_clicked(self):
         self.combochange()

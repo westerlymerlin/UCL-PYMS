@@ -95,13 +95,10 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.taskrunning = False
         self.valveerrors = 0
         self.xyerrors = 0
+        self.pumperrors = 0
         self.lblCurrent.setText('idle')
         self.updatebatchlist()
-        self.updateCommandlist()
-        if self.getsystemstatus() != '':
-            self.lblCurrent.setText(self.getsystemstatus())
-            QMessageBox.critical(self, "Error", self.getsystemstatus())
-            self.tbRun.setHidden(True)
+        self.update_commandlist()
         threading.Timer(5, self.timer).start()
         self.updateresults()
 
@@ -113,16 +110,18 @@ class UiMain(QMainWindow, Ui_MainWindow):
             timerthread.start()
             valvereaderthread = threading.Timer(0.05, self.getvalvestatus)
             valvereaderthread.start()
-            msreaderthread = threading.Timer(0.1, ms.filereader)
+            msreaderthread = threading.Timer(0.1, self.read_ms)
             msreaderthread.start()
+            alarmreaderthread = threading.Timer(0.3, self.check_alarms)
+            alarmreaderthread.start()
             if not self.taskrunning:
                 taskrunnerthread = threading.Timer(0.2, self.timedevents)
                 taskrunnerthread.start()
             if self.timertick == 0 or self.timertick == 2:
-                xyreaderthread = threading.Timer(0.1, self.updateXY)
+                xyreaderthread = threading.Timer(0.1, self.update_xy)
                 xyreaderthread.start()
             if self.timertick == 0:
-                pressurereaderthread = threading.Timer(0.5, self.updatePressures)
+                pressurereaderthread = threading.Timer(0.5, self.update_pressures)
                 pressurereaderthread.start()
                 pyroreaderthread = threading.Timer(0.7, self.updatetemprature)
                 pyroreaderthread.start()
@@ -141,31 +140,50 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.valveerrors += 1
             print('mainUIForm: Get Status Valve Controller Timeout Error')
 
-    def getsystemstatus(self):
-        status = ''
-        message = {"item": 'getstatus', "command": True}
-        try:
-            requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
-            status = status + ''
-        except requests.RequestException:
-            status = status + 'Valve controller is offline, please switch it on and restart this application.\n'
-        try:
-            message = {"item": 'getxystatus', "command": True}
-            requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-            status = status + ''
-        except requests.RequestException:
-            status = status + 'X-Y controller is offline, please switch it on and restart this application.\n'
+    def read_ms(self):
+        ms.filereader()
         labletext = ms.check_quad_is_online()
-        self.lblMS.setText(labletext)
-        print('mainUIForm: Labeltext = %s' % labletext)
         if labletext != 'Off Line':
             self.imgQMS.setHidden(False)
-            status = status + ''
         else:
-            status = status + 'Mass Spectrometer is offline, please run the Measure application and use the ' \
-                              'PyMS.sqe sequence, then restart this application.'
-        print('mainUIForm: Status %s' % status)
-        return status
+            self.imgQMS.setHidden(True)
+        self.lblMS.setText(labletext)
+
+    def check_alarms(self):
+        status = ''
+        if ms.alarm:
+            if ms.check_quad_is_online() == 'Off Line':
+                status = status + 'Quad Reader if offline, system is paused\n'
+                self.secondincrement = 0
+                self.run = 0
+                self.tbRun.setChecked(False)
+        if self.valveerrors > 10:
+            status = status + 'Valve controller is offline, system is paused\n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if self.xyerrors > 10:
+            status = status + 'X-Y controller is offline, system is paused\n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if self.pumperrors > 10:
+            status = status + 'Pump reader is offline, system is paused\n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
+            status = status + 'Ion Pump is showing high pressure, system is paused\n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
+            status = status + 'Turbo Pump is showing loss of vacuum, system is paused\n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if self.lblAalarm.text() != status:
+            self.lblAalarm.setText(status)
 
     def setvalves(self, resp):
         if self.wValve1.isVisible() != valvestatus(resp[0]['status']):
@@ -306,7 +324,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 batch.changed = 0
                 currentcycle.setcycle(batch.current()[0])
                 self.updatebatchlist()
-                self.updateCommandlist()
+                self.update_commandlist()
                 self.updateresults()
         except ValueError:
             print('t=%s mainUIForm: timedevents value error %s' % (self.secondcount, Exception()))
@@ -349,7 +367,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     self.secondcount = 0
                     print('mainUIForm: Update lists')
                     self.updatebatchlist()
-                    self.updateCommandlist()
+                    self.update_commandlist()
                     self.updateresults()
                     self.secondincrement = 1
                     if batch.current()[0] != 'End':
@@ -451,7 +469,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         except:
             print('mainUIForm: batchlist error')
 
-    def updateCommandlist(self):
+    def update_commandlist(self):
         try:
             print('mainUIForm: Update command list')
             self.listCommands.clear()
@@ -459,30 +477,34 @@ class UiMain(QMainWindow, Ui_MainWindow):
         except:
             print('mainUIForm: command list error')
 
-    def updatePressures(self):
+    def update_pressures(self):
         message = {"item": 'getpressures', "command": True}
         try:
             resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
-            settings['vacuum']['turbo']['current'] = resp.json()[0]['pressure']
-            settings['vacuum']['tank']['current'] = resp.json()[1]['pressure']
-            settings['vacuum']['ion']['current'] = resp.json()[2]['pressure']
+            settings['vacuum']['turbo']['current'] = float(resp.json()[0]['pressure'])
+            settings['vacuum']['tank']['current'] = float(resp.json()[1]['pressure'])
+            settings['vacuum']['ion']['current'] = float(resp.json()[2]['pressure'])
             self.lineIonPump.setText('%.2e' % settings['vacuum']['ion']['current'])
             self.lineTurboPump.setText('%.2e' % settings['vacuum']['turbo']['current'])
             self.lineScrollPump.setText('%.2e' % settings['vacuum']['tank']['current'])
+            self.pumperrors = 0
         except requests.RequestException:
+            self.pumperrors += 1
             print('mainUIForm: Get Pressures Pump Raeder Timeout Error')
 
     def updatetemprature(self):
         message = {"item": 'gettemperature', "command": True}
         try:
             resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
-            settings['pyrometer']['current'] = resp.json()['temperature']
+            settings['pyrometer']['current'] = float(resp.json()['temperature'])
             self.linePyrometer.setText('%s' % settings['pyrometer']['current'])
             self.imgPyrometer.setHidden(not(resp.json()['laser']))
+            self.pumperrors = 0
         except requests.RequestException:
+            self.pumperrors += 1
             print('mainUIForm: Get Temperature Pump Raeder Timeout Error')
 
-    def updateXY(self):
+    def update_xy(self):
         try:
             message = {"item": 'getxystatus', "command": True}
             resp = requests.post(settings['hosts']['xyhost'], json=message, timeout=1)

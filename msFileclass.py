@@ -44,6 +44,7 @@ class MSClass:
         self.batchdescription = ''
         self.batchid = 0
         self.batchitemid = 0
+        self.alarm = 0
         self.laserpower = settings['laser']['power']
         self.dde = None
         self.filereader()
@@ -99,7 +100,7 @@ class MSClass:
                 print('msFileclass QuadStar File other read error')
                 self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
             if len(bytelist) > 500:
-                #print("msFileclass counter %s" % counter)
+                # print("msFileclass counter %s" % counter)
                 counter = 10
             else:
                 time.sleep(0.1)
@@ -121,11 +122,14 @@ class MSClass:
             e3 = struct.unpack('f', bytearray(bytelist[pos + 12:pos + 16]))[0]
             e4 = struct.unpack('f', bytearray(bytelist[pos + 16:pos + 20]))[0]
             self.quaddata = [os.path.basename(filepath), sampletime, c0, c1, c2, c3, c4, e0, e1, e2, e3, e4, filetype]
+            self.alarm = 0
             if (time.time() - datetime.timestamp(sampletime)) > 30:
                 self.quaddata[0] = 'Off Line'
-            print('msFileclass Quad read: file time=%s' % sampletime)
+                self.alarm = 1
+                print('msFileclass Quad read: Late file time=%s' % sampletime)
         else:
             print("msFileclass Quad Read fail after 2 attempts")
+            self.alarm = 1
             self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
 
 
@@ -175,20 +179,20 @@ class MSClass:
             print("msFileclass failed to write to helium results file %s " % Exception)
         try:
             database = sqlite3.connect(self.resultstabasepath)
-            cursorObj = database.cursor()
+            cursor_obj = database.cursor()
             sql_insert_query = """INSERT INTO HeliumRuns (id, type, identifier, daterun, batchdescription, batchid, 
              batchitemid, laserpower, filedata, Bestfit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) """
             datarow = (self.filename, self.type, self.identifier, datetime.now(), self.batchdescription, self.batchid,
                        self.batchitemid, self.laserpower, blobfile, self.bestfit[1])
 
-            cursorObj.execute(sql_insert_query, datarow)
+            cursor_obj.execute(sql_insert_query, datarow)
             database.commit()
             sql_insert_query = """INSERT INTO MSRawData (id, time, m1, m, m4, m5, m40, m6) VALUES (?, ?, ?, ?, ?, ?, 
             ?, ?) """
             for i in range(0, len(self.time)):
                 datarow = (
                     self.filename, self.time[i], self.m1[i], self.m[i], self.m4[i], self.m5[i], self.m40[i], self.m6[i])
-                cursorObj.execute(sql_insert_query, datarow)
+                cursor_obj.execute(sql_insert_query, datarow)
             database.commit()
             settings['MassSpec']['nextH'] += 1
             writesettings()

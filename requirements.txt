@@ -1,12 +1,14 @@
 PySide2
 certifi
 chardet
-idna
-numpi
 pillow
 pyserial
 pywin32
 requests
 scipy
 shiboken2
-urllib3
+future
+pip
+numpy
+six
+image
