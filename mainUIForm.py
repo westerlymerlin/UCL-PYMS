@@ -13,6 +13,7 @@ from laserclass import laser
 from batchclass import batch
 from cycleclass import currentcycle
 from msFileclass import ms
+from alertmessage import alert
 
 
 def laserstatus(status):
@@ -184,6 +185,9 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.tbRun.setChecked(False)
         if self.lblAalarm.text() != status:
             self.lblAalarm.setText(status)
+            if status != '':
+                alert(status)
+                print(status)
 
     def setvalves(self, resp):
         if self.wValve1.isVisible() != valvestatus(resp[0]['status']):
