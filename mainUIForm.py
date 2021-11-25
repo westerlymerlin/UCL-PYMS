@@ -9,6 +9,7 @@ from aboutui import UiAbout
 from logviewerui import UiLogViewer
 from settingsviewerui import UiSettingsViewer
 from xymanual import XYSetupUI
+from quadviewerui import UiQuadViwer
 from laserclass import laser
 from batchclass import batch
 from cycleclass import currentcycle
@@ -84,6 +85,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionAboutPyMS.triggered.connect(self.showabout)
         self.actionViewPyMSLog.triggered.connect(self.showlogviewer)
         self.actionViewPyMSSettings.triggered.connect(self.showsettingsviewer)
+        self.actionQuadViewer.triggered.connect(self.showquadviewer)
         self.spinLaserPower.setValue(settings['laser']['power'])
         self.spinLaserPower.valueChanged.connect(self.setlaserpower)
         self.secondcount = 0
@@ -445,6 +447,10 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.aboutdialog = UiAbout()
         self.aboutdialog.show()
 
+    def showquadviewer(self):
+        self.quadviewerdialog = UiQuadViwer()
+        self.quadviewerdialog.show()
+
     def showlogviewer(self):
         self.logviewerdialog = UiLogViewer()
         self.logviewerdialog.loadlog()
@@ -502,7 +508,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
             settings['pyrometer']['current'] = float(resp.json()['temperature'])
             self.linePyrometer.setText('%s' % settings['pyrometer']['current'])
-            self.imgPyrometer.setHidden(not(resp.json()['laser']))
+            self.imgPyrometer.setHidden(not (resp.json()['laser']))
             self.pumperrors = 0
         except requests.RequestException:
             self.pumperrors += 1
