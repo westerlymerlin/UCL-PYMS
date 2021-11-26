@@ -26,6 +26,9 @@ class UiQuadViwer(QDialog, QMainWindow, Ui_dialogQuadViewer):
         self.lineM4.setText('%.5e' % ms.quaddata[9])
         self.lineM5.setText('%.5e' % ms.quaddata[10])
         self.lineM40.setText('%.5e' % ms.quaddata[11])
-        he_ratio = ((ms.quaddata[9]*self.multiplier) / ((ms.quaddata[8] * self.multiplier)
-                                                        - (0.01 * ms.quaddata[7] * self.multiplier))) * 1000
+        Hd = 0.01 * ms.quaddata[7] * self.multiplier
+        self.lineHD.setText('%.4f' % Hd)
+        he3 = ((ms.quaddata[8] * self.multiplier) - Hd)
+        self.line3He.setText('%.4f' % he3)
+        he_ratio = ((ms.quaddata[9]*self.multiplier) / he3) * 1000
         self.line4He.setText('%.4f' % he_ratio)
