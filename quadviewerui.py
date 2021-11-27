@@ -32,3 +32,20 @@ class UiQuadViwer(QDialog, QMainWindow, Ui_dialogQuadViewer):
         self.line3He.setText('%.4f' % he3)
         he_ratio = ((ms.quaddata[9]*self.multiplier) / he3) * 1000
         self.line4He.setText('%.4f' % he_ratio)
+        logfilename = '%sQuadViewer.txt' % settings['MassSpec']['datadirectory']
+        with open(logfilename, 'a') as outfile:
+            print('===========\t==========',file=outfile)
+            print('Sample Time\t%s' % ms.quaddata[1], file=outfile)
+            print('M1 Quad\t\t%s' % ms.quaddata[7] , file=outfile)
+            print('M3 Quad\t\t%s' % ms.quaddata[8] ,file=outfile)
+            print('M4 Quad\t\t%s' % ms.quaddata[9] ,file=outfile)
+            print('M5 Quad\t\t%s' % ms.quaddata[10] ,file=outfile)
+            print('M40 Quad\t%s' % ms.quaddata[11], file=outfile)
+            print('Hd\t\t\t%s' % Hd, file=outfile)
+            print('3Hd\t\t\t%s' % he3, file=outfile)
+            print('4He / 3He\t%s' % he_ratio, file=outfile)
+        outfile.close()
+
+
+
+
