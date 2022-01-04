@@ -175,13 +175,18 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
-        if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
-            status = status + 'Ion Pump is showing high pressure, system is paused\n'
+        if settings['vacuum']['ion']['current'] == 0:
+            status = status + 'Ion Pump is offline, system is paused\n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
             status = status + 'Turbo Pump is showing loss of vacuum, system is paused\n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if settings['vacuum']['turbo']['current'] == 0:
+            status = status + 'Turbo Pump guage is offline, system is paused\n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
