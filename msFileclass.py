@@ -6,6 +6,7 @@ import numpy
 from scipy import stats
 from datetime import datetime
 from settings import settings, writesettings, friendlydirname
+from backup import backupfile
 
 
 def linbestfit(sampletime, m, m1, m4, hd_h):
@@ -170,6 +171,7 @@ class MSClass:
                 print(line, file=outfile)
                 line = ''
             outfile.close()
+            backupfile(filename)
             # print('closed filepath = %s' % filename)
             writesettings()
             with open(filename, 'rb') as infile:

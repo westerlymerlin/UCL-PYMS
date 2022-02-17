@@ -4,6 +4,7 @@ import os
 from ctypes import windll
 from PIL import Image
 from settings import settings, friendlydirname
+from backup import backupfile
 
 
 def imager(application, batchid, batchdescription, formatteddescription):
@@ -56,6 +57,7 @@ def imager(application, batchid, batchdescription, formatteddescription):
     if result == 1:
         #PrintWindow Succeeded
         im.save(filename)
+        backupfile(filename)
 
 
 def enumHandler(hwnd, lParam):

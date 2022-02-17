@@ -156,37 +156,42 @@ class UiMain(QMainWindow, Ui_MainWindow):
         status = ''
         if ms.alarm:
             if ms.check_quad_is_online() == 'Off Line':
-                status = status + 'Quad Reader if offline, system is paused\n'
+                status = status + 'Quad Reader if offline, system is paused. \n'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
         if self.valveerrors > 10:
-            status = status + 'Valve controller is offline, system is paused\n'
+            status = status + 'Valve controller is offline, system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if self.xyerrors > 10:
-            status = status + 'X-Y controller is offline, system is paused\n'
+            status = status + 'X-Y controller is offline, system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if self.pumperrors > 10:
-            status = status + 'Pump reader is offline, system is paused\n'
+            status = status + 'Pump reader is offline, system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['ion']['current'] == 0:
-            status = status + 'Ion Pump is offline, system is paused\n'
+            status = status + 'Ion pump is offline, system is paused. \n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
+            status = status + 'Ion pump is showing loss of vacuum, system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
-            status = status + 'Turbo Pump is showing loss of vacuum, system is paused\n'
+            status = status + 'Turbo gauge is showing loss of vacuum, system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['turbo']['current'] == 0:
-            status = status + 'Turbo Pump guage is offline, system is paused\n'
+            status = status + 'Turbo gauge is offline, system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)

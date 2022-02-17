@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 from settings import settings, friendlydirname
 from imagefiler import imager
+from backup import backupfile
 
 
 class BatchClass:
@@ -68,7 +69,7 @@ class BatchClass:
             self.identifier = []
             self.status = []
         except sqlite3.OperationalError:
-            print('batchclass batch cancel error')
+            print('BatchClass-batchclass batch cancel error')
 
     def new(self, batchtype, description):
         if self.id > 0:
@@ -123,27 +124,27 @@ class BatchClass:
 
     def current(self):
         if len(self.runnumber) > 0:
-            # print('there is a batch %s' % len(self.cycle))
+            # print('BatchClass-there is a batch %s' % len(self.cycle))
             return [self.cycle[0], self.location[0], self.identifier[0]]
         else:
-            # print('no batch left')
+            # print('BatchClass-no batch left')
             return ['End', 'S1', 'No more samples to process']
 
     def completecurrent(self):
         if len(self.runnumber) > 0:
-            print('Complete Current: Updating main database')
+            print('BatchClass-Complete Current: Updating main database')
             database = sqlite3.connect(settings['database']['databasepath'])
             cursor_obj = database.cursor()
             sql_update_query = """ UPDATE batchsteps SET  status = 1 WHERE runnumber = ?  """
             cursor_obj.execute(sql_update_query, [str(self.runnumber[0])])
             database.commit()
             database.close()
-            print('Complete Current: Creating Results Directory')
+            print('BatchClass-Complete Current: Creating Results Directory')
             filepath = settings['MassSpec']['datadirectory'] + \
                        friendlydirname(str(self.id) + ' ' + self.description)
             os.makedirs(filepath, exist_ok=True)
             formatteddata = ['Date                File         Description             Best Fit']
-            print('Complete Current: Opening Results Database')
+            print('BatchClass-Complete Current: Opening Results Database')
             database = sqlite3.connect(settings['database']['resultsdatabasepath'])
             cursor_obj = database.cursor()
             sql_query = """SELECT id, identifier, daterun, bestfit from HeliumRuns WHERE batchid = ? """
@@ -153,19 +154,22 @@ class BatchClass:
                 formatteddata.append(
                     '%s    %s    %s    %.3f' % (datarow[2][:16], datarow[0], datarow[1].ljust(20, ' '), datarow[3]))
             database.close()
-            print('Complete Current: Writing Results File')
+            print('BatchClass-Complete Current: Writing Results File')
             filename = filepath + '\\' + 'batchlog.txt'
             logfile = open(filename, 'w')
             for formattedline in formatteddata:
                 print(formattedline, file=logfile)
             logfile.close()
+            backupfile(filename)
             del self.runnumber[0]
             del self.cycle[0]
             del self.location[0]
             del self.identifier[0]
             del self.status[0]
             self.changed = 1
-            # print('Remaining cycles are %s' % self.runnumber)
+            backupfile(settings['database']['databasepath'])
+            backupfile(settings['database']['resultsdatabasepath'])
+            # print('BatchClass-Remaining cycles are %s' % self.runnumber)
         if len(self.runnumber) == 0:
             self.id = -1
             self.date = None
@@ -284,9 +288,9 @@ class BatchClass:
         else:
             loc = self.locxy(self.location[1])
             if abs(loc[0] - currentXPos) < 0.05:
-                print('batchclass x is on location')
+                print('BatchClass-batchclass x is on location')
                 if abs(loc[1] - currentYPos) < 0.05:
-                    print('batchclass y is on location')
+                    print('BatchClass-batchclass y is on location')
                     return True
         return False
 
@@ -308,7 +312,7 @@ class BatchClass:
             datarows = cursor_obj.fetchall()
             return datarows
         except:
-            print('batchclass batch results error - %s' % Exception)
+            print('BatchClass-batchclass batch results error - %s' % Exception)
             return ['0', 'Batch Error', 'today', 1]
 
     def image(self, application):
