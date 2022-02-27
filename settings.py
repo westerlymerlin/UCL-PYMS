@@ -1,6 +1,6 @@
 import json
 
-version = '1.2.4'
+version = '1.2.5'
 running = True
 settings = {}
 
@@ -46,6 +46,7 @@ def initialise():
     settings['database']['resultsdatabasepath'] = '.\\database\\HeliumResults.db'
     settings['database']['resultsdatabasebackuppath'] = '.\\database\\HeliumResults.db.backup.db'
     settings['mainform'] = {}
+    settings['metrics'] = 0
     settings['mainform']['x'] = 600
     settings['mainform']['y'] = 100
     settings['newbatchform'] = {}
@@ -94,6 +95,7 @@ def initialise():
     settings['MassSpec']['readfile'] = 'C:\\QS422\\DAT\\pymscyc.mdc'
     settings['MassSpec']['multiplier'] = 1E-12
     settings['MassSpec']['HD/H'] = 0.01
+
     writesettings()
 
 

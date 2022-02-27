@@ -82,12 +82,14 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionCO2LaserOff.triggered.connect(lambda: self.manuallaser('CO2', 'off'))
         self.actionPyroLaserOn.triggered.connect(lambda: self.manuallaser('Pyro', 'on'))
         self.actionPyroLaserOff.triggered.connect(lambda: self.manuallaser('Pyro', 'off'))
+        self.actionSave_Metrics.triggered.connect(self.togglemetrics)
         self.actionAboutPyMS.triggered.connect(self.showabout)
         self.actionViewPyMSLog.triggered.connect(self.showlogviewer)
         self.actionViewPyMSSettings.triggered.connect(self.showsettingsviewer)
         self.actionQuadViewer.triggered.connect(self.showquadviewer)
         self.spinLaserPower.setValue(settings['laser']['power'])
         self.spinLaserPower.valueChanged.connect(self.setlaserpower)
+        self.actionSave_Metrics.setChecked(settings['metrics'])
         self.secondcount = 0
         self.secondincrement = 0
         self.timertick = 0
@@ -618,3 +620,10 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 requests.post(laserhost, json=message, timeout=1)
         except requests.RequestException:
             print('mainUIForm: Laser Manual Control Timeout Error')
+
+    def togglemetrics(self):
+        if settings['metrics'] == 1:
+            settings['metrics'] = 0
+        else:
+            settings['metrics'] =1
+        self.actionSave_Metrics.setChecked(settings['metrics'])

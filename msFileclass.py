@@ -7,6 +7,7 @@ from scipy import stats
 from datetime import datetime
 from settings import settings, writesettings, friendlydirname
 from backup import backupfile
+from metrics import write_metrics
 
 
 def linbestfit(sampletime, m, m1, m4, hd_h):
@@ -128,6 +129,9 @@ class MSClass:
                 self.quaddata[0] = 'Off Line'
                 self.alarm = 1
                 print('msFileclass Quad read: Late file time=%s' % sampletime)
+            else:
+                if settings['metrics'] == 1:
+                    write_metrics(settings['vacuum']['tank']['current'],settings['vacuum']['turbo']['current'],settings['vacuum']['ion']['current'],settings['pyrometer']['current'],e1,e1,e2,e3,e4)
         else:
             print("msFileclass Quad Read fail after 2 attempts")
             self.alarm = 1

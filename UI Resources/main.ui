@@ -1345,6 +1345,7 @@ color: rgb(255, 0, 0);
     <addaction name="actionViewPyMSSettings"/>
     <addaction name="separator"/>
     <addaction name="actionQuadViewer"/>
+    <addaction name="actionSave_Metrics"/>
     <addaction name="separator"/>
     <addaction name="actionAboutPyMS"/>
    </widget>
@@ -1532,6 +1533,23 @@ color: rgb(255, 0, 0);
   <action name="actionQuadViewer">
    <property name="text">
     <string>Quad Viewer</string>
+   </property>
+  </action>
+  <action name="actionSave_Metrics">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Save Troubleshooting Metrics</string>
+   </property>
+   <property name="iconText">
+    <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
+   </property>
+   <property name="statusTip">
+    <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
    </property>
   </action>
  </widget>
