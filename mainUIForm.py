@@ -101,6 +101,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.valveerrors = 0
         self.xyerrors = 0
         self.pumperrors = 0
+        self.turbopumphigh = 0
+        self.ionpumphigh = 0
         self.lblCurrent.setText('idle')
         self.updatebatchlist()
         self.update_commandlist()
@@ -183,15 +185,23 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
-            status = status + 'Ion pump is showing loss of vacuum, system is paused. \n'
-            self.secondincrement = 0
-            self.run = 0
-            self.tbRun.setChecked(False)
+            self.ionpumphigh += 1
+            if self.ionpumphigh > 29:
+                status = status + 'Ion pump is showing loss of vacuum, system is paused. \n'
+                self.secondincrement = 0
+                self.run = 0
+                self.tbRun.setChecked(False)
+        else:
+            self.ionpumphigh = 0
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
-            status = status + 'Turbo gauge is showing loss of vacuum, system is paused. \n'
-            self.secondincrement = 0
-            self.run = 0
-            self.tbRun.setChecked(False)
+            self.turbopumphigh += 1
+            if self.turbopumphigh > 29:
+                status = status + 'Turbo gauge is showing loss of vacuum, system is paused. \n'
+                self.secondincrement = 0
+                self.run = 0
+                self.tbRun.setChecked(False)
+        else:
+            self.turbopumphigh = 0
         if settings['vacuum']['turbo']['current'] == 0:
             status = status + 'Turbo gauge is offline, system is paused. \n'
             self.secondincrement = 0
