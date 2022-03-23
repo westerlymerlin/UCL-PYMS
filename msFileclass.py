@@ -93,13 +93,13 @@ class MSClass:
                     bytelist = datafile.read()
                 datafile.close()
             except PermissionError:
-                print('msFileclass QuadStar Permission Error')
+                print('msFileclass: QuadStar Permission Error')
                 self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
             except FileNotFoundError:
-                print('msFileclass QuadStar File not Found')
+                print('msFileclass: QuadStar File not Found')
                 self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
             except:
-                print('msFileclass QuadStar File other read error')
+                print('msFileclass: QuadStar File other read error')
                 self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
             if len(bytelist) > 500:
                 # print("msFileclass counter %s" % counter)
@@ -107,7 +107,7 @@ class MSClass:
             else:
                 time.sleep(0.1)
                 counter += 1
-                print("msFileclass QuadStar File too short error")
+                print("msFileclass: QuadStar File too short error")
         if len(bytelist) > 500:
             filetype = str(bytelist[205:216], 'cp1250')
             c0 = str(bytelist[317:326], 'cp1250')
@@ -128,12 +128,12 @@ class MSClass:
             if (time.time() - datetime.timestamp(sampletime)) > 30:
                 self.quaddata[0] = 'Off Line'
                 self.alarm = 1
-                print('msFileclass Quad read: Late file time=%s' % sampletime)
+                print('msFileclass: Quad read: Late file time=%s' % sampletime)
             else:
                 if settings['metrics'] == 1:
                     write_metrics(settings['vacuum']['tank']['current'],settings['vacuum']['turbo']['current'],settings['vacuum']['ion']['current'],settings['pyrometer']['current'],e1,e1,e2,e3,e4)
         else:
-            print("msFileclass Quad Read fail after 2 attempts")
+            print("msFileclass: Quad Read fail after 2 attempts")
             self.alarm = 1
             self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
 
@@ -145,7 +145,7 @@ class MSClass:
         e3 = self.quaddata[10] * self.multiplier
         e4 = self.quaddata[11] * self.multiplier
         sampletime = self.quaddata[1]
-        print('msFileclass Quad data %s, %s, %s, %s, %s, %s ' % (sampletime, e0, e1, e2, e3, e4))
+        print('msFileclass: Quad data %s, %s, %s, %s, %s, %s ' % (sampletime, e0, e1, e2, e3, e4))
 
         self.time.append(round(sampletime.timestamp() - self.daterun, 6))
         self.m1.append(round(e0, 6))
@@ -157,11 +157,11 @@ class MSClass:
 
     def writefile(self):
         try:
-            print('Calculating bestfit')
+            print('msFileclass: Calculating bestfit')
             self.bestfit = linbestfit(self.time, self.m, self.m1, self.m4, settings['MassSpec']['HD/H'])
-            print(self.bestfit)
+            print('msFileclass: bestfit = $s' % self.bestfit)
             self.filename = 'HE' + str(self.id) + 'R'
-            print('filename = %s' % self.filename)
+            print('msFileclass: filename = %s' % self.filename)
             filepath = settings['MassSpec']['datadirectory'] + \
                 friendlydirname(str(self.batchid) + ' ' + self.batchdescription)
             os.makedirs(filepath, exist_ok=True)
@@ -182,7 +182,7 @@ class MSClass:
                 blobfile = infile.read()
             infile.close()
         except:
-            print("msFileclass failed to write to helium results file %s " % Exception)
+            print("msFileclass: failed to write to helium results file %s " % Exception)
         try:
             database = sqlite3.connect(self.resultstabasepath)
             cursor_obj = database.cursor()
@@ -204,7 +204,7 @@ class MSClass:
             writesettings()
             self.resetclass()
         except sqlite3.Error as error:
-            print("msFileclass failed to write to helium results database ", error)
+            print("msFileclass: failed to write to helium results database ", error)
 
 
 ms = MSClass()

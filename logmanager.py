@@ -1,5 +1,5 @@
 import os.path
-from settings import settings
+from settings import settings, version
 import logging
 from logging.handlers import RotatingFileHandler
 import sys
@@ -28,3 +28,4 @@ LogFile.setFormatter(formatter)
 logger.addHandler(LogFile)
 LogFile.doRollover()
 sys.stdout = x = StdReDirector()
+print("********************** Starting PyMs Version %s ***********************" % version)

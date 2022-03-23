@@ -145,7 +145,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.setvalves(resp.json())
         except requests.RequestException:
             self.valveerrors += 1
-            print('mainUIForm: Get Status Valve Controller Timeout Error')
+            print('t=%s mainUIForm: Get Status Valve Controller Timeout Error' % self.secondcount)
 
     def read_ms(self):
         ms.filereader()
@@ -215,43 +215,43 @@ class UiMain(QMainWindow, Ui_MainWindow):
 
     def setvalves(self, resp):
         if self.wValve1.isVisible() != valvestatus(resp[0]['status']):
-            print("Valve 1 changed")
+            print('t=%s mainUIForm: Valve 1 changed' % self.secondcount)
             self.wValve1.setVisible(valvestatus(resp[0]['status']))
         if self.wValve2.isVisible() != valvestatus(resp[1]['status']):
-            print("Valve 2 changed")
+            print('t=%s mainUIForm: Valve 2 changed' % self.secondcount)
             self.wValve2.setVisible(valvestatus(resp[1]['status']))
         if self.wValve3.isVisible() != valvestatus(resp[2]['status']):
-            print("Valve 3 changed")
+            print('t=%s mainUIForm: Valve 3 changed' % self.secondcount)
             self.wValve3.setVisible(valvestatus(resp[2]['status']))
         if self.wValve4.isVisible() != valvestatus(resp[3]['status']):
-            print("Valve 4 changed")
+            print('t=%s mainUIForm: Valve 4 changed' % self.secondcount)
             self.wValve4.setVisible(valvestatus(resp[3]['status']))
         if self.wValve5.isVisible() != valvestatus(resp[4]['status']):
-            print("Valve 5 changed")
+            print('t=%s mainUIForm: Valve 5 changed' % self.secondcount)
             self.wValve5.setVisible(valvestatus(resp[4]['status']))
         if self.wValve6.isVisible() != valvestatus(resp[5]['status']):
-            print("Valve 6 changed")
+            print('t=%s mainUIForm: Valve 6 changed' % self.secondcount)
             self.wValve6.setVisible(valvestatus(resp[5]['status']))
         if self.wValve7.isVisible() != valvestatus(resp[6]['status']):
-            print("Valve 7 changed")
+            print('t=%s mainUIForm: Valve 7 changed' % self.secondcount)
             self.wValve7.setVisible(valvestatus(resp[6]['status']))
         if self.wValve8.isVisible() != valvestatus(resp[7]['status']):
-            print("Valve 8 changed")
+            print('t=%s mainUIForm: Valve 8 changed' % self.secondcount)
             self.wValve8.setVisible(valvestatus(resp[7]['status']))
         if self.wValve10.isVisible() != valvestatus(resp[8]['status']):
-            print("Valve 10 changed")
+            print('t=%s mainUIForm: Valve 10 changed' % self.secondcount)
             self.wValve10.setVisible(valvestatus(resp[8]['status']))
         if self.wValve11.isVisible() != valvestatus(resp[9]['status']):
-            print("Valve 11 changed")
+            print('t=%s mainUIForm: Valve 11 changed' % self.secondcount)
             self.wValve11.setVisible(valvestatus(resp[9]['status']))
         if self.wValve12.isVisible() != valvestatus(resp[10]['status']):
-            print("Valve 12 changed")
+            print('t=%s mainUIForm: Valve 12 changed' % self.secondcount)
             self.wValve12.setVisible(valvestatus(resp[10]['status']))
         if self.wValve13.isVisible() != valvestatus(resp[11]['status']):
-            print("Valve 13 changed")
+            print('t=%s mainUIForm: Valve 13 changed' % self.secondcount)
             self.wValve13.setVisible(valvestatus(resp[11]['status']))
         if self.imgLaser.isVisible() != laserstatus(resp[12]['status']):
-            print("Laser status changed")
+            print('t=%s mainUIForm: Laser Ststus changed' % self.secondcount)
             self.imgLaser.setVisible(laserstatus(resp[12]['status']))
 
     def setlaserpower(self):
@@ -267,7 +267,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
             self.valveerrors = 0
         except requests.RequestException:
-            print('mainUIForm: Manual Valve Controller Timeout Error')
+            print('t=%s mainUIForm: Manual Valve Controller Timeout Error' % self.secondcount)
             self.valveerrors += 5
 
     def valvecommand(self, valve, command):
@@ -276,7 +276,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             requests.post(settings['hosts']['valvehost'], json=message, timeout=2)
             self.valveerrors = 0
         except requests.RequestException:
-            print('mainUIForm: Automated Valve Controller at second %s Timeout Error' % self.secondcount)
+            print('t=%s mainUIForm: Automated Valve Controller Timeout Error' % self.secondcount)
             self.valveerrors += 5
 
     def closeallvalves(self):
@@ -288,21 +288,21 @@ class UiMain(QMainWindow, Ui_MainWindow):
             requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
             self.valveerrors = 0
         except requests.RequestException:
-            print('mainUIForm: Close all Valve Controller Timeout Error')
+            print('t=%s mainUIForm: Close all Valve Controller Timeout Error' % self.secondcount)
             self.valveerrors += 11
         message = {"item": 'xmove', "command": 0}
         try:
             requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
             self.xyerrors = 0
         except requests.RequestException:
-            print('mainUIForm: xy Stop X Timeout Error')
+            print('t=%s mainUIForm: xy Stop X Timeout Error' %self.secondcount)
             self.xyerrors += 10
         message = {"item": 'ymove', "command": 0}
         try:
             requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
             self.xyerrors = 0
         except requests.RequestException:
-            print('mainUIForm: Stop Y Controller Timeout Error')
+            print('t=%s mainUIForm: Stop Y Controller Timeout Error' % self.secondcount)
             self.xyerrors += 10
 
         batch.changed = 1
@@ -313,12 +313,12 @@ class UiMain(QMainWindow, Ui_MainWindow):
 
     def runclick(self):
         if self.tbRun.isChecked():
-            print('mainUIForm: Run pressed')
+            print('t=%s mainUIForm: Run pressed' % self.secondcount)
             self.run = 2
             self.xyerrors = 0
             self.valveerrors = 0
         else:
-            print('mainUIForm: Pause pressed, will halt after this cycle ends')
+            print('t=%s mainUIForm: Pause pressed, will halt after this cycle ends' % self.secondcount)
             self.run = 1
         self.runstate()
 
@@ -334,7 +334,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.secondincrement = 0
                 laser.off()
         except:
-            print('mainUIForm: Runstate error')
+            print('t=%s mainUIForm: Runstate error' % self.secondcount)
 
     def closeEvent(self, event):
         print('mainUIForm: Main Form close event triggered')
@@ -365,7 +365,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
-                print("mainUIForm: Paused because of comms error")
+                print('t=%s mainUIForm: Paused because of comms error' % self.secondcount)
                 self.lblCurrent.setText('Paused because of comms errors. Please Check Log')
                 return
             self.taskrunning = True
@@ -378,12 +378,12 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     self.listCommands.takeItem(0)
                 elif current[1] == 'End':
                     if not (batch.isitthereyet(self.xposition, self.yposition)):
-                        print('%s not there yet x=%s, y=%s' % (self.secondcount, self.xposition, self.yposition))
+                        print('t=%s mainUIform: location not there yet x=%s, y=%s' % (self.secondcount, self.xposition, self.yposition))
                         self.lblCurrent.setText('Waiting for X-Y Stage to position')
                         self.taskrunning = False
                         return
                     self.secondincrement = 0
-                    print('mainUIForm: End detected')
+                    print('t=%s mainUIForm: End of cycle detected' %self.secondcount)
                     self.lblCurrent.setText('idle')
                     currentrunstate = self.run
                     self.run = 0
@@ -425,13 +425,13 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     self.listCommands.takeItem(0)
                 elif current[1] == 'quad':
                     if current[2] == 'starttimer':
-                        print('t=%s mainUIForm: start timer' % self.secondcount)
+                        print('t=%s mainUIForm: start quad timer' % self.secondcount)
                         ms.starttimer(batch.currentcycle(), batch.formatsample(), batch.currentdescription(), batch.id,
                                       batch.runnumber[0])
                         currentcycle.completecurrent()
                         self.listCommands.takeItem(0)
                     elif current[2] == 'starttimer2':
-                        print('t=%s mainUIForm: start timer for reheat' % self.secondcount)
+                        print('t=%s mainUIForm: start quad timer for reheat' % self.secondcount)
                         ms.starttimer(batch.currentcycle(), batch.formatsample() + '_RE', batch.currentdescription(),
                                       batch.id, batch.runnumber[0])
                         currentcycle.completecurrent()
@@ -457,7 +457,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.taskrunning = False
         except:
             self.taskrunning = False
-            print('mainUIForm: runevents error %s' % Exception)
+            print('t=%s mainUIForm: runevents error %s' % (self.secondcount, Exception))
 
     def shownewbatch(self):
         self.newdialog = UiBatch()
@@ -522,7 +522,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.pumperrors = 0
         except requests.RequestException:
             self.pumperrors += 1
-            print('mainUIForm: Get Pressures Pump Raeder Timeout Error')
+            print('t=%s mainUIForm: Get Pressures Pump Raeder Timeout Error' % self.secondcount)
 
     def updatetemprature(self):
         message = {"item": 'gettemperature', "command": True}
@@ -534,7 +534,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.pumperrors = 0
         except requests.RequestException:
             self.pumperrors += 1
-            print('mainUIForm: Get Temperature Pump Raeder Timeout Error')
+            print('t=%s mainUIForm: Get Temperature Pump Raeder Timeout Error' % self.secondcount)
 
     def update_xy(self):
         try:
@@ -546,14 +546,14 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.lineYPosition.setText('%.3f' % self.yposition)
             self.xyerrors = 0
         except requests.RequestException:
-            print('mainUIForm: Get Status X-Y Controller Timeout Error')
+            print('t=%s mainUIForm: Get Status X-Y Controller Timeout Error' % self.secondcount)
             self.xyerrors += 1
 
     def updateresults(self):
         try:
-            print('Update results')
+            print('mainUIForm: Update results')
             self.tableResults.setRowCount(0)
-            print('Results table cleared')
+            print('mainUIForm: Results table cleared')
             results = batch.results()
             for row in results:
                 x = self.tableResults.rowCount()
@@ -591,7 +591,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             webbrowser.open(url)
 
     def movenext(self):
-        print('%s Move to %s' % (self.secondcount, batch.nextlocation()))
+        print('t:%s mainUIform: Move to %s' % (self.secondcount, batch.nextlocation()))
         movexthread = threading.Timer(0.5, self.movex)
         movexthread.start()
         moveythread = threading.Timer(1.5, self.movey)

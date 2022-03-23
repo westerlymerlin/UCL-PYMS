@@ -1,6 +1,6 @@
 import json
 
-version = '1.2.6'
+version = '1.2.7'
 running = True
 settings = {}
 
@@ -10,11 +10,16 @@ def friendlydirname(sourcename):
     sourcename = sourcename.replace('\\', '-')
     sourcename = sourcename.replace(':', '-')
     sourcename = sourcename.replace('*', '-')
-    sourcename = sourcename.replace('?', '-')
+    sourcename = sourcename.replace('?', 'Q')
     sourcename = sourcename.replace('<', '-')
     sourcename = sourcename.replace('>', '-')
     sourcename = sourcename.replace('"', '-')
     sourcename = sourcename.replace('&', '-')
+    sourcename = sourcename.replace('%', '-')
+    sourcename = sourcename.replace('#', '-')
+    sourcename = sourcename.replace('$', '-')
+    sourcename = sourcename.replace("'", '-')
+    sourcename = sourcename.replace(',', '.')
     sourcename = sourcename.replace('--', '-')
     sourcename = sourcename.replace('--', '-')
     sourcename = sourcename.replace('--', '-')
