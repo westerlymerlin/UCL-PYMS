@@ -109,12 +109,12 @@ class MSClass:
                 counter += 1
                 print("msFileclass: QuadStar File too short error")
         if len(bytelist) > 500:
-            filetype = str(bytelist[205:216], 'cp1250')
-            c0 = str(bytelist[317:326], 'cp1250')
-            c1 = str(bytelist[350:359], 'cp1250')
-            c2 = str(bytelist[383:392], 'cp1250')
-            c3 = str(bytelist[416:425], 'cp1250')
-            c4 = str(bytelist[449:458], 'cp1250')
+            filetype = str(bytelist[205:216], 'cp1252')
+            c0 = str(bytelist[317:326], 'cp1252')
+            c1 = str(bytelist[350:359], 'cp1252')
+            c2 = str(bytelist[383:392], 'cp1252')
+            c3 = str(bytelist[416:425], 'cp1252')
+            c4 = str(bytelist[449:458], 'cp1252')
             sampletime = datetime(1900 + bytelist[13], bytelist[12], bytelist[11],
                                   bytelist[10], bytelist[9], bytelist[8])
             pos = 488
@@ -156,14 +156,13 @@ class MSClass:
         self.m6.append(round(0, 6))
 
     def writefile(self):
+        print('msFileclass: Calculating bestfit')
+        self.bestfit = linbestfit(self.time, self.m, self.m1, self.m4, settings['MassSpec']['HD/H'])
         try:
-            print('msFileclass: Calculating bestfit')
-            self.bestfit = linbestfit(self.time, self.m, self.m1, self.m4, settings['MassSpec']['HD/H'])
-            print('msFileclass: bestfit = $s' % self.bestfit)
             self.filename = 'HE' + str(self.id) + 'R'
             print('msFileclass: filename = %s' % self.filename)
-            filepath = settings['MassSpec']['datadirectory'] + \
-                friendlydirname(str(self.batchid) + ' ' + self.batchdescription)
+            filepath = settings['MassSpec']['datadirectory'] + friendlydirname(str(self.batchid) + ' ' + self.batchdescription)
+
             os.makedirs(filepath, exist_ok=True)
             filename = filepath + '\\' + self.filename
             line = self.identifier + '@'
