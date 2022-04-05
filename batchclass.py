@@ -208,6 +208,8 @@ class BatchClass:
                 return 'HOLE_' + self.location[0] + '_' + self.identifier[0]
             elif self.cycle[0] == 'Q-Standard':
                 return 'Q' + self.identifier[0]
+            elif self.cycle[0] == 'Index':
+                return 'HOLE_' + self.location[0] + '_' + self.identifier[0]
             else:
                 return self.cycle[0]
 

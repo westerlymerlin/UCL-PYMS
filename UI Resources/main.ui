@@ -1337,6 +1337,8 @@ color: rgb(255, 0, 0);
     <addaction name="actionXYOpenLogPage"/>
     <addaction name="actionXYOpenStatusPage"/>
     <addaction name="separator"/>
+    <addaction name="actionIIndexPlanchet"/>
+    <addaction name="separator"/>
     <addaction name="actionManualControl"/>
    </widget>
    <widget class="QMenu" name="menuValveController">
@@ -1567,6 +1569,11 @@ color: rgb(255, 0, 0);
    </property>
    <property name="statusTip">
     <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
+   </property>
+  </action>
+  <action name="actionIIndexPlanchet">
+   <property name="text">
+    <string>Index Planchet</string>
    </property>
   </action>
  </widget>

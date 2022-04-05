@@ -72,6 +72,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionExit.triggered.connect(self.closeEvent)
         self.actionStartNewBatch.triggered.connect(self.shownewbatch)
         self.actionManualControl.triggered.connect(self.showxymanual)
+        self.actionIIndexPlanchet.triggered.connect(self.index_xy)
         self.actionXYOpenStatusPage.triggered.connect(lambda: self.oppenwebpage('XY Status'))
         self.actionXYOpenLogPage.triggered.connect(lambda: self.oppenwebpage('XY Log'))
         self.actionValveOpenStatusPage.triggered.connect(lambda: self.oppenwebpage('Valve Status'))
@@ -573,6 +574,16 @@ class UiMain(QMainWindow, Ui_MainWindow):
             print('mainUIForm: Results Table Updated')
         except:
             print('mainUIForm: Update results error - %s' % Exception)
+
+    def index_xy(self):
+        batch.new('simple', 'Index planchet')
+        batch.addstep('Index', 'UL', 'Load Position')
+        batch.addstep('Index', 'A1', 'A1-Index-Image')
+        batch.addstep('Index', 'A7', 'A7-Index-Image')
+        batch.addstep('Index', 'G7', 'G7-Index-Image')
+        batch.addstep('Index', 'G1', 'G1-Index-Image')
+        batch.addstep('Unload',  'UL', 'Load Position')
+        batch.save()
 
     def oppenwebpage(self, page):
         if page == 'Valve Status':
