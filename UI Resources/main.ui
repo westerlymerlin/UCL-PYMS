@@ -1256,6 +1256,22 @@ color: rgb(255, 0, 0);
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
+   <widget class="QLabel" name="lblFinishTime">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>431</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>frmImage</zorder>
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
@@ -1288,6 +1304,7 @@ color: rgb(255, 0, 0);
    <zorder>label_12</zorder>
    <zorder>imgPyrometer</zorder>
    <zorder>lblAalarm</zorder>
+   <zorder>lblFinishTime</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1295,7 +1312,7 @@ color: rgb(255, 0, 0);
      <x>0</x>
      <y>0</y>
      <width>1800</width>
-     <height>29</height>
+     <height>23</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

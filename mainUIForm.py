@@ -209,6 +209,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.tbRun.setChecked(False)
         if self.lblAalarm.text() != status:
             self.lblAalarm.setText(status)
+            self.lblFinishTime.setText('')
             if status != '':
                 alert(status)
                 print(status)
@@ -317,9 +318,11 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.run = 2
             self.xyerrors = 0
             self.valveerrors = 0
+            self.lblFinishTime.setText(batch.finishtime())
         else:
             print('t=%s mainUIForm: Pause pressed, will halt after this cycle ends' % self.secondcount)
             self.run = 1
+            self.lblFinishTime.setText('')
         self.runstate()
 
     def runstate(self):
@@ -330,6 +333,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.secondincrement = 1
             else:
                 self.frmHeLine.setEnabled(True)
+                self.lblFinishTime.setText('')
                 self.lblStatus.setText('Status: Manual Control')
                 self.secondincrement = 0
                 laser.off()

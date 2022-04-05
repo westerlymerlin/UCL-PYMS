@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from settings import settings, friendlydirname
 from imagefiler import imager
@@ -319,5 +319,19 @@ class BatchClass:
         sampleid = 'IMG' + str(self.runnumber[0]) + '_' + self.formatsample()
         imager(application, str(self.id), self.description, sampleid)
 
+    def finishtime(self):
+        database = sqlite3.connect(settings['database']['databasepath'])
+        cursor_obj = database.cursor()
+        sql_query = 'SELECT  sum(cyclesteps.time) from batchsteps, cyclesteps, cycles WHERE batchsteps.cycle = cycles.name and cycles.id = cyclesteps.id and batchsteps.status = 0 and cyclesteps.target = "end"'
+        cursor_obj.execute(sql_query)
+        dbreturn = cursor_obj.fetchall()
+        totalseconds= dbreturn[0][0]
+        database.close()
+        print('Time to add %s' % totalseconds)
+        if totalseconds == None:
+            endtime = ''
+        else:
+            endtime = datetime.strftime(datetime.now() + timedelta(seconds=totalseconds), 'Estimated End Time: %a %d %b %Y, %H:%M')
+        return endtime
 
 batch = BatchClass()
