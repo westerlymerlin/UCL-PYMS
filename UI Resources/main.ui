@@ -152,7 +152,7 @@ background-color: rgb(230, 230, 230);</string>
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="decimals">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="minimum">
       <double>0.000000000000000</double>
@@ -161,7 +161,7 @@ background-color: rgb(230, 230, 230);</string>
       <double>99.000000000000000</double>
      </property>
      <property name="singleStep">
-      <double>1.000000000000000</double>
+      <double>0.100000000000000</double>
      </property>
     </widget>
     <widget class="QWidget" name="wValve1" native="true">
@@ -1336,8 +1336,6 @@ color: rgb(255, 0, 0);
     </property>
     <addaction name="actionXYOpenLogPage"/>
     <addaction name="actionXYOpenStatusPage"/>
-    <addaction name="separator"/>
-    <addaction name="actionIIndexPlanchet"/>
     <addaction name="separator"/>
     <addaction name="actionManualControl"/>
    </widget>

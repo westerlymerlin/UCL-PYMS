@@ -114,12 +114,12 @@ class Ui_dialogXYSetup(object):
         self.btnClose.setGeometry(QRect(400, 270, 90, 30))
         self.btnStop = QPushButton(dialogXYSetup)
         self.btnStop.setObjectName(u"btnStop")
-        self.btnStop.setGeometry(QRect(200, 170, 90, 30))
+        self.btnStop.setGeometry(QRect(290, 270, 90, 30))
         self.btnStop.setStyleSheet(u"color: rgb(255, 0, 0);\n"
 "font: 75 10pt \"MS Shell Dlg 2\";")
         self.label = QLabel(dialogXYSetup)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(20, 220, 291, 101))
+        self.label.setGeometry(QRect(20, 220, 261, 101))
         self.label.setStyleSheet(u"color: rgb(255, 0, 0);")
         self.label.setTextFormat(Qt.RichText)
         self.label.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
@@ -128,6 +128,9 @@ class Ui_dialogXYSetup(object):
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(360, 10, 151, 20))
         self.label_3.setAlignment(Qt.AlignCenter)
+        self.btnGotoNext = QPushButton(dialogXYSetup)
+        self.btnGotoNext.setObjectName(u"btnGotoNext")
+        self.btnGotoNext.setGeometry(QRect(200, 170, 90, 30))
 
         self.retranslateUi(dialogXYSetup)
 
@@ -182,5 +185,6 @@ class Ui_dialogXYSetup(object):
         self.btnStop.setText(QCoreApplication.translate("dialogXYSetup", u"STOP", None))
         self.label.setText(QCoreApplication.translate("dialogXYSetup", u"<html><head/><body><p><span style=\" font-weight:600;\">Warning</span>: Please ensure that the X-Y table has finished moving before pressing <br/><span style=\" font-weight:600;\">Save Current</span></p></body></html>", None))
         self.label_3.setText(QCoreApplication.translate("dialogXYSetup", u"Manual Control", None))
+        self.btnGotoNext.setText(QCoreApplication.translate("dialogXYSetup", u"Goto Next", None))
     # retranslateUi
 

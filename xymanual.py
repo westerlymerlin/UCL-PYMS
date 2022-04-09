@@ -9,6 +9,8 @@ from batchclass import batch
 from time import sleep
 import sys
 
+
+
 class XYSetupUI(QDialog, Ui_dialogXYSetup):
     def __init__(self):
         super().__init__()
@@ -17,6 +19,7 @@ class XYSetupUI(QDialog, Ui_dialogXYSetup):
         self.comboLocation1.addItems(currentcycle.locations)
         self.btnClose.clicked.connect(self.formclose)
         self.btnGoto.clicked.connect(self.gotopress)
+        self.btnGotoNext.clicked.connect(self.gotonextpress)
         self.btnStop.clicked.connect(self.stopall)
         self.btnSave.clicked.connect(self.savelocation)
         self.btnUp.clicked.connect(lambda: self.movepress(['y', 1]))
@@ -26,6 +29,7 @@ class XYSetupUI(QDialog, Ui_dialogXYSetup):
         self.xposition = 0
         self.yposition = 0
         self.running = 1
+        self.calibratelist = ['S1', 'S2', 'S3', 'A7', 'A6', 'A5', 'A4', 'A3', 'A2', 'A1', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2', 'C1', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'E7', 'E6', 'E5', 'E4', 'E3', 'E2', 'E1', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', 'S4', 'S5', 'S6', 'UL']
         threading.Timer(1, self.timer).start()
 
     def formclose(self):
@@ -62,6 +66,12 @@ class XYSetupUI(QDialog, Ui_dialogXYSetup):
             requests.post(settings['hosts']['xyhost'], json=messagey, timeout=1)
         except requests.RequestException:
             print('Status Valve Controller Timeout Error')
+
+    def gotonextpress(self):
+        if len(self.calibratelist) > 0:
+            self.comboLocation1.setCurrentText(self.calibratelist[0])
+            del self.calibratelist[0]
+            self.gotopress()
 
     def movepress(self, dir):
         if dir[0] == 'x':
