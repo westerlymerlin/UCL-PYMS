@@ -44,7 +44,7 @@
     <rect>
      <x>160</x>
      <y>10</y>
-     <width>111</width>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>
@@ -57,8 +57,14 @@
      <bold>false</bold>
     </font>
    </property>
+   <property name="toolTip">
+    <string>X position GREEN = on location RED = moving</string>
+   </property>
+   <property name="toolTipDuration">
+    <number>5</number>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
+    <string notr="true">background-color: rgba(255, 255, 255, 0);
 font: 16pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="frameShape">
@@ -71,7 +77,7 @@ font: 16pt &quot;Segoe UI&quot;;</string>
     <string>0.0</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="lblXpos">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -84,7 +90,7 @@ font: 16pt &quot;Segoe UI&quot;;</string>
     <string>X Position</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_10">
+  <widget class="QLabel" name="lblYpos">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -100,7 +106,7 @@ font: 16pt &quot;Segoe UI&quot;;</string>
   <widget class="QLabel" name="lineXPosition">
    <property name="geometry">
     <rect>
-     <x>19</x>
+     <x>20</x>
      <y>10</y>
      <width>121</width>
      <height>41</height>
@@ -115,9 +121,15 @@ font: 16pt &quot;Segoe UI&quot;;</string>
      <bold>false</bold>
     </font>
    </property>
+   <property name="toolTip">
+    <string>X position GREEN = on location RED = moving</string>
+   </property>
+   <property name="toolTipDuration">
+    <number>5</number>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-font: 16pt &quot;Segoe UI&quot;;</string>
+    <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+background-color: rgba(255, 255, 255, 0);</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
@@ -377,10 +389,10 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Warning&lt;/span&gt;: Please ensure that the X-Y table has finished moving before pressing &lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Save Current&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Warning&lt;/span&gt;: &lt;span style=&quot; color:#ce3a08;&quot;&gt;Please ensure that the X-Y table has finished moving &lt;/span&gt;&lt;span style=&quot; color:#328812;&quot;&gt;(positions are &lt;/span&gt;&lt;span style=&quot; font-weight:600; color:#328812;&quot;&gt;green&lt;/span&gt;&lt;span style=&quot; color:#328812;&quot;&gt;) &lt;/span&gt;&lt;span style=&quot; color:#ce3a08;&quot;&gt;before pressing &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Save Current&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
@@ -421,6 +433,79 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
     <string>Goto Next</string>
    </property>
   </widget>
+  <widget class="QWidget" name="bgdXgrn" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(216, 255, 198);</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="bgdXred" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 164, 164);</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="bgdYred" native="true">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>10</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 164, 164);</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="bgdYgrn" native="true">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>10</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(216, 255, 198);</string>
+   </property>
+  </widget>
+  <zorder>bgdYgrn</zorder>
+  <zorder>bgdYred</zorder>
+  <zorder>bgdXgrn</zorder>
+  <zorder>bgdXred</zorder>
+  <zorder>lineYPosition</zorder>
+  <zorder>lblXpos</zorder>
+  <zorder>lblYpos</zorder>
+  <zorder>lineXPosition</zorder>
+  <zorder>btnUp</zorder>
+  <zorder>btnLeft</zorder>
+  <zorder>btnRight</zorder>
+  <zorder>btnDown</zorder>
+  <zorder>comboLocation1</zorder>
+  <zorder>label_2</zorder>
+  <zorder>btnGoto</zorder>
+  <zorder>btnSave</zorder>
+  <zorder>btnClose</zorder>
+  <zorder>btnStop</zorder>
+  <zorder>label</zorder>
+  <zorder>label_3</zorder>
+  <zorder>btnGotoNext</zorder>
  </widget>
  <resources>
   <include location="main.qrc"/>
