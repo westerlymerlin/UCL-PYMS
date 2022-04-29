@@ -131,12 +131,11 @@ class MSClass:
                 print('msFileclass: Quad read: Late file time=%s' % sampletime)
             else:
                 if settings['metrics'] == 1:
-                    write_metrics(settings['vacuum']['tank']['current'],settings['vacuum']['turbo']['current'],settings['vacuum']['ion']['current'],settings['pyrometer']['current'],e1,e1,e2,e3,e4)
+                    write_metrics(settings['vacuum']['tank']['current'], settings['vacuum']['turbo']['current'], settings['vacuum']['ion']['current'], settings['pyrometer']['current'], e1, e1, e2, e3, e4)
         else:
             print("msFileclass: Quad Read fail after 2 attempts")
             self.alarm = 1
             self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
-
 
     def read(self):
         e0 = self.quaddata[7] * self.multiplier
@@ -165,7 +164,10 @@ class MSClass:
 
             os.makedirs(filepath, exist_ok=True)
             filename = filepath + '\\' + self.filename
-            line = self.identifier + '@'
+            if self.identifier == 'Line Blank':
+                line = 'LB@'
+            else:
+                line = self.identifier + '@'
             outfile = open(filename, 'w')
             # print('openng filepath = %s' % filename)
             for i in range(0, len(self.time)):

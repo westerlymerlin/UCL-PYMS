@@ -139,11 +139,34 @@ class BatchClass:
             cursor_obj.execute(sql_update_query, [str(self.runnumber[0])])
             database.commit()
             database.close()
+            self.writebatchlog()
+            del self.runnumber[0]
+            del self.cycle[0]
+            del self.location[0]
+            del self.identifier[0]
+            del self.status[0]
+            self.changed = 1
+            backupfile(settings['database']['databasepath'])
+            backupfile(settings['database']['resultsdatabasepath'])
+            # print('BatchClass-Remaining cycles are %s' % self.runnumber)
+        if len(self.runnumber) == 0:
+            self.id = -1
+            self.date = None
+            self.description = None
+            self.type = None
+
+    def writebatchlog(self):
+        try:
             print('BatchClass-Complete Current: Creating Results Directory')
             filepath = settings['MassSpec']['datadirectory'] + \
                        friendlydirname(str(self.id) + ' ' + self.description)
             os.makedirs(filepath, exist_ok=True)
-            formatteddata = ['Date                File         Description             Best Fit']
+            formatteddata = []
+            formatteddata.append('Batch No:           %s' % self.id)
+            formatteddata.append('Batch Description:  %s' % self.description)
+            formatteddata.append('Laser Power:        %s' % settings['laser']['power'])
+            formatteddata.append(' ' )
+            formatteddata.append('Date                HE File     Description             Best Fit')
             print('BatchClass-Complete Current: Opening Results Database')
             database = sqlite3.connect(settings['database']['resultsdatabasepath'])
             cursor_obj = database.cursor()
@@ -161,20 +184,8 @@ class BatchClass:
                 print(formattedline, file=logfile)
             logfile.close()
             backupfile(filename)
-            del self.runnumber[0]
-            del self.cycle[0]
-            del self.location[0]
-            del self.identifier[0]
-            del self.status[0]
-            self.changed = 1
-            backupfile(settings['database']['databasepath'])
-            backupfile(settings['database']['resultsdatabasepath'])
-            # print('BatchClass-Remaining cycles are %s' % self.runnumber)
-        if len(self.runnumber) == 0:
-            self.id = -1
-            self.date = None
-            self.description = None
-            self.type = None
+        except:
+            print("batchclass: Error createing batchlog")
 
     def list(self):
         index = 0
