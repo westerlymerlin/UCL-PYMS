@@ -75,12 +75,15 @@ class Ui_dialogCycleEdit(object):
         self.label = QLabel(dialogCycleEdit)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(570, 120, 141, 30))
+        self.label.setScaledContents(True)
         self.label_2 = QLabel(dialogCycleEdit)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(570, 180, 101, 30))
+        self.label_2.setScaledContents(True)
         self.label_3 = QLabel(dialogCycleEdit)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(570, 240, 111, 30))
+        self.label_3.setScaledContents(True)
         self.comboTarget = QComboBox(dialogCycleEdit)
         self.comboTarget.setObjectName(u"comboTarget")
         self.comboTarget.setGeometry(QRect(720, 180, 171, 30))
@@ -105,6 +108,7 @@ class Ui_dialogCycleEdit(object):
         self.label_4 = QLabel(dialogCycleEdit)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(30, 20, 91, 21))
+        self.label_4.setScaledContents(True)
 
         self.retranslateUi(dialogCycleEdit)
 

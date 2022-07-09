@@ -46,6 +46,7 @@ class Ui_LogDialog(object):
         self.label = QLabel(LogDialog)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(10, 15, 211, 21))
+        self.label.setScaledContents(True)
         self.btnReload = QPushButton(LogDialog)
         self.btnReload.setObjectName(u"btnReload")
         self.btnReload.setGeometry(QRect(1010, 950, 80, 35))

@@ -89,6 +89,9 @@ font: 16pt &quot;Segoe UI&quot;;</string>
    <property name="text">
     <string>X Position</string>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="lblYpos">
    <property name="geometry">
@@ -101,6 +104,9 @@ font: 16pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Y Position</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="lineXPosition">
@@ -304,6 +310,9 @@ background-color: rgba(255, 255, 255, 0);</string>
    <property name="text">
     <string>Location</string>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QPushButton" name="btnGoto">
    <property name="geometry">
@@ -415,6 +424,9 @@ font: 75 10pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
     <string>Manual Control</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

@@ -160,7 +160,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
         status = ''
         if ms.alarm:
             if ms.check_quad_is_online() == 'Off Line':
-                status = status + 'Quad Reader if offline, system is paused. \n'
+                status = status + 'The Quad Reader is shoing as offline, system is paused. \nIt might be that the' \
+                                  ' mesure application has stopped writing the data dile and needs a restart'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
@@ -196,7 +197,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
             self.turbopumphigh += 1
             if self.turbopumphigh > 29:
-                status = status + 'Turbo gauge is showing loss of vacuum, system is paused. \n'
+                status = status + 'Turbo gauge is showing loss of vacuum, system is paused. \n' \
+                                  'This is norrmal during a planchet load'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
@@ -296,7 +298,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
             self.xyerrors = 0
         except requests.RequestException:
-            print('t=%s mainUIForm: xy Stop X Timeout Error' %self.secondcount)
+            print('t=%s mainUIForm: xy Stop X Timeout Error' % self.secondcount)
             self.xyerrors += 10
         message = {"item": 'ymove', "command": 0}
         try:
@@ -382,12 +384,13 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     self.listCommands.takeItem(0)
                 elif current[1] == 'End':
                     if not (batch.isitthereyet(self.xposition, self.yposition)):
-                        print('t=%s mainUIform: location not there yet x=%s, y=%s' % (self.secondcount, self.xposition, self.yposition))
+                        print('t=%s mainUIform: location not there yet x=%s, y=%s'
+                              % (self.secondcount, self.xposition, self.yposition))
                         self.lblCurrent.setText('Waiting for X-Y Stage to position')
                         self.taskrunning = False
                         return
                     self.secondincrement = 0
-                    print('t=%s mainUIForm: End of cycle detected' %self.secondcount)
+                    print('t=%s mainUIForm: End of cycle detected' % self.secondcount)
                     self.lblCurrent.setText('idle')
                     currentrunstate = self.run
                     self.run = 0
@@ -639,5 +642,5 @@ class UiMain(QMainWindow, Ui_MainWindow):
         if settings['metrics'] == 1:
             settings['metrics'] = 0
         else:
-            settings['metrics'] =1
+            settings['metrics'] = 1
         self.actionSave_Metrics.setChecked(settings['metrics'])

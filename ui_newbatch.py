@@ -60,6 +60,7 @@ class Ui_dialogNewBatch(object):
         font.setWeight(50)
         self.lblMessage.setFont(font)
         self.lblMessage.setStyleSheet(u"color: rgb(255, 0, 0);")
+        self.lblMessage.setScaledContents(True)
         self.lblMessage.setWordWrap(True)
         QWidget.setTabOrder(self.btnEdit, self.btnNew)
         QWidget.setTabOrder(self.btnNew, self.btnClose)

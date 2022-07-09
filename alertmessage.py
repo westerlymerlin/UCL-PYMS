@@ -18,6 +18,3 @@ def alert(body):
         mailserver.sendmail(alertsettings['O365From'], recipient, message)
         mailserver.quit()
         print('Alert sent to %s' % recipient)
-
-
-

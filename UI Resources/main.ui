@@ -546,6 +546,9 @@ background-color: rgb(230, 230, 230);</string>
     <property name="text">
      <string>Elapsed Time</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
@@ -562,6 +565,9 @@ background-color: rgb(230, 230, 230);</string>
     <property name="text">
      <string>Remaining Commands</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="lblStatus">
     <property name="geometry">
@@ -574,6 +580,9 @@ background-color: rgb(230, 230, 230);</string>
     </property>
     <property name="text">
      <string>Status: Manual Control</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -588,6 +597,9 @@ background-color: rgb(230, 230, 230);</string>
     <property name="text">
      <string>Batch</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
@@ -600,6 +612,9 @@ background-color: rgb(230, 230, 230);</string>
     </property>
     <property name="text">
      <string>Location / Sample</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QToolButton" name="tbStop">
@@ -708,6 +723,9 @@ background-color: rgb(230, 230, 230);</string>
     <property name="text">
      <string>Ion Gauge</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
@@ -720,6 +738,9 @@ background-color: rgb(230, 230, 230);</string>
     </property>
     <property name="text">
      <string>Turbo Gauge</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -737,6 +758,9 @@ background-color: rgb(230, 230, 230);</string>
     <property name="text">
      <string>Tank Gauge</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_8">
     <property name="geometry">
@@ -749,6 +773,9 @@ background-color: rgb(230, 230, 230);</string>
     </property>
     <property name="text">
      <string>Batch Items  (Currrent / Next)</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QListWidget" name="listBatch">
@@ -866,6 +893,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="text">
      <string>0.0</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="lineTurboPump">
     <property name="geometry">
@@ -897,6 +927,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string>0.0</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lineScrollPump">
@@ -930,6 +963,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="text">
      <string>0.0</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="lineXPosition">
     <property name="geometry">
@@ -961,6 +997,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string>0.0</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lineYPosition">
@@ -994,6 +1033,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="text">
      <string>0.0</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
@@ -1007,6 +1049,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="text">
      <string>X Position</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_10">
     <property name="geometry">
@@ -1019,6 +1064,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string>Y Position</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QFrame" name="frmImage">
@@ -1053,6 +1101,9 @@ background-color: rgba(255, 255, 255, 0);</string>
     <property name="text">
      <string>Current Command</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
@@ -1071,6 +1122,9 @@ background-color: rgba(255, 255, 255, 0);</string>
     </property>
     <property name="text">
      <string>Results</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QTableWidget" name="tableResults">
@@ -1183,6 +1237,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="text">
      <string>0.0</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
@@ -1195,6 +1252,9 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string>Pyrometer</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QFrame" name="imgPyrometer">
@@ -1246,6 +1306,9 @@ color: rgb(255, 0, 0);
     <property name="text">
      <string/>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
@@ -1270,6 +1333,9 @@ color: rgb(255, 0, 0);
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <zorder>frmImage</zorder>
@@ -1312,7 +1378,7 @@ color: rgb(255, 0, 0);
      <x>0</x>
      <y>0</y>
      <width>1800</width>
-     <height>23</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

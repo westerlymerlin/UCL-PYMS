@@ -85,11 +85,11 @@ font: 10pt &quot;Segoe UI&quot;;</string>
    <attribute name="horizontalHeaderCascadingSectionResizes">
     <bool>false</bool>
    </attribute>
-   <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>130</number>
-   </attribute>
    <attribute name="horizontalHeaderMinimumSectionSize">
     <number>47</number>
+   </attribute>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>130</number>
    </attribute>
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
@@ -180,6 +180,9 @@ font: 10pt &quot;Segoe UI&quot;;</string>
    <property name="text">
     <string>Timeslot (seconds)</string>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
@@ -193,6 +196,9 @@ font: 10pt &quot;Segoe UI&quot;;</string>
    <property name="text">
     <string>Target</string>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
@@ -205,6 +211,9 @@ font: 10pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Command</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QComboBox" name="comboTarget">
@@ -318,6 +327,9 @@ font: 10pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="text">
     <string>Cycle</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>
