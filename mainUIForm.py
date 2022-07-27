@@ -13,7 +13,7 @@ from quadviewerui import UiQuadViwer
 from laserclass import laser
 from batchclass import batch
 from cycleclass import currentcycle
-from msFileclass import ms
+from msQuadstar import ms
 from alertmessage import alert
 
 
@@ -160,35 +160,35 @@ class UiMain(QMainWindow, Ui_MainWindow):
         status = ''
         if ms.alarm:
             if ms.check_quad_is_online() == 'Off Line':
-                status = status + 'The Quad Reader is shoing as offline, system is paused. \nIt might be that the' \
-                                  ' mesure application has stopped writing the data dile and needs a restart'
+                status = status + 'The Quad Reader is showing as offline, the system is paused. \nIt might be that the' \
+                                  ' measure application has stopped writing to the data file and needs a restart. \n'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
         if self.valveerrors > 10:
-            status = status + 'Valve controller is offline, system is paused. \n'
+            status = status + 'Valve controller is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if self.xyerrors > 10:
-            status = status + 'X-Y controller is offline, system is paused. \n'
+            status = status + 'X-Y controller is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if self.pumperrors > 10:
-            status = status + 'Pump reader is offline, system is paused. \n'
+            status = status + 'Pump reader is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['ion']['current'] == 0:
-            status = status + 'Ion pump is offline, system is paused. \n'
+            status = status + 'Ion pump is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
             self.ionpumphigh += 1
             if self.ionpumphigh > 29:
-                status = status + 'Ion pump is showing loss of vacuum, system is paused. \n'
+                status = status + 'Ion pump is showing loss of vacuum, the system is paused. \n'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
@@ -197,15 +197,15 @@ class UiMain(QMainWindow, Ui_MainWindow):
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
             self.turbopumphigh += 1
             if self.turbopumphigh > 29:
-                status = status + 'Turbo gauge is showing loss of vacuum, system is paused. \n' \
-                                  'This is norrmal during a planchet load'
+                status = status + 'Turbo gauge is showing loss of vacuum, the system is paused. \n' \
+                                  'This is norrmal during a planchet load \n'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
         else:
             self.turbopumphigh = 0
         if settings['vacuum']['turbo']['current'] == 0:
-            status = status + 'Turbo gauge is offline, system is paused. \n'
+            status = status + 'Turbo gauge is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)

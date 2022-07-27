@@ -165,7 +165,7 @@ class BatchClass:
             formatteddata.append('"Batch No:","%s"' % self.id)
             formatteddata.append('"Batch Description:","%s"' % self.description)
             formatteddata.append('"Laser Power:","%s"' % settings['laser']['power'])
-            formatteddata.append(' ' )
+            formatteddata.append(' ')
             formatteddata.append('"Date","HE File","Description","Best Fit"')
             print('BatchClass-Complete Current: Opening Results Database')
             database = sqlite3.connect(settings['database']['resultsdatabasepath'])
@@ -175,7 +175,7 @@ class BatchClass:
             datarows = cursor_obj.fetchall()
             for datarow in datarows:
                 formatteddata.append(
-                    '"%s","%s","%s",%.3f' % (datarow[2][:16], datarow[0], datarow[1].ljust(20, ' '), datarow[3]))
+                    '"%s","%s","%s",%.3f' % (datarow[2][:16], datarow[0], datarow[1], datarow[3]))
             database.close()
             print('BatchClass-Complete Current: Writing Results File')
             filename = filepath + '\\' + 'batchresults.csv'

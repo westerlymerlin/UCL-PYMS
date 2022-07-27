@@ -1,6 +1,6 @@
 import json
 
-version = '1.2.14'
+version = '1.2.15'
 running = True
 settings = {}
 
@@ -70,7 +70,7 @@ def initialise():
     settings['cycleeditform']['x'] = 600
     settings['cycleeditform']['y'] = 100
     settings['laser'] = {}
-    settings['laser']['power'] = 25
+    settings['laser']['power'] = 40.0
     settings['laser']['port'] = 'com5'
     settings['laser']['baud'] = 9600
     settings['pyrometer'] = {}
@@ -88,11 +88,11 @@ def initialise():
     settings['vacuum']['ion']['current'] = 0
     settings['vacuum']['ion']['high'] = 2.1e-09
     settings['image'] = {}
-    settings['image']['dyno'] = 'Dynolite'
-    settings['image']['microscope'] = 'HDAVGrabber'
-    settings['image']['quadstar'] = '[M1] PyMS QUADSTAR 32-bit Measurement - [Process]'
-    settings['image']['microscope-reheat'] = 'HDAVGrabber'
-    settings['image']['quadstar-reheat'] = '[M1] PyMS QUADSTAR 32-bit Measurement - [Process]'
+    settings['image']['dynolite'] = 'DinoCapture 2.0'
+    settings['image']['microscope'] = 'GXCapture-T'
+    settings['image']['quadstar'] = '[M1] PyMS QUADSTAR 32-bit Measurement - [MID  < kens4he.mip >]'
+    settings['image']['microscope-reheat'] = 'GXCapture-T'
+    settings['image']['quadstar-reheat'] = '[M1] PyMS QUADSTAR 32-bit Measurement - [MID  < kens4he.mip >]'
     settings['MassSpec'] = {}
     settings['MassSpec']['nextQ'] = 4462
     settings['MassSpec']['nextH'] = 17103

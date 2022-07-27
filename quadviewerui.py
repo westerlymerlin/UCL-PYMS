@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import *
 from ui_quadviewer import Ui_dialogQuadViewer
-from msFileclass import ms
+from msQuadstar import ms
 from settings import settings
 
 

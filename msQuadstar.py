@@ -109,22 +109,26 @@ class MSClass:
                 counter += 1
                 print("msFileclass: QuadStar File too short error")
         if len(bytelist) > 500:
-            filetype = str(bytelist[205:216], 'cp1252')
-            c0 = str(bytelist[317:326], 'cp1252')
-            c1 = str(bytelist[350:359], 'cp1252')
-            c2 = str(bytelist[383:392], 'cp1252')
-            c3 = str(bytelist[416:425], 'cp1252')
-            c4 = str(bytelist[449:458], 'cp1252')
-            sampletime = datetime(1900 + bytelist[13], bytelist[12], bytelist[11],
-                                  bytelist[10], bytelist[9], bytelist[8])
-            pos = 488
-            e0 = struct.unpack('f', bytearray(bytelist[pos + 0:pos + 4]))[0]
-            e1 = struct.unpack('f', bytearray(bytelist[pos + 4:pos + 8]))[0]
-            e2 = struct.unpack('f', bytearray(bytelist[pos + 8:pos + 12]))[0]
-            e3 = struct.unpack('f', bytearray(bytelist[pos + 12:pos + 16]))[0]
-            e4 = struct.unpack('f', bytearray(bytelist[pos + 16:pos + 20]))[0]
-            self.quaddata = [os.path.basename(filepath), sampletime, c0, c1, c2, c3, c4, e0, e1, e2, e3, e4, filetype]
-            self.alarm = 0
+            try:
+                filetype = str(bytelist[205:216], 'cp1252')
+                c0 = str(bytelist[317:326], 'cp1252')
+                c1 = str(bytelist[350:359], 'cp1252')
+                c2 = str(bytelist[383:392], 'cp1252')
+                c3 = str(bytelist[416:425], 'cp1252')
+                c4 = str(bytelist[449:458], 'cp1252')
+                sampletime = datetime(1900 + bytelist[13], bytelist[12], bytelist[11],
+                                      bytelist[10], bytelist[9], bytelist[8])
+                pos = 488
+                e0 = struct.unpack('f', bytearray(bytelist[pos + 0:pos + 4]))[0]
+                e1 = struct.unpack('f', bytearray(bytelist[pos + 4:pos + 8]))[0]
+                e2 = struct.unpack('f', bytearray(bytelist[pos + 8:pos + 12]))[0]
+                e3 = struct.unpack('f', bytearray(bytelist[pos + 12:pos + 16]))[0]
+                e4 = struct.unpack('f', bytearray(bytelist[pos + 16:pos + 20]))[0]
+                self.quaddata = [os.path.basename(filepath), sampletime, c0, c1, c2, c3, c4, e0, e1, e2, e3, e4, filetype]
+                self.alarm = 0
+            except ValueError:
+                sampletime = datetime(2020, 1, 1, 0, 0, 1)
+                self.quaddata = ['Off Line', datetime.now(), '', '', '', '', '', 0, 0, 0, 0, 0, 'No File']
             if (time.time() - datetime.timestamp(sampletime)) > 30:
                 self.quaddata[0] = 'Off Line'
                 self.alarm = 1

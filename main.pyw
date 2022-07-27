@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QApplication
 from logmanager import *
-from settings import version, setrunning
+from settings import setrunning
 from mainUIForm import UiMain
 
 setrunning(True)
