@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_planchetbatch import Ui_dialogPlanchet
 from settings import settings
 from batchclass import batch

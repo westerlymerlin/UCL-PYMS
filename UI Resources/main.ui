@@ -479,10 +479,10 @@ background-color: rgb(230, 230, 230);</string>
     <widget class="QLabel" name="lblMS">
      <property name="geometry">
       <rect>
-       <x>453</x>
-       <y>6</y>
-       <width>200</width>
-       <height>20</height>
+       <x>394</x>
+       <y>3</y>
+       <width>321</width>
+       <height>29</height>
       </rect>
      </property>
      <property name="font">
@@ -495,16 +495,16 @@ background-color: rgb(230, 230, 230);</string>
       </font>
      </property>
      <property name="text">
-      <string>OffLine</string>
+      <string>Connecting . . .</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignHCenter|Qt::AlignTop</set>
      </property>
     </widget>
     <widget class="QFrame" name="imgQMS">
      <property name="geometry">
       <rect>
-       <x>515</x>
+       <x>516</x>
        <y>24</y>
        <width>79</width>
        <height>111</height>
@@ -1291,7 +1291,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="font">
      <font>
       <family>Segoe UI</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
@@ -1299,7 +1299,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255, 255, 255, 0);
-font: 600 12pt &quot;Segoe UI&quot;;
+font: 600 10pt &quot;Segoe UI&quot;;
 color: rgb(255, 0, 0);
 </string>
     </property>
@@ -1329,7 +1329,7 @@ color: rgb(255, 0, 0);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+     <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="text">
      <string/>
@@ -1427,9 +1427,6 @@ color: rgb(255, 0, 0);
     <addaction name="actionViewPyMSLog"/>
     <addaction name="actionViewPyMSSettings"/>
     <addaction name="separator"/>
-    <addaction name="actionQuadViewer"/>
-    <addaction name="actionSave_Metrics"/>
-    <addaction name="separator"/>
     <addaction name="actionAboutPyMS"/>
    </widget>
    <widget class="QMenu" name="menuPump_Reader">
@@ -1442,12 +1439,25 @@ color: rgb(255, 0, 0);
     <addaction name="actionPyroLaserOn"/>
     <addaction name="actionPyroLaserOff"/>
    </widget>
+   <widget class="QMenu" name="menuMass_Spectrometer">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>Hiden Mass Spectrometer</string>
+    </property>
+    <addaction name="actionStartMIDScan"/>
+    <addaction name="actionStartProfileScan"/>
+    <addaction name="separator"/>
+    <addaction name="actionStopScan"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBatch"/>
    <addaction name="menu"/>
    <addaction name="menuXYController"/>
    <addaction name="menuValveController"/>
    <addaction name="menuPump_Reader"/>
+   <addaction name="menuMass_Spectrometer"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionExit">
@@ -1638,6 +1648,21 @@ color: rgb(255, 0, 0);
   <action name="actionIIndexPlanchet">
    <property name="text">
     <string>Index Planchet</string>
+   </property>
+  </action>
+  <action name="actionStartMIDScan">
+   <property name="text">
+    <string>Start MID Scan</string>
+   </property>
+  </action>
+  <action name="actionStartProfileScan">
+   <property name="text">
+    <string>Start Profile Scan</string>
+   </property>
+  </action>
+  <action name="actionStopScan">
+   <property name="text">
+    <string>STOP Scan</string>
    </property>
   </action>
  </widget>

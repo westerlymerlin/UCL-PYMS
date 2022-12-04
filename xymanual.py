@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_xymanualcontrol import Ui_dialogXYSetup
 from settings import settings
 import threading

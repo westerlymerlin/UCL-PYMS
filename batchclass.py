@@ -260,7 +260,7 @@ class BatchClass:
         self.status.insert(index, 0)
 
     def recalulateplanchet(self):
-        if len(self.runnumber) > 37:
+        if len(self.runnumber) > 36:
             insertpos = int(len(self.runnumber)/2)
             self.insertcycle(insertpos, 'Q-Standard')
             self.insertcycle(insertpos, 'Line Blank')
@@ -302,9 +302,9 @@ class BatchClass:
         else:
             loc = self.locxy(self.location[1])
             if abs(loc[0] - currentXPos) < 0.05:
-                print('BatchClass-batchclass x is on location')
+                print('BatchClass: x is on location')
                 if abs(loc[1] - currentYPos) < 0.05:
-                    print('BatchClass-batchclass y is on location')
+                    print('BatchClass: y is on location')
                     return True
         return False
 
@@ -319,7 +319,7 @@ class BatchClass:
                 sql_query = """SELECT MAX(daterun), batchid from HeliumRuns"""
                 cursor_obj.execute(sql_query)
                 datarows = cursor_obj.fetchall()
-                print(datarows)
+                print('batchclass: - last batch = %s' % datarows)
                 batchid = datarows[0][1]
             sql_query = """SELECT id, identifier, daterun, bestfit from HeliumRuns WHERE batchid = ? """
             cursor_obj.execute(sql_query, [str(batchid)])

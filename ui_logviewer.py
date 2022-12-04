@@ -3,15 +3,20 @@
 ################################################################################
 ## Form generated from reading UI file 'logviewer.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.2
+## Created by: Qt User Interface Compiler version 6.4.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QDialog, QLabel, QPlainTextEdit,
+    QPushButton, QSizePolicy, QWidget)
 import main_rc
 
 class Ui_LogDialog(object):
@@ -34,11 +39,10 @@ class Ui_LogDialog(object):
         self.txtLog.setObjectName(u"txtLog")
         self.txtLog.setGeometry(QRect(10, 50, 1181, 891))
         font = QFont()
-        font.setFamily(u"Consolas")
+        font.setFamilies([u"Consolas"])
         font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
         self.txtLog.setFont(font)
         self.txtLog.setStyleSheet(u"font: 10pt \"Consolas\";")
         self.txtLog.setLineWrapMode(QPlainTextEdit.NoWrap)

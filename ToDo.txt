@@ -1,0 +1,8 @@
+PyMS ToDo List
+
+Backlog:
+New Laser Controller to have RS232 control of Laser
+New Laser Controller to read Laser state (enabled and power setting)
+PyMS to use Laser Controller for all Laser settings as well as enable/disable
+
+In Progress:

@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_logviewer import Ui_LogDialog
 from settings import settings
 

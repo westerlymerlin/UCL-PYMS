@@ -3,15 +3,21 @@
 ################################################################################
 ## Form generated from reading UI file 'xymanualcontrol.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.2
+## Created by: Qt User Interface Compiler version 6.4.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
+    QLabel, QPushButton, QSizePolicy, QToolButton,
+    QWidget)
 import main_rc
 
 class Ui_dialogXYSetup(object):
@@ -31,11 +37,10 @@ class Ui_dialogXYSetup(object):
         self.lineYPosition.setObjectName(u"lineYPosition")
         self.lineYPosition.setGeometry(QRect(160, 10, 121, 41))
         font = QFont()
-        font.setFamily(u"Segoe UI")
+        font.setFamilies([u"Segoe UI"])
         font.setPointSize(16)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
         self.lineYPosition.setFont(font)
         self.lineYPosition.setToolTipDuration(5)
         self.lineYPosition.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"

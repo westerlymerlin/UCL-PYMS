@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_about import Ui_AboutDialog
 from settings import version
 

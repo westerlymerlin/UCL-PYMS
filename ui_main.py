@@ -3,15 +3,24 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.2
+## Created by: Qt User Interface Compiler version 6.4.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QDoubleSpinBox, QFrame,
+    QHeaderView, QLCDNumber, QLabel, QListWidget,
+    QListWidgetItem, QMainWindow, QMenu, QMenuBar,
+    QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
+    QToolButton, QWidget)
 import main_rc
 
 class Ui_MainWindow(object):
@@ -28,11 +37,10 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(1800, 1000))
         MainWindow.setMaximumSize(QSize(1800, 1000))
         font = QFont()
-        font.setFamily(u"Segoe UI")
+        font.setFamilies([u"Segoe UI"])
         font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
         MainWindow.setFont(font)
         icon = QIcon()
         icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Normal, QIcon.Off)
@@ -47,7 +55,7 @@ class Ui_MainWindow(object):
         self.actionExit = QAction(MainWindow)
         self.actionExit.setObjectName(u"actionExit")
         font1 = QFont()
-        font1.setFamily(u"Segoe UI")
+        font1.setFamilies([u"Segoe UI"])
         font1.setPointSize(10)
         self.actionExit.setFont(font1)
         self.actionStartNewBatch = QAction(MainWindow)
@@ -99,6 +107,12 @@ class Ui_MainWindow(object):
         self.actionSave_Metrics.setCheckable(True)
         self.actionIIndexPlanchet = QAction(MainWindow)
         self.actionIIndexPlanchet.setObjectName(u"actionIIndexPlanchet")
+        self.actionStartMIDScan = QAction(MainWindow)
+        self.actionStartMIDScan.setObjectName(u"actionStartMIDScan")
+        self.actionStartProfileScan = QAction(MainWindow)
+        self.actionStartProfileScan.setObjectName(u"actionStartProfileScan")
+        self.actionStopScan = QAction(MainWindow)
+        self.actionStopScan.setObjectName(u"actionStopScan")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.frmHeLine = QFrame(self.centralwidget)
@@ -219,12 +233,12 @@ class Ui_MainWindow(object):
         self.tbValve12.setGeometry(QRect(316, 692, 36, 36))
         self.lblMS = QLabel(self.frmHeLine)
         self.lblMS.setObjectName(u"lblMS")
-        self.lblMS.setGeometry(QRect(453, 6, 200, 20))
+        self.lblMS.setGeometry(QRect(394, 3, 321, 29))
         self.lblMS.setFont(font)
-        self.lblMS.setAlignment(Qt.AlignCenter)
+        self.lblMS.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
         self.imgQMS = QFrame(self.frmHeLine)
         self.imgQMS.setObjectName(u"imgQMS")
-        self.imgQMS.setGeometry(QRect(515, 24, 79, 111))
+        self.imgQMS.setGeometry(QRect(516, 24, 79, 111))
         self.imgQMS.setStyleSheet(u"image: url(:/main/QMS.png);")
         self.imgQMS.setFrameShape(QFrame.StyledPanel)
         self.imgQMS.setFrameShadow(QFrame.Raised)
@@ -320,11 +334,10 @@ class Ui_MainWindow(object):
         self.lineIonPump.setObjectName(u"lineIonPump")
         self.lineIonPump.setGeometry(QRect(910, 5, 111, 41))
         font2 = QFont()
-        font2.setFamily(u"Segoe UI")
+        font2.setFamilies([u"Segoe UI"])
         font2.setPointSize(14)
         font2.setBold(False)
         font2.setItalic(False)
-        font2.setWeight(50)
         self.lineIonPump.setFont(font2)
         self.lineIonPump.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "font: 14pt \"Segoe UI\";")
@@ -446,14 +459,13 @@ class Ui_MainWindow(object):
         self.lblAalarm.setObjectName(u"lblAalarm")
         self.lblAalarm.setGeometry(QRect(610, 850, 650, 90))
         font3 = QFont()
-        font3.setFamily(u"Segoe UI")
-        font3.setPointSize(12)
+        font3.setFamilies([u"Segoe UI"])
+        font3.setPointSize(10)
         font3.setBold(True)
         font3.setItalic(False)
-        font3.setWeight(75)
         self.lblAalarm.setFont(font3)
         self.lblAalarm.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
-"font: 600 12pt \"Segoe UI\";\n"
+"font: 600 10pt \"Segoe UI\";\n"
 "color: rgb(255, 0, 0);\n"
 "")
         self.lblAalarm.setScaledContents(True)
@@ -463,7 +475,7 @@ class Ui_MainWindow(object):
         self.lblFinishTime = QLabel(self.centralwidget)
         self.lblFinishTime.setObjectName(u"lblFinishTime")
         self.lblFinishTime.setGeometry(QRect(150, 10, 431, 41))
-        self.lblFinishTime.setStyleSheet(u"font: 14pt \"Segoe UI\";")
+        self.lblFinishTime.setStyleSheet(u"font: 12pt \"Segoe UI\";")
         self.lblFinishTime.setScaledContents(True)
         MainWindow.setCentralWidget(self.centralwidget)
         self.frmImage.raise_()
@@ -517,6 +529,9 @@ class Ui_MainWindow(object):
         self.menuHelp.setObjectName(u"menuHelp")
         self.menuPump_Reader = QMenu(self.menubar)
         self.menuPump_Reader.setObjectName(u"menuPump_Reader")
+        self.menuMass_Spectrometer = QMenu(self.menubar)
+        self.menuMass_Spectrometer.setObjectName(u"menuMass_Spectrometer")
+        self.menuMass_Spectrometer.setEnabled(True)
         MainWindow.setMenuBar(self.menubar)
         QWidget.setTabOrder(self.tbRun, self.listCommands)
         QWidget.setTabOrder(self.listCommands, self.listBatch)
@@ -529,6 +544,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuXYController.menuAction())
         self.menubar.addAction(self.menuValveController.menuAction())
         self.menubar.addAction(self.menuPump_Reader.menuAction())
+        self.menubar.addAction(self.menuMass_Spectrometer.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menuFile.addAction(self.actionExit)
         self.menuBatch.addAction(self.actionStartNewBatch)
@@ -544,15 +560,16 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionViewPyMSLog)
         self.menuHelp.addAction(self.actionViewPyMSSettings)
         self.menuHelp.addSeparator()
-        self.menuHelp.addAction(self.actionQuadViewer)
-        self.menuHelp.addAction(self.actionSave_Metrics)
-        self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAboutPyMS)
         self.menuPump_Reader.addAction(self.actionPumpOpenStatusPage)
         self.menuPump_Reader.addAction(self.actionPumpOpenLogPage)
         self.menuPump_Reader.addSeparator()
         self.menuPump_Reader.addAction(self.actionPyroLaserOn)
         self.menuPump_Reader.addAction(self.actionPyroLaserOff)
+        self.menuMass_Spectrometer.addAction(self.actionStartMIDScan)
+        self.menuMass_Spectrometer.addAction(self.actionStartProfileScan)
+        self.menuMass_Spectrometer.addSeparator()
+        self.menuMass_Spectrometer.addAction(self.actionStopScan)
 
         self.retranslateUi(MainWindow)
 
@@ -600,6 +617,9 @@ class Ui_MainWindow(object):
         self.actionSave_Metrics.setStatusTip(QCoreApplication.translate("MainWindow", u"Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)", None))
 #endif // QT_CONFIG(statustip)
         self.actionIIndexPlanchet.setText(QCoreApplication.translate("MainWindow", u"Index Planchet", None))
+        self.actionStartMIDScan.setText(QCoreApplication.translate("MainWindow", u"Start MID Scan", None))
+        self.actionStartProfileScan.setText(QCoreApplication.translate("MainWindow", u"Start Profile Scan", None))
+        self.actionStopScan.setText(QCoreApplication.translate("MainWindow", u"STOP Scan", None))
 #if QT_CONFIG(tooltip)
         self.frmHeLine.setToolTip(QCoreApplication.translate("MainWindow", u"Click on the valves to operate", None))
 #endif // QT_CONFIG(tooltip)
@@ -615,7 +635,7 @@ class Ui_MainWindow(object):
         self.tbValve5.setText("")
         self.tbValve13.setText("")
         self.tbValve12.setText("")
-        self.lblMS.setText(QCoreApplication.translate("MainWindow", u"OffLine", None))
+        self.lblMS.setText(QCoreApplication.translate("MainWindow", u"Connecting . . .", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Elapsed Time", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Remaining Commands", None))
         self.lblStatus.setText(QCoreApplication.translate("MainWindow", u"Status: Manual Control", None))
@@ -663,5 +683,6 @@ class Ui_MainWindow(object):
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u" | ", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Support", None))
         self.menuPump_Reader.setTitle(QCoreApplication.translate("MainWindow", u"Pump Reader", None))
+        self.menuMass_Spectrometer.setTitle(QCoreApplication.translate("MainWindow", u"Hiden Mass Spectrometer", None))
     # retranslateUi
 

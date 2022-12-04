@@ -1,4 +1,4 @@
-PySide2
+PySide6
 certifi
 chardet
 pillow
@@ -6,9 +6,10 @@ pyserial
 pywin32
 requests
 scipy
-shiboken2
+shiboken6
 future
 pip
 numpy
 six
 image
+msal

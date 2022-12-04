@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_cycleedit import Ui_dialogCycleEdit
 from settings import settings, writesettings
 import sqlite3
@@ -18,6 +18,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         self.tableSteps.clicked.connect(self.rowselect)
         self.cycleids = []
         self.currentid = 0
+        self.cyclenames = []
         self.cycledescriptions = []
         self.loadcycles()
         self.cycle = []
@@ -50,14 +51,15 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
     def loadcycles(self):
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
-        sql_query = 'SELECT id, name from cycles WHERE enabled = 1'
+        sql_query = 'SELECT id, name, description from cycles WHERE enabled = 1'
         cursor_obj.execute(sql_query)
         returnobjects = cursor_obj.fetchall()
         for cycle in returnobjects:
             self.cycleids.append(cycle[0])
-            self.cycledescriptions.append(cycle[1])
+            self.cyclenames.append(cycle[1])
+            self.cycledescriptions.append(cycle[2])
         database.close()
-        self.comboCycles.addItems(self.cycledescriptions)
+        self.comboCycles.addItems(self.cyclenames)
         self.combochange()
 
     def combochange(self):
@@ -67,6 +69,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         sql_query = """SELECT * from cyclesteps WHERE id  = ?"""
         cursor_obj.execute(sql_query, self.currentid)
         self.cycle = cursor_obj.fetchall()
+        self.lbl_description.setText(self.cycledescriptions[self.comboCycles.currentIndex()])
         self.refreshtable()
         self.rowselect()
 
@@ -146,11 +149,13 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         elif target[:5] == 'laser':
             self.comboCommand.addItems(['on', 'off', 'setpower'])
         elif target[:4] == 'quad':
-            self.comboCommand.addItems(['starttimer', 'read', 'writefile'])
+            self.comboCommand.addItems(['starttimer', 'starttimer-reheat', 'writefile', 'hiden-startmid',
+                                        'hiden-startprofile', 'hiden-stop'])
         elif target[:7] == 'xytable':
             self.comboCommand.addItems(['move'])
         elif target[:5] == 'image':
-            self.comboCommand.addItems(['dynolite', 'microscope', 'quadstar', 'microscope-reheat', 'quadstar-reheat'])
+            self.comboCommand.addItems(['dynolite', 'microscope', 'microscope-reheat', 'hiden-mid', 'hiden-mid-reheat',
+                                        'hiden-profile'])
         elif target[:9] == 'pyrometer':
             self.comboCommand.addItems(['read'])
         elif target[:3] == 'end':

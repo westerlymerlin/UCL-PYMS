@@ -332,6 +332,25 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="lbl_description">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>50</y>
+     <width>550</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="main.qrc"/>

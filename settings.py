@@ -1,6 +1,6 @@
 import json
 
-version = '1.2.15'
+version = '2.0.0'
 running = True
 settings = {}
 
@@ -90,14 +90,23 @@ def initialise():
     settings['image'] = {}
     settings['image']['dynolite'] = 'DinoCapture 2.0'
     settings['image']['microscope'] = 'GXCapture-T'
-    settings['image']['quadstar'] = '[M1] PyMS QUADSTAR 32-bit Measurement - [MID  < kens4he.mip >]'
     settings['image']['microscope-reheat'] = 'GXCapture-T'
-    settings['image']['quadstar-reheat'] = '[M1] PyMS QUADSTAR 32-bit Measurement - [MID  < kens4he.mip >]'
+    settings['image']['"hiden-mid'] = 'PyMS - Python Mass Spectrometry',
+    settings['image']['"hiden-mid-reheat'] = 'PyMS - Python Mass Spectrometry',
+    settings['image']['"hiden-profile'] = 'PyMS - Python Mass Spectrometry',
     settings['MassSpec'] = {}
-    settings['MassSpec']['nextQ'] = 4462
-    settings['MassSpec']['nextH'] = 17103
+    settings['MassSpec']['nextQ'] = 5000
+    settings['MassSpec']['nextH'] = 20000
     settings['MassSpec']['datadirectory'] = '.\\QuadStar\\data\\'
-    settings['MassSpec']['readfile'] = 'C:\\QS422\\DAT\\pymscyc.mdc'
+    settings['MassSpec']['hidenhost'] = '192.168.2.100'
+    settings['MassSpec']['hidenport'] = 5026
+    settings['MassSpec']['timeoutretries'] = 10
+    settings['MassSpec']['hidenMID'] = '"C:\\Users\\UCL Helium Line\\Documents\\Hiden ' \
+                                       'Analytical\\MASsoft10\\PyMS-MID.exp '
+    settings['MassSpec']['hidenProfile'] = '"C:\\Users\\UCL Helium Line\\Documents\\Hiden ' \
+                                           'Analytical\\MASsoft10\\PyMS-Profile.exp '
+    settings['MassSpec']['hidenRunfile'] = '"C:\\Users\\UCL Helium Line\\Documents\\Hiden ' \
+                                           'Analytical\\MASsoft10\\PyMS-Running.exp '
     settings['MassSpec']['multiplier'] = 1E-12
     settings['MassSpec']['HD/H'] = 0.01
 

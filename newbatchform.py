@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_newbatch import Ui_dialogNewBatch
 from settings import settings
 from simpleBatchForm import UiSimpleBatch

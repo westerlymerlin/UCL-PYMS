@@ -3,15 +3,21 @@
 ################################################################################
 ## Form generated from reading UI file 'cycleedit.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.2
+## Created by: Qt User Interface Compiler version 6.4.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QDialog,
+    QHeaderView, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QTableWidget, QTableWidgetItem, QWidget)
 import main_rc
 
 class Ui_dialogCycleEdit(object):
@@ -109,6 +115,11 @@ class Ui_dialogCycleEdit(object):
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(30, 20, 91, 21))
         self.label_4.setScaledContents(True)
+        self.lbl_description = QLabel(dialogCycleEdit)
+        self.lbl_description.setObjectName(u"lbl_description")
+        self.lbl_description.setGeometry(QRect(340, 50, 550, 30))
+        self.lbl_description.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
+        self.lbl_description.setWordWrap(True)
 
         self.retranslateUi(dialogCycleEdit)
 
@@ -154,5 +165,6 @@ class Ui_dialogCycleEdit(object):
 #endif // QT_CONFIG(tooltip)
         self.buttonUpdate.setText(QCoreApplication.translate("dialogCycleEdit", u"Update", None))
         self.label_4.setText(QCoreApplication.translate("dialogCycleEdit", u"Cycle", None))
+        self.lbl_description.setText("")
     # retranslateUi
 

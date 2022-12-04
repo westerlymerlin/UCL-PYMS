@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import *
+from PySide6.QtWidgets import *
 from ui_main import Ui_MainWindow
 import webbrowser
 import requests
@@ -9,11 +9,10 @@ from aboutui import UiAbout
 from logviewerui import UiLogViewer
 from settingsviewerui import UiSettingsViewer
 from xymanual import XYSetupUI
-from quadviewerui import UiQuadViwer
 from laserclass import laser
 from batchclass import batch
 from cycleclass import currentcycle
-from msQuadstar import ms
+from msHiden import ms
 from alertmessage import alert
 
 
@@ -82,14 +81,15 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionCO2LaserOff.triggered.connect(lambda: self.manuallaser('CO2', 'off'))
         self.actionPyroLaserOn.triggered.connect(lambda: self.manuallaser('Pyro', 'on'))
         self.actionPyroLaserOff.triggered.connect(lambda: self.manuallaser('Pyro', 'off'))
-        self.actionSave_Metrics.triggered.connect(self.togglemetrics)
         self.actionAboutPyMS.triggered.connect(self.showabout)
         self.actionViewPyMSLog.triggered.connect(self.showlogviewer)
         self.actionViewPyMSSettings.triggered.connect(self.showsettingsviewer)
-        self.actionQuadViewer.triggered.connect(self.showquadviewer)
         self.spinLaserPower.setValue(settings['laser']['power'])
         self.spinLaserPower.valueChanged.connect(self.setlaserpower)
         self.actionSave_Metrics.setChecked(settings['metrics'])
+        self.actionStartMIDScan.triggered.connect(ms.start_mid)
+        self.actionStartProfileScan.triggered.connect(ms.start_profile)
+        self.actionStopScan.triggered.connect(ms.stop_runnning)
         self.secondcount = 0
         self.secondincrement = 0
         self.timertick = 0
@@ -148,7 +148,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
             print('t=%s mainUIForm: Get Status Valve Controller Timeout Error' % self.secondcount)
 
     def read_ms(self):
-        ms.filereader()
         labletext = ms.check_quad_is_online()
         if labletext != 'Off Line':
             self.imgQMS.setHidden(False)
@@ -160,8 +159,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
         status = ''
         if ms.alarm:
             if ms.check_quad_is_online() == 'Off Line':
-                status = status + 'The Quad Reader is showing as offline, the system is paused. \nIt might be that the' \
-                                  ' measure application has stopped writing to the data file and needs a restart. \n'
+                status = status + 'The Hiden Quad Reader is showing as offline, the system is paused. \nIt might ' \
+                                      'be that the MAS10 application has stopped responding and needs a restart. \n '
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
@@ -254,7 +253,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             print('t=%s mainUIForm: Valve 13 changed' % self.secondcount)
             self.wValve13.setVisible(valvestatus(resp[11]['status']))
         if self.imgLaser.isVisible() != laserstatus(resp[12]['status']):
-            print('t=%s mainUIForm: Laser Ststus changed' % self.secondcount)
+            print('t=%s mainUIForm: Laser Status changed' % self.secondcount)
             self.imgLaser.setVisible(laserstatus(resp[12]['status']))
 
     def setlaserpower(self):
@@ -437,22 +436,16 @@ class UiMain(QMainWindow, Ui_MainWindow):
                                       batch.runnumber[0])
                         currentcycle.completecurrent()
                         self.listCommands.takeItem(0)
-                    elif current[2] == 'starttimer2':
+                    elif current[2] == 'starttimer-reheat':
                         print('t=%s mainUIForm: start quad timer for reheat' % self.secondcount)
                         ms.starttimer(batch.currentcycle(), batch.formatsample() + '_RE', batch.currentdescription(),
                                       batch.id, batch.runnumber[0])
                         currentcycle.completecurrent()
                         self.listCommands.takeItem(0)
-                    elif current[2] == 'read':
-                        print('t=%s mainUIForm: read quad' % self.secondcount)
-                        ms.read()
-                        currentcycle.completecurrent()
-                        self.listCommands.takeItem(0)
-                    elif current[2] == 'writefile':
-                        print('t=%s mainUIForm: write out file' % self.secondcount)
-                        ms.writefile()
-                        currentcycle.completecurrent()
-                        self.listCommands.takeItem(0)
+                    else:
+                        if ms.command_parser(current[2]) == 1:
+                            currentcycle.completecurrent()
+                            self.listCommands.takeItem(0)
                 elif current[1] == 'image':
                     print('t=%s mainUIForm: take image %s' % (self.secondcount, current[2]))
                     batch.image(current[2])
@@ -475,10 +468,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
     def showabout(self):
         self.aboutdialog = UiAbout()
         self.aboutdialog.show()
-
-    def showquadviewer(self):
-        self.quadviewerdialog = UiQuadViwer()
-        self.quadviewerdialog.show()
 
     def showlogviewer(self):
         self.logviewerdialog = UiLogViewer()
@@ -637,10 +626,3 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 requests.post(laserhost, json=message, timeout=1)
         except requests.RequestException:
             print('mainUIForm: Laser Manual Control Timeout Error')
-
-    def togglemetrics(self):
-        if settings['metrics'] == 1:
-            settings['metrics'] = 0
-        else:
-            settings['metrics'] = 1
-        self.actionSave_Metrics.setChecked(settings['metrics'])
