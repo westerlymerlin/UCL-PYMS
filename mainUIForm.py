@@ -160,7 +160,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
         if ms.alarm:
             if ms.check_quad_is_online() == 'Off Line':
                 status = status + 'The Hiden Quad Reader is showing as offline, the system is paused. \nIt might ' \
-                                      'be that the MAS10 application has stopped responding and needs a restart. \n '
+                                      'be that the MAS10 application has stopped responding and needs a restart or ' \
+                                  'the Hiden Control unit has been switched off. \n '
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)

@@ -103,6 +103,8 @@ class MSClass:
                 if status[:-2] != 'ScanningActive':
                     self.alarm = 1
                     return 'Off Line'
+            if status[:-2] == 'Unavailable':
+                return 'Off line'
             return status[:-2]
         except socket.timeout:
             self.timeoutcounter += 1
@@ -131,7 +133,7 @@ class MSClass:
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
         s.close()
-        self.running = False
+        self.running = True
         return [runningfile[:-2], status[:-2]]
 
     def start_profile(self):
@@ -154,7 +156,7 @@ class MSClass:
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
         s.close()
-        self.running = True
+        self.running = False
         return [runningfile[:-2], status[:-2]]
 
     def getdata(self):
