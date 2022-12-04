@@ -31,7 +31,7 @@ class MSClass:
         self.m40 = []
         self.m6 = []
         self.bestfit = []
-        self.id = settings['MassSpec']['nextH']
+        self.id = self.next_id()
         self.type = ''
         self.filename = ''
         self.identifier = ''
@@ -72,11 +72,10 @@ class MSClass:
         self.m40 = []
         self.m6 = []
         self.bestfit = 0
-        self.id = settings['MassSpec']['nextH']
+        self.id = self.next_id()
         self.type = ''
         self.filename = ''
         self.identifier = ''
-        self.daterun = datetime.now()
         self.batchdescription = ''
         self.batchid = 0
         self.batchitemid = 0
@@ -85,7 +84,7 @@ class MSClass:
     def starttimer(self, batchtype, identifier, batchdescription, batchid, batchitemid):
         # print('msHiden: start timer', batchtype, identifier, batchdescription, batchid, batchitemid)
         self.daterun = datetime.now()
-        self.id = settings['MassSpec']['nextH']
+        self.id = self.next_id()
         self.type = batchtype
         self.identifier = identifier
         self.laserpower = settings['laser']['power']
@@ -217,11 +216,10 @@ class MSClass:
             cursor_obj.execute(sql_query)
             lastfile = cursor_obj.fetchall()
             nextfile = 'HE' + str(int(lastfile[0][0][2:-1]) + 1) + 'R'
-
             return nextfile
         except sqlite3.Error as error:
             print("msHiden: next_id error %s" % error)
-            return"HE0000R"
+            return"HE00000R"
 
     def writefile(self):
         data = self.getdata()
@@ -265,8 +263,6 @@ class MSClass:
             with open(filename, 'rb') as infile:
                 blobfile = infile.read()
             infile.close()
-            settings['MassSpec']['nextH'] += 1
-            writesettings()
         except:
             print("msHiden: failed to write to helium results file %s " % Exception)
         try:
@@ -286,6 +282,8 @@ class MSClass:
                     self.m4[i], self.m5[i], self.m40[i], self.m6[i])
                 cursor_obj.execute(sql_insert_query, datarow)
             database.commit()
+            settings['MassSpec']['nextH'] = self.next_id()
+            writesettings()
         except sqlite3.Error as error:
             print("msHiden: failed to write to helium results database ", error)
         self.resetclass()
