@@ -223,19 +223,19 @@ class MSClass:
 
     def writefile(self):
         data = self.getdata()
-        linecounter = 1
         for row in data:
             sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
             # print(datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S'), self.daterun, sampledate)
-            if sampledate > self.startimeoffset and linecounter < 19:
-                self.time.append(round(sampledate, 6))
-                self.m1.append(round(float(row[2]) * self.multiplier, 6))
-                self.m3.append(round(float(row[3]) * self.multiplier, 6))
-                self.m4.append(round(float(row[4]) * self.multiplier, 6))
-                self.m5.append(0)
-                self.m40.append(round(float(row[5]) * self.multiplier, 6))
-                self.m6.append(0)
-                linecounter =+ 1
+            if sampledate > self.startimeoffset:
+                if len(self.time) < 20:
+                    self.time.append(round(sampledate, 6))
+                    self.m1.append(round(float(row[2]) * self.multiplier, 6))
+                    self.m3.append(round(float(row[3]) * self.multiplier, 6))
+                    self.m4.append(round(float(row[4]) * self.multiplier, 6))
+                    self.m5.append(0)
+                    self.m40.append(round(float(row[5]) * self.multiplier, 6))
+                    self.m6.append(0)
+        print('msHiden - Datafile has %s rows' % len(self.time))
         print('msHiden: Calculating bestfit')
         self.bestfit = linbestfit(self.time, self.m3, self.m1, self.m4, settings['MassSpec']['HD/H'])
         try:
