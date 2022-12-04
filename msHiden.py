@@ -131,7 +131,7 @@ class MSClass:
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
         s.close()
-        self.running = True
+        self.running = False
         return [runningfile[:-2], status[:-2]]
 
     def start_profile(self):
