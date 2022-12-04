@@ -99,12 +99,9 @@ class MSClass:
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
             self.timeoutcounter = 0
-            if self.running:
-                if status[:-2] != 'ScanningActive':
-                    self.alarm = 1
-                    return 'Off Line'
             if status[:-2] == 'Unavailable':
-                return 'Off line'
+                print('msHiden - return of Unavailable')
+                return 'Unavailable'
             return status[:-2]
         except socket.timeout:
             self.timeoutcounter += 1
