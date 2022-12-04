@@ -21,6 +21,7 @@ class MSClass:
         self.port = settings['MassSpec']['hidenport']
         self.multiplier = 1 / settings['MassSpec']['multiplier']
         self.tiemoutretries = settings['MassSpec']['timeoutretries']
+        self.startimeoffset = settings['MassSpec']['startimeoffset']
         self.resetclass()
         self.time = []
         self.m1 = []
@@ -34,7 +35,7 @@ class MSClass:
         self.type = ''
         self.filename = ''
         self.identifier = ''
-        self.daterun = time.time()
+        self.daterun = datetime.now()
         self.batchdescription = ''
         self.batchid = 0
         self.batchitemid = 0
@@ -165,7 +166,7 @@ class MSClass:
         outputdata = []
         for item in sdata.split('\r\n'):
             outputdata.append(item.split('\t'))
-        outputdata = outputdata[len(outputdata) - 21:]
+        # outputdata = outputdata[len(outputdata) - 21:]
         return outputdata[:-1]
 
     def getcolumns(self):
@@ -224,16 +225,19 @@ class MSClass:
 
     def writefile(self):
         data = self.getdata()
+        linecounter = 1
         for row in data:
             sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
             # print(datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S'), self.daterun, sampledate)
-            self.time.append(round(sampledate, 6))
-            self.m1.append(round(float(row[2]) * self.multiplier, 6))
-            self.m3.append(round(float(row[3]) * self.multiplier, 6))
-            self.m4.append(round(float(row[4]) * self.multiplier, 6))
-            self.m5.append(0)
-            self.m40.append(round(float(row[5]) * self.multiplier, 6))
-            self.m6.append(0)
+            if sampledate > self.startimeoffset and linecounter < 19:
+                self.time.append(round(sampledate, 6))
+                self.m1.append(round(float(row[2]) * self.multiplier, 6))
+                self.m3.append(round(float(row[3]) * self.multiplier, 6))
+                self.m4.append(round(float(row[4]) * self.multiplier, 6))
+                self.m5.append(0)
+                self.m40.append(round(float(row[5]) * self.multiplier, 6))
+                self.m6.append(0)
+                linecounter =+ 1
         print('msHiden: Calculating bestfit')
         self.bestfit = linbestfit(self.time, self.m3, self.m1, self.m4, settings['MassSpec']['HD/H'])
         try:
