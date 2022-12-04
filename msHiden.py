@@ -197,7 +197,7 @@ class MSClass:
         self.running = False
         s = socket.create_connection((self.host, self.port), .5)
         self.socketreturn = s.recv(1024).decode()
-        print('Stopping Hiden')
+        print('msHiden - Stopping Hiden')
         s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
         self.socketreturn = s.recv(1024).decode()
         time.sleep(2)
@@ -286,9 +286,9 @@ class MSClass:
                     self.m4[i], self.m5[i], self.m40[i], self.m6[i])
                 cursor_obj.execute(sql_insert_query, datarow)
             database.commit()
-            self.resetclass()
         except sqlite3.Error as error:
             print("msHiden: failed to write to helium results database ", error)
+        self.resetclass()
 
 
 def linbestfit(sampletime, m, m1, m4, hd_h):
