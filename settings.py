@@ -51,7 +51,6 @@ def initialise():
     settings['database']['resultsdatabasepath'] = '.\\database\\HeliumResults.db'
     settings['database']['resultsdatabasebackuppath'] = '.\\database\\HeliumResults.db.backup.db'
     settings['mainform'] = {}
-    settings['metrics'] = 0
     settings['mainform']['x'] = 600
     settings['mainform']['y'] = 100
     settings['newbatchform'] = {}
@@ -69,6 +68,8 @@ def initialise():
     settings['cycleeditform'] = {}
     settings['cycleeditform']['x'] = 600
     settings['cycleeditform']['y'] = 100
+    settings['ncccalcform']['x'] = 600
+    settings['ncccalcform']['y'] = 100
     settings['laser'] = {}
     settings['laser']['power'] = 40.0
     settings['laser']['port'] = 'com5'
@@ -109,6 +110,16 @@ def initialise():
                                            'Analytical\\MASsoft10\\PyMS-Running.exp '
     settings['MassSpec']['multiplier'] = 1E-12
     settings['MassSpec']['HD/H'] = 0.01
+    settings['Ncc'] = {}
+    settings['Ncc']['HD_H'] = 0.01
+    settings['Ncc']['q_dep_factor'] = 0.9999526
+    settings['Ncc']['q_depletion_err'] = 0.0000004
+    settings['Ncc']['s_dep_factor'] = 0.99996107
+    settings['Ncc']['q_pipette_ncc'] = 10.23
+    settings['Ncc']['q_pipette_err'] = 0.07
+    settings['Ncc']['s_pipette_ncc'] = 5.7
+    settings['Ncc']['s_offset'] = 231
+    settings['Ncc']['nccfilepath'] = ''
 
     writesettings()
 

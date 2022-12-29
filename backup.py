@@ -1,6 +1,7 @@
 import json
 import base64
 import requests
+import sys
 from pathlib import Path
 from msal import ConfidentialClientApplication
 import threading
@@ -71,3 +72,7 @@ def delayedbackupfile(file_name):
 
 def backupfile(file_name):
     threading.Timer(1, lambda: delayedbackupfile(file_name)).start()
+
+if __name__ == '__main__':
+    print('Starting backup')
+    backupfile(sys.argv[1])

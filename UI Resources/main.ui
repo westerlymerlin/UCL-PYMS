@@ -36,7 +36,6 @@
    <font>
     <family>Segoe UI</family>
     <pointsize>10</pointsize>
-    <weight>50</weight>
     <italic>false</italic>
     <bold>false</bold>
    </font>
@@ -143,7 +142,6 @@ background-color: rgb(230, 230, 230);</string>
       <font>
        <family>Segoe UI</family>
        <pointsize>10</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -272,7 +270,7 @@ background-color: rgb(230, 230, 230);</string>
      <property name="geometry">
       <rect>
        <x>336</x>
-       <y>401</y>
+       <y>402</y>
        <width>36</width>
        <height>36</height>
       </rect>
@@ -285,7 +283,7 @@ background-color: rgb(230, 230, 230);</string>
      <property name="geometry">
       <rect>
        <x>482</x>
-       <y>401</y>
+       <y>402</y>
        <width>36</width>
        <height>36</height>
       </rect>
@@ -428,7 +426,7 @@ background-color: rgb(230, 230, 230);</string>
      <property name="geometry">
       <rect>
        <x>484</x>
-       <y>400</y>
+       <y>401</y>
        <width>36</width>
        <height>36</height>
       </rect>
@@ -489,7 +487,6 @@ background-color: rgb(230, 230, 230);</string>
       <font>
        <family>Segoe UI</family>
        <pointsize>10</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -702,7 +699,6 @@ background-color: rgb(230, 230, 230);</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -791,7 +787,6 @@ background-color: rgb(230, 230, 230);</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -816,7 +811,6 @@ background-color: rgb(230, 230, 230);</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -847,7 +841,6 @@ background-color: rgb(230, 230, 230);</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -875,7 +868,6 @@ background-color: rgb(230, 230, 230);</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>14</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -910,7 +902,6 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>14</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -945,7 +936,6 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>14</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -980,7 +970,6 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>14</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -1015,7 +1004,6 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>14</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -1219,7 +1207,6 @@ border-color: rgb(61, 61, 61);</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>14</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -1292,7 +1279,6 @@ font: 14pt &quot;Segoe UI&quot;;</string>
      <font>
       <family>Segoe UI</family>
       <pointsize>10</pointsize>
-      <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
      </font>

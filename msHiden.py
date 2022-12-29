@@ -237,7 +237,7 @@ class MSClass:
                     self.m6.append(0)
         print('msHiden - Datafile has %s rows' % len(self.time))
         print('msHiden: Calculating bestfit')
-        self.bestfit = linbestfit(self.time, self.m3, self.m1, self.m4, settings['MassSpec']['HD/H'])
+        self.bestfit = linbestfit(self.time, self.m3, self.m1, self.m4, settings['Ncc']['HD_H'])
         try:
             self.filename = self.next_id()
             print('msHiden: filename = %s' % self.filename)

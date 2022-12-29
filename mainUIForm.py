@@ -86,7 +86,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionViewPyMSSettings.triggered.connect(self.showsettingsviewer)
         self.spinLaserPower.setValue(settings['laser']['power'])
         self.spinLaserPower.valueChanged.connect(self.setlaserpower)
-        self.actionSave_Metrics.setChecked(settings['metrics'])
         self.actionStartMIDScan.triggered.connect(ms.start_mid)
         self.actionStartProfileScan.triggered.connect(ms.start_profile)
         self.actionStopScan.triggered.connect(ms.stop_runnning)
@@ -564,6 +563,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tableResults.setItem(x, 2, newdescription_item)
                 self.tableResults.setItem(x, 3, newresults_item)
             print('mainUIForm: Results Table Updated')
+
         except:
             print('mainUIForm: Update results error - %s' % Exception)
 

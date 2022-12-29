@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="main">
+    <file>iconNccCalc.svg</file>
     <file>pyrolaser.png</file>
     <file>iconPyMSRun.svg</file>
     <file>QMS.png</file>

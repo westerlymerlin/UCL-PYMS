@@ -4,6 +4,7 @@ import os
 from settings import settings, friendlydirname
 from imagefiler import imager
 from backup import backupfile
+from ncc_calc import ncc
 
 
 class BatchClass:
@@ -183,6 +184,7 @@ class BatchClass:
             for formattedline in formatteddata:
                 print(formattedline, file=logfile)
             logfile.close()
+            ncc.filegenerator(filepath)
             backupfile(filename)
         except:
             print("batchclass: Error createing batchlog")

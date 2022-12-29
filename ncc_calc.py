@@ -1,0 +1,196 @@
+from settings import settings, writesettings
+import os
+import glob
+import numpy
+import csv
+from datetime import datetime
+from scipy import stats
+
+
+class HeResults:
+    def __init__(self):
+        self.q_dep_factor = settings['Ncc']['q_dep_factor']
+        self.q_depletion_err = settings['Ncc']['q_depletion_err']
+        self.s_dep_factor = settings['Ncc']['s_dep_factor']
+        self.q_pipette_ncc = settings['Ncc']['q_pipette_ncc']
+        self.q_pipette_err = settings['Ncc']['q_pipette_err']
+        self.s_pipette_ncc = settings['Ncc']['s_pipette_ncc']
+        self.s_offset = settings['Ncc']['s_offset']
+        self.hd_h = settings['Ncc']['HD_H']
+        self.blanks_he34ratios = []
+        self.blanks_he34sterrs = []
+        self.blanks_mean = 0
+        self.blanks_names = []
+        self.blanks_sterr = 0
+        self.files_dates = []
+        self.files_descriptions = []
+        self.files_he34corrratios = []
+        self.files_he34corrstderrs = []
+        self.files_he34ratios = []
+        self.files_he34stderrs = []
+        self.files_he3_shots = []
+        self.files_he4nccs = []
+        self.files_he4nccstderrs = []
+        self.files_names = []
+        self.files_qnumbers = []
+        self.nccfilepath = ''
+        self.qs_he34corrratios = []
+        self.qs_he34corrstderrs = []
+        self.qs_he34ratios = []
+        self.qs_he34sterrs = []
+        self.qs_he3_shots = []
+        self.qs_he4nccs = []
+        self.qs_he4nccstderrs = []
+        self.qs_qnumbers = []
+
+    def reset(self):
+        self.blanks_he34ratios = []
+        self.blanks_he34sterrs = []
+        self.blanks_mean = 0
+        self.blanks_names = []
+        self.blanks_sterr = 0
+        self.files_dates = []
+        self.files_descriptions = []
+        self.files_he34corrratios = []
+        self.files_he34corrstderrs = []
+        self.files_he34ratios = []
+        self.files_he34stderrs = []
+        self.files_he3_shots = []
+        self.files_he4nccs = []
+        self.files_he4nccstderrs = []
+        self.files_names = []
+        self.files_qnumbers = []
+        self.nccfilepath = ''
+        self.qs_he34corrratios = []
+        self.qs_he34corrstderrs = []
+        self.qs_he34ratios = []
+        self.qs_he34sterrs = []
+        self.qs_he3_shots = []
+        self.qs_he4nccs = []
+        self.qs_he4nccstderrs = []
+        self.qs_qnumbers = []
+
+    def readdirectory(self, filepath):
+        self.nccfilepath = filepath
+        filelist = glob.glob(filepath + "**\\HE*R")
+        settings['Ncc']['ncc_filepath'] = filepath
+        for filename in filelist:
+            rows = []
+            self.files_names.append(os.path.basename(filename))
+            self.files_he3_shots.append(int(os.path.basename(filename)[2:7]))
+            self.files_dates.append(datetime.strftime(datetime.fromtimestamp(os.path.getmtime(filename)), "%Y-%m-%d %H:%M:%S"))
+            with open(filename) as hefile:
+                read_data = csv.reader(hefile, delimiter='\t')
+                for row in read_data:
+                    rows.append(row)
+            hefile.close()
+            firstfield = rows[0][0].split('@')
+            filedesc = firstfield[0]
+            self.files_descriptions.append(filedesc)
+            rows[0][0] = firstfield[1]
+            nt = len(rows)
+            sampletime = numpy.zeros(nt, dtype='double')
+            hd = numpy.zeros(nt, dtype='double')
+            he3 = numpy.zeros(nt, dtype='double')
+            he4 = numpy.zeros(nt, dtype='double')
+            he4_he3 = numpy.zeros(nt, dtype='double')
+            for i in range(len(hd)):
+                sampletime[i] = rows[i][0]
+                hd[i] = float(rows[i][1]) * self.hd_h
+                he3[i] = float(rows[i][2]) - hd[i]
+                he4[i] = float(rows[i][3])
+                he4_he3[i] = (he4[i] / he3[i]) * 1000
+            bestfit = stats.linregress(sampletime, he4_he3)
+            self.files_he34ratios.append(bestfit[1])
+            self.files_he34stderrs.append(bestfit[0])
+            self.files_qnumbers.append(0)
+            self.files_he34corrratios.append(0)
+            self.files_he34corrstderrs.append(0)
+            self.files_he4nccs.append(0)
+            self.files_he4nccstderrs.append(0)
+            if filedesc[0] == 'Q':
+                self.qs_he3_shots.append(self.files_he3_shots[-1])
+                self.qs_qnumbers.append(int(filedesc[1:]))
+                self.qs_he34ratios.append(bestfit[1])
+                self.qs_he34sterrs.append(bestfit[0])
+                self.qs_he4nccs.append(0)
+                self.qs_he34corrratios.append(0)
+            if filedesc.lower() == 'lb' or filedesc.lower() == 'line blank':
+                self.blanks_names.append(self.files_names[-1])
+                self.blanks_he34ratios.append(bestfit[1])
+                self.blanks_he34sterrs.append(bestfit[0])
+        writesettings()
+
+    def calculate_blank_all(self):
+        self.blanks_mean = numpy.mean(self.blanks_he34ratios)
+        self.blanks_sterr = numpy.mean(self.blanks_he34sterrs)
+
+    def set_blank(self, blank_mean, blank_sterr):
+        self.blanks_mean = blank_mean
+        self.blanks_sterr = blank_sterr
+
+    def blankcorrect(self):
+        for i in range(len(self.files_names)):
+            self.files_he34corrratios[i] = self.files_he34ratios[i] - self.blanks_mean
+            self.files_he34corrstderrs[i] = pow((pow(self.blanks_sterr, 2) + pow(self.files_he34stderrs[i], 2)), 0.5)
+        for i in range(len(self.qs_qnumbers)):
+            self.qs_he34corrratios[i] = self.qs_he34ratios[i] - self.blanks_mean
+
+    def calculate_estimated_qbestfit(self, qshots, h3shots):
+        h3ncc = self.s_pipette_ncc * pow(self.s_dep_factor, (h3shots - self.s_offset))
+        qncc = self.q_pipette_ncc * pow(self.q_dep_factor, qshots)
+        return (qncc/h3ncc) * 1000
+
+    def calculate_ncc(self):
+        qoffset = 0
+        for i in range(len(self.files_names)):
+            if qoffset < len(self.qs_qnumbers)-1:
+                if self.files_he3_shots[i] >= self.qs_he3_shots[qoffset+1]:
+                    qoffset += 1
+            self.files_qnumbers[i] = self.qs_qnumbers[qoffset]
+            self.files_he4nccs[i] = self.q_pipette_ncc * pow(self.q_dep_factor, self.qs_qnumbers[qoffset]) * (self.files_he34corrratios[i] / self.qs_he34corrratios[qoffset])
+            self.files_he4nccstderrs[i] = self.files_he4nccs[i] * pow((pow((self.q_pipette_err / self.q_pipette_ncc), 2)) + pow((self.files_qnumbers[i] * self.q_depletion_err) / (pow(self.q_dep_factor, self.files_qnumbers[i])), 2), 0.5)
+
+    def write_ncc_file(self):
+        firstline = '"filename","date","description","q-standard","3He/4He_ratio","3He/4He_ratio_error","3He/4He_blank_corrected_ratio","3He/4He_blank_corrected_error","ncc","ncc_err"'
+        with open(self.nccfilepath + '\\PyMS_ncc.csv', 'w', newline='') as hefile:
+            print(firstline, file=hefile)
+            nccfile = csv.writer(hefile, delimiter=',')
+            for i in range(len(self.files_names)):
+                nccfile.writerow([self.files_names[i], self.files_dates[i], self.files_descriptions[i], self.files_qnumbers[i], self.files_he34ratios[i], self.files_he34stderrs[i], self.files_he34corrratios[i], self.files_he34corrstderrs[i], self.files_he4nccs[i], self.files_he4nccstderrs[i]])
+        hefile.close()
+
+    def filegenerator(self, filepath):
+        self.readdirectory(filepath)
+        self.calculate_blank_all()
+        self.blankcorrect()
+        self.calculate_ncc()
+        self.write_ncc_file()
+        self.reset()
+
+    def singlefilereader(self,filename):
+        rows = []
+        with open(filename) as hefile:
+            read_data = csv.reader(hefile, delimiter='\t')
+            for row in read_data:
+                rows.append(row)
+        hefile.close()
+        firstfield = rows[0][0].split('@')
+        rows[0][0] = firstfield[1]
+        nt = len(rows)
+        m1graph = []
+        m3graph = []
+        m4graph = []
+        ratiograph = []
+        for i in range(nt):
+            m1graph.append([float(rows[i][0]), float(rows[i][1])])
+            m3graph.append([float(rows[i][0]), float(rows[i][2]) - float(rows[i][1]) * self.hd_h])
+            m4graph.append([float(rows[i][0]), float(rows[i][3])])
+            ratiograph.append([float(rows[i][0]), (m4graph[i][1]/m3graph[i][1]) * 1000])
+        return m1graph, m3graph, m4graph, ratiograph
+
+ncc = HeResults()
+
+if __name__ == '__main__':
+    testfilepath = 'C:\\Users\\garyt\\OneDrive - TS Technologies Ltd\\GTFiles\\PhD\\Samples'
+    ncc.filegenerator(testfilepath)
