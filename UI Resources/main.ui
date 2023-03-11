@@ -1081,9 +1081,9 @@ background-color: rgba(255, 255, 255, 0);</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>200</y>
+      <y>220</y>
       <width>301</width>
-      <height>121</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
@@ -1324,6 +1324,22 @@ color: rgb(255, 0, 0);
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current Command</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>frmImage</zorder>
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
@@ -1357,6 +1373,7 @@ color: rgb(255, 0, 0);
    <zorder>imgPyrometer</zorder>
    <zorder>lblAalarm</zorder>
    <zorder>lblFinishTime</zorder>
+   <zorder>label_13</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1386,8 +1403,8 @@ color: rgb(255, 0, 0);
     <property name="title">
      <string>X-Y Controller</string>
     </property>
-    <addaction name="actionXYOpenLogPage"/>
     <addaction name="actionXYOpenStatusPage"/>
+    <addaction name="actionXYOpenLogPage"/>
     <addaction name="separator"/>
     <addaction name="actionManualControl"/>
    </widget>
@@ -1397,9 +1414,6 @@ color: rgb(255, 0, 0);
     </property>
     <addaction name="actionValveOpenStatusPage"/>
     <addaction name="actionValveOpenLogPage"/>
-    <addaction name="separator"/>
-    <addaction name="actionCO2LaserOn"/>
-    <addaction name="actionCO2LaserOff"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
@@ -1437,10 +1451,21 @@ color: rgb(255, 0, 0);
     <addaction name="separator"/>
     <addaction name="actionStopScan"/>
    </widget>
+   <widget class="QMenu" name="menuLaser_Controller">
+    <property name="title">
+     <string>Laser Controller</string>
+    </property>
+    <addaction name="actionLaserOpenStatusPage"/>
+    <addaction name="actionLaserOpenLogPage"/>
+    <addaction name="separator"/>
+    <addaction name="actionCO2LaserOn"/>
+    <addaction name="actionCO2LaserOff"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBatch"/>
    <addaction name="menu"/>
    <addaction name="menuXYController"/>
+   <addaction name="menuLaser_Controller"/>
    <addaction name="menuValveController"/>
    <addaction name="menuPump_Reader"/>
    <addaction name="menuMass_Spectrometer"/>
@@ -1599,43 +1624,6 @@ color: rgb(255, 0, 0);
     <string>Switch Off Pyrometer Location Laser</string>
    </property>
   </action>
-  <action name="actionCO2LaserOn">
-   <property name="text">
-    <string>CO2 Laser On</string>
-   </property>
-  </action>
-  <action name="actionCO2LaserOff">
-   <property name="text">
-    <string>CO2 Laser Off</string>
-   </property>
-  </action>
-  <action name="actionQuadViewer">
-   <property name="text">
-    <string>Quad Viewer</string>
-   </property>
-  </action>
-  <action name="actionSave_Metrics">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Save Troubleshooting Metrics</string>
-   </property>
-   <property name="iconText">
-    <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
-   </property>
-   <property name="toolTip">
-    <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
-   </property>
-   <property name="statusTip">
-    <string>Save Troubleshooting Metrics to CSV File (Warning File will get very big over time)</string>
-   </property>
-  </action>
-  <action name="actionIIndexPlanchet">
-   <property name="text">
-    <string>Index Planchet</string>
-   </property>
-  </action>
   <action name="actionStartMIDScan">
    <property name="text">
     <string>Start MID Scan</string>
@@ -1649,6 +1637,29 @@ color: rgb(255, 0, 0);
   <action name="actionStopScan">
    <property name="text">
     <string>STOP Scan</string>
+   </property>
+  </action>
+  <action name="actionLaserOpenStatusPage">
+   <property name="text">
+    <string>Open Status Page</string>
+   </property>
+  </action>
+  <action name="actionLaserOpenLogPage">
+   <property name="text">
+    <string>Open Log Page</string>
+   </property>
+  </action>
+  <action name="actionCO2LaserOn">
+   <property name="text">
+    <string>Laser On</string>
+   </property>
+  </action>
+  <action name="actionCO2LaserOff">
+   <property name="text">
+    <string>Laser Off</string>
+   </property>
+   <property name="toolTip">
+    <string>Sample Laser Off</string>
    </property>
   </action>
  </widget>

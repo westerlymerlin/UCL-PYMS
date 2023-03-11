@@ -147,7 +147,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         elif target[:7] == 'pipette':
             self.comboCommand.addItems(['load', 'unload', 'close'])
         elif target[:5] == 'laser':
-            self.comboCommand.addItems(['on', 'off', 'setpower'])
+            self.comboCommand.addItems(['on', 'off', 'setpower', 'checkalarms'])
         elif target[:4] == 'quad':
             self.comboCommand.addItems(['starttimer', 'starttimer-reheat', 'writefile', 'hiden-startmid',
                                         'hiden-startprofile', 'hiden-stop'])

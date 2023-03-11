@@ -3,7 +3,8 @@ from ui_xymanualcontrol import Ui_dialogXYSetup
 from settings import settings
 import threading
 import sqlite3
-import requests
+from host_queries import xyread
+from host_commands import xymove, xymoveto
 from cycleclass import currentcycle
 from batchclass import batch
 from time import sleep
@@ -46,32 +47,23 @@ class XYSetupUI(QDialog, Ui_dialogXYSetup):
         if self.running:
             timerthread = threading.Timer(1, self.timer)
             timerthread.start()
-            xyreaderthread = threading.Timer(0.05, self.updateXY)
+            xyreaderthread = threading.Timer(0.05, self.update_xy)
             xyreaderthread.start()
 
-    def updateXY(self):
-        try:
-            message = {"item": 'getxystatus', "command": True}
-            resp = requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-            self.xposition = resp.json()['xpos']
-            self.yposition = resp.json()['ypos']
-            self.lineXPosition.setText('%.3f' % self.xposition)
-            self.lineYPosition.setText('%.3f' % self.yposition)
-            self.bgdXred.setVisible(resp.json()['xmoving'])
-            self.bgdYred.setVisible(resp.json()['ymoving'])
-        except requests.RequestException:
-            print('Status Valve Controller Timeout Error')
+    def update_xy(self):
+        status = xyread()
+        self.xposition = status['xpos']
+        self.yposition = status['ypos']
+        self.lineXPosition.setText('%.3f' % self.xposition)
+        self.lineYPosition.setText('%.3f' % self.yposition)
+        self.bgdXred.setVisible(status['xmoving'])
+        self.bgdYred.setVisible(status['ymoving'])
 
     def gotopress(self):
         goloc = batch.locxy(self.comboLocation1.currentText())
-        try:
-            messagex = {"item": 'xmoveto', "command": goloc[0]}
-            requests.post(settings['hosts']['xyhost'], json=messagex, timeout=1)
-            sleep(.5)
-            messagey = {"item": 'ymoveto', "command": goloc[1]}
-            requests.post(settings['hosts']['xyhost'], json=messagey, timeout=1)
-        except requests.RequestException:
-            print('Status Valve Controller Timeout Error')
+        xymoveto('x', goloc[0])
+        sleep(.5)
+        xymoveto('y', goloc[1])
 
     def gotonextpress(self):
         if len(self.calibratelist) > 0:
@@ -80,26 +72,11 @@ class XYSetupUI(QDialog, Ui_dialogXYSetup):
             self.gotopress()
 
     def movepress(self, direction):
-        if direction[0] == 'x':
-            messagee = {"item": 'xmove', "command": direction[1]}
-        else:
-            messagee = {"item": 'ymove', "command": direction[1]}
-        try:
-            requests.post(settings['hosts']['xyhost'], json=messagee, timeout=1)
-        except requests.RequestException:
-            print('Status Valve Controller Timeout Error')
+        xymove(direction[0], direction[1])
 
     def stopall(self):
-        message = {"item": 'xmove', "command": 0}
-        try:
-            requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-        except requests.RequestException:
-            print('Stop X Timeout Error')
-        message = {"item": 'ymove', "command": 0}
-        try:
-            requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-        except requests.RequestException:
-            print('Stop Y Controller Timeout Error')
+        xymove('x', 0)
+        xymove('y', 0)
 
     def savelocation(self):
         database = sqlite3.connect(settings['database']['databasepath'])

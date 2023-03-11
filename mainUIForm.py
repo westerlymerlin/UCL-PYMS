@@ -1,26 +1,19 @@
 from PySide6.QtWidgets import *
 from ui_main import Ui_MainWindow
 import webbrowser
-import requests
-from settings import settings, writesettings, setrunning, running
+from settings import settings, writesettings, setrunning, running, alarms
 import threading
 from newbatchform import UiBatch
 from aboutui import UiAbout
 from logviewerui import UiLogViewer
 from settingsviewerui import UiSettingsViewer
 from xymanual import XYSetupUI
-from laserclass import laser
+from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread, tempratureread
+from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, pyrolasercommand
 from batchclass import batch
 from cycleclass import currentcycle
 from msHiden import ms
 from alertmessage import alert
-
-
-def laserstatus(status):
-    if status == 'on':
-        return 1
-    else:
-        return 0
 
 
 def valvestatus(status):
@@ -54,36 +47,38 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.tableResults.setColumnWidth(2, 175)
         self.tableResults.setColumnWidth(3, 70)
         self.move(settings['mainform']['x'], settings['mainform']['y'])
-        self.tbValve1.clicked.connect(lambda: self.workvalve('valve1', self.wValve1.isHidden()))
-        self.tbValve2.clicked.connect(lambda: self.workvalve('valve2', self.wValve2.isHidden()))
-        self.tbValve3.clicked.connect(lambda: self.workvalve('valve3', self.wValve3.isHidden()))
-        self.tbValve4.clicked.connect(lambda: self.workvalve('valve4', self.wValve4.isHidden()))
-        self.tbValve5.clicked.connect(lambda: self.workvalve('valve5', self.wValve5.isHidden()))
-        self.tbValve6.clicked.connect(lambda: self.workvalve('valve6', self.wValve6.isHidden()))
-        self.tbValve7.clicked.connect(lambda: self.workvalve('valve7', self.wValve7.isHidden()))
-        self.tbValve8.clicked.connect(lambda: self.workvalve('valve8', self.wValve8.isHidden()))
-        self.tbValve10.clicked.connect(lambda: self.workvalve('valve10', self.wValve10.isHidden()))
-        self.tbValve11.clicked.connect(lambda: self.workvalve('valve11', self.wValve11.isHidden()))
-        self.tbValve12.clicked.connect(lambda: self.workvalve('valve12', self.wValve12.isHidden()))
-        self.tbValve13.clicked.connect(lambda: self.workvalve('valve13', self.wValve13.isHidden()))
-        self.tbStop.clicked.connect(self.closeallvalves)
-        self.tbRun.clicked.connect(self.runclick)
+        self.tbValve1.clicked.connect(lambda: valvechange('valve1', self.wValve1.isHidden()))
+        self.tbValve2.clicked.connect(lambda: valvechange('valve2', self.wValve2.isHidden()))
+        self.tbValve3.clicked.connect(lambda: valvechange('valve3', self.wValve3.isHidden()))
+        self.tbValve4.clicked.connect(lambda: valvechange('valve4', self.wValve4.isHidden()))
+        self.tbValve5.clicked.connect(lambda: valvechange('valve5', self.wValve5.isHidden()))
+        self.tbValve6.clicked.connect(lambda: valvechange('valve6', self.wValve6.isHidden()))
+        self.tbValve7.clicked.connect(lambda: valvechange('valve7', self.wValve7.isHidden()))
+        self.tbValve8.clicked.connect(lambda: valvechange('valve8', self.wValve8.isHidden()))
+        self.tbValve10.clicked.connect(lambda: valvechange('valve10', self.wValve10.isHidden()))
+        self.tbValve11.clicked.connect(lambda: valvechange('valve11', self.wValve11.isHidden()))
+        self.tbValve12.clicked.connect(lambda: valvechange('valve12', self.wValve12.isHidden()))
+        self.tbValve13.clicked.connect(lambda: valvechange('valve13', self.wValve13.isHidden()))
+        self.tbStop.clicked.connect(self.emergency_stop)
+        self.tbRun.clicked.connect(self.run_click)
         self.actionExit.triggered.connect(self.closeEvent)
-        self.actionStartNewBatch.triggered.connect(self.shownewbatch)
-        self.actionManualControl.triggered.connect(self.showxymanual)
-        self.actionXYOpenStatusPage.triggered.connect(lambda: self.oppenwebpage('XY Status'))
-        self.actionXYOpenLogPage.triggered.connect(lambda: self.oppenwebpage('XY Log'))
-        self.actionValveOpenStatusPage.triggered.connect(lambda: self.oppenwebpage('Valve Status'))
-        self.actionValveOpenLogPage.triggered.connect(lambda: self.oppenwebpage('Valve Log'))
-        self.actionPumpOpenStatusPage.triggered.connect(lambda: self.oppenwebpage('Pump Status'))
-        self.actionPumpOpenLogPage.triggered.connect(lambda: self.oppenwebpage('Pump Log'))
-        self.actionCO2LaserOn.triggered.connect(lambda: self.manuallaser('CO2', 'on'))
-        self.actionCO2LaserOff.triggered.connect(lambda: self.manuallaser('CO2', 'off'))
-        self.actionPyroLaserOn.triggered.connect(lambda: self.manuallaser('Pyro', 'on'))
-        self.actionPyroLaserOff.triggered.connect(lambda: self.manuallaser('Pyro', 'off'))
-        self.actionAboutPyMS.triggered.connect(self.showabout)
-        self.actionViewPyMSLog.triggered.connect(self.showlogviewer)
-        self.actionViewPyMSSettings.triggered.connect(self.showsettingsviewer)
+        self.actionStartNewBatch.triggered.connect(self.menu_show_new_batch)
+        self.actionManualControl.triggered.connect(self.menu_show_xymanual)
+        self.actionXYOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('XY Status'))
+        self.actionXYOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('XY Log'))
+        self.actionValveOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Valve Status'))
+        self.actionValveOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Valve Log'))
+        self.actionPumpOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Pump Status'))
+        self.actionPumpOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Pump Log'))
+        self.actionLaserOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Laser Status'))
+        self.actionLaserOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Laser Log'))
+        self.actionCO2LaserOn.triggered.connect(lambda: self.manual_laser('CO2', 'on'))
+        self.actionCO2LaserOff.triggered.connect(lambda: self.manual_laser('CO2', 'off'))
+        self.actionPyroLaserOn.triggered.connect(lambda: self.manual_laser('Pyro', 'on'))
+        self.actionPyroLaserOff.triggered.connect(lambda: self.manual_laser('Pyro', 'off'))
+        self.actionAboutPyMS.triggered.connect(self.menu_show_about)
+        self.actionViewPyMSLog.triggered.connect(self.menu_show_log_viewer)
+        self.actionViewPyMSSettings.triggered.connect(self.menu_show_settings_viewer)
         self.spinLaserPower.setValue(settings['laser']['power'])
         self.spinLaserPower.valueChanged.connect(self.setlaserpower)
         self.actionStartMIDScan.triggered.connect(ms.start_mid)
@@ -97,54 +92,41 @@ class UiMain(QMainWindow, Ui_MainWindow):
         currentcycle.setcycle(batch.current()[0])
         self.run = 0
         self.taskrunning = False
-        self.valveerrors = 0
-        self.xyerrors = 0
-        self.pumperrors = 0
         self.turbopumphigh = 0
         self.ionpumphigh = 0
         self.lblCurrent.setText('idle')
-        self.updatebatchlist()
-        self.update_commandlist()
-        threading.Timer(5, self.timer).start()
-        self.updateresults()
+        self.update_ui_batch_list()
+        self.update_ui_commandlist()
+        threading.Timer(5, self.global_timer).start()
+        self.update_ui_results_table()
 
-    def timer(self):
+    def global_timer(self):
         if running:
             self.secondcount = self.secondcount + self.secondincrement
             self.lcdElapsedTime.display(self.secondcount)
-            timerthread = threading.Timer(1, self.timer)
+            timerthread = threading.Timer(1, self.global_timer)
             timerthread.start()
-            valvereaderthread = threading.Timer(0.05, self.getvalvestatus)
+            valvereaderthread = threading.Timer(0.05, self.update_ui_display_items)
             valvereaderthread.start()
             msreaderthread = threading.Timer(0.1, self.read_ms)
             msreaderthread.start()
             alarmreaderthread = threading.Timer(0.3, self.check_alarms)
             alarmreaderthread.start()
             if not self.taskrunning:
-                taskrunnerthread = threading.Timer(0.2, self.timedevents)
+                taskrunnerthread = threading.Timer(0.2, self.event_timer)
                 taskrunnerthread.start()
             if self.timertick == 0 or self.timertick == 2:
-                xyreaderthread = threading.Timer(0.1, self.update_xy)
+                xyreaderthread = threading.Timer(0.1, self.update_ui_xy_positions)
                 xyreaderthread.start()
             if self.timertick == 0:
-                pressurereaderthread = threading.Timer(0.5, self.update_pressures)
+                pressurereaderthread = threading.Timer(0.5, self.update_ui_pressures)
                 pressurereaderthread.start()
-                pyroreaderthread = threading.Timer(0.7, self.updatetemprature)
+                pyroreaderthread = threading.Timer(0.7, self.update_ui_temprature)
                 pyroreaderthread.start()
             if self.timertick == 3:
                 self.timertick = 0
             else:
                 self.timertick += 1
-
-    def getvalvestatus(self):
-        message = {"item": 'getstatus', "command": True}
-        try:
-            resp = requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
-            self.valveerrors = 0
-            self.setvalves(resp.json())
-        except requests.RequestException:
-            self.valveerrors += 1
-            print('t=%s mainUIForm: Get Status Valve Controller Timeout Error' % self.secondcount)
 
     def read_ms(self):
         labletext = ms.check_quad_is_online()
@@ -164,18 +146,30 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
-        if self.valveerrors > 10:
+        if alarms['laseralarm'] != 133:
+            print('%s laser alarm firing' % alarms['laseralarm'])
+            status = status + 'The laser is not ready, please ensure that the laser is powered on, the key is in position 2 and the enable button has been pressed. This error can also follow a power fail\n'
+            lasergetalarm()
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if alarms['valvehost'] > 10:
             status = status + 'Valve controller is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
-        if self.xyerrors > 10:
+        if alarms['xyhost'] > 10:
             status = status + 'X-Y controller is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
-        if self.pumperrors > 10:
+        if alarms['pumphost'] > 10:
             status = status + 'Pump reader is offline, the system is paused. \n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
+        if alarms['laserhost'] > 100:
+            status = status + 'Laser controller is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
@@ -215,111 +209,75 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 alert(status)
                 print(status)
 
-    def setvalves(self, resp):
-        if self.wValve1.isVisible() != valvestatus(resp[0]['status']):
-            print('t=%s mainUIForm: Valve 1 changed' % self.secondcount)
-            self.wValve1.setVisible(valvestatus(resp[0]['status']))
-        if self.wValve2.isVisible() != valvestatus(resp[1]['status']):
-            print('t=%s mainUIForm: Valve 2 changed' % self.secondcount)
-            self.wValve2.setVisible(valvestatus(resp[1]['status']))
-        if self.wValve3.isVisible() != valvestatus(resp[2]['status']):
-            print('t=%s mainUIForm: Valve 3 changed' % self.secondcount)
-            self.wValve3.setVisible(valvestatus(resp[2]['status']))
-        if self.wValve4.isVisible() != valvestatus(resp[3]['status']):
-            print('t=%s mainUIForm: Valve 4 changed' % self.secondcount)
-            self.wValve4.setVisible(valvestatus(resp[3]['status']))
-        if self.wValve5.isVisible() != valvestatus(resp[4]['status']):
-            print('t=%s mainUIForm: Valve 5 changed' % self.secondcount)
-            self.wValve5.setVisible(valvestatus(resp[4]['status']))
-        if self.wValve6.isVisible() != valvestatus(resp[5]['status']):
-            print('t=%s mainUIForm: Valve 6 changed' % self.secondcount)
-            self.wValve6.setVisible(valvestatus(resp[5]['status']))
-        if self.wValve7.isVisible() != valvestatus(resp[6]['status']):
-            print('t=%s mainUIForm: Valve 7 changed' % self.secondcount)
-            self.wValve7.setVisible(valvestatus(resp[6]['status']))
-        if self.wValve8.isVisible() != valvestatus(resp[7]['status']):
-            print('t=%s mainUIForm: Valve 8 changed' % self.secondcount)
-            self.wValve8.setVisible(valvestatus(resp[7]['status']))
-        if self.wValve10.isVisible() != valvestatus(resp[8]['status']):
-            print('t=%s mainUIForm: Valve 10 changed' % self.secondcount)
-            self.wValve10.setVisible(valvestatus(resp[8]['status']))
-        if self.wValve11.isVisible() != valvestatus(resp[9]['status']):
-            print('t=%s mainUIForm: Valve 11 changed' % self.secondcount)
-            self.wValve11.setVisible(valvestatus(resp[9]['status']))
-        if self.wValve12.isVisible() != valvestatus(resp[10]['status']):
-            print('t=%s mainUIForm: Valve 12 changed' % self.secondcount)
-            self.wValve12.setVisible(valvestatus(resp[10]['status']))
-        if self.wValve13.isVisible() != valvestatus(resp[11]['status']):
-            print('t=%s mainUIForm: Valve 13 changed' % self.secondcount)
-            self.wValve13.setVisible(valvestatus(resp[11]['status']))
-        if self.imgLaser.isVisible() != laserstatus(resp[12]['status']):
-            print('t=%s mainUIForm: Laser Status changed' % self.secondcount)
-            self.imgLaser.setVisible(laserstatus(resp[12]['status']))
+    def update_ui_display_items(self):
+        status = valvegetstatus()
+        if status[0]['status'] != 'timeout':
+            if self.wValve1.isVisible() != valvestatus(status[0]['status']):
+                print('t=%s mainUIForm: Valve 1 changed' % self.secondcount)
+                self.wValve1.setVisible(valvestatus(status[0]['status']))
+            if self.wValve2.isVisible() != valvestatus(status[1]['status']):
+                print('t=%s mainUIForm: Valve 2 changed' % self.secondcount)
+                self.wValve2.setVisible(valvestatus(status[1]['status']))
+            if self.wValve3.isVisible() != valvestatus(status[2]['status']):
+                print('t=%s mainUIForm: Valve 3 changed' % self.secondcount)
+                self.wValve3.setVisible(valvestatus(status[2]['status']))
+            if self.wValve4.isVisible() != valvestatus(status[3]['status']):
+                print('t=%s mainUIForm: Valve 4 changed' % self.secondcount)
+                self.wValve4.setVisible(valvestatus(status[3]['status']))
+            if self.wValve5.isVisible() != valvestatus(status[4]['status']):
+                print('t=%s mainUIForm: Valve 5 changed' % self.secondcount)
+                self.wValve5.setVisible(valvestatus(status[4]['status']))
+            if self.wValve6.isVisible() != valvestatus(status[5]['status']):
+                print('t=%s mainUIForm: Valve 6 changed' % self.secondcount)
+                self.wValve6.setVisible(valvestatus(status[5]['status']))
+            if self.wValve7.isVisible() != valvestatus(status[6]['status']):
+                print('t=%s mainUIForm: Valve 7 changed' % self.secondcount)
+                self.wValve7.setVisible(valvestatus(status[6]['status']))
+            if self.wValve8.isVisible() != valvestatus(status[7]['status']):
+                print('t=%s mainUIForm: Valve 8 changed' % self.secondcount)
+                self.wValve8.setVisible(valvestatus(status[7]['status']))
+            if self.wValve10.isVisible() != valvestatus(status[8]['status']):
+                print('t=%s mainUIForm: Valve 10 changed' % self.secondcount)
+                self.wValve10.setVisible(valvestatus(status[8]['status']))
+            if self.wValve11.isVisible() != valvestatus(status[9]['status']):
+                print('t=%s mainUIForm: Valve 11 changed' % self.secondcount)
+                self.wValve11.setVisible(valvestatus(status[9]['status']))
+            if self.wValve12.isVisible() != valvestatus(status[10]['status']):
+                print('t=%s mainUIForm: Valve 12 changed' % self.secondcount)
+                self.wValve12.setVisible(valvestatus(status[10]['status']))
+            if self.wValve13.isVisible() != valvestatus(status[11]['status']):
+                print('t=%s mainUIForm: Valve 13 changed' % self.secondcount)
+                self.wValve13.setVisible(valvestatus(status[11]['status']))
+        status = lasergetstatus()
+        if status['laser'] != 'timeout':
+            if self.imgLaser.isVisible() != status['laser']:
+                print('t=%s mainUIForm: Laser Status changed' % self.secondcount)
+                self.imgLaser.setVisible(status['laser'])
 
     def setlaserpower(self):
         settings['laser']['power'] = self.spinLaserPower.value()
 
-    def workvalve(self, valve, state):
-        if state:
-            command = 'open'
-        else:
-            command = 'close'
-        message = {"item": valve, "command": command}
-        try:
-            requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
-            self.valveerrors = 0
-        except requests.RequestException:
-            print('t=%s mainUIForm: Manual Valve Controller Timeout Error' % self.secondcount)
-            self.valveerrors += 5
-
-    def valvecommand(self, valve, command):
-        message = {"item": valve, "command": command}
-        try:
-            requests.post(settings['hosts']['valvehost'], json=message, timeout=2)
-            self.valveerrors = 0
-        except requests.RequestException:
-            print('t=%s mainUIForm: Automated Valve Controller Timeout Error' % self.secondcount)
-            self.valveerrors += 5
-
-    def closeallvalves(self):
+    def emergency_stop(self):
         self.secondincrement = 0
         self.secondcount = 0
         self.run = 0
-        message = {"item": 'closeallvalves', "command": True}
-        try:
-            requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
-            self.valveerrors = 0
-        except requests.RequestException:
-            print('t=%s mainUIForm: Close all Valve Controller Timeout Error' % self.secondcount)
-            self.valveerrors += 11
-        message = {"item": 'xmove', "command": 0}
-        try:
-            requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-            self.xyerrors = 0
-        except requests.RequestException:
-            print('t=%s mainUIForm: xy Stop X Timeout Error' % self.secondcount)
-            self.xyerrors += 10
-        message = {"item": 'ymove', "command": 0}
-        try:
-            requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-            self.xyerrors = 0
-        except requests.RequestException:
-            print('t=%s mainUIForm: Stop Y Controller Timeout Error' % self.secondcount)
-            self.xyerrors += 10
-
+        valvechange('closeallvalves', True)
+        lasercommand('off')
+        xymove('x', 0)
+        xymove('y', 0)
         batch.changed = 1
         self.tbRun.setChecked(0)
-        # sleep(0.5)
         self.tbStop.setChecked(0)
         self.runstate()
 
-    def runclick(self):
+    def run_click(self):
         if self.tbRun.isChecked():
             print('t=%s mainUIForm: Run pressed' % self.secondcount)
             self.run = 2
             self.xyerrors = 0
             self.valveerrors = 0
             self.lblFinishTime.setText(batch.finishtime())
+            self.taskrunning = False
         else:
             print('t=%s mainUIForm: Pause pressed, will halt after this cycle ends' % self.secondcount)
             self.run = 1
@@ -337,7 +295,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.lblFinishTime.setText('')
                 self.lblStatus.setText('Status: Manual Control')
                 self.secondincrement = 0
-                laser.off()
+                lasercommand('off')
         except:
             print('t=%s mainUIForm: Runstate error' % self.secondcount)
 
@@ -349,84 +307,49 @@ class UiMain(QMainWindow, Ui_MainWindow):
         setrunning(False)
         self.deleteLater()
 
-    def timedevents(self):
+    def event_timer(self):
         try:
             if self.run > 0:
-                self.runevents()
+                self.event_parser()
             if batch.changed == 1:
                 batch.changed = 0
                 currentcycle.setcycle(batch.current()[0])
-                self.updatebatchlist()
-                self.update_commandlist()
-                self.updateresults()
+                self.update_ui_batch_list()
+                self.update_ui_commandlist()
+                self.update_ui_results_table()
         except ValueError:
             print('t=%s mainUIForm: timedevents value error %s' % (self.secondcount, Exception()))
         except TypeError:
             print('t=%s mainUIForm: timedevents type error %s' % (self.secondcount, Exception()))
 
-    def runevents(self):
+    def event_parser(self):
         try:
-            if self.valveerrors > 10 or self.xyerrors > 10:
-                self.secondincrement = 0
-                self.run = 0
-                self.tbRun.setChecked(False)
-                print('t=%s mainUIForm: Paused because of comms error' % self.secondcount)
-                self.lblCurrent.setText('Paused because of comms errors. Please Check Log')
-                return
             self.taskrunning = True
             current = currentcycle.currentstep()
             if self.secondcount >= current[0]:
                 self.lblCurrent.setText('%s, %s' % (current[1], current[2]))
                 if current[1][0:5] == 'valve' or current[1][0:7] == 'pipette':
-                    self.valvecommand(current[1], current[2])
+                    valvechange(current[1], current[2])
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
-                elif current[1] == 'End':
-                    if not (batch.isitthereyet(self.xposition, self.yposition)):
-                        print('t=%s mainUIform: location not there yet x=%s, y=%s'
-                              % (self.secondcount, self.xposition, self.yposition))
-                        self.lblCurrent.setText('Waiting for X-Y Stage to position')
-                        self.taskrunning = False
-                        return
-                    self.secondincrement = 0
-                    print('t=%s mainUIForm: End of cycle detected' % self.secondcount)
-                    self.lblCurrent.setText('idle')
-                    currentrunstate = self.run
-                    self.run = 0
-                    print("mainUIForm: starting complete current")
-                    batch.completecurrent()
-                    print("mainUIForm: Setting cycle to next")
-                    currentcycle.setcycle(batch.current()[0])
-                    print('mainUIForm: New Cycle loaded')
-                    self.secondcount = 0
-                    print('mainUIForm: Update lists')
-                    self.updatebatchlist()
-                    self.update_commandlist()
-                    self.updateresults()
-                    self.secondincrement = 1
-                    if batch.current()[0] != 'End':
-                        if currentrunstate == 1:
-                            self.run = 0
-                            self.runstate()
-                        else:
-                            self.run = currentrunstate
-                    else:
-                        self.secondincrement = 0
-                        self.secondcount = 0
-                        self.run = 0
-                        self.tbRun.setChecked(False)
-                        self.runstate()
                 elif current[1][0:5] == 'laser':
                     if current[2] == 'on':
-                        laser.on()
+                        lasercommand('on')
                     elif current[2] == 'setpower':
-                        laser.setpower()
+                        lasersetpower(settings['laser']['power'])
+                    elif current[2] == 'checkalarms':
+                        lasergetalarm()
+                        if alarms['laseralarm'] != 133:
+                            self.run = 0  # pause the run as the laser is not ready
+                            self.secondincrement = 0
+                            self.tbRun.setChecked(False)
+                            return
                     else:
-                        laser.off()
+                        lasercommand('off')
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
                 elif current[1][0:7] == 'xytable':
-                    self.movenext()
+                    self.move_next()
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
                 elif current[1] == 'quad':
@@ -451,6 +374,41 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     batch.image(current[2])
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
+                elif current[1] == 'End':
+                    if not (batch.isitthereyet(self.xposition, self.yposition)):
+                        print('t=%s mainUIform: location not there yet x=%s, y=%s'
+                              % (self.secondcount, self.xposition, self.yposition))
+                        self.lblCurrent.setText('Waiting for X-Y Stage to position')
+                        self.taskrunning = False
+                        return
+                    self.secondincrement = 0
+                    print('t=%s mainUIForm: End of cycle detected' % self.secondcount)
+                    self.lblCurrent.setText('idle')
+                    currentrunstate = self.run
+                    self.run = 0
+                    print("mainUIForm: starting complete current")
+                    batch.completecurrent()
+                    print("mainUIForm: Setting cycle to next")
+                    currentcycle.setcycle(batch.current()[0])
+                    print('mainUIForm: New Cycle loaded')
+                    self.secondcount = 0
+                    print('mainUIForm: Update lists')
+                    self.update_ui_batch_list()
+                    self.update_ui_commandlist()
+                    self.update_ui_results_table()
+                    self.secondincrement = 1
+                    if batch.current()[0] != 'End':
+                        if currentrunstate == 1:
+                            self.run = 0
+                            self.runstate()
+                        else:
+                            self.run = currentrunstate
+                    else:
+                        self.secondincrement = 0
+                        self.secondcount = 0
+                        self.run = 0
+                        self.tbRun.setChecked(False)
+                        self.runstate()
                 else:
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
@@ -459,32 +417,32 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.taskrunning = False
             print('t=%s mainUIForm: runevents error %s' % (self.secondcount, Exception))
 
-    def shownewbatch(self):
+    def menu_show_new_batch(self):
         self.newdialog = UiBatch()
         self.newdialog.setModal(True)
         self.newdialog.openbatcheck()
         self.newdialog.show()
 
-    def showabout(self):
+    def menu_show_about(self):
         self.aboutdialog = UiAbout()
         self.aboutdialog.show()
 
-    def showlogviewer(self):
+    def menu_show_log_viewer(self):
         self.logviewerdialog = UiLogViewer()
         self.logviewerdialog.loadlog()
         self.logviewerdialog.show()
 
-    def showsettingsviewer(self):
+    def menu_show_settings_viewer(self):
         self.setingviewerdialog = UiSettingsViewer()
         self.setingviewerdialog.loadfile()
         self.setingviewerdialog.show()
 
-    def showxymanual(self):
+    def menu_show_xymanual(self):
         self.newdialog = XYSetupUI()
         self.newdialog.setModal(True)
         self.newdialog.show()
 
-    def updatebatchlist(self):
+    def update_ui_batch_list(self):
         try:
             print('mainUIForm: Update Batch List')
             self.listBatch.clear()
@@ -497,7 +455,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         except:
             print('mainUIForm: batchlist error')
 
-    def update_commandlist(self):
+    def update_ui_commandlist(self):
         try:
             print('mainUIForm: Update command list')
             self.listCommands.clear()
@@ -505,47 +463,26 @@ class UiMain(QMainWindow, Ui_MainWindow):
         except:
             print('mainUIForm: command list error')
 
-    def update_pressures(self):
-        message = {"item": 'getpressures', "command": True}
-        try:
-            resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
-            settings['vacuum']['turbo']['current'] = float(resp.json()[0]['pressure'])
-            settings['vacuum']['tank']['current'] = float(resp.json()[1]['pressure'])
-            settings['vacuum']['ion']['current'] = float(resp.json()[2]['pressure'])
-            self.lineIonPump.setText('%.2e' % settings['vacuum']['ion']['current'])
-            self.lineTurboPump.setText('%.2e' % settings['vacuum']['turbo']['current'])
-            self.lineScrollPump.setText('%.2e' % settings['vacuum']['tank']['current'])
-            self.pumperrors = 0
-        except requests.RequestException:
-            self.pumperrors += 1
-            print('t=%s mainUIForm: Get Pressures Pump Raeder Timeout Error' % self.secondcount)
+    def update_ui_pressures(self):
+        pressuresread()
+        self.lineIonPump.setText('%.2e' % settings['vacuum']['ion']['current'])
+        self.lineTurboPump.setText('%.2e' % settings['vacuum']['turbo']['current'])
+        self.lineScrollPump.setText('%.2e' % settings['vacuum']['tank']['current'])
 
-    def updatetemprature(self):
-        message = {"item": 'gettemperature', "command": True}
-        try:
-            resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
-            settings['pyrometer']['current'] = float(resp.json()['temperature'])
-            self.linePyrometer.setText('%s' % settings['pyrometer']['current'])
-            self.imgPyrometer.setHidden(not (resp.json()['laser']))
-            self.pumperrors = 0
-        except requests.RequestException:
-            self.pumperrors += 1
-            print('t=%s mainUIForm: Get Temperature Pump Raeder Timeout Error' % self.secondcount)
+    def update_ui_temprature(self):
+        status = tempratureread()
+        self.linePyrometer.setText('%s' % settings['pyrometer']['current'])
+        self.imgPyrometer.setHidden(not status['laser'])
 
-    def update_xy(self):
-        try:
-            message = {"item": 'getxystatus', "command": True}
-            resp = requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
-            self.xposition = resp.json()['xpos']
-            self.yposition = resp.json()['ypos']
+    def update_ui_xy_positions(self):
+        status = xyread()
+        if status['xmoving'] != 'timeout':
+            self.xposition = status['xpos']
+            self.yposition = status['ypos']
             self.lineXPosition.setText('%.3f' % self.xposition)
             self.lineYPosition.setText('%.3f' % self.yposition)
-            self.xyerrors = 0
-        except requests.RequestException:
-            print('t=%s mainUIForm: Get Status X-Y Controller Timeout Error' % self.secondcount)
-            self.xyerrors += 1
 
-    def updateresults(self):
+    def update_ui_results_table(self):
         try:
             print('mainUIForm: Update results')
             self.tableResults.setRowCount(0)
@@ -563,11 +500,10 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tableResults.setItem(x, 2, newdescription_item)
                 self.tableResults.setItem(x, 3, newresults_item)
             print('mainUIForm: Results Table Updated')
-
         except:
             print('mainUIForm: Update results error - %s' % Exception)
 
-    def oppenwebpage(self, page):
+    def menu_open_web_page(self, page):
         if page == 'Valve Status':
             url = settings['hosts']['valvehost'][:-4]
             webbrowser.open(url)
@@ -580,6 +516,12 @@ class UiMain(QMainWindow, Ui_MainWindow):
         elif page == 'XY Log':
             url = settings['hosts']['xyhost'][:-3] + 'pylog'
             webbrowser.open(url)
+        elif page == 'Laser Status':
+            url = settings['hosts']['laserhost'][:-4]
+            webbrowser.open(url)
+        elif page == 'Laser Log':
+            url = settings['hosts']['laserhost'][:-3] + 'pylog'
+            webbrowser.open(url)
         elif page == 'Pump Status':
             url = settings['hosts']['pumphost'][:-4]
             webbrowser.open(url)
@@ -587,43 +529,26 @@ class UiMain(QMainWindow, Ui_MainWindow):
             url = settings['hosts']['pumphost'][:-3] + 'pylog'
             webbrowser.open(url)
 
-    def movenext(self):
+
+    def move_next(self):
         print('t:%s mainUIform: Move to %s' % (self.secondcount, batch.nextlocation()))
-        movexthread = threading.Timer(0.5, self.movex)
+        movexthread = threading.Timer(0.5, self.move_x)
         movexthread.start()
-        moveythread = threading.Timer(1.5, self.movey)
+        moveythread = threading.Timer(1.5, self.move_y)
         moveythread.start()
 
-    def movex(self):
+    def move_x(self):
         location = batch.locxy(batch.nextlocation())
-        try:
-            messagex = {"item": 'xmoveto', "command": location[0]}
-            requests.post(settings['hosts']['xyhost'], json=messagex, timeout=1)
-            self.xyerrors = 0
-        except requests.RequestException:
-            print('mainUIForm: Move XY Controller Timeout Error')
-            self.xyerrors += 5
+        xymoveto('x', location[0])
 
-    def movey(self):
+    def move_y(self):
         location = batch.locxy(batch.nextlocation())
-        try:
-            messagey = {"item": 'ymoveto', "command": location[1]}
-            requests.post(settings['hosts']['xyhost'], json=messagey, timeout=1)
-            self.xyerrors = 0
-        except requests.RequestException:
-            print('mainUIForm: Move XY Controller Timeout Error')
-            self.xyerrors += 5
+        xymoveto('y', location[1])
 
-    def manuallaser(self, lasertype, state):
+    def manual_laser(self, lasertype, state):
         print("mainUIForm: Manual Laser Control: Laser %s is set to %s" % (lasertype, state))
         if lasertype == 'CO2':
-            laserhost = settings['hosts']['valvehost']
-            laser.setpower()
+            lasersetpower(settings['laser']['power'])
+            lasercommand(state)
         else:
-            laserhost = settings['hosts']['pumphost']
-        try:
-            message = {"item": 'laser', "command": state}
-            if self.run < 1:
-                requests.post(laserhost, json=message, timeout=1)
-        except requests.RequestException:
-            print('mainUIForm: Laser Manual Control Timeout Error')
+            pyrolasercommand(state)

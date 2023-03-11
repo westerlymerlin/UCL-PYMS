@@ -1,9 +1,9 @@
 import json
 
-version = '2.0.6'
+version = '2.1.1'
 running = True
 settings = {}
-
+alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
 def friendlydirname(sourcename):
     sourcename = sourcename.replace('/', '-')
@@ -45,6 +45,7 @@ def initialise():
     settings['hosts']['valvehost'] = 'http://192.168.1.7/api'
     settings['hosts']['xyhost'] = 'http://192.168.1.8/api'
     settings['hosts']['pumphost'] = 'http://192.168.1.6/api'
+    settings['hosts']['laserhost'] = 'http://192.168.1.9/api'
     settings['database'] = {}
     settings['database']['databasepath'] = '.\\database\\PyMs.db'
     settings['database']['databasebackuppath'] = '.\\database\\PyMs.backup.db'
@@ -68,12 +69,11 @@ def initialise():
     settings['cycleeditform'] = {}
     settings['cycleeditform']['x'] = 600
     settings['cycleeditform']['y'] = 100
+    settings['ncccalcform'] = {}
     settings['ncccalcform']['x'] = 600
     settings['ncccalcform']['y'] = 100
     settings['laser'] = {}
     settings['laser']['power'] = 40.0
-    settings['laser']['port'] = 'com5'
-    settings['laser']['baud'] = 9600
     settings['pyrometer'] = {}
     settings['pyrometer']['current'] = 0
     settings['pyrometer']['low'] = 700
