@@ -41,7 +41,7 @@ def valvechange(valve, command):
     except requests.RequestException:
         print('host_commands: Valve Change Timeout Error')
         alarms['valvehost'] += 5
-        return {{'status': 'timout', 'valve': 1}}
+        return [{'status': 'timout', 'valve': 1}]
 
 
 def xymoveto(axis, location):
@@ -78,3 +78,15 @@ def pyrolasercommand(state):
         print('host_commands: Pump Command Timeout Error')
         alarms['pumphost'] += 5
         return {'laser': 'timeout'}
+
+def rpi_reboot(host):
+    message = {"item": 'restart', "command": 'pi'}
+    try:
+        resp = requests.post(settings['hosts'][host], json=message, timeout=1)
+        alarms['pumphost'] = 0
+        return resp.json()
+    except requests.RequestException:
+        print('host_commands: restart %s' % host)
+        return {host: 'timeout'}
+
+

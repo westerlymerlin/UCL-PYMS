@@ -9,7 +9,7 @@ from logviewerui import UiLogViewer
 from settingsviewerui import UiSettingsViewer
 from xymanual import XYSetupUI
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread, tempratureread
-from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, pyrolasercommand
+from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, pyrolasercommand, rpi_reboot
 from batchclass import batch
 from cycleclass import currentcycle
 from msHiden import ms
@@ -66,12 +66,16 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionManualControl.triggered.connect(self.menu_show_xymanual)
         self.actionXYOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('XY Status'))
         self.actionXYOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('XY Log'))
+        self.actionReboot_XY.triggered.connect(lambda: self.restart_pi('xyhost'))
         self.actionValveOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Valve Status'))
         self.actionValveOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Valve Log'))
+        self.actionReboot_Valve.triggered.connect(lambda: self.restart_pi('valvehost'))
         self.actionPumpOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Pump Status'))
         self.actionPumpOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Pump Log'))
+        self.actionReboot_Pump.triggered.connect(lambda: self.restart_pi('pumphost'))
         self.actionLaserOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Laser Status'))
         self.actionLaserOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Laser Log'))
+        self.actionReboot_Laser.triggered.connect(lambda: self.restart_pi('laserhost'))
         self.actionCO2LaserOn.triggered.connect(lambda: self.manual_laser('CO2', 'on'))
         self.actionCO2LaserOff.triggered.connect(lambda: self.manual_laser('CO2', 'off'))
         self.actionPyroLaserOn.triggered.connect(lambda: self.manual_laser('Pyro', 'on'))
@@ -502,6 +506,24 @@ class UiMain(QMainWindow, Ui_MainWindow):
             print('mainUIForm: Results Table Updated')
         except:
             print('mainUIForm: Update results error - %s' % Exception)
+
+    def restart_pi(self,host):
+        print('Reboot requested for %s' % host)
+        msgBox = QMessageBox()
+        msgBox.setStyleSheet(u"border-color: rgb(255, 255, 255);\n"
+"font: 10pt \"Segoe UI\";\n"
+"background-color: rgb(230, 230, 230);")
+        msgBox.setWindowTitle('Restart the Raspberry Pi')
+        msgBox.setText('Are you really sure you want to reboot the %s?' % host)
+        msgBox.setIcon(QMessageBox.Question)
+        noButton = msgBox.addButton('No, I do not', QMessageBox.ActionRole)
+        yesButton = msgBox.addButton('Yes', QMessageBox.ActionRole)
+        msgBox.exec()
+        if msgBox.clickedButton() == yesButton:
+            print('Restart confirmed for %s' % host)
+            rpi_reboot(host)
+        elif msgBox.clickedButton() == noButton:
+            print('Restart cancelled for %s' % host)
 
     def menu_open_web_page(self, page):
         if page == 'Valve Status':

@@ -1405,6 +1405,7 @@ color: rgb(255, 0, 0);
     </property>
     <addaction name="actionXYOpenStatusPage"/>
     <addaction name="actionXYOpenLogPage"/>
+    <addaction name="actionReboot_XY"/>
     <addaction name="separator"/>
     <addaction name="actionManualControl"/>
    </widget>
@@ -1414,6 +1415,7 @@ color: rgb(255, 0, 0);
     </property>
     <addaction name="actionValveOpenStatusPage"/>
     <addaction name="actionValveOpenLogPage"/>
+    <addaction name="actionReboot_Valve"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
@@ -1435,6 +1437,7 @@ color: rgb(255, 0, 0);
     </property>
     <addaction name="actionPumpOpenStatusPage"/>
     <addaction name="actionPumpOpenLogPage"/>
+    <addaction name="actionReboot_Pump"/>
     <addaction name="separator"/>
     <addaction name="actionPyroLaserOn"/>
     <addaction name="actionPyroLaserOff"/>
@@ -1457,6 +1460,7 @@ color: rgb(255, 0, 0);
     </property>
     <addaction name="actionLaserOpenStatusPage"/>
     <addaction name="actionLaserOpenLogPage"/>
+    <addaction name="actionReboot_Laser"/>
     <addaction name="separator"/>
     <addaction name="actionCO2LaserOn"/>
     <addaction name="actionCO2LaserOff"/>
@@ -1660,6 +1664,26 @@ color: rgb(255, 0, 0);
    </property>
    <property name="toolTip">
     <string>Sample Laser Off</string>
+   </property>
+  </action>
+  <action name="actionReboot_XY">
+   <property name="text">
+    <string>Reboot X-Y Raspberry Pi</string>
+   </property>
+  </action>
+  <action name="actionReboot_Laser">
+   <property name="text">
+    <string>Reboot Laser Raspberry Pi</string>
+   </property>
+  </action>
+  <action name="actionReboot_Valve">
+   <property name="text">
+    <string>Reboot Valve Raspberry Pi</string>
+   </property>
+  </action>
+  <action name="actionReboot_Pump">
+   <property name="text">
+    <string>Reboot Pumps Raspberry Pi</string>
    </property>
   </action>
  </widget>

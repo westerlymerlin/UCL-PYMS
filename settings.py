@@ -1,6 +1,6 @@
 import json
 
-version = '2.1.1'
+version = '2.2.0'
 running = True
 settings = {}
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
