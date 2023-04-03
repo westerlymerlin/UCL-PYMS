@@ -20,7 +20,7 @@ class MSClass:
         self.host = settings['MassSpec']['hidenhost']
         self.port = settings['MassSpec']['hidenport']
         self.multiplier = 1 / settings['MassSpec']['multiplier']
-        self.tiemoutretries = settings['MassSpec']['timeoutretries']
+        self.timeoutretries = settings['MassSpec']['timeoutretries']
         self.startimeoffset = settings['MassSpec']['startimeoffset']
         self.resetclass()
         self.time = []
@@ -39,7 +39,6 @@ class MSClass:
         self.batchdescription = ''
         self.batchid = 0
         self.batchitemid = 0
-        self.alarm = 0
         self.socketreturn = 0
         self.laserpower = settings['laser']['power']
         self.running = False
@@ -98,6 +97,7 @@ class MSClass:
             s.recv(1024).decode()
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
+            # print('MsHiden status recieved')
             self.timeoutcounter = 0
             if status[:-2] == 'Unavailable':
                 print('msHiden - return of Unavailable')
@@ -105,9 +105,7 @@ class MSClass:
             return status[:-2]
         except socket.timeout:
             self.timeoutcounter += 1
-            print('msHiden - Timeout to MS software')
-            if self.timeoutcounter == self.tiemoutretries:
-                self.alarm = 1
+            print('msHiden - Timeout to MS software - try %s' % self.timeoutcounter)
             return 'Off Line'
 
     def start_mid(self):

@@ -142,11 +142,11 @@ class UiMain(QMainWindow, Ui_MainWindow):
 
     def check_alarms(self):
         status = ''
-        if ms.alarm:
+        if ms.timeoutcounter > ms.timeoutretries:
             if ms.check_quad_is_online() == 'Off Line':
-                status = status + 'The Hiden Quad Reader is showing as offline, the system is paused. \nIt might ' \
+                status = status + 'The Hiden Quad Reader is showing as offline.\nIt might ' \
                                       'be that the MAS10 application has stopped responding and needs a restart or ' \
-                                  'the Hiden Control unit has been switched off. \n '
+                                  'the Hiden Control unit has been switched off, the system is paused. \n '
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
