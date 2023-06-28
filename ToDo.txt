@@ -1,7 +1,6 @@
 PyMS ToDo List
 
 Backlog:
-Settings UI to allow settings to be edited
 Better control of the Hiden MS
 
 In Progress:

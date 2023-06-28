@@ -97,7 +97,7 @@ class MSClass:
             s.recv(1024).decode()
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
-            # print('MsHiden status recieved')
+            # print('MsHiden status recieved = %s' % status)
             self.timeoutcounter = 0
             if status[:-2] == 'Unavailable':
                 print('msHiden - return of Unavailable')
@@ -109,49 +109,59 @@ class MSClass:
             return 'Off Line'
 
     def start_mid(self):
+        runningfile = 'none  '
         s = socket.create_connection((self.host, self.port), .5)
         self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-f"%s" \r\n' % self.midfile, 'utf-8'))
-        try:
-            self.socketreturn = s.recv(1024).decode()
-        except socket.timeout:
-            time.sleep(4)
-            self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-xFilename \r\n', 'utf-8'))
-        runningfile = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        if status[:-2] == 'StoppedShutDown':
+        # print('Status = %s' % status)
+        if status[:-2] in ('StoppedShutDown', 'Protected'):
+            s.send(bytes('-f"%s" \r\n' % self.midfile, 'utf-8'))
+            try:
+                self.socketreturn = s.recv(1024).decode()
+            except socket.timeout:
+                time.sleep(4)
+                self.socketreturn = s.recv(1024).decode()
+            s.send(bytes('-xFilename \r\n', 'utf-8'))
+            runningfile = s.recv(1024).decode()
+            print('Running file - %s' % runningfile)
             s.send(bytes('-xGo %s \r\n' % self.runfile, 'utf-8'))
-            self.socketreturn = s.recv(1024).decode()
+            time.sleep(.5)
+            # self.socketreturn = s.recv(1024).decode()
             time.sleep(2)
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
+            #  print('Run file status = %s' % status)
+            self.running = True
         s.close()
-        self.running = True
         return [runningfile[:-2], status[:-2]]
 
     def start_profile(self):
+        runningfile = 'none  '
         s = socket.create_connection((self.host, self.port), .5)
         self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-f"%s" \r\n' % self.profilefile, 'utf-8'))
-        try:
-            self.socketreturn = s.recv(1024).decode()
-        except socket.timeout:
-            time.sleep(4)
-            self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-xFilename \r\n', 'utf-8'))
-        runningfile = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        if status[:-2] == 'StoppedShutDown':
+        # print('Status = %s' % status)
+        if status[:-2] in ('StoppedShutDown', 'Protected'):
+            s.send(bytes('-f"%s" \r\n' % self.profilefile, 'utf-8'))
+            try:
+                self.socketreturn = s.recv(1024).decode()
+            except socket.timeout:
+                time.sleep(4)
+                self.socketreturn = s.recv(1024).decode()
+            s.send(bytes('-xFilename \r\n', 'utf-8'))
+            runningfile = s.recv(1024).decode()
+            print('Running file - %s' % runningfile)
             s.send(bytes('-xGo %s \r\n' % self.runfile, 'utf-8'))
-            self.socketreturn = s.recv(1024).decode()
+            time.sleep(.5)
+            # self.socketreturn = s.recv(1024).decode()
             time.sleep(2)
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
+            #  print('Run file status = %s' % status)
+            self.running = True
         s.close()
-        self.running = False
         return [runningfile[:-2], status[:-2]]
 
     def getdata(self):
@@ -190,20 +200,32 @@ class MSClass:
         s.close()
         print('Hidenclass: %s' % senv)
 
-    def stop_runnning(self):
-        self.running = False
+    def getloadedfile(self):
         s = socket.create_connection((self.host, self.port), .5)
         self.socketreturn = s.recv(1024).decode()
-        print('msHiden - Stopping Hiden')
-        s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
+        s.send(bytes('-xFilename \r\n', 'utf-8'))
+        senv = s.recv(1024).decode()
+        s.close()
+        print('Hidenclass filename: %s' % senv)
+
+    def stop_runnning(self):
+        s = socket.create_connection((self.host, self.port), .5)
         self.socketreturn = s.recv(1024).decode()
-        time.sleep(2)
-        s.send(bytes('-xAbort \r\n', 'utf-8'))
-        time.sleep(2)
-        self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-xClose \r\n', 'utf-8'))
-        time.sleep(2)
-        self.socketreturn = s.recv(1024).decode()
+        s.send(bytes('-xStatus \r\n', 'utf-8'))
+        status = s.recv(1024).decode()
+        #print('Status = %s' % status)
+        if status[:-2] in ('ScanningActive', 'StartingActive'):
+            self.running = False
+            print('msHiden - Stopping Hiden')
+            s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
+            self.socketreturn = s.recv(1024).decode()
+            time.sleep(2)
+            s.send(bytes('-xAbort \r\n', 'utf-8'))
+            time.sleep(2)
+            self.socketreturn = s.recv(1024).decode()
+            s.send(bytes('-xClose \r\n', 'utf-8'))
+            time.sleep(2)
+            self.socketreturn = s.recv(1024).decode()
         s.close()
 
     def next_id(self):

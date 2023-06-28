@@ -1,7 +1,9 @@
 from PySide6.QtWidgets import *
+from PySide6.QtGui import QFont, QBrush
+from PySide6.QtCore import Qt
 from ui_main import Ui_MainWindow
 import webbrowser
-from settings import settings, writesettings, setrunning, running, alarms
+from settings import settings, writesettings, setrunning, running, alarms, version
 import threading
 from newbatchform import UiBatch
 from aboutui import UiAbout
@@ -42,10 +44,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.wValve11.setHidden(True)
         self.wValve12.setHidden(True)
         self.wValve13.setHidden(True)
-        self.tableResults.setColumnWidth(0, 120)
-        self.tableResults.setColumnWidth(1, 100)
-        self.tableResults.setColumnWidth(2, 175)
-        self.tableResults.setColumnWidth(3, 70)
         self.move(settings['mainform']['x'], settings['mainform']['y'])
         self.tbValve1.clicked.connect(lambda: valvechange('valve1', self.wValve1.isHidden()))
         self.tbValve2.clicked.connect(lambda: valvechange('valve2', self.wValve2.isHidden()))
@@ -88,6 +86,36 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionStartMIDScan.triggered.connect(ms.start_mid)
         self.actionStartProfileScan.triggered.connect(ms.start_profile)
         self.actionStopScan.triggered.connect(ms.stop_runnning)
+        self.btnHidenMID.clicked.connect(ms.start_mid)
+        self.btnHidenProfile.clicked.connect(ms.start_profile)
+        self.btnHidenStop.clicked.connect(ms.stop_runnning)
+        font1 = QFont()
+        font1.setFamilies([u"Segoe UI"])
+        font1.setPointSize(10)
+        font1.setBold(True)
+        self.tableResults.setColumnWidth(0, 120)
+        self.tableResults.setColumnWidth(1, 100)
+        self.tableResults.setColumnWidth(2, 175)
+        self.tableResults.setColumnWidth(3, 83)
+        newitem0 = QTableWidgetItem('Date')
+        newitem0.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        newitem0.setFont(font1)
+        newitem1 = QTableWidgetItem('Data File')
+        newitem1.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        newitem1.setFont(font1)
+        newitem2 = QTableWidgetItem('Sample Description')
+        newitem2.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        newitem2.setFont(font1)
+        newitem3 = QTableWidgetItem('Best Fit')
+        newitem3.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        newitem3.setFont(font1)
+        self.tableResults.setHorizontalHeaderItem(0, newitem0)
+        self.tableResults.setHorizontalHeaderItem(1, newitem1)
+        self.tableResults.setHorizontalHeaderItem(2, newitem2)
+        self.tableResults.setHorizontalHeaderItem(3, newitem3)
+        self.label_version.setText('v%s' % version)
+
+
         self.secondcount = 0
         self.secondincrement = 0
         self.timertick = 0
@@ -438,7 +466,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
 
     def menu_show_settings_viewer(self):
         self.setingviewerdialog = UiSettingsViewer()
-        self.setingviewerdialog.loadfile()
+        self.setingviewerdialog.loadsettings()
         self.setingviewerdialog.show()
 
     def menu_show_xymanual(self):

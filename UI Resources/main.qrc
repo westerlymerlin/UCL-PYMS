@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="main">
+    <file>hiden-stop.png</file>
+    <file>hiden-profile.png</file>
+    <file>hiden-mid.png</file>
     <file>iconNccCalc.svg</file>
     <file>pyrolaser.png</file>
     <file>iconPyMSRun.svg</file>

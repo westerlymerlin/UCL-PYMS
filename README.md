@@ -4,7 +4,7 @@
 ### PyMS is the Graphical User Interface desktop application that controls the cycles of batches
 
 
-It uses PySide2 to manage the QT5 UI objects
+It uses PySide6 to manage the QT6 UI objects
 
 
 `main.pyw`			Run the main application 
