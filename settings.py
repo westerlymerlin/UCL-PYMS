@@ -1,7 +1,7 @@
 import json
 import datetime
 
-version = '2.3.0'
+version = '2.3.1'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 

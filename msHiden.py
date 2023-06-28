@@ -214,7 +214,7 @@ class MSClass:
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
         #print('Status = %s' % status)
-        if status[:-2] in ('ScanningActive', 'StartingActive'):
+        if self.running:
             self.running = False
             print('msHiden - Stopping Hiden')
             s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
