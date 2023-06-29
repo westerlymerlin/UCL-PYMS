@@ -45,9 +45,9 @@
     <string>Click on a file to show graphs of the data set</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-color: rgb(0, 0, 0);
-alternate-background-color: rgb(85, 170, 255);
-selection-background-color: rgb(0, 85, 255);
+    <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(61, 61, 61);
+alternate-background-color: rgb(225, 245, 255);
 selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="frameShape">
@@ -69,7 +69,7 @@ selection-color: rgb(255, 255, 255);</string>
     <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <property name="alternatingRowColors">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="selectionMode">
     <enum>QAbstractItemView::SingleSelection</enum>
@@ -101,8 +101,8 @@ selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);
-alternate-background-color: rgb(85, 170, 255);
-selection-background-color: rgb(0, 85, 255);
+border-color: rgb(61, 61, 61);
+alternate-background-color: rgb(225, 245, 255);
 selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="lineWidth">
@@ -118,7 +118,7 @@ selection-color: rgb(255, 255, 255);</string>
     <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <property name="alternatingRowColors">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="selectionMode">
     <enum>QAbstractItemView::MultiSelection</enum>
@@ -149,7 +149,9 @@ selection-color: rgb(255, 255, 255);</string>
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;4He/3He is the measured ratio&lt;/p&gt;&lt;p&gt;Predicted is based on the number of times the Q (4He) and 3He pipettes have been used &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(61, 61, 61);
+alternate-background-color: rgb(225, 245, 255);</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
@@ -170,7 +172,7 @@ selection-color: rgb(255, 255, 255);</string>
     <enum>Qt::IgnoreAction</enum>
    </property>
    <property name="alternatingRowColors">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="selectionMode">
     <enum>QAbstractItemView::NoSelection</enum>

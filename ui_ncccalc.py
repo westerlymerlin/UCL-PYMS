@@ -34,9 +34,9 @@ class Ui_dialogNccCalc(object):
         self.tableFileList = QTableWidget(dialogNccCalc)
         self.tableFileList.setObjectName(u"tableFileList")
         self.tableFileList.setGeometry(QRect(10, 59, 480, 691))
-        self.tableFileList.setStyleSheet(u"border-color: rgb(0, 0, 0);\n"
-"alternate-background-color: rgb(85, 170, 255);\n"
-"selection-background-color: rgb(0, 85, 255);\n"
+        self.tableFileList.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(61, 61, 61);\n"
+"alternate-background-color: rgb(225, 245, 255);\n"
 "selection-color: rgb(255, 255, 255);")
         self.tableFileList.setFrameShape(QFrame.Box)
         self.tableFileList.setLineWidth(2)
@@ -44,7 +44,7 @@ class Ui_dialogNccCalc(object):
         self.tableFileList.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.tableFileList.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.tableFileList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableFileList.setAlternatingRowColors(False)
+        self.tableFileList.setAlternatingRowColors(True)
         self.tableFileList.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tableFileList.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableFileList.setColumnCount(0)
@@ -54,14 +54,14 @@ class Ui_dialogNccCalc(object):
         self.tableBlankList.setObjectName(u"tableBlankList")
         self.tableBlankList.setGeometry(QRect(510, 240, 431, 131))
         self.tableBlankList.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"alternate-background-color: rgb(85, 170, 255);\n"
-"selection-background-color: rgb(0, 85, 255);\n"
+"border-color: rgb(61, 61, 61);\n"
+"alternate-background-color: rgb(225, 245, 255);\n"
 "selection-color: rgb(255, 255, 255);")
         self.tableBlankList.setLineWidth(2)
         self.tableBlankList.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.tableBlankList.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.tableBlankList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableBlankList.setAlternatingRowColors(False)
+        self.tableBlankList.setAlternatingRowColors(True)
         self.tableBlankList.setSelectionMode(QAbstractItemView.MultiSelection)
         self.tableBlankList.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableBlankList.horizontalHeader().setHighlightSections(False)
@@ -70,14 +70,16 @@ class Ui_dialogNccCalc(object):
         self.tableQList = QTableWidget(dialogNccCalc)
         self.tableQList.setObjectName(u"tableQList")
         self.tableQList.setGeometry(QRect(510, 80, 431, 131))
-        self.tableQList.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.tableQList.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(61, 61, 61);\n"
+"alternate-background-color: rgb(225, 245, 255);")
         self.tableQList.setFrameShape(QFrame.Box)
         self.tableQList.setLineWidth(2)
         self.tableQList.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.tableQList.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.tableQList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableQList.setDefaultDropAction(Qt.IgnoreAction)
-        self.tableQList.setAlternatingRowColors(False)
+        self.tableQList.setAlternatingRowColors(True)
         self.tableQList.setSelectionMode(QAbstractItemView.NoSelection)
         self.tableQList.setSelectionBehavior(QAbstractItemView.SelectItems)
         self.tableQList.setTextElideMode(Qt.ElideLeft)
