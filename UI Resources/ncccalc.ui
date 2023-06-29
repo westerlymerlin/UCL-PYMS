@@ -46,6 +46,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);
+selection-background-color: rgb(85, 85, 255);
 border-color: rgb(61, 61, 61);
 alternate-background-color: rgb(225, 245, 255);
 selection-color: rgb(255, 255, 255);</string>
@@ -101,6 +102,7 @@ selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);
+selection-background-color: rgb(85, 85, 255);
 border-color: rgb(61, 61, 61);
 alternate-background-color: rgb(225, 245, 255);
 selection-color: rgb(255, 255, 255);</string>
@@ -150,8 +152,10 @@ selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);
+selection-background-color: rgb(85, 85, 255);
 border-color: rgb(61, 61, 61);
-alternate-background-color: rgb(225, 245, 255);</string>
+alternate-background-color: rgb(225, 245, 255);
+selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
