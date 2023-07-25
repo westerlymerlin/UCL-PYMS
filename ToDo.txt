@@ -1,8 +1,9 @@
 PyMS ToDo List
 
 Backlog:
-PyMS:   Different sample sets for different mineral types, apatite, zircon, hematite with laser power per sample
 laser controller:   better feedback of laser state
 laser controller:   Power off laser?
+Settings 	Remove the laser power
 
 In Progress:
+

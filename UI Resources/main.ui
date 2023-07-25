@@ -129,39 +129,6 @@ background-color: rgb(230, 230, 230);</string>
       <enum>QFrame::Plain</enum>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="spinLaserPower">
-     <property name="geometry">
-      <rect>
-       <x>83</x>
-       <y>560</y>
-       <width>100</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Segoe UI</family>
-       <pointsize>10</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
-     </property>
-     <property name="decimals">
-      <number>1</number>
-     </property>
-     <property name="minimum">
-      <double>0.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>99.000000000000000</double>
-     </property>
-     <property name="singleStep">
-      <double>0.100000000000000</double>
-     </property>
-    </widget>
     <widget class="QWidget" name="wValve1" native="true">
      <property name="geometry">
       <rect>
@@ -533,7 +500,7 @@ background-color: rgb(230, 230, 230);</string>
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnHidenMID">
+    <widget class="QToolButton" name="btnHidenMID">
      <property name="geometry">
       <rect>
        <x>370</x>
@@ -545,6 +512,9 @@ background-color: rgb(230, 230, 230);</string>
      <property name="toolTip">
       <string>Run a MID Scan</string>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -554,12 +524,15 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="iconSize">
       <size>
-       <width>50</width>
-       <height>50</height>
+       <width>46</width>
+       <height>46</height>
       </size>
      </property>
+     <property name="autoRaise">
+      <bool>false</bool>
+     </property>
     </widget>
-    <widget class="QPushButton" name="btnHidenProfile">
+    <widget class="QToolButton" name="btnHidenProfile">
      <property name="geometry">
       <rect>
        <x>420</x>
@@ -580,12 +553,12 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="iconSize">
       <size>
-       <width>50</width>
-       <height>50</height>
+       <width>46</width>
+       <height>46</height>
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnHidenStop">
+    <widget class="QToolButton" name="btnHidenStop">
      <property name="geometry">
       <rect>
        <x>470</x>
@@ -606,9 +579,42 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="iconSize">
       <size>
-       <width>50</width>
-       <height>50</height>
+       <width>46</width>
+       <height>46</height>
       </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblLaserPower">
+     <property name="geometry">
+      <rect>
+       <x>86</x>
+       <y>563</y>
+       <width>89</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+background-color: rgb(255, 255, 255);
+border-color: rgb(76, 76, 76);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="text">
+      <string>0.0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByMouse</set>
      </property>
     </widget>
    </widget>
@@ -1460,6 +1466,22 @@ color: rgb(255, 0, 0);
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnNCCViewer">
+    <property name="geometry">
+     <rect>
+      <x>1713</x>
+      <y>67</y>
+      <width>75</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Opens the Ncc Viewer app</string>
+    </property>
+    <property name="text">
+     <string>Ncc</string>
+    </property>
+   </widget>
    <zorder>frmImage</zorder>
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
@@ -1494,6 +1516,7 @@ color: rgb(255, 0, 0);
    <zorder>lblAalarm</zorder>
    <zorder>lblFinishTime</zorder>
    <zorder>label_13</zorder>
+   <zorder>btnNCCViewer</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1518,6 +1541,8 @@ color: rgb(255, 0, 0);
      <string>Batch</string>
     </property>
     <addaction name="actionStartNewBatch"/>
+    <addaction name="separator"/>
+    <addaction name="actionNCCViewer"/>
    </widget>
    <widget class="QMenu" name="menuXYController">
     <property name="title">
@@ -1806,12 +1831,16 @@ color: rgb(255, 0, 0);
     <string>Reboot Pumps Raspberry Pi</string>
    </property>
   </action>
+  <action name="actionNCCViewer">
+   <property name="text">
+    <string>Ncc Viewer</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tbRun</tabstop>
   <tabstop>listCommands</tabstop>
   <tabstop>listBatch</tabstop>
-  <tabstop>spinLaserPower</tabstop>
   <tabstop>tbStop</tabstop>
  </tabstops>
  <resources>

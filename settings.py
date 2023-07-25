@@ -1,7 +1,7 @@
 import json
 import datetime
 
-version = '2.3.2'
+version = '3.0.0'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -67,9 +67,7 @@ def initialise():
     isettings['cycleeditform']['x'] = 600
     isettings['cycleeditform']['y'] = 100
     isettings['database'] = {}
-    isettings['database']['databasebackuppath'] = '.\\database\\PyMs.backup.db'
     isettings['database']['databasepath'] = '.\\database\\PyMs.db'
-    isettings['database']['resultsdatabasebackuppath'] = '.\\database\\HeliumResults.db.backup.db'
     isettings['database']['resultsdatabasepath'] = '.\\database\\HeliumResults.db'
     isettings['hosts'] = {}
     isettings['hosts']['laserhost'] = 'http://192.168.1.9/api'

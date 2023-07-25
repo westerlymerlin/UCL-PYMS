@@ -33,4 +33,4 @@ if defined _OLD_CODEPAGE (
 )
 
 
-start "" "pythonw" main.pyw
+start "" "pythonw" PyMS.pyw

@@ -1,4 +1,4 @@
-from batchclass import batch
+from classes.batchclass import batch
 
 
 def commit(description):
@@ -10,7 +10,7 @@ def commit(description):
         sampleid = 'DUR%02i' % counter
         counter += 1
         print(location, sampleid)
-        batch.addstep('Sample + Reheat', location, sampleid)
+        batch.addstep('Apatite + Reheat', location, sampleid)
     for row in 'ABCDEFG':
         for i in range(1, 8):
             location = row + str(i)

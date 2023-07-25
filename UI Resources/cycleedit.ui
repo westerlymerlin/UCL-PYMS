@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>700</height>
+    <width>890</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>900</width>
-    <height>700</height>
+    <width>890</width>
+    <height>900</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>900</width>
-    <height>700</height>
+    <width>890</width>
+    <height>900</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -41,10 +41,10 @@
   <widget class="QTableWidget" name="tableSteps">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>90</y>
+     <x>10</x>
+     <y>270</y>
      <width>530</width>
-     <height>600</height>
+     <height>621</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -106,7 +106,7 @@ font: 10pt &quot;Segoe UI&quot;;</string>
    <row/>
    <column>
     <property name="text">
-     <string>Time(s)</string>
+     <string>Time (s)</string>
     </property>
     <property name="textAlignment">
      <set>AlignLeading|AlignVCenter</set>
@@ -132,22 +132,22 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QComboBox" name="comboCycles">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>50</y>
      <width>300</width>
      <height>30</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>Coose the cycle type to edit</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the cycle to edit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btnClose">
    <property name="geometry">
     <rect>
-     <x>780</x>
-     <y>660</y>
-     <width>100</width>
+     <x>770</x>
+     <y>860</y>
+     <width>110</width>
      <height>35</height>
     </rect>
    </property>
@@ -161,8 +161,8 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QLineEdit" name="textTime">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>120</y>
+     <x>710</x>
+     <y>270</y>
      <width>171</width>
      <height>30</height>
     </rect>
@@ -171,14 +171,14 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>120</y>
+     <x>560</x>
+     <y>270</y>
      <width>141</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
-    <string>Timeslot (seconds)</string>
+    <string>Time slot (seconds)</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -187,14 +187,14 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>180</y>
+     <x>560</x>
+     <y>330</y>
      <width>101</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
-    <string>Target</string>
+    <string>Target Device</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -203,8 +203,8 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>240</y>
+     <x>560</x>
+     <y>390</y>
      <width>111</width>
      <height>30</height>
     </rect>
@@ -219,8 +219,8 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QComboBox" name="comboTarget">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>180</y>
+     <x>710</x>
+     <y>330</y>
      <width>171</width>
      <height>30</height>
     </rect>
@@ -229,19 +229,19 @@ font: 10pt &quot;Segoe UI&quot;;</string>
   <widget class="QComboBox" name="comboCommand">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>240</y>
+     <x>710</x>
+     <y>390</y>
      <width>171</width>
      <height>30</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="buttonAdd">
+  <widget class="QPushButton" name="btnAdd">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>370</y>
-     <width>100</width>
+     <x>560</x>
+     <y>460</y>
+     <width>110</width>
      <height>35</height>
     </rect>
    </property>
@@ -252,12 +252,12 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <string>Add New</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="buttonDelete">
+  <widget class="QPushButton" name="btnDelete">
    <property name="geometry">
     <rect>
-     <x>780</x>
-     <y>370</y>
-     <width>100</width>
+     <x>770</x>
+     <y>520</y>
+     <width>110</width>
      <height>35</height>
     </rect>
    </property>
@@ -265,15 +265,15 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <string>Delete selected task</string>
    </property>
    <property name="text">
-    <string>Delete</string>
+    <string>Delete Selected</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="buttonSave">
+  <widget class="QPushButton" name="btnSaveSteps">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>430</y>
-     <width>100</width>
+     <x>770</x>
+     <y>570</y>
+     <width>110</width>
      <height>35</height>
     </rect>
    </property>
@@ -284,12 +284,12 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <string>Save</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="buttonCancel">
+  <widget class="QPushButton" name="btnRevert">
    <property name="geometry">
     <rect>
-     <x>780</x>
-     <y>430</y>
-     <width>100</width>
+     <x>560</x>
+     <y>520</y>
+     <width>110</width>
      <height>35</height>
     </rect>
    </property>
@@ -300,12 +300,12 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <string>Revert</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="buttonUpdate">
+  <widget class="QPushButton" name="btnUpdate">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>310</y>
-     <width>100</width>
+     <x>770</x>
+     <y>460</y>
+     <width>110</width>
      <height>35</height>
     </rect>
    </property>
@@ -313,13 +313,13 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <string>Update existing task</string>
    </property>
    <property name="text">
-    <string>Update</string>
+    <string>Update Selected</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>20</y>
      <width>91</width>
      <height>21</height>
@@ -332,23 +332,158 @@ font: 10pt &quot;Segoe UI&quot;;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="lbl_description">
+  <widget class="QPlainTextEdit" name="txtDescription">
    <property name="geometry">
     <rect>
      <x>340</x>
      <y>50</y>
-     <width>550</width>
-     <height>30</height>
+     <width>541</width>
+     <height>70</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>20</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>Description</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-   </property>
-   <property name="wordWrap">
+   <property name="scaledContents">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkEnabled">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>73</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>If checked will appear in simple batch screens</string>
+   </property>
+   <property name="text">
+    <string>Enabled</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkSample">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>100</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>if checked will apper in planchet forms and will enable laser power settings</string>
+   </property>
+   <property name="text">
+    <string>Enable Laser</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>869</width>
+     <height>10</height>
+    </rect>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
+   <property name="midLineWidth">
+    <number>1</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtLaserPower">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>140</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Laser Power must be between o an 99.9 %</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Laser Power %</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cycle Steps</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnSaveCycle">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>180</y>
+     <width>110</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Save thesee changes to the database</string>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnDuplicate">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>180</y>
+     <width>110</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Create a copy of the current cycle&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="text">
+    <string>Duplicate</string>
    </property>
   </widget>
  </widget>
