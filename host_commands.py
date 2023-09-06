@@ -21,6 +21,7 @@ def lasersetpower(power):
         resp = requests.post(settings['hosts']['laserhost'], json=message, timeout=1)
         print('host_commands: Setting laser power to %s%%' % settings['laser']['power'])
         alarms['laserhost'] = 0
+        settings['laser']['power'] = power
         return resp.json()
     except requests.RequestException:
         print('host_commands: Laser Set Power Timeout Error')

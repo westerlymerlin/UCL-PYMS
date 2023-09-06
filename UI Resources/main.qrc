@@ -15,6 +15,15 @@
     <file>laser.png</file>
     <file>main.png</file>
   </qresource>
+  <qresource prefix="laser">
+    <file>laserform_slider.png</file>
+    <file>laserform_enable.png</file>
+    <file>laserform_disable.png</file>
+    <file>laserform_close.png</file>
+    <file>laserform_off.png</file>
+    <file>laserform_on.png</file>
+    <file>laserform_on_disabled.png</file>
+  </qresource>
   <qresource prefix="xy setup">
     <file>arrorwe down.png</file>
     <file>arrorwe left.png</file>

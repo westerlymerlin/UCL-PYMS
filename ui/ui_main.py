@@ -636,7 +636,6 @@ class Ui_MainWindow(object):
         self.menuLaser_Controller.addAction(self.actionReboot_Laser)
         self.menuLaser_Controller.addSeparator()
         self.menuLaser_Controller.addAction(self.actionCO2LaserOn)
-        self.menuLaser_Controller.addAction(self.actionCO2LaserOff)
 
         self.retranslateUi(MainWindow)
 
@@ -677,7 +676,7 @@ class Ui_MainWindow(object):
         self.actionStopScan.setText(QCoreApplication.translate("MainWindow", u"STOP Scan", None))
         self.actionLaserOpenStatusPage.setText(QCoreApplication.translate("MainWindow", u"Open Status Page", None))
         self.actionLaserOpenLogPage.setText(QCoreApplication.translate("MainWindow", u"Open Log Page", None))
-        self.actionCO2LaserOn.setText(QCoreApplication.translate("MainWindow", u"Laser On", None))
+        self.actionCO2LaserOn.setText(QCoreApplication.translate("MainWindow", u"Manual Laser Control", None))
         self.actionCO2LaserOff.setText(QCoreApplication.translate("MainWindow", u"Laser Off", None))
 #if QT_CONFIG(tooltip)
         self.actionCO2LaserOff.setToolTip(QCoreApplication.translate("MainWindow", u"Sample Laser Off", None))

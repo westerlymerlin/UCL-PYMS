@@ -2,7 +2,6 @@ PySide6
 certifi
 chardet
 pillow
-pyserial
 pywin32
 requests
 scipy

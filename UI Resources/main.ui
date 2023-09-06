@@ -1608,7 +1608,6 @@ color: rgb(255, 0, 0);
     <addaction name="actionReboot_Laser"/>
     <addaction name="separator"/>
     <addaction name="actionCO2LaserOn"/>
-    <addaction name="actionCO2LaserOff"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBatch"/>
@@ -1800,7 +1799,7 @@ color: rgb(255, 0, 0);
   </action>
   <action name="actionCO2LaserOn">
    <property name="text">
-    <string>Laser On</string>
+    <string>Manual Laser Control</string>
    </property>
   </action>
   <action name="actionCO2LaserOff">

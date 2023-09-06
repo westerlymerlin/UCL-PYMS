@@ -8,7 +8,7 @@ class CycleClass:
         self.name = None
         self.description = None
         self.enabled = True
-        self.laserpower = 0.0
+        self.laserpower = settings['laser']['power']
         self.cycles = []
         self.samples = []
         self.locations = []

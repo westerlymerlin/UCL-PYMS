@@ -92,6 +92,9 @@ def initialise():
     isettings['ncccalcform'] = {}
     isettings['ncccalcform']['x'] = 600
     isettings['ncccalcform']['y'] = 100
+    isettings['laserform'] = {}
+    isettings['laserform']['x'] = 600
+    isettings['laserform']['y'] = 100
     isettings['newbatchform'] = {}
     isettings['newbatchform']['x'] = 600
     isettings['newbatchform']['y'] = 100

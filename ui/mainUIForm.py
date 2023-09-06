@@ -10,6 +10,7 @@ from ui.aboutui import UiAbout
 from ui.logviewerui import UiLogViewer
 from ui.settingsviewerui import UiSettingsViewer
 from ui.xymanual import XYSetupUI
+from ui.lasermanual import LaserFormUI
 from ui.nccCalcUI import NccCalcUI
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread, tempratureread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, pyrolasercommand, rpi_reboot
@@ -75,8 +76,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionLaserOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Laser Status'))
         self.actionLaserOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Laser Log'))
         self.actionReboot_Laser.triggered.connect(lambda: self.restart_pi('laserhost'))
-        self.actionCO2LaserOn.triggered.connect(lambda: self.manual_laser('CO2', 'on'))
-        self.actionCO2LaserOff.triggered.connect(lambda: self.manual_laser('CO2', 'off'))
+        self.actionCO2LaserOn.triggered.connect(self.menu_show_lasermanual)
         self.actionPyroLaserOn.triggered.connect(lambda: self.manual_laser('Pyro', 'on'))
         self.actionPyroLaserOff.triggered.connect(lambda: self.manual_laser('Pyro', 'off'))
         self.actionAboutPyMS.triggered.connect(self.menu_show_about)
@@ -121,7 +121,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.xposition = 0
         self.yposition = 0
         currentcycle.setcycle(batch.current()[0])
-        self.lblLaserPower.setText('%.1f' % currentcycle.laserpower)
         self.run = 0
         self.taskrunning = False
         self.turbopumphigh = 0
@@ -280,6 +279,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             if self.wValve13.isVisible() != valvestatus(status[11]['status']):
                 print('t=%s mainUIForm: Valve 13 changed' % self.secondcount)
                 self.wValve13.setVisible(valvestatus(status[11]['status']))
+        self.lblLaserPower.setText('%.1f' % settings['laser']['power'])
         status = lasergetstatus()
         if status['laser'] != 'timeout':
             if self.imgLaser.isVisible() != status['laser']:
@@ -472,6 +472,12 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.newdialog.setModal(True)
         self.newdialog.show()
 
+    def menu_show_lasermanual(self):
+        self.newdialog = LaserFormUI()
+        self.newdialog.setModal(True)
+        self.newdialog.show()
+
+
     def menu_show_ncc(self):
         self.newdialog = NccCalcUI()
         self.newdialog.setModal(False)
@@ -488,7 +494,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.linePlanchet.setText(text)
             text = batch.formatsample()
             self.lineLocation.setText(text)
-            self.lblLaserPower.setText('%.1f' % currentcycle.laserpower)
+            settings['laser']['power'] = currentcycle.laserpower
             batch.changed = 0
         except:
             print('mainUIForm: batchlist error')
@@ -601,10 +607,5 @@ class UiMain(QMainWindow, Ui_MainWindow):
         location = batch.locxy(batch.nextlocation())
         xymoveto('y', location[1])
 
-    def manual_laser(self, lasertype, state):
-        print("mainUIForm: Manual Laser Control: Laser %s is set to %s" % (lasertype, state))
-        if lasertype == 'CO2':
-            lasersetpower(settings['laser']['power'])
-            lasercommand(state)
-        else:
-            pyrolasercommand(state)
+    def manual_laser(self, state):
+        pyrolasercommand(state)

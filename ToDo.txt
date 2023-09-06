@@ -6,4 +6,5 @@ laser controller:   Power off laser?
 Settings 	Remove the laser power
 
 In Progress:
-
+laser power - check if it is used in ncc code
+laser controller UI, set power and set duration. Laser on and laser off.

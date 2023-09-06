@@ -138,7 +138,7 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
             if len(self.lineDescription.text()) == 0:
                 errormessage.append('There is no decription for this batch')
             for index, task in enumerate(taskbatch):
-                if task[0][:6] != 'Sample':
+                if currentcycle.sample(task[0]) == 0:
                     task[1] = ''
                     task[2] = ''
                 else:
