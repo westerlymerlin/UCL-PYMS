@@ -17,13 +17,13 @@ def commit(description):
             sampleid = 'Sample%02i' % counter
             counter += 1
             print(location, sampleid)
-            batch.addstep('Sample + Reheat', location, sampleid)
+            batch.addstep('Apatite + Reheat', location, sampleid)
     for i in range(4, 7):
         location = 'S' + str(i)
         sampleid = 'DUR%02i' % counter
         counter += 1
         print(location, sampleid)
-        batch.addstep('Sample + Reheat', location, sampleid)
+        batch.addstep('Apatite + Reheat', location, sampleid)
     batch.save()
 
 

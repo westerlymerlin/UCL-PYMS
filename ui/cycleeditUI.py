@@ -173,7 +173,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
     def save_steps_button_clicked(self):
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
-        sql_query = 'DELETE from cyclesteps WHERE id  = %' % self.currentid
+        sql_query = 'DELETE from cyclesteps WHERE id  = %s' % self.currentid
         cursor_obj.execute(sql_query)
         sql_query = 'INSERT into cyclesteps (id, time, target, command) VALUES (?, ?, ?, ?)'
         for row in self.cycle:

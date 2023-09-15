@@ -180,7 +180,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         if alarms['laseralarm'] != 133:
             print('%s laser alarm firing' % alarms['laseralarm'])
             status = status + 'The laser is not ready, please ensure that the laser is powered on, the key is in position 2 and the enable button has been pressed. This error can also follow a power fail\n'
-            lasergetalarm()
+            alarms['laseralarm'] = lasergetalarm()['status']
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
@@ -319,9 +319,11 @@ class UiMain(QMainWindow, Ui_MainWindow):
             if self.run > 0:
                 self.frmHeLine.setEnabled(False)
                 self.lblStatus.setText('Status: Automated Control Enabled')
+                self.actionCO2LaserOn.setEnabled(False)
                 self.secondincrement = 1
             else:
                 self.frmHeLine.setEnabled(True)
+                self.actionCO2LaserOn.setEnabled(True)
                 self.lblFinishTime.setText('')
                 self.lblStatus.setText('Status: Manual Control')
                 self.secondincrement = 0
@@ -368,12 +370,14 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     elif current[2] == 'setpower':
                         lasersetpower(currentcycle.laserpower)
                     elif current[2] == 'checkalarms':
-                        lasergetalarm()
-                        if alarms['laseralarm'] != 133:
+                        if lasergetalarm()['status'] != 133:
+                            alarms['laseralarm'] = 0
                             self.run = 0  # pause the run as the laser is not ready
                             self.secondincrement = 0
                             self.tbRun.setChecked(False)
                             return
+                        else:
+                            alarms['laseralarm'] = 133
                     else:
                         lasercommand('off')
                     currentcycle.completecurrent()

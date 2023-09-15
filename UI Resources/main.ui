@@ -520,7 +520,9 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="icon">
       <iconset resource="main.qrc">
-       <normaloff>:/main/hiden-mid.png</normaloff>:/main/hiden-mid.png</iconset>
+       <normaloff>:/main/hiden-mid.png</normaloff>
+       <disabledoff>:/main/hiden-disabled.png</disabledoff>
+       <disabledon>:/main/hiden-disabled.png</disabledon>:/main/hiden-mid.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -549,7 +551,9 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="icon">
       <iconset resource="main.qrc">
-       <normaloff>:/main/hiden-profile.png</normaloff>:/main/hiden-profile.png</iconset>
+       <normaloff>:/main/hiden-profile.png</normaloff>
+       <disabledoff>:/main/hiden-disabled.png</disabledoff>
+       <disabledon>:/main/hiden-disabled.png</disabledon>:/main/hiden-profile.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -575,7 +579,9 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <property name="icon">
       <iconset resource="main.qrc">
-       <normaloff>:/main/hiden-stop.png</normaloff>:/main/hiden-stop.png</iconset>
+       <normaloff>:/main/hiden-stop.png</normaloff>
+       <disabledoff>:/main/hiden-disabled.png</disabledoff>
+       <disabledon>:/main/hiden-disabled.png</disabledon>:/main/hiden-stop.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -1732,17 +1738,6 @@ color: rgb(255, 0, 0);
     </font>
    </property>
   </action>
-  <action name="actionEdit_Cycle_Steps">
-   <property name="text">
-    <string>Edit Cycle Steps</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-  </action>
   <action name="actionPumpOpenStatusPage">
    <property name="text">
     <string>Open Sataus Page</string>
@@ -1800,14 +1795,6 @@ color: rgb(255, 0, 0);
   <action name="actionCO2LaserOn">
    <property name="text">
     <string>Manual Laser Control</string>
-   </property>
-  </action>
-  <action name="actionCO2LaserOff">
-   <property name="text">
-    <string>Laser Off</string>
-   </property>
-   <property name="toolTip">
-    <string>Sample Laser Off</string>
    </property>
   </action>
   <action name="actionReboot_XY">

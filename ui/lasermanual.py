@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import *
 from ui.ui_laser import Ui_dialogLaserControl
 from settings import settings
-from host_queries import lasergetstatus
+from host_queries import lasergetalarm
 from host_commands import lasercommand, lasersetpower
 import threading
 import sys
@@ -22,6 +22,7 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
         self.sliderLaser.valueChanged.connect(self.slidermove)
         self.btnOn.setEnabled(False)
         self.running = 1
+        self.state = {'laser': 0, 'power': 0, 'status': 0}
         threading.Timer(1, self.timer).start()
 
     def timer(self):
@@ -58,11 +59,19 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
             lasersetpower(self.laserpower)
             lasercommand('on')
         else:
-            lasercommand('off')
+            if self.state['laser'] == 1:
+                lasercommand('off')
 
     def update_laser(self):
-        state = lasergetstatus()
-        self.imgLaser.setVisible(state['laser'])
+        self.state = lasergetalarm()
+        if self.state['status'] == 133:
+            self.lblStatus.setText('Laser On')
+            self.sliderEnable.setToolTip('Slide down to enable ON button')
+        else:
+            self.lblStatus.setText('Laser Off')
+            self.sliderEnable.setValue(0)
+            self.sliderEnable.setToolTip('Laser is not ready, please switch it on, switch the key to 2 and press the yellow button')
+        self.imgLaser.setVisible(self.state['laser'])
 
 
 if __name__ == '__main__':

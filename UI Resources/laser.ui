@@ -143,11 +143,14 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <widget class="QSlider" name="sliderEnable">
    <property name="geometry">
     <rect>
-     <x>158</x>
-     <y>51</y>
-     <width>41</width>
+     <x>160</x>
+     <y>53</y>
+     <width>22</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="maximum">
     <number>2</number>
@@ -165,10 +168,10 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <bool>true</bool>
    </property>
    <property name="tickPosition">
-    <enum>QSlider::TicksBelow</enum>
+    <enum>QSlider::NoTicks</enum>
    </property>
    <property name="tickInterval">
-    <number>2</number>
+    <number>10</number>
    </property>
   </widget>
   <widget class="QDial" name="sliderLaser">
@@ -259,6 +262,37 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <set>Qt::NoTextInteraction</set>
    </property>
   </widget>
+  <widget class="QLabel" name="lblStatus">
+   <property name="geometry">
+    <rect>
+     <x>128</x>
+     <y>10</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::NoTextInteraction</set>
+   </property>
+  </widget>
   <zorder>imgSlider</zorder>
   <zorder>sliderLaser</zorder>
   <zorder>label</zorder>
@@ -269,6 +303,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
   <zorder>label_2</zorder>
   <zorder>label_3</zorder>
   <zorder>imgLaser</zorder>
+  <zorder>lblStatus</zorder>
  </widget>
  <resources>
   <include location="main.qrc"/>

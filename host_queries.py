@@ -4,10 +4,11 @@ import requests
 
 def lasergetalarm():
     message = {"item": 'laseralarm', "command": 1}
+    print('laser alarm')
     try:
         resp = requests.post(settings['hosts']['laserhost'], json=message, timeout=1)
-        alarms['laseralarm'] = resp.json()['status']
         alarms['laserhost'] = 0
+        print(resp.json())
         return resp.json()
     except:
         print('host_queries: Laser Get Alarm Timeout Error')
