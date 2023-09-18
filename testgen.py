@@ -1,7 +1,7 @@
 from classes.batchclass import batch
 
 
-def commit(description):
+def commit_planchet(description):
     batch.cancel()
     batch.new('planchet', description)
     counter = 1
@@ -27,7 +27,22 @@ def commit(description):
     batch.save()
 
 
-descriptiontext = input('Enter the test description')
-if len(descriptiontext) > 0:
-    commit(descriptiontext)
-    print('New test planchet created')
+def commit_q(description):
+    batch.cancel()
+    batch.new('simple', description)
+    batch.addstep('Line Clean','','')
+    batch.addstep('Line Blank', '', '')
+    for i in range (10):
+        batch.addstep('Q-Standard', '', '')
+    batch.addstep('Line Blank', '', '')
+    batch.save()
+
+if __name__ == '__main__':
+    descriptiontext = input('Enter the test description')
+    batch_type = input('Planchet (p) or Qshots (q)?')
+    if len(descriptiontext) > 0 and batch_type.lower() == 'p':
+        commit_planchet(descriptiontext)
+        print('New test planchet created')
+    elif len(descriptiontext) > 0 and batch_type.lower() == 'q':
+        commit_q(descriptiontext)
+        print('New test Qlist created')
