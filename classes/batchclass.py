@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, timedelta
 import os
-from settings import settings, friendlydirname
+from settings import settings, friendlydirname, writesettings
 from imagefiler import imager
 from backup import backupfile
 from ncc_calc import ncc
@@ -123,6 +123,7 @@ class BatchClass:
             itemcounter = itemcounter + 1
         database.commit()
         database.close()
+        writesettings()
 
     def current(self):
         if len(self.runnumber) > 0:

@@ -1,4 +1,5 @@
 from classes.batchclass import batch
+from settings import settings, writesettings
 
 
 def commit_planchet(description):
@@ -27,6 +28,7 @@ def commit_planchet(description):
     batch.save()
 
 
+
 def commit_q(description):
     batch.cancel()
     batch.new('simple', description)
@@ -36,6 +38,7 @@ def commit_q(description):
         batch.addstep('Q-Standard', '', '')
     batch.addstep('Line Blank', '', '')
     batch.save()
+
 
 if __name__ == '__main__':
     descriptiontext = input('Enter the test description')

@@ -52,6 +52,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.tableQList.setColumnWidth(2, 80)
         self.tableQList.setColumnWidth(3, 80)
         self.tableQList.setColumnWidth(4, 65)
+        self.tableQList.itemDoubleClicked.connect(self.qclick)
         self.blank_mean = 0
         self.blank_stderr = 0
         self.readncc(self.filepath)
@@ -151,6 +152,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
             self.tableQList.setItem(x, 3, newpitem)
             self.tableQList.setItem(x, 4, newppercent)
 
+
     def blankselectionhanler(self):
         counter = 0
         blank_ratios = []
@@ -226,6 +228,16 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
     def refreshlist(self):
         ncc.reset()
         self.readncc(self.filepath)
+
+    def qclick(self):
+        filename = ncc.nccfilepath + '\\' + 'qdata.csv'
+        with open(filename, 'w') as qfile:
+            #  print('4He Count, 3He Count, 4He/3He, Predicted', file=qfile)
+            for line in range(self.tableQList.rowCount()):
+                datarow = '%s, %s, %s, %s' %(self.tableQList.item(line, 0).text(), self.tableQList.item(line, 1).text(), self.tableQList.item(line, 2).text(), self.tableQList.item(line, 3).text())
+                print(datarow)
+                print(datarow, file=qfile)
+            qfile.close()
 
 
 if __name__ == '__main__':
