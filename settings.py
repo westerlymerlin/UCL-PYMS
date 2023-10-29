@@ -1,11 +1,17 @@
+"""
+Settings module, reads the settings from a settings.json file. If it does not exist or a new setting
+has appeared it will creat from the defaults in the initialise function.
+"""
+
 import json
 import datetime
 
-version = '3.0.4'
+VERSION = '3.1.0'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
 def friendlydirname(sourcename):
+    """Removes invalid caharacters from file names"""
     sourcename = sourcename.replace('/', '-')
     sourcename = sourcename.replace('\\', '-')
     sourcename = sourcename.replace(':', '-')
@@ -27,107 +33,132 @@ def friendlydirname(sourcename):
 
 
 def setrunning(state):
+    """Global signal to detect if app is running - used to kill off threads"""
     global running
     running = state
 
 
 def writesettings():
-    settings['LastSave'] = datetime.datetime.now().strftime('%d/%m/%y %H:%M:%S')
-    with open('settings.json', 'w') as outfile:
+    """Write settings to json file"""
+    settings['LastSave'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+    with open('settings.json', 'w', encoding='utf-8') as outfile:
         json.dump(settings, outfile, indent=4, sort_keys=True)
 
 
 def initialise():
-    isettings = {}
-    isettings['LastSave'] = '01/01/2000 00:00:01'
-    isettings['MassSpec'] = {}
-    isettings['MassSpec']['HD/H'] = 0.01
-    isettings['MassSpec']['datadirectory'] = '.\\QuadStar\\data\\'
-    isettings['MassSpec']['hidenMID'] = 'PyMS-MID.exp'
-    isettings['MassSpec']['hidenProfile'] = 'PyMS-Profile.exp'
-    isettings['MassSpec']['hidenRunfile'] = 'PyMS-Running.exp'
-    isettings['MassSpec']['hidenhost'] = '127.0.0.1'
-    isettings['MassSpec']['hidenport'] = 5026
-    isettings['MassSpec']['multiplier'] = 1E-12
-    isettings['MassSpec']['nextH'] = 'HE00000R'
-    isettings['MassSpec']['nextQ'] = 1000
-    isettings['MassSpec']['startimeoffset'] = 15
-    isettings['MassSpec']['timeoutretries'] = 10
-    isettings['Ncc'] = {}
-    isettings['Ncc']['HD_H'] = 0.01
-    isettings['Ncc']['ncc_filepath'] = ''
-    isettings['Ncc']['q_dep_factor'] = 0.9999526
-    isettings['Ncc']['q_depletion_err'] = 4E-7
-    isettings['Ncc']['q_pipette_err'] = 0.07
-    isettings['Ncc']['q_pipette_ncc'] = 10.23
-    isettings['Ncc']['s_dep_factor'] = 0.99996107
-    isettings['Ncc']['s_offset'] = 231
-    isettings['Ncc']['s_pipette_ncc'] = 5.7
-    isettings['cycleeditform'] = {}
-    isettings['cycleeditform']['x'] = 600
-    isettings['cycleeditform']['y'] = 100
-    isettings['database'] = {}
-    isettings['database']['databasepath'] = '.\\database\\PyMs.db'
-    isettings['database']['resultsdatabasepath'] = '.\\database\\HeliumResults.db'
-    isettings['hosts'] = {}
-    isettings['hosts']['laserhost'] = 'http://192.168.1.9/api'
-    isettings['hosts']['pumphost'] = 'http://192.168.1.6/api'
-    isettings['hosts']['valvehost'] = 'http://192.168.1.7/api'
-    isettings['hosts']['xyhost'] = 'http://192.168.1.8/api'
-    isettings['image'] = {}
-    isettings['image']['dynolite'] = 'DinoCapture 2.0'
-    isettings['image']['hiden-mid'] = 'PyMS - Python Mass Spectrometry'
-    isettings['image']['hiden-mid-reheat'] = 'PyMS - Python Mass Spectrometry'
-    isettings['image']['hiden-profile'] = 'PyMS - Python Mass Spectrometry'
-    isettings['image']['microscope'] = 'GXCapture-T'
-    isettings['image']['microscope-reheat'] = 'GXCapture-T'
-    isettings['laser'] = {}
-    isettings['laser']['power'] = 40.0
-    isettings['logging'] = {}
-    isettings['logging']['logappname'] = 'PyMS'
-    isettings['logging']['logfilepath'] = '.\\logs\\'
-    isettings['mainform'] = {}
-    isettings['mainform']['x'] = 600
-    isettings['mainform']['y'] = 100
-    isettings['ncccalcform'] = {}
-    isettings['ncccalcform']['x'] = 600
-    isettings['ncccalcform']['y'] = 100
-    isettings['laserform'] = {}
-    isettings['laserform']['x'] = 600
-    isettings['laserform']['y'] = 100
-    isettings['newbatchform'] = {}
-    isettings['newbatchform']['x'] = 600
-    isettings['newbatchform']['y'] = 100
-    isettings['planchetform'] = {}
-    isettings['planchetform']['x'] = 600
-    isettings['planchetform']['y'] = 100
-    isettings['pyrometer'] = {}
-    isettings['pyrometer']['current'] = 0
-    isettings['pyrometer']['high'] = 1200
-    isettings['pyrometer']['low'] = 700
-    isettings['simplebatchform'] = {}
-    isettings['simplebatchform']['x'] = 600
-    isettings['simplebatchform']['y'] = 100
-    isettings['vacuum'] = {}
-    isettings['vacuum']['ion'] = {}
-    isettings['vacuum']['ion']['current'] = 0
-    isettings['vacuum']['ion']['high'] = 2.1e-09
-    isettings['vacuum']['tank'] = {}
-    isettings['vacuum']['tank']['current'] = 0
-    isettings['vacuum']['tank']['high'] = 1e-04
-    isettings['vacuum']['turbo'] = {}
-    isettings['vacuum']['turbo']['current'] = 0
-    isettings['vacuum']['turbo']['high'] = 9.9e-08
-    isettings['xymanualform'] = {}
-    isettings['xymanualform']['x'] = 600
-    isettings['xymanualform']['y'] = 100
+    """Setup the settings structure with default values"""
+    isettings = {
+                "LastSave": "01/01/1900 01:00:00",
+                "MassSpec": {
+                    "HD/H": 0.01,
+                    "datadirectory": "C:\\Users\\UCL Helium Line\\Documents\\Helium Line Data\\",
+                    "hidenMID": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-MID.exp",
+                    "hidenProfile": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-Profile.exp",
+                    "hidenRunfile": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-Running.exp",
+                    "hidenhost": "127.0.0.1",
+                    "hidenport": 5026,
+                    "multiplier": 1e-12,
+                    "nextH": "HE19096R",
+                    "nextQ": 4500,
+                    "startimeoffset": 19,
+                    "timeoutretries": 5
+                },
+                "Ncc": {
+                    "HD_H": 0.01,
+                    "ncc_filepath": "",
+                    "q_dep_factor": 0.9999526,
+                    "q_depletion_err": 4e-07,
+                    "q_pipette_err": 0.07,
+                    "q_pipette_ncc": 10.23,
+                    "s_dep_factor": 0.99996107,
+                    "s_offset": 231,
+                    "s_pipette_ncc": 5.7
+                },
+                "cycleeditform": {
+                    "x": 100,
+                    "y": 100
+                },
+                "database": {
+                    "databasepath": ".\\database\\PyMs.db",
+                    "resultsdatabasepath": ".\\database\\HeliumResults.db"
+                },
+                "hosts": {
+                    "laserhost": "http://192.168.2.6/api",
+                    "pumphost": "http://192.168.2.5/api",
+                    "valvehost": "http://192.168.2.3/api",
+                    "xyhost": "http://192.168.2.4/api"
+                },
+                "image": {
+                    "dynolite": "DinoCapture 2.0",
+                    "hiden-mid": "MASsoft 10 Professional",
+                    "hiden-mid-reheat": "MASsoft 10 Professional",
+                    "hiden-profile": "MASsoft 10 Professional",
+                    "microscope": "GXCapture-T",
+                    "microscope-reheat": "GXCapture-T"
+                },
+                "laser": {
+                    "power": 30.0
+                },
+                "laserform": {
+                    "x": 100,
+                    "y": 100
+                },
+                "logging": {
+                    "logappname": "PyMS",
+                    "logfilepath": ".\\logs\\",
+                    "level": "INFO"
+                },
+                "mainform": {
+                    "x": 100,
+                    "y": 100
+                },
+                "ncccalcform": {
+                    "x": 100,
+                    "y": 100
+                },
+                "newbatchform": {
+                    "x": 600,
+                    "y": 100
+                },
+                "planchetform": {
+                    "x": 600,
+                    "y": 100
+                },
+                "pyrometer": {
+                    "current": 385.0,
+                    "high": 1200,
+                    "low": 700
+                },
+                "simplebatchform": {
+                    "x": 600,
+                    "y": 100
+                },
+                "vacuum": {
+                    "ion": {
+                        "current": 4.5e-09,
+                        "high": 9.9e-08
+                    },
+                    "tank": {
+                        "current": 0.00116,
+                        "high": 0.0001
+                    },
+                    "turbo": {
+                        "current": 3.41e-08,
+                        "high": 9.9e-08
+                    }
+                },
+                "xymanualform": {
+                    "x": 1137,
+                    "y": 870
+                }
+            }
     return isettings
-    # writesettings()
 
 
 def readsettings():
+    """Read the json file"""
     try:
-        with open('settings.json') as json_file:
+        with open('settings.json', 'r', encoding='utf-8') as json_file:
             jsettings = json.load(json_file)
             return jsettings
     except FileNotFoundError:
@@ -136,6 +167,7 @@ def readsettings():
 
 
 def loadsettings():
+    """Replace the default settings with thsoe from the json files"""
     global settings
     fsettings = readsettings()
     for item in settings.keys():

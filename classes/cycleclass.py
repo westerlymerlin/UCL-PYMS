@@ -1,23 +1,62 @@
+"""
+Cycle Class
+Author: Gary Twinn
+"""
 import sqlite3
 from settings import settings
+from logmanager import logger
 
 
 class CycleClass:
+    """
+
+    :class: CycleClass
+
+    The CycleClass represents a cycle in a system. It stores information such as the current cycle name, description,
+     status, laser power, available cycle names, samples, locations, step times, targets, and commands.
+     It also provides methods to manipulate and retrieve information about the cycle.
+
+    Attributes:
+    - id (int): The ID of the current cycle.
+    - name (str): The name of the current cycle.
+    - description (str): The description of the current cycle.
+    - enabled (bool): The status of the current cycle.
+    - laserpower (float): The laser power of the current cycle.
+    - cycles (list): The list of available cycle names.
+    - samples (list): The available cycle names that process samples and use the laser.
+    - locations (list): The list of all locations on the planchet.
+    - steptime (list): The list of step times for the current cycle.
+    - steptarget (list): The list of targets for each step in the current cycle.
+    - stepcommand (list): The list of commands for each step in the current cycle.
+
+    Methods:
+    - readdatabase(): Get the list of enabled cycles from the database.
+    - setcycle(name: str): Set the current cycle to the given name and retrieve all the steps.
+    - current(): Return the current cycle name and description.
+    - currenttask(time: float): Return the current task at the given time.
+    - currentstep(): Return the current step.
+    - completecurrent(): Delete the current step as it has been completed.
+    - steplist(): Return the list of steps to be completed.
+    - steplistformatted(): Generate a formatted list of steps as a list of strings.
+    - sample(cycleitem: str): Check if an item is in the list of samples.
+
+    """
     def __init__(self):
         self.id = -1
-        self.name = None
-        self.description = None
-        self.enabled = True
-        self.laserpower = settings['laser']['power']
-        self.cycles = []
-        self.samples = []
-        self.locations = []
-        self.steptime = []
-        self.steptarget = []
-        self.stepcommand = []
+        self.name = None   # The name of the current cycle
+        self.description = None  #  The description of the current cycle
+        self.enabled = True  # the ststus of the current cycle
+        self.laserpower = settings['laser']['power']  # The laserpower of the current cycle
+        self.cycles = []  # The list of available cycle names
+        self.samples = []  # Is the available cycle one that processes samples and uses the laser
+        self.locations = []  # the list of all locations on the planchet
+        self.steptime = []  # current cycle list of step times
+        self.steptarget = []   # current cycle list of targets
+        self.stepcommand = []  # current cycle list of commands
         self.readdatabase()
 
     def readdatabase(self):
+        """Get the list of enabled cycles from the database"""
         self.cycles.append('End')
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
@@ -36,10 +75,11 @@ class CycleClass:
         database.close()
 
     def setcycle(self, name):
-        if not(name in self.cycles):
-            print("%s not found" % name)
+        """Set the current cycle to the given name and retrieve all the steps (used when the cycle starts)"""
+        if not name in self.cycles:
+            logger.warning('Cycle Class: set cycle %s name not found', name)
             return
-        elif name == 'End':
+        if name == 'End':
             return
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
@@ -63,31 +103,33 @@ class CycleClass:
             self.stepcommand.append(task[3])
 
     def current(self):
+        """Return the current Cycle name and discription"""
         return [self.name, self.description]
 
     def currenttask(self, time):
+        """Return the current task"""
         if len(self.steptime) > 0:
             if time == self.steptime[0]:
                 return [self.steptime[0], self.steptarget[0], self.stepcommand[0]]
-            else:
-                return [time, 'No task', 'No task']
-        else:
-            return [1, 'End', 'End']
+            return [time, 'No task', 'No task']
+        return [1, 'End', 'End']
 
     def currentstep(self):
+        """Return the current step"""
         if len(self.steptime) > 0:
             return [self.steptime[0], self.steptarget[0], self.stepcommand[0]]
-        else:
-            return [1, 'End', 'End']
+        return [1, 'End', 'End']
 
     def completecurrent(self):
+        """Delete the current step as it has been completed"""
         if len(self.steptime) >= 0:
-            #  print('completed %s %s %s ' % (self.steptime[0], self.steptarget[0], self.stepcommand[0]))
+            logger.debug('completed %s %s %s ', self.steptime[0], self.steptarget[0], self.stepcommand[0])
             del self.steptime[0]
             del self.steptarget[0]
             del self.stepcommand[0]
 
     def steplist(self):
+        """return the list of steps to be completed"""
         index = 0
         returnval = []
         for _ in self.steptime:
@@ -96,6 +138,7 @@ class CycleClass:
         return returnval
 
     def steplistformatted(self):
+        """Generate a formatted list of steps as a list of strings"""
         index = 0
         returnval = []
         for _ in self.steptime:
@@ -106,6 +149,7 @@ class CycleClass:
         return returnval
 
     def sample(self, cycleitem):
+        """Check is an item is in the list of samples"""
         for item in self.samples:
             if cycleitem == item:
                 return True

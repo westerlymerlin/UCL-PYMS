@@ -1,5 +1,9 @@
+"""
+Cycle Editor Application
+Author: Gary Twinn
+"""
 from PySide6.QtWidgets import QApplication
-from ui.cycleeditUI import CycleEditUI
+from ui.cycle_edit_form import CycleEditUI
 import sys
 
 app = QApplication(sys.argv)

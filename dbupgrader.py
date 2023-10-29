@@ -1,22 +1,31 @@
+"""
+Database upgrader
+Author: Gary Twinn
+"""
+
 import zipfile
 import os.path
 import os
 import time
 import sqlite3
-from settings import *
+from settings import settings
 
 
 def backup_database():
+    """Backup the exisiting database"""
     print('Starting Database Backup')
     backupfile= os.path.dirname(os.path.abspath(settings['database']['databasepath']))  + '\\pre-upgrade-db-backup.zip'
     dbzip = zipfile.ZipFile(backupfile, 'w')
-    dbzip.write(os.path.abspath(settings['database']['databasepath']), os.path.basename(settings['database']['databasepath']),  compress_type=zipfile.ZIP_DEFLATED, )
-    dbzip.write(os.path.abspath(settings['database']['resultsdatabasepath']), os.path.basename(settings['database']['resultsdatabasepath']),  compress_type=zipfile.ZIP_DEFLATED, )
+    dbzip.write(os.path.abspath(settings['database']['databasepath']),
+                os.path.basename(settings['database']['databasepath']),  compress_type=zipfile.ZIP_DEFLATED)
+    dbzip.write(os.path.abspath(settings['database']['resultsdatabasepath']),
+                os.path.basename(settings['database']['resultsdatabasepath']),  compress_type=zipfile.ZIP_DEFLATED)
     dbzip.close()
     print("Backup processing time = %s seconds" % time.process_time())
     print('**** Backup Script Finished ****')
 
 def pyms_database_update():
+    """Upgrade the exisiting database"""
     print('Stating PyMS Database upgrade')
     database = sqlite3.connect(settings['database']['databasepath'])
     cursor_obj = database.cursor()
@@ -58,6 +67,7 @@ def pyms_database_update():
     database.close()
 
 def check_db_version(database):
+    """Check the exisiting database vesrions"""
     cursor_obj = database.cursor()
     sql_query = 'SELECT * from settings'
     try:
@@ -74,6 +84,7 @@ def check_db_version(database):
 
 
 def results_database_update():
+    """Upgrade the results database"""
     print('Stating Results Database upgrade')
     database = sqlite3.connect(settings['database']['resultsdatabasepath'])
     cursor_obj = database.cursor()
@@ -99,4 +110,3 @@ if __name__ == '__main__':
     backup_database()
     pyms_database_update()
     results_database_update()
-

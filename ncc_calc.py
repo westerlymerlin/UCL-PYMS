@@ -1,13 +1,68 @@
-from settings import settings, writesettings
+"""
+Ncc Calculator
+Author: Gary Twinn
+"""
 import os
 import glob
-import numpy
 import csv
 from datetime import datetime
+import numpy
 from scipy import stats
+from settings import settings, writesettings
 
 
 class HeResults:
+    """
+    The `HeResults` class represents the helium results. It has various attributes and methods
+    to handle and process the results.
+
+    Attributes:
+    - `q_dep_factor`: The depletion factor for Q samples.
+    - `q_depletion_err`: The depletion error for Q samples.
+    - `s_dep_factor`: The depletion factor for S samples.
+    - `q_pipette_ncc`: The NCC value for the Q pipette.
+    - `q_pipette_err`: The error for the Q pipette NCC value.
+    - `s_pipette_ncc`: The NCC value for the S pipette.
+    - `s_offset`: The offset for S samples.
+    - `hd_h`: The conversion factor for HD to H.
+    - `blanks_he34ratios`: The HE34 ratios for the line blanks.
+    - `blanks_he34sterrs`: The HE34 standard errors for the line blanks.
+    - `blanks_mean`: The mean of all line blanks.
+    - `blanks_names`: The names of the line blanks.
+    - `blanks_sterr`: The standard error for the line blanks.
+    - `files_dates`: The dates of the files.
+    - `files_descriptions`: The descriptions of the files.
+    - `files_he34corrratios`: The corrected HE34 ratios for the files.
+    - `files_he34corrstderrs`: The corrected HE34 standard errors for the files.
+    - `files_he34ratios`: The HE34 ratios for the files.
+    - `files_he34stderrs`: The HE34 standard errors for the files.
+    - `files_he3_shots`: The HE3 shots for the files.
+    - `files_he4nccs`: The NCC values for the files.
+    - `files_he4nccstderrs`: The NCC standard errors for the files.
+    - `files_names`: The names of the files.
+    - `files_qnumbers`: The Q numbers for the files.
+    - `nccfilepath`: The filepath for the NCC files.
+    - `qs_he34corrratios`: The corrected HE34 ratios for the Q samples.
+    - `qs_he34corrstderrs`: The corrected HE34 standard errors for the Q samples.
+    - `qs_he34ratios`: The HE34 ratios for the Q samples.
+    - `qs_he34sterrs`: The HE34 standard errors for the Q samples.
+    - `qs_he3_shots`: The HE3 shots for the Q samples.
+    - `qs_he4nccs`: The NCC values for the Q samples.
+    - `qs_he4nccstderrs`: The NCC standard errors for the Q samples.
+    - `qs_qnumbers`: The Q numbers for the Q samples.
+
+    Methods:
+    - `reset()`: Resets the class.
+    - `readdirectory(filepath)`: Reads a directory for helium files.
+    - `calculate_blank_all()`: Calculates the mean of all line blanks.
+    - `set_blank(blank_mean, blank_sterr)`: Sets the blank values based on the mean and standard error
+                                            of selected line blanks.
+    - `blankcorrect()`: Corrects the values for background helium levels based on the line blanks.
+    - `calculate_estimated_qbestfit(qshots, h3shots)`: Calculates the estimated value for a Q-Shut based
+                                                       on depletion rates and Q number.
+    - `calculate_ncc()`: Calculates the NCC value.
+    - `write_ncc_file()`: Writes the NCC file.
+    """
     def __init__(self):
         self.q_dep_factor = settings['Ncc']['q_dep_factor']
         self.q_depletion_err = settings['Ncc']['q_depletion_err']
@@ -44,6 +99,7 @@ class HeResults:
         self.qs_qnumbers = []
 
     def reset(self):
+        """Reset class"""
         self.blanks_he34ratios = []
         self.blanks_he34sterrs = []
         self.blanks_mean = 0
@@ -71,6 +127,7 @@ class HeResults:
         self.qs_qnumbers = []
 
     def readdirectory(self, filepath):
+        """Read Directory for Helium Files"""
         self.nccfilepath = filepath
         filelist = glob.glob(filepath + "**\\HE*R")
         settings['Ncc']['ncc_filepath'] = filepath
@@ -79,7 +136,7 @@ class HeResults:
             self.files_names.append(os.path.basename(filename))
             self.files_he3_shots.append(int(os.path.basename(filename)[2:7]))
             self.files_dates.append(datetime.strftime(datetime.fromtimestamp(os.path.getmtime(filename)), "%Y-%m-%d %H:%M:%S"))
-            with open(filename) as hefile:
+            with open(filename, 'r', encoding='utf-8') as hefile:
                 read_data = csv.reader(hefile, delimiter='\t')
                 for row in read_data:
                     rows.append(row)
@@ -122,14 +179,17 @@ class HeResults:
         writesettings()
 
     def calculate_blank_all(self):
+        """Calculate mean of all line blanks"""
         self.blanks_mean = numpy.mean(self.blanks_he34ratios)
         self.blanks_sterr = numpy.mean(self.blanks_he34sterrs)
 
     def set_blank(self, blank_mean, blank_sterr):
+        """Set blank values based on mean and stdev of selected"""
         self.blanks_mean = blank_mean
         self.blanks_sterr = blank_sterr
 
     def blankcorrect(self):
+        """Correct values for background helium levels based on blanks"""
         for i in range(len(self.files_names)):
             self.files_he34corrratios[i] = self.files_he34ratios[i] - self.blanks_mean
             self.files_he34corrstderrs[i] = pow((pow(self.blanks_sterr, 2) + pow(self.files_he34stderrs[i], 2)), 0.5)
@@ -137,30 +197,42 @@ class HeResults:
             self.qs_he34corrratios[i] = self.qs_he34ratios[i] - self.blanks_mean
 
     def calculate_estimated_qbestfit(self, qshots, h3shots):
+        """Calculate the estimated value for a Q-Shut based on depletion rates and Q number"""
         h3ncc = self.s_pipette_ncc * pow(self.s_dep_factor, (h3shots - self.s_offset))
         qncc = self.q_pipette_ncc * pow(self.q_dep_factor, qshots)
         return (qncc/h3ncc) * 1000
 
     def calculate_ncc(self):
+        """Calculate the Ncc value"""
         qoffset = 0
         for i in range(len(self.files_names)):
             if qoffset < len(self.qs_qnumbers)-1:
                 if self.files_he3_shots[i] >= self.qs_he3_shots[qoffset+1]:
                     qoffset += 1
             self.files_qnumbers[i] = self.qs_qnumbers[qoffset]
-            self.files_he4nccs[i] = self.q_pipette_ncc * pow(self.q_dep_factor, self.qs_qnumbers[qoffset]) * (self.files_he34corrratios[i] / self.qs_he34corrratios[qoffset])
-            self.files_he4nccstderrs[i] = self.files_he4nccs[i] * pow((pow((self.q_pipette_err / self.q_pipette_ncc), 2)) + pow((self.files_qnumbers[i] * self.q_depletion_err) / (pow(self.q_dep_factor, self.files_qnumbers[i])), 2), 0.5)
+            self.files_he4nccs[i] = (self.q_pipette_ncc * pow(self.q_dep_factor, self.qs_qnumbers[qoffset]) *
+                                     (self.files_he34corrratios[i] / self.qs_he34corrratios[qoffset]))
+            self.files_he4nccstderrs[i] = (self.files_he4nccs[i] *
+                                           pow((pow((self.q_pipette_err / self.q_pipette_ncc), 2)) +
+                                               pow((self.files_qnumbers[i] * self.q_depletion_err) /
+                                                   (pow(self.q_dep_factor, self.files_qnumbers[i])), 2), 0.5))
 
     def write_ncc_file(self):
-        firstline = '"filename","date","description","q-standard","3He/4He_ratio","3He/4He_ratio_error","3He/4He_blank_corrected_ratio","3He/4He_blank_corrected_error","ncc","ncc_err"'
-        with open(self.nccfilepath + '\\PyMS_ncc.csv', 'w', newline='') as hefile:
+        """Write ncc.csv file"""
+        firstline = ('"filename","date","description","q-standard","3He/4He_ratio","3He/4He_ratio_error",'
+                     '"3He/4He_blank_corrected_ratio","3He/4He_blank_corrected_error","ncc","ncc_err"')
+        with open(self.nccfilepath + '\\PyMS_ncc.csv', 'w', newline='', encoding='utf-8') as hefile:
             print(firstline, file=hefile)
             nccfile = csv.writer(hefile, delimiter=',')
             for i in range(len(self.files_names)):
-                nccfile.writerow([self.files_names[i], self.files_dates[i], self.files_descriptions[i], self.files_qnumbers[i], self.files_he34ratios[i], self.files_he34stderrs[i], self.files_he34corrratios[i], self.files_he34corrstderrs[i], self.files_he4nccs[i], self.files_he4nccstderrs[i]])
+                nccfile.writerow([self.files_names[i], self.files_dates[i], self.files_descriptions[i],
+                                  self.files_qnumbers[i], self.files_he34ratios[i], self.files_he34stderrs[i],
+                                  self.files_he34corrratios[i], self.files_he34corrstderrs[i], self.files_he4nccs[i],
+                                  self.files_he4nccstderrs[i]])
         hefile.close()
 
     def filegenerator(self, filepath):
+        """Generate a set of NCC values and write them to a file"""
         self.readdirectory(filepath)
         self.calculate_blank_all()
         self.blankcorrect()
@@ -169,8 +241,9 @@ class HeResults:
         self.reset()
 
     def singlefilereader(self,filename):
+        """Read an He file and calculate NCC values"""
         rows = []
-        with open(filename) as hefile:
+        with open(filename, 'r', encoding='utf-8') as hefile:
             read_data = csv.reader(hefile, delimiter='\t')
             for row in read_data:
                 rows.append(row)
@@ -192,5 +265,5 @@ class HeResults:
 ncc = HeResults()
 
 if __name__ == '__main__':
-    testfilepath = 'C:\\Users\\garyt\\OneDrive - TS Technologies Ltd\\GTFiles\\PhD\\Samples'
-    ncc.filegenerator(testfilepath)
+    TEST_FILE_PATH = 'C:\\Users\\garyt\\OneDrive - TS Technologies Ltd\\GTFiles\\PhD\\Samples'
+    ncc.filegenerator(TEST_FILE_PATH)

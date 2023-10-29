@@ -1,12 +1,17 @@
+"""
+Alert Message Module
+Author: Gary Twinn
+"""
 import smtplib
 import json
 import base64
+from logmanager import logger
 
 
 def alert(body):
-    with open('alerts.json') as json_file:
+    """Send an email alert message to recipeinets in the alerts.json file"""
+    with open('alerts.json', 'r', encoding='utf-8') as json_file:
         alertsettings = json.load(json_file)
-
     for recipient in alertsettings['Recipients']:
         message = 'From: ' + alertsettings['O365Sender'] + '\nTo:%s\nSubject: PyMS Alert : %s\n\n%s\n%s\n' \
                   % (recipient, alertsettings['Subject'], alertsettings['Message'], body)
@@ -17,4 +22,4 @@ def alert(body):
         mailserver.login(o365_key[0], o365_key[1])
         mailserver.sendmail(alertsettings['O365From'], recipient, message)
         mailserver.quit()
-        print('Alert sent to %s' % recipient)
+        logger.info('Alert sent to %s', recipient)

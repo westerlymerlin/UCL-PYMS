@@ -1,31 +1,36 @@
-import os.path
-from settings import settings, version
+"""
+logmanager, setus up application logging. use the **logger** property to
+write to the log.
+"""
+
+import os
 import logging
 from logging.handlers import RotatingFileHandler
-import sys
+from settings import settings
 
+# Ensure log directory exists
+log_dir = os.path.dirname(settings['logging']['logfilepath'])
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
-class StdReDirector:
-    def __init__(self):
-        self.data = []
-
-    def write(self, s):
-        if len(s) > 1:
-            logger.info(s)
-
-    def flush(self):
-        pass
-
-
-if os.path.isdir(settings['logging']['logfilepath']) is False:
-    os.mkdir(settings['logging']['logfilepath'])
 logger = logging.getLogger(settings['logging']['logappname'])
-logger.setLevel(logging.INFO)
-logfilename = '%s%s.log' % (settings['logging']['logfilepath'], settings['logging']['logappname'])
-LogFile = RotatingFileHandler(logfilename, maxBytes=1048576, backupCount=10)
+"""
+Usage:\n
+**logger.info('message')** for info messages\n
+**logger.warning('message')** for warnings\n
+**logger.error('message')** for errors\n
+**logger.debug('message')** for debugging info
+
+"""
+
+if settings['logging']['level'].lower() == 'debug':
+    logger.setLevel(logging.DEBUG)
+else:
+    logger.setLevel(logging.INFO)
+
+LogFile = RotatingFileHandler('%s%s.log' %(settings['logging']['logfilepath'],settings['logging']['logappname']),
+                              maxBytes=1048576, backupCount=10)
 formatter = logging.Formatter('%(asctime)s, %(name)s, %(levelname)s : %(message)s')
 LogFile.setFormatter(formatter)
 logger.addHandler(LogFile)
-LogFile.doRollover()
-sys.stdout = x = StdReDirector()
-print("********************** Starting PyMs Version %s ***********************" % version)
+logger.info('Logging level set to: %s',settings['logging']['level'].upper())

@@ -1,8 +1,21 @@
+"""Test generator for new batches"""
 from classes.batchclass import batch
-from settings import settings, writesettings
 
 
 def commit_planchet(description):
+    """
+
+    :param description: The description of the planchet
+    :return: None
+
+    This method commits a planchet in the system. It takes a description as input and uses it to create a new planchet
+     batch with the given description. It then adds steps for different locations and sample identifiers.
+     Finally, it saves the batch.
+
+    Example Usage:
+        >>> commit_planchet("Planchet for testing")
+
+    """
     batch.cancel()
     batch.new('planchet', description)
     counter = 1
@@ -30,11 +43,14 @@ def commit_planchet(description):
 
 
 def commit_q(description):
+    """
+    Commits a new batch with a description and a series of 10 Q shots.
+    """
     batch.cancel()
     batch.new('simple', description)
     batch.addstep('Line Clean','','')
     batch.addstep('Line Blank', '', '')
-    for i in range (10):
+    for _ in range (10):
         batch.addstep('Q-Standard', '', '')
     batch.addstep('Line Blank', '', '')
     batch.save()

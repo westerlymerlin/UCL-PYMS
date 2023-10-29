@@ -38,7 +38,7 @@
   <property name="styleSheet">
    <string notr="true">font: 10pt &quot;Segoe UI&quot;;</string>
   </property>
-  <widget class="QPlainTextEdit" name="txtLog">
+  <widget class="QTextEdit" name="txtLog">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -57,12 +57,6 @@
    </property>
    <property name="styleSheet">
     <string notr="true">font: 10pt &quot;Consolas&quot;;</string>
-   </property>
-   <property name="lineWrapMode">
-    <enum>QPlainTextEdit::NoWrap</enum>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">
