@@ -141,7 +141,7 @@ class MSClass:
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
         # print('Status = %s' % status)
-        if status[:-2] in ('StoppedShutDown', 'Protected'):
+        if status[:-2] in ('StoppedShutDown', 'Protected', 'Available'):
             s.send(bytes('-f"%s" \r\n' % self.profilefile, 'utf-8'))
             try:
                 self.socketreturn = s.recv(1024).decode()
