@@ -5,12 +5,12 @@ import requests
 from logmanager import logger
 from settings import settings, alarms
 
-
 def lasercommand(state):
     """Set laser state (on or off)"""
     message = {"item": 'laser', "command": state}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['laserhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
         logger.debug('host_commands: Setting Laser to %s', state)
         alarms['laserhost'] = 0
         return resp.json()
@@ -23,8 +23,9 @@ def lasercommand(state):
 def lasersetpower(power):
     """Set the laser power"""
     message = {"item": 'setlaserpower', "command": power}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['laserhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
         logger.debug('host_commands: Setting laser power to %s', settings['laser']['power'])
         alarms['laserhost'] = 0
         settings['laser']['power'] = power
@@ -42,8 +43,9 @@ def valvechange(valve, command):
     elif command == 0:
         command = 'close'
     message = {"item": valve, "command": command}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message, timeout=1)
         alarms['valvehost'] = 0
         return resp.json()
     except requests.RequestException:
@@ -55,8 +57,9 @@ def valvechange(valve, command):
 def xymoveto(axis, location):
     """Move the X-Y stage ***axis*** to a position ***loc***"""
     message = {'item': '%smoveto' % axis, "command": location}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message, timeout=1)
         alarms['xyhost'] = 0
         return resp.json()
     except requests.RequestException:
@@ -68,8 +71,9 @@ def xymoveto(axis, location):
 def xymove(axis, steps):
     """Move the **axis** along **steps**"""
     message = {'item': '%smove' % axis, "command": steps}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message, timeout=1)
         alarms['xyhost'] = 0
         return resp.json()
     except requests.RequestException:
@@ -81,8 +85,9 @@ def xymove(axis, steps):
 def pyrolasercommand(state):
     """enable / disable the rangefinder laser on the pyrometer"""
     message = {"item": 'laser', "command": state}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['pumphost'],headers=headers, json=message, timeout=1)
         alarms['pumphost'] = 0
         return resp.json()
     except requests.RequestException:
@@ -93,8 +98,10 @@ def pyrolasercommand(state):
 def rpi_reboot(host):
     """reboot the raspberry pi"""
     message = {"item": 'restart', "command": 'pi'}
+    apikey = host + '-api-key'
+    headers = {"Accept": "application/json", "api-key": settings['hosts'][apikey]}
     try:
-        resp = requests.post(settings['hosts'][host], json=message, timeout=1)
+        resp = requests.post(settings['hosts'][host],headers=headers, json=message, timeout=1)
         logger.info('Rebooting the %s Raspberry Pi', host)
         return resp.json()
     except requests.RequestException:

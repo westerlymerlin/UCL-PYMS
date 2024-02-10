@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="main">
+    <file>srs.png</file>
     <file>hiden-disabled.png</file>
     <file>hiden-stop.png</file>
     <file>hiden-profile.png</file>

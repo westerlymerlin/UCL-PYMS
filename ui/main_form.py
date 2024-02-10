@@ -38,6 +38,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle('PyMS - Python Mass Spectrometry v%s' % VERSION)
         self.imgLaser.setHidden(True)
         self.imgPyrometer.setHidden(True)
         self.imgQMS.setHidden(True)
@@ -53,6 +54,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.wValve11.setHidden(True)
         self.wValve12.setHidden(True)
         self.wValve13.setHidden(True)
+        self.imgSRS.setHidden(settings['MassSpec']['srs-rga-hide'])
         self.move(settings['mainform']['x'], settings['mainform']['y'])
         self.tbValve1.clicked.connect(lambda: valvechange('valve1', self.wValve1.isHidden()))
         self.tbValve2.clicked.connect(lambda: valvechange('valve2', self.wValve2.isHidden()))
@@ -121,7 +123,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.tableResults.setHorizontalHeaderItem(1, newitem1)
         self.tableResults.setHorizontalHeaderItem(2, newitem2)
         self.tableResults.setHorizontalHeaderItem(3, newitem3)
-        self.label_version.setText('v%s' % VERSION)
         self.secondcount = 0
         self.secondincrement = 0
         self.timertick = 0

@@ -60,6 +60,7 @@ def initialise():
                     "multiplier": 1e-12,
                     "nextH": "HE19096R",
                     "nextQ": 4500,
+                    "srs-rga-hide": 1,
                     "startimeoffset": 19,
                     "timeoutretries": 5
                 },
@@ -84,9 +85,13 @@ def initialise():
                 },
                 "hosts": {
                     "laserhost": "http://192.168.2.6/api",
+                    "laserhost-api-key": "changeme",
                     "pumphost": "http://192.168.2.5/api",
+                    "pumphost-api-key": "changeme",
                     "valvehost": "http://192.168.2.3/api",
-                    "xyhost": "http://192.168.2.4/api"
+                    "valvehost-api-key": "changeme",
+                    "xyhost": "http://192.168.2.4/api",
+                    "xyhost-api-key": "changeme"
                 },
                 "image": {
                     "dynolite": "DinoCapture 2.0",
@@ -97,7 +102,7 @@ def initialise():
                     "microscope-reheat": "GXCapture-T"
                 },
                 "laser": {
-                    "power": 30.0
+                    "power": 00.0
                 },
                 "laserform": {
                     "x": 100,

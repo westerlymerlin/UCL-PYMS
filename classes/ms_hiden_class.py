@@ -145,7 +145,7 @@ class MsClass:
             s.recv(1024).decode()
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
-            logger.debug('MsHiden status recieved = %s', status[:-2])
+            # logger.debug('MsHiden status recieved = %s', status[:-2])
             self.timeoutcounter = 0
             if status[:-2] == 'Unavailable':
                 logger.error('msHiden - return of Unavailable, the software cannot access the RGA' )
@@ -304,7 +304,6 @@ class MsClass:
         data = self.getdata()
         for row in data:
             sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
-            logger.debug(datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S'), self.daterun, sampledate)
             if sampledate > self.startimeoffset:
                 if len(self.time) < 20:
                     self.time.append(round(sampledate, 6))
