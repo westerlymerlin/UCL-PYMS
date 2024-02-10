@@ -1,5 +1,6 @@
-from backup import backupfile
+"""Backup all settings files to sharepoint """
 import os
+from backup import backupfile
 from settings import settings
 
 

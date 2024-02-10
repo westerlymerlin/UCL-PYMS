@@ -8,9 +8,10 @@ from logmanager import logger
 def lasergetalarm():
     """Get laser alarms"""
     message = {"item": 'laseralarm', "command": 1}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     logger.debug('host_queries: get laser alarm')
     try:
-        resp = requests.post(settings['hosts']['laserhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
         alarms['laserhost'] = 0
         logger.debug('host_queries: Laser alarm repone = %s', resp.json())
         return resp.json()
@@ -23,8 +24,9 @@ def lasergetalarm():
 def lasergetstatus():
     """Get laser status"""
     message = {"item": 'laserstatus', "command": 1}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['laserhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
         alarms['laserhost'] = 0
         return resp.json()
     except requests.RequestException:
@@ -35,8 +37,9 @@ def lasergetstatus():
 def valvegetstatus():
     """Get valve status"""
     message = {"item": 'getstatus', "command": True}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['valvehost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message, timeout=1)
         alarms['valvehost'] = 0
         return resp.json()
     except requests.RequestException:
@@ -48,8 +51,9 @@ def valvegetstatus():
 def pressuresread():
     """Get guage pressures"""
     message = {"item": 'getpressures', "command": True}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message, timeout=1)
         settings['vacuum']['turbo']['current'] = float(resp.json()[0]['pressure'])
         settings['vacuum']['tank']['current'] = float(resp.json()[1]['pressure'])
         settings['vacuum']['ion']['current'] = float(resp.json()[2]['pressure'])
@@ -64,8 +68,9 @@ def pressuresread():
 def tempratureread():
     """Get pyro temperature"""
     message = {"item": 'gettemperature', "command": True}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['pumphost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message, timeout=1)
         settings['pyrometer']['current'] = float(resp.json()['temperature'])
         alarms['pumphost'] = 0
         return resp.json()
@@ -78,9 +83,10 @@ def tempratureread():
 
 def xyread():
     """Get X Y Positions"""
+    message = {"item": 'getxystatus', "command": True}
+    headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
-        message = {"item": 'getxystatus', "command": True}
-        resp = requests.post(settings['hosts']['xyhost'], json=message, timeout=1)
+        resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message, timeout=1)
         alarms['xyhost'] = 0
         return resp.json()
     except requests.RequestException:

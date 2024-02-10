@@ -623,6 +623,25 @@ border-color: rgb(76, 76, 76);</string>
       <set>Qt::TextSelectableByMouse</set>
      </property>
     </widget>
+    <widget class="QFrame" name="imgSRS">
+     <property name="geometry">
+      <rect>
+       <x>551</x>
+       <y>516</y>
+       <width>230</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/main/srs.png);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
    </widget>
    <widget class="QLCDNumber" name="lcdElapsedTime">
     <property name="geometry">

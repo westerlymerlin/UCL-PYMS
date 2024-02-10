@@ -2,9 +2,9 @@
 Cycle Editor Application
 Author: Gary Twinn
 """
+import sys
 from PySide6.QtWidgets import QApplication
 from ui.cycle_edit_form import CycleEditUI
-import sys
 
 app = QApplication(sys.argv)
 mainform = CycleEditUI()

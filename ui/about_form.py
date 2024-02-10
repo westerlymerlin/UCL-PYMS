@@ -1,6 +1,7 @@
 """
 About Dialog
 """
+from datetime import datetime
 from PySide6.QtWidgets import QDialog, QMainWindow
 from ui.ui_layout_about import Ui_AboutDialog
 from settings import VERSION
@@ -23,4 +24,5 @@ class UiAbout(QDialog, QMainWindow, Ui_AboutDialog):
         self.setupUi(self)
         htmltxt = self.txtAbout.toHtml()
         htmltxt = htmltxt.replace('xxxxx', VERSION)
+        htmltxt = htmltxt.replace('yyyy', datetime.now().strftime('%Y'))
         self.txtAbout.setHtml(htmltxt)

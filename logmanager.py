@@ -2,7 +2,7 @@
 logmanager, setus up application logging. use the **logger** property to
 write to the log.
 """
-
+import sys
 import os
 import logging
 from logging.handlers import RotatingFileHandler
@@ -14,16 +14,13 @@ if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
 logger = logging.getLogger(settings['logging']['logappname'])
-"""
-Usage:\n
-**logger.info('message')** for info messages\n
-**logger.warning('message')** for warnings\n
-**logger.error('message')** for errors\n
-**logger.debug('message')** for debugging info
+"""Usage:
+**logger.info('message')** for info messages
+**logger.warning('message')** for warnings
+**logger.error('message')** for errors
+**logger.debug('message')** for debugging info"""
 
-"""
-
-if settings['logging']['level'].lower() == 'debug':
+if settings['logging']['level'].upper() == 'DEBUG':
     logger.setLevel(logging.DEBUG)
 else:
     logger.setLevel(logging.INFO)
@@ -33,4 +30,5 @@ LogFile = RotatingFileHandler('%s%s.log' %(settings['logging']['logfilepath'],se
 formatter = logging.Formatter('%(asctime)s, %(name)s, %(levelname)s : %(message)s')
 LogFile.setFormatter(formatter)
 logger.addHandler(LogFile)
+logger.info('Runnng Python %s on %s', sys.version, sys.platform)
 logger.info('Logging level set to: %s',settings['logging']['level'].upper())
