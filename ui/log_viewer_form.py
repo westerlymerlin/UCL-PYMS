@@ -1,7 +1,8 @@
 """
 UI form for viewing the logs
 """
-from PySide6.QtWidgets import QDialog
+from PySide6.QtWidgets import QDialog, QApplication
+from logmanager import logger
 from ui.ui_layout_log_viewer import Ui_LogDialog
 from settings import settings
 
@@ -18,10 +19,13 @@ class UiLogViewer(QDialog, Ui_LogDialog):
     def loadlog(self):
         """Read the application log and format it"""
         logfilepath = '%s%s.log' %(settings['logging']['logfilepath'],settings['logging']['logappname'])
+        logger.debug('Reading the log file %s', logfilepath)
         with open(logfilepath, 'r', encoding='utf-8') as f:
             log = f.readlines()
         f.close()
+        logger.debug('File read %s lines', len(log))
         self.txtLog.clear()
+
         for logline in log:
             colour = '#75af02'
             if 'ERROR' in logline:
@@ -30,8 +34,16 @@ class UiLogViewer(QDialog, Ui_LogDialog):
                 colour = '#f69003'
             elif 'DEBUG' in logline:
                 colour = '#C0C0C0'
-            self.txtLog.insertHtml(f'<span style=" color:{colour};">{logline}<br></span>')
+            self.txtLog.insertHtml('<span style=" color:%s;">%s<br></span>' % (colour, logline))
 
     def formclose(self):
         """Close event for the form"""
         self.deleteLater()
+
+
+if __name__ == "__main__":
+    app = QApplication([])
+    log_viewer = UiLogViewer()
+    log_viewer.show()
+    log_viewer.loadlog()
+    app.exec()
