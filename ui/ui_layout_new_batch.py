@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'newbatch.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.1
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -83,7 +83,7 @@ class Ui_dialogNewBatch(object):
         self.btnNew.setToolTip(QCoreApplication.translate("dialogNewBatch", u"create a new batch (will discard the current batch)", None))
 #endif // QT_CONFIG(tooltip)
         self.btnNew.setText(QCoreApplication.translate("dialogNewBatch", u"New", None))
-        self.radioNewSimple.setText(QCoreApplication.translate("dialogNewBatch", u"Simple Batch (up to 5 steps). Allows user to define Line Blanks and Q-Standards as well as samples.", None))
+        self.radioNewSimple.setText(QCoreApplication.translate("dialogNewBatch", u"Simple Batch (up to 8 steps). Allows user to define Line Blanks and Q-Standards as well as samples.", None))
         self.radioNewPlanchet.setText(QCoreApplication.translate("dialogNewBatch", u"New Planchet. Allows the definition of each sample within a planchet, automatilally adds Line Blanks and Q-Standards. ", None))
 #if QT_CONFIG(tooltip)
         self.btnEdit.setToolTip(QCoreApplication.translate("dialogNewBatch", u"Edit the current batch", None))

@@ -14,19 +14,19 @@
     <x>0</x>
     <y>0</y>
     <width>810</width>
-    <height>450</height>
+    <height>550</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>810</width>
-    <height>450</height>
+    <width>808</width>
+    <height>550</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>810</width>
-    <height>450</height>
+    <height>550</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -468,7 +468,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>360</y>
+     <y>460</y>
      <width>571</width>
      <height>71</height>
     </rect>
@@ -477,7 +477,6 @@
     <font>
      <family>Segoe UI</family>
      <pointsize>10</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -563,7 +562,7 @@
    <property name="geometry">
     <rect>
      <x>700</x>
-     <y>410</y>
+     <y>510</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -585,13 +584,241 @@
    <property name="geometry">
     <rect>
      <x>610</x>
-     <y>410</y>
+     <y>510</y>
      <width>80</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineSample6">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>483</x>
+     <y>320</y>
+     <width>310</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>320</y>
+     <width>16</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>6</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboTask6">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>48</x>
+     <y>320</y>
+     <width>200</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="insertPolicy">
+    <enum>QComboBox::InsertAtTop</enum>
+   </property>
+   <property name="minimumContentsLength">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboLocation6">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>320</y>
+     <width>200</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentText">
+    <string/>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="insertPolicy">
+    <enum>QComboBox::InsertAtBottom</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineSample7">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>483</x>
+     <y>360</y>
+     <width>310</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>360</y>
+     <width>16</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>7</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboTask7">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>48</x>
+     <y>360</y>
+     <width>200</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="insertPolicy">
+    <enum>QComboBox::InsertAtTop</enum>
+   </property>
+   <property name="minimumContentsLength">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboLocation7">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>360</y>
+     <width>200</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentText">
+    <string/>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="insertPolicy">
+    <enum>QComboBox::InsertAtBottom</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineSample8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>483</x>
+     <y>400</y>
+     <width>310</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>400</y>
+     <width>16</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>8</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboTask8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>48</x>
+     <y>400</y>
+     <width>200</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="insertPolicy">
+    <enum>QComboBox::InsertAtTop</enum>
+   </property>
+   <property name="minimumContentsLength">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboLocation8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>400</y>
+     <width>200</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentText">
+    <string/>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="insertPolicy">
+    <enum>QComboBox::InsertAtBottom</enum>
    </property>
   </widget>
  </widget>
