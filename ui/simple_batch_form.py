@@ -27,6 +27,9 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
         self.comboTask3.activated.connect(lambda: self.taskcomboclick(3))
         self.comboTask4.activated.connect(lambda: self.taskcomboclick(4))
         self.comboTask5.activated.connect(lambda: self.taskcomboclick(5))
+        self.comboTask6.activated.connect(lambda: self.taskcomboclick(6))
+        self.comboTask7.activated.connect(lambda: self.taskcomboclick(7))
+        self.comboTask8.activated.connect(lambda: self.taskcomboclick(8))
         self.btnSave.clicked.connect(self.savechecks)
         self.btnClose.clicked.connect(self.formclose)
         self.comboTask1.addItems(currentcycle.cycles)
@@ -34,13 +37,31 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
         self.comboTask3.addItems(currentcycle.cycles)
         self.comboTask4.addItems(currentcycle.cycles)
         self.comboTask5.addItems(currentcycle.cycles)
+        self.comboTask6.addItems(currentcycle.cycles)
+        self.comboTask7.addItems(currentcycle.cycles)
+        self.comboTask8.addItems(currentcycle.cycles)
         self.comboLocation1.addItems(currentcycle.locations)
         self.comboLocation2.addItems(currentcycle.locations)
         self.comboLocation3.addItems(currentcycle.locations)
         self.comboLocation4.addItems(currentcycle.locations)
         self.comboLocation5.addItems(currentcycle.locations)
+        self.comboLocation6.addItems(currentcycle.locations)
+        self.comboLocation7.addItems(currentcycle.locations)
+        self.comboLocation8.addItems(currentcycle.locations)
         self.lineDescription.setText(batch.description)
         self.lineDate.setText(batch.date)
+        if len(batch.runnumber) > 7:
+            self.comboTask8.setCurrentText(batch.cycle[7])
+            self.comboLocation8.setCurrentText(batch.location[7])
+            self.lineSample8.setText(batch.identifier[7])
+        if len(batch.runnumber) > 6:
+            self.comboTask7.setCurrentText(batch.cycle[6])
+            self.comboLocation7.setCurrentText(batch.location[6])
+            self.lineSample7.setText(batch.identifier[6])
+        if len(batch.runnumber) > 5:
+            self.comboTask6.setCurrentText(batch.cycle[5])
+            self.comboLocation6.setCurrentText(batch.location[5])
+            self.lineSample6.setText(batch.identifier[5])
         if len(batch.runnumber) > 4:
             self.comboTask5.setCurrentText(batch.cycle[4])
             self.comboLocation5.setCurrentText(batch.location[4])
@@ -64,7 +85,7 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
             self.lineDate.setText(batch.date)
             self.lineDescription.setText(batch.description)
             self.setWindowTitle('Unfinished steps from batch # %i' % batch.id)
-            for i in range(1, 6):
+            for i in range(1, 9):
                 self.taskcomboclick(i)
 
     def formclose(self):
@@ -130,12 +151,51 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
                 self.comboLocation4.setEnabled(False)
                 self.lineSample4.setEnabled(False)
         elif index == 5:
+            if self.comboTask5.currentText() == 'End':
+                self.comboTask6.setCurrentIndex(0)
+                self.comboTask6.setEnabled(False)
+                self.taskcomboclick(6)
+            else:
+                self.comboTask6.setEnabled(True)
             if currentcycle.sample(self.comboTask5.currentText()):
                 self.comboLocation5.setEnabled(True)
                 self.lineSample5.setEnabled(True)
             else:
                 self.comboLocation5.setEnabled(False)
                 self.lineSample5.setEnabled(False)
+        elif index == 6:
+            if self.comboTask6.currentText() == 'End':
+                self.comboTask7.setCurrentIndex(0)
+                self.comboTask7.setEnabled(False)
+                self.taskcomboclick(7)
+            else:
+                self.comboTask7.setEnabled(True)
+            if currentcycle.sample(self.comboTask6.currentText()):
+                self.comboLocation6.setEnabled(True)
+                self.lineSample6.setEnabled(True)
+            else:
+                self.comboLocation6.setEnabled(False)
+                self.lineSample6.setEnabled(False)
+        elif index == 7:
+            if self.comboTask7.currentText() == 'End':
+                self.comboTask8.setCurrentIndex(0)
+                self.comboTask8.setEnabled(False)
+                self.taskcomboclick(7)
+            else:
+                self.comboTask8.setEnabled(True)
+            if currentcycle.sample(self.comboTask6.currentText()):
+                self.comboLocation7.setEnabled(True)
+                self.lineSample7.setEnabled(True)
+            else:
+                self.comboLocation7.setEnabled(False)
+                self.lineSample7.setEnabled(False)
+        elif index == 8:
+            if currentcycle.sample(self.comboTask5.currentText()):
+                self.comboLocation8.setEnabled(True)
+                self.lineSample8.setEnabled(True)
+            else:
+                self.comboLocation8.setEnabled(False)
+                self.lineSample8.setEnabled(False)
 
     def savechecks(self):
         """Tests to run before saving to ensure every sample has a valid name"""
@@ -144,7 +204,10 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
                          [self.comboTask2.currentText(), self.comboLocation2.currentText(), self.lineSample2.text()],
                          [self.comboTask3.currentText(), self.comboLocation3.currentText(), self.lineSample3.text()],
                          [self.comboTask4.currentText(), self.comboLocation4.currentText(), self.lineSample4.text()],
-                         [self.comboTask5.currentText(), self.comboLocation5.currentText(), self.lineSample5.text()]]
+                         [self.comboTask5.currentText(), self.comboLocation5.currentText(), self.lineSample5.text()],
+                         [self.comboTask6.currentText(), self.comboLocation6.currentText(), self.lineSample6.text()],
+                         [self.comboTask7.currentText(), self.comboLocation7.currentText(), self.lineSample7.text()],
+                         [self.comboTask8.currentText(), self.comboLocation8.currentText(), self.lineSample8.text()]]
             errormessage = []
             if len(self.lineDescription.text()) == 0:
                 errormessage.append('There is no decription for this batch')
