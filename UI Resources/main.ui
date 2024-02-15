@@ -1431,7 +1431,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
       <family>Segoe UI</family>
       <pointsize>10</pointsize>
       <italic>false</italic>
-      <bold>true</bold>
+      <fontweight>DemiBold</fontweight>
      </font>
     </property>
     <property name="styleSheet">

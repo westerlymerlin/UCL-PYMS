@@ -75,6 +75,8 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         settings['cycleeditform']['y'] = self.y()
         writesettings()
         self.deleteLater()
+        self.close()
+
 
     def loadcycles(self):
         """Load cycles from database"""
@@ -260,6 +262,10 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
     def commandselector(self, target):
         """command parser"""
         self.comboCommand.clear()
+        if target == 'prompt':
+            self.comboCommand.setEditable(True)
+        else:
+            self.comboCommand.setEditable(False)
         if target[:5] == 'valve':
             self.comboCommand.addItems(['open', 'close'])
         elif target[:7] == 'pipette':

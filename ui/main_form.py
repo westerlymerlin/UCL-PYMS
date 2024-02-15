@@ -5,7 +5,8 @@ Author: Gary Twinn
 
 import threading
 import webbrowser
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox
+from tkinter import messagebox
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt
 from settings import settings, writesettings, setrunning, running, alarms, VERSION
@@ -73,21 +74,21 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionExit.triggered.connect(self.closeEvent)
         self.actionStartNewBatch.triggered.connect(self.menu_show_new_batch)
         self.actionManualControl.triggered.connect(self.menu_show_xymanual)
-        self.actionXYOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('XY Status'))
-        self.actionXYOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('XY Log'))
-        self.actionReboot_XY.triggered.connect(lambda: self.restart_pi('xyhost'))
-        self.actionValveOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Valve Status'))
-        self.actionValveOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Valve Log'))
-        self.actionReboot_Valve.triggered.connect(lambda: self.restart_pi('valvehost'))
-        self.actionPumpOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Pump Status'))
-        self.actionPumpOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Pump Log'))
-        self.actionReboot_Pump.triggered.connect(lambda: self.restart_pi('pumphost'))
-        self.actionLaserOpenStatusPage.triggered.connect(lambda: self.menu_open_web_page('Laser Status'))
-        self.actionLaserOpenLogPage.triggered.connect(lambda: self.menu_open_web_page('Laser Log'))
-        self.actionReboot_Laser.triggered.connect(lambda: self.restart_pi('laserhost'))
+        self.actionXYOpenStatusPage.triggered.connect(lambda: menu_open_web_page('XY Status'))
+        self.actionXYOpenLogPage.triggered.connect(lambda: menu_open_web_page('XY Log'))
+        self.actionReboot_XY.triggered.connect(lambda: restart_pi('xyhost'))
+        self.actionValveOpenStatusPage.triggered.connect(lambda: menu_open_web_page('Valve Status'))
+        self.actionValveOpenLogPage.triggered.connect(lambda: menu_open_web_page('Valve Log'))
+        self.actionReboot_Valve.triggered.connect(lambda: restart_pi('valvehost'))
+        self.actionPumpOpenStatusPage.triggered.connect(lambda: menu_open_web_page('Pump Status'))
+        self.actionPumpOpenLogPage.triggered.connect(lambda: menu_open_web_page('Pump Log'))
+        self.actionReboot_Pump.triggered.connect(lambda: restart_pi('pumphost'))
+        self.actionLaserOpenStatusPage.triggered.connect(lambda: menu_open_web_page('Laser Status'))
+        self.actionLaserOpenLogPage.triggered.connect(lambda: menu_open_web_page('Laser Log'))
+        self.actionReboot_Laser.triggered.connect(lambda: restart_pi('laserhost'))
         self.actionCO2LaserOn.triggered.connect(self.menu_show_lasermanual)
-        self.actionPyroLaserOn.triggered.connect(lambda: self.manual_laser('on'))
-        self.actionPyroLaserOff.triggered.connect(lambda: self.manual_laser('off'))
+        self.actionPyroLaserOn.triggered.connect(lambda: manual_laser('on'))
+        self.actionPyroLaserOff.triggered.connect(lambda: manual_laser('off'))
         self.actionAboutPyMS.triggered.connect(self.menu_show_about)
         self.actionViewPyMSLog.triggered.connect(self.menu_show_log_viewer)
         self.actionViewPyMSSettings.triggered.connect(self.menu_show_settings_viewer)
@@ -303,7 +304,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 logger.debug('t=%s mainUIForm: Laser Status changed', self.secondcount)
                 self.imgLaser.setVisible(status['laser'])
 
-
     def emergency_stop(self):
         """Emergency stop event triggered"""
         logger.warning('Main form: Emergency stop triggred')
@@ -378,7 +378,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             logger.error('t=%s mainUIForm: timedevents type error %s', self.secondcount, Exception())
 
     def event_parser(self):
-        """Reads tasks from teh current cycle list and initiates them if the time is correct"""
+        """Reads tasks from the current cycle list and initiates them if the time is correct"""
         try:
             self.taskrunning = True
             current = currentcycle.currentstep()
@@ -431,10 +431,15 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     batch.image(current[2])
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
+                elif current[1] == 'prompt':
+                    promptthread = threading.Timer(1, lambda: promptbox(current[2]))
+                    promptthread.start()
+                    currentcycle.completecurrent()
+                    self.listCommands.takeItem(0)
                 elif current[1] == 'End':
                     if not batch.isitthereyet(self.xposition, self.yposition):
                         logger.warning('t=%s mainUIform: location not there yet x=%s, y=%s', self.secondcount,
-                                     self.xposition, self.yposition)
+                                       self.xposition, self.yposition)
                         self.lblCurrent.setText('Waiting for X-Y Stage to position')
                         self.taskrunning = False
                         return
@@ -510,14 +515,12 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.newdialog.setModal(True)
         self.newdialog.show()
 
-
     def menu_show_ncc(self):
         """Menu Handler show NCC Form"""
         self.newdialog = NccCalcUI()
-        self.newdialog.setModal(False)
+        self.newdialog.setModal(True)
         self.newdialog.refreshlist()
         self.newdialog.show()
-
 
     def update_ui_batch_list(self):
         """Update the btach list"""
@@ -587,70 +590,74 @@ class UiMain(QMainWindow, Ui_MainWindow):
         except:
             logger.error('mainUIForm: Update results error - %s', Exception)
 
-    def restart_pi(self, host):
-        """Reboot a raspberry pi"""
-        logger.info('Reboot requested for %s', host)
-        msg_box = QMessageBox()
-        msg_box.setStyleSheet('border-color: rgb(255, 255, 255);\nfont: 10pt "Segoe UI";'
-                             '\nbackground-color: rgb(230, 230, 230);')
-        msg_box.setWindowTitle('Restart the Raspberry Pi')
-        msg_box.setText('Are you really sure you want to reboot the %s?' % host)
-        msg_box.setIcon(QMessageBox.Question)
-        no_button = msg_box.addButton('No, I do not', QMessageBox.ActionRole)
-        yes_button = msg_box.addButton('Yes', QMessageBox.ActionRole)
-        msg_box.exec()
-        if msg_box.clickedButton() == yes_button:
-            logger.warning('Restart confirmed for %s', host)
-            rpi_reboot(host)
-        elif msg_box.clickedButton() == no_button:
-            logger.info('Restart cancelled for %s', host)
-
-    def menu_open_web_page(self, page):
-        """Menu handler - open host web page"""
-        if page == 'Valve Status':
-            url = settings['hosts']['valvehost'][:-4]
-            webbrowser.open(url)
-        elif page == 'Valve Log':
-            url = settings['hosts']['valvehost'][:-3] + 'pylog'
-            webbrowser.open(url)
-        elif page == 'XY Status':
-            url = settings['hosts']['xyhost'][:-4]
-            webbrowser.open(url)
-        elif page == 'XY Log':
-            url = settings['hosts']['xyhost'][:-3] + 'pylog'
-            webbrowser.open(url)
-        elif page == 'Laser Status':
-            url = settings['hosts']['laserhost'][:-4]
-            webbrowser.open(url)
-        elif page == 'Laser Log':
-            url = settings['hosts']['laserhost'][:-3] + 'pylog'
-            webbrowser.open(url)
-        elif page == 'Pump Status':
-            url = settings['hosts']['pumphost'][:-4]
-            webbrowser.open(url)
-        elif page == 'Pump Log':
-            url = settings['hosts']['pumphost'][:-3] + 'pylog'
-            webbrowser.open(url)
-
-
     def move_next(self):
         """Move to the next planchet location"""
         logger.debug('t:%s mainUIform: Move to %s', self.secondcount, batch.nextlocation())
-        movexthread = threading.Timer(0.5, self.move_x)
+        movexthread = threading.Timer(0.5, move_x)
         movexthread.start()
-        moveythread = threading.Timer(1.5, self.move_y)
+        moveythread = threading.Timer(1.5, move_y)
         moveythread.start()
 
-    def move_x(self):
-        """Move the x axis to the next planchet location"""
-        location = batch.locxy(batch.nextlocation())
-        xymoveto('x', location[0])
 
-    def move_y(self):
-        """Move the Y axis to the next planchet location"""
-        location = batch.locxy(batch.nextlocation())
-        xymoveto('y', location[1])
+def move_x():
+    """Move the x axis to the next planchet location"""
+    location = batch.locxy(batch.nextlocation())
+    xymoveto('x', location[0])
 
-    def manual_laser(self, state):
-        """Pyrometer rangefinder laser handler"""
-        pyrolasercommand(state)
+
+def move_y():
+    """Move the Y axis to the next planchet location"""
+    location = batch.locxy(batch.nextlocation())
+    xymoveto('y', location[1])
+
+
+def manual_laser(state):
+    """Pyrometer rangefinder laser handler"""
+    pyrolasercommand(state)
+
+
+def promptbox(message):
+    """ Pop up message box"""
+    logger.info('Main Form Popup Message sent :%s', message)
+    messagebox.showinfo('PyMS', message)
+    logger.info('Main Form Popup Message clicked: %s', message)
+
+
+def restart_pi(host):
+    """Reboot a raspberry pi"""
+    logger.info('Reboot requested for %s', host)
+    msg_box = messagebox.askyesno('Restart the Raspberry Pi',
+                                  'Are you really sure you want to reboot the %s?' % host, type=messagebox.YESNO)
+    if msg_box:
+        logger.warning('Restart confirmed for %s', host)
+        rpi_reboot(host)
+    else:
+        logger.info('Restart cancelled for %s', host)
+
+
+def menu_open_web_page(page):
+    """Menu handler - open host web page"""
+    if page == 'Valve Status':
+        url = settings['hosts']['valvehost'][:-4]
+        webbrowser.open(url)
+    elif page == 'Valve Log':
+        url = settings['hosts']['valvehost'][:-3] + 'pylog'
+        webbrowser.open(url)
+    elif page == 'XY Status':
+        url = settings['hosts']['xyhost'][:-4]
+        webbrowser.open(url)
+    elif page == 'XY Log':
+        url = settings['hosts']['xyhost'][:-3] + 'pylog'
+        webbrowser.open(url)
+    elif page == 'Laser Status':
+        url = settings['hosts']['laserhost'][:-4]
+        webbrowser.open(url)
+    elif page == 'Laser Log':
+        url = settings['hosts']['laserhost'][:-3] + 'pylog'
+        webbrowser.open(url)
+    elif page == 'Pump Status':
+        url = settings['hosts']['pumphost'][:-4]
+        webbrowser.open(url)
+    elif page == 'Pump Log':
+        url = settings['hosts']['pumphost'][:-3] + 'pylog'
+        webbrowser.open(url)

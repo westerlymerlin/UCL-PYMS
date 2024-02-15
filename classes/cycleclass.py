@@ -41,17 +41,18 @@ class CycleClass:
     - sample(cycleitem: str): Check if an item is in the list of samples.
 
     """
+
     def __init__(self):
         self.id = -1
-        self.name = None   # The name of the current cycle
-        self.description = None  #  The description of the current cycle
+        self.name = None  # The name of the current cycle
+        self.description = None  # The description of the current cycle
         self.enabled = True  # the ststus of the current cycle
         self.laserpower = 0  # The laserpower of the current cycle
         self.cycles = []  # The list of available cycle names
         self.samples = []  # Is the available cycle one that processes samples and uses the laser
         self.locations = []  # the list of all locations on the planchet
         self.steptime = []  # current cycle list of step times
-        self.steptarget = []   # current cycle list of targets
+        self.steptarget = []  # current cycle list of targets
         self.stepcommand = []  # current cycle list of commands
         self.readdatabase()
 
@@ -76,7 +77,7 @@ class CycleClass:
 
     def setcycle(self, name):
         """Set the current cycle to the given name and retrieve all the steps (used when the cycle starts)"""
-        if not name in self.cycles:
+        if name not in self.cycles:
             logger.warning('Cycle Class: set cycle %s name not found', name)
             return
         if name == 'End':
@@ -145,7 +146,7 @@ class CycleClass:
             returnval.append('%s, %s, %s' % (self.steptime[index], self.steptarget[index], self.stepcommand[index]))
             index = index + 1
         if len(returnval) == 0:
-            returnval = ['00, End, End']
+            returnval = ['1, End, End']
         return returnval
 
     def sample(self, cycleitem):
