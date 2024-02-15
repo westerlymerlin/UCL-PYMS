@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.1
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -516,7 +516,7 @@ class Ui_MainWindow(object):
         font3 = QFont()
         font3.setFamilies([u"Segoe UI"])
         font3.setPointSize(10)
-        font3.setBold(True)
+        font3.setWeight(QFont.DemiBold)
         font3.setItalic(False)
         self.lblAalarm.setFont(font3)
         self.lblAalarm.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
