@@ -262,7 +262,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
     def commandselector(self, target):
         """command parser"""
         self.comboCommand.clear()
-        if target == 'prompt':
+        if target == 'manual':
             self.comboCommand.setEditable(True)
         else:
             self.comboCommand.setEditable(False)
