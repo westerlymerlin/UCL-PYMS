@@ -431,9 +431,8 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     batch.image(current[2])
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
-                elif current[1] == 'prompt':
-                    promptthread = threading.Timer(1, lambda: promptbox(current[2]))
-                    promptthread.start()
+                elif current[1] == 'manual':
+                    self.manual_message(current[2])
                     currentcycle.completecurrent()
                     self.listCommands.takeItem(0)
                 elif current[1] == 'End':
@@ -598,6 +597,17 @@ class UiMain(QMainWindow, Ui_MainWindow):
         moveythread = threading.Timer(1.5, move_y)
         moveythread.start()
 
+    def manual_message(self, message):
+        """ Pop up message box"""
+        logger.info('Main Form Popup Message sent :%s', message)
+        secondinc = self.secondincrement
+        self.secondincrement = 0
+        messagebox.showinfo('PyMS Manual Step', 'There is a manual step needed:\n\n%s\n\n'
+                                                'Please complete the action and click ok to continue' % message)
+        self.secondincrement = secondinc
+        self.lblFinishTime.setText(batch.finishtime())
+        logger.info('Main Form Popup Message clicked: %s', message)
+
 
 def move_x():
     """Move the x axis to the next planchet location"""
@@ -616,11 +626,7 @@ def manual_laser(state):
     pyrolasercommand(state)
 
 
-def promptbox(message):
-    """ Pop up message box"""
-    logger.info('Main Form Popup Message sent :%s', message)
-    messagebox.showinfo('PyMS', message)
-    logger.info('Main Form Popup Message clicked: %s', message)
+
 
 
 def restart_pi(host):
