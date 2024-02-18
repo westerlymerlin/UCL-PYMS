@@ -6,29 +6,19 @@ has appeared it will creat from the defaults in the initialise function.
 import json
 import datetime
 
-VERSION = '3.1.7'
+VERSION = '3.1.8'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
-def friendlydirname(sourcename):
-    """Removes invalid caharacters from file names"""
-    sourcename = sourcename.replace('/', '-')
-    sourcename = sourcename.replace('\\', '-')
-    sourcename = sourcename.replace(':', '-')
-    sourcename = sourcename.replace('*', '-')
-    sourcename = sourcename.replace('?', 'Q')
-    sourcename = sourcename.replace('<', '-')
-    sourcename = sourcename.replace('>', '-')
-    sourcename = sourcename.replace('"', '-')
-    sourcename = sourcename.replace('&', '-')
-    sourcename = sourcename.replace('%', '-')
-    sourcename = sourcename.replace('#', '-')
-    sourcename = sourcename.replace('$', '-')
-    sourcename = sourcename.replace("'", '-')
-    sourcename = sourcename.replace(',', '.')
-    sourcename = sourcename.replace('--', '-')
-    sourcename = sourcename.replace('--', '-')
-    sourcename = sourcename.replace('--', '-')
+
+def friendlydirname(sourcename: str) -> str:
+    """Removes invalid characters from file names"""
+    INVALID_CHARS = ['/', '\\', ':', '*', '?', '<', '>', '"', '&', '%', '#', '$', "'", ',']
+    for invalid_char in INVALID_CHARS:
+        sourcename = sourcename.replace(invalid_char, '-')
+    # Remove subsequent dash characters effectively
+    while '--' in sourcename:
+        sourcename = sourcename.replace('--', '-')
     return sourcename
 
 
@@ -167,7 +157,7 @@ def readsettings():
             jsettings = json.load(json_file)
             return jsettings
     except FileNotFoundError:
-        print('File not found')
+        print('File not found - settings.json')
         return {}
 
 
