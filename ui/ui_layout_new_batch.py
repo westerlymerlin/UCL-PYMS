@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'newbatch.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,7 +25,7 @@ class Ui_dialogNewBatch(object):
             dialogNewBatch.setObjectName(u"dialogNewBatch")
         dialogNewBatch.setWindowModality(Qt.ApplicationModal)
         dialogNewBatch.resize(970, 200)
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(dialogNewBatch.sizePolicy().hasHeightForWidth())

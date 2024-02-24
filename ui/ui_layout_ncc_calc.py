@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'ncccalc.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,18 +15,19 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QDialog, QFrame,
-    QHeaderView, QLabel, QPushButton, QSizePolicy,
-    QTableWidget, QTableWidgetItem, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QDialog,
+    QFrame, QHeaderView, QLabel, QPushButton,
+    QSizePolicy, QSpinBox, QTableWidget, QTableWidgetItem,
+    QWidget)
 import main_rc
 
 class Ui_dialogNccCalc(object):
     def setupUi(self, dialogNccCalc):
         if not dialogNccCalc.objectName():
             dialogNccCalc.setObjectName(u"dialogNccCalc")
-        dialogNccCalc.resize(950, 790)
-        dialogNccCalc.setMinimumSize(QSize(950, 790))
-        dialogNccCalc.setMaximumSize(QSize(950, 790))
+        dialogNccCalc.resize(1000, 790)
+        dialogNccCalc.setMinimumSize(QSize(1000, 790))
+        dialogNccCalc.setMaximumSize(QSize(1000, 790))
         icon = QIcon()
         icon.addFile(u":/main/iconNccCalc.svg", QSize(), QIcon.Normal, QIcon.Off)
         dialogNccCalc.setWindowIcon(icon)
@@ -53,7 +54,7 @@ class Ui_dialogNccCalc(object):
         self.tableFileList.verticalHeader().setVisible(False)
         self.tableBlankList = QTableWidget(dialogNccCalc)
         self.tableBlankList.setObjectName(u"tableBlankList")
-        self.tableBlankList.setGeometry(QRect(510, 240, 431, 131))
+        self.tableBlankList.setGeometry(QRect(510, 240, 480, 131))
         self.tableBlankList.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "selection-background-color: rgb(85, 85, 255);\n"
 "border-color: rgb(61, 61, 61);\n"
@@ -71,7 +72,7 @@ class Ui_dialogNccCalc(object):
         self.tableBlankList.verticalHeader().setHighlightSections(False)
         self.tableQList = QTableWidget(dialogNccCalc)
         self.tableQList.setObjectName(u"tableQList")
-        self.tableQList.setGeometry(QRect(510, 80, 431, 131))
+        self.tableQList.setGeometry(QRect(510, 80, 480, 131))
         self.tableQList.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "selection-background-color: rgb(85, 85, 255);\n"
 "border-color: rgb(61, 61, 61);\n"
@@ -112,7 +113,7 @@ class Ui_dialogNccCalc(object):
         self.label_3.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
         self.lblBlanckCorrect = QLabel(dialogNccCalc)
         self.lblBlanckCorrect.setObjectName(u"lblBlanckCorrect")
-        self.lblBlanckCorrect.setGeometry(QRect(510, 400, 431, 21))
+        self.lblBlanckCorrect.setGeometry(QRect(510, 400, 480, 21))
         self.lblBlanckCorrect.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         self.lblBlanckCorrect.setFrameShape(QFrame.Box)
         self.lblBlanckCorrect.setFrameShadow(QFrame.Sunken)
@@ -121,11 +122,11 @@ class Ui_dialogNccCalc(object):
         self.lblBlanckCorrect.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.btnNcc = QPushButton(dialogNccCalc)
         self.btnNcc.setObjectName(u"btnNcc")
-        self.btnNcc.setGeometry(QRect(860, 430, 75, 24))
+        self.btnNcc.setGeometry(QRect(910, 430, 75, 24))
         self.btnNcc.setFlat(False)
         self.label_4 = QLabel(dialogNccCalc)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(670, 430, 181, 24))
+        self.label_4.setGeometry(QRect(721, 430, 181, 24))
         self.label_4.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
         self.label_4.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
         self.label_5 = QLabel(dialogNccCalc)
@@ -134,13 +135,13 @@ class Ui_dialogNccCalc(object):
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setPointSize(10)
-        font.setBold(True)
+        font.setWeight(QFont.DemiBold)
         font.setItalic(False)
         self.label_5.setFont(font)
         self.label_5.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
         self.label_6 = QLabel(dialogNccCalc)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(730, 464, 91, 16))
+        self.label_6.setGeometry(QRect(760, 464, 91, 16))
         self.label_6.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
         self.label_7 = QLabel(dialogNccCalc)
         self.label_7.setObjectName(u"label_7")
@@ -148,12 +149,21 @@ class Ui_dialogNccCalc(object):
         self.label_7.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
         self.label_8 = QLabel(dialogNccCalc)
         self.label_8.setObjectName(u"label_8")
-        self.label_8.setGeometry(QRect(730, 624, 91, 16))
+        self.label_8.setGeometry(QRect(760, 624, 91, 16))
         self.label_8.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
         self.btnRefresh = QPushButton(dialogNccCalc)
         self.btnRefresh.setObjectName(u"btnRefresh")
         self.btnRefresh.setGeometry(QRect(400, 753, 75, 24))
         self.btnRefresh.setFlat(False)
+        self.spinSeconds = QSpinBox(dialogNccCalc)
+        self.spinSeconds.setObjectName(u"spinSeconds")
+        self.spinSeconds.setGeometry(QRect(656, 430, 81, 24))
+        self.spinSeconds.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
+        self.label_9 = QLabel(dialogNccCalc)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setGeometry(QRect(532, 430, 116, 24))
+        self.label_9.setStyleSheet(u"font: 600 10pt \"Segoe UI\";")
+        self.label_9.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.retranslateUi(dialogNccCalc)
 
@@ -193,5 +203,6 @@ class Ui_dialogNccCalc(object):
         self.btnRefresh.setToolTip(QCoreApplication.translate("dialogNccCalc", u"<html><head/><body><p>Click to generate a PyMS_ncc.csv file</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.btnRefresh.setText(QCoreApplication.translate("dialogNccCalc", u"Refresh", None))
+        self.label_9.setText(QCoreApplication.translate("dialogNccCalc", u"Seconds to skip", None))
     # retranslateUi
 
