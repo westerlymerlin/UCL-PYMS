@@ -18,9 +18,9 @@ pyms_pyz = PYZ(pyms_a.pure)
 pyms_exe = EXE(
     pyms_pyz,
     pyms_a.scripts,
-    [],
     exclude_binaries=True,
     name='PyMS',
+    icon='.\\UI Resources\\iconPyMSRun.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -51,9 +51,9 @@ ncc_pyz = PYZ(ncc_a.pure)
 ncc_exe = EXE(
     ncc_pyz,
     ncc_a.scripts,
-    [],
     exclude_binaries=True,
     name='NccViewer',
+    icon='.\\UI Resources\\iconNccCalc.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -84,9 +84,9 @@ cycle_pyz = PYZ(cycle_a.pure)
 cycle_exe = EXE(
     cycle_pyz,
     cycle_a.scripts,
-    [],
     exclude_binaries=True,
     name='CycleEditor',
+    icon='.\\UI Resources\\iconPyMSRun.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

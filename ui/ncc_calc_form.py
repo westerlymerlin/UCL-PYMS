@@ -236,7 +236,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         axis_x.setLabelsFont(font)
         axis_x.setLabelFormat("%i")
         axis_y = chart.axes(Qt.Vertical)[0]
-        y_range =  yvalues(dataset)
+        y_range = yvalues(dataset)
         axis_y.setMin(y_range[0])
         axis_y.setMax(y_range[1])
         if y_range[1] == 1:
@@ -282,7 +282,7 @@ def yvalues(dataset):
     yvals = []
     for point in dataset:
         yvals.append(point[1])
-    return [int(min(yvals)), int(max(yvals)) +1]
+    return [int(min(yvals)), int(max(yvals)) + 1]
 
 
 if __name__ == '__main__':
