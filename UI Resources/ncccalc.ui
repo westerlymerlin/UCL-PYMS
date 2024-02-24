@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
+    <width>1000</width>
     <height>790</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>950</width>
+    <width>1000</width>
     <height>790</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>950</width>
+    <width>1000</width>
     <height>790</height>
    </size>
   </property>
@@ -93,7 +93,7 @@ selection-color: rgb(255, 255, 255);</string>
     <rect>
      <x>510</x>
      <y>240</y>
-     <width>431</width>
+     <width>480</width>
      <height>131</height>
     </rect>
    </property>
@@ -143,7 +143,7 @@ selection-color: rgb(255, 255, 255);</string>
     <rect>
      <x>510</x>
      <y>80</y>
-     <width>431</width>
+     <width>480</width>
      <height>131</height>
     </rect>
    </property>
@@ -285,7 +285,7 @@ selection-color: rgb(255, 255, 255);</string>
     <rect>
      <x>510</x>
      <y>400</y>
-     <width>431</width>
+     <width>480</width>
      <height>21</height>
     </rect>
    </property>
@@ -314,7 +314,7 @@ selection-color: rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="btnNcc">
    <property name="geometry">
     <rect>
-     <x>860</x>
+     <x>910</x>
      <y>430</y>
      <width>75</width>
      <height>24</height>
@@ -333,7 +333,7 @@ selection-color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>721</x>
      <y>430</y>
      <width>181</width>
      <height>24</height>
@@ -363,7 +363,7 @@ selection-color: rgb(255, 255, 255);</string>
      <family>Segoe UI</family>
      <pointsize>10</pointsize>
      <italic>false</italic>
-     <bold>true</bold>
+     <fontweight>DemiBold</fontweight>
     </font>
    </property>
    <property name="styleSheet">
@@ -376,7 +376,7 @@ selection-color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>730</x>
+     <x>760</x>
      <y>464</y>
      <width>91</width>
      <height>16</height>
@@ -408,7 +408,7 @@ selection-color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>730</x>
+     <x>760</x>
      <y>624</y>
      <width>91</width>
      <height>16</height>
@@ -438,6 +438,38 @@ selection-color: rgb(255, 255, 255);</string>
    </property>
    <property name="flat">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinSeconds">
+   <property name="geometry">
+    <rect>
+     <x>656</x>
+     <y>430</y>
+     <width>81</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::UpDownArrows</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>532</x>
+     <y>430</y>
+     <width>116</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 10pt &quot;Segoe UI&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Seconds to skip</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
  </widget>

@@ -3,7 +3,7 @@ NCC Calculation Form
 Author: Gary Twinn
 """
 import sys
-from PySide6.QtWidgets import QApplication, QDialog, QFrame, QTableWidgetItem,QTableWidgetSelectionRange, QFileDialog
+from PySide6.QtWidgets import QApplication, QDialog, QFrame, QTableWidgetItem, QTableWidgetSelectionRange, QFileDialog
 from PySide6.QtCharts import (QChart, QChartView, QScatterSeries)
 from PySide6.QtCore import Qt, QRect, QMargins
 from PySide6.QtGui import QFont, QColor
@@ -11,7 +11,7 @@ import numpy
 from ui.ui_layout_ncc_calc import Ui_dialogNccCalc
 from settings import settings, writesettings
 from logmanager import logger
-from ncc_calc import ncc
+from ncc_calc import ncc, singlefilereader
 
 
 class NccCalcUI(QDialog, Ui_dialogNccCalc):
@@ -46,8 +46,8 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.tableBlankList.horizontalHeader().setStyleSheet("::section {""background-color: rgb(0, 85, 255); }")
         self.tableBlankList.setColumnWidth(0, 80)
         self.tableBlankList.setColumnWidth(1, 150)
-        self.tableBlankList.setColumnWidth(2, 90)
-        self.tableBlankList.setColumnWidth(3, 90)
+        self.tableBlankList.setColumnWidth(2, 115)
+        self.tableBlankList.setColumnWidth(3, 110)
         self.tableQList.setColumnCount(5)
         self.tableQList.setHorizontalHeaderItem(0, self.columnheader('4He Pipette', 'l'))
         self.tableQList.setHorizontalHeaderItem(1, self.columnheader('3He Pipette', 'l'))
@@ -55,11 +55,11 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.tableQList.setHorizontalHeaderItem(3, self.columnheader('predicted', 'r'))
         self.tableQList.setHorizontalHeaderItem(4, self.columnheader('%', 'r'))
         self.tableQList.horizontalHeader().setStyleSheet("::section {""background-color: rgb(0, 85, 255); }")
-        self.tableQList.setColumnWidth(0, 90)
-        self.tableQList.setColumnWidth(1, 90)
-        self.tableQList.setColumnWidth(2, 80)
-        self.tableQList.setColumnWidth(3, 80)
-        self.tableQList.setColumnWidth(4, 65)
+        self.tableQList.setColumnWidth(0, 100)
+        self.tableQList.setColumnWidth(1, 100)
+        self.tableQList.setColumnWidth(2, 90)
+        self.tableQList.setColumnWidth(3, 90)
+        self.tableQList.setColumnWidth(4, 70)
         self.tableQList.itemDoubleClicked.connect(self.qclick)
         self.blank_mean = 0
         self.blank_stderr = 0
@@ -68,22 +68,24 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.value_max = 10
         self.value_count = 7
         self.m43chartview = QChartView(self)
-        self.m43chartview.setGeometry(QRect(510, 480, 210, 140))
-        self.m43chartview.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.m43chartview.setGeometry(QRect(510, 480, 230, 135))
+        self.m43chartview.setStyleSheet('background-color: rgb(255, 255, 255);border-color: rgb(94, 94, 94);')
         self.m43chartview.setFrameShape(QFrame.Box)
         self.m43chartview.setToolTip('4He/3He ratio\nred line is bestfit')
         self.m1chartview = QChartView(self)
-        self.m1chartview.setGeometry(QRect(730, 480, 210, 140))
-        self.m1chartview.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.m1chartview.setGeometry(QRect(760, 480, 230, 135))
+        self.m1chartview.setStyleSheet('background-color: rgb(255, 255, 255);border-color: rgb(94, 94, 94);')
         self.m1chartview.setFrameShape(QFrame.Box)
         self.m3chartview = QChartView(self)
-        self.m3chartview.setGeometry(QRect(510, 640, 210, 140))
-        self.m3chartview.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.m3chartview.setGeometry(QRect(510, 640, 230, 135))
+        self.m3chartview.setStyleSheet('background-color: rgb(255, 255, 255);border-color: rgb(94, 94, 94);')
         self.m3chartview.setFrameShape(QFrame.Box)
         self.m4chartview = QChartView(self)
-        self.m4chartview.setGeometry(QRect(730, 640, 210, 140))
-        self.m4chartview.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.m4chartview.setGeometry(QRect(760, 640, 230, 135))
+        self.m4chartview.setStyleSheet('background-color: rgb(255, 255, 255);border-color: rgb(94, 94, 94);')
         self.m4chartview.setFrameShape(QFrame.Box)
+        self.spinSeconds.setValue(settings['Ncc']['ncc_start_seconds'])
+        self.spinSeconds.valueChanged.connect(self.secondchanged)
 
     def formclose(self):
         """Close event handler for the form"""
@@ -163,6 +165,10 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
             self.tableQList.setItem(x, 3, newpitem)
             self.tableQList.setItem(x, 4, newppercent)
 
+    def secondchanged(self):
+        settings['Ncc']['ncc_start_seconds'] = self.spinSeconds.value()
+        writesettings()
+        self.refreshlist()
 
     def blankselectionhanler(self):
         """Line Blank selection handler"""
@@ -208,11 +214,11 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         margins = QMargins()
         margins.setTop(-52)
         margins.setBottom(0)
-        margins.setLeft(0)
+        margins.setLeft(-6)
         margins.setRight(-2)
         chart = QChart()
         series = QScatterSeries(chart)
-        series.setMarkerSize(8)
+        series.setMarkerSize(5)
         series.setColor(colour)
         colour.setRgb(255, 100, 100)
         for datapoint in dataset:
@@ -222,12 +228,23 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
             series.setBestFitLineVisible(True)
         chart.addSeries(series)
         chart.createDefaultAxes()
+        font = QFont()
+        font.setFamily('Segoe UI')
+        font.setPointSize(7)
         axis_x = chart.axes(Qt.Horizontal)[0]
-        axis_x.setMin(0)
-        axis_x.setMax(200)
+        axis_x.setMin(settings['Ncc']['ncc_start_seconds'] - 5)
+        axis_x.setLabelsFont(font)
         axis_x.setLabelFormat("%i")
         axis_y = chart.axes(Qt.Vertical)[0]
-        axis_y.setLabelFormat("%.2f")
+        y_range =  yvalues(dataset)
+        axis_y.setMin(y_range[0])
+        axis_y.setMax(y_range[1])
+        if y_range[1] == 1:
+            axis_y.setLabelFormat("%.1f")
+        else:
+            axis_y.setLabelFormat("%i")
+        axis_y.setLabelsFont(font)
+
         chart.setMargins(margins)
         return chart
 
@@ -235,7 +252,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         """He file charter"""
         if len(self.tableFileList.selectedItems()) > 0:
             filename = ncc.nccfilepath + '\\' + self.tableFileList.selectedItems()[0].text()
-            m1, m3, m4, m43 = ncc.singlefilereader(filename)
+            m1, m3, m4, m43 = singlefilereader(filename)
             self.m43chartview.setChart(self.create_scatterchart(m43, True))
             self.m1chartview.setChart(self.create_scatterchart(m1, False))
             self.m3chartview.setChart(self.create_scatterchart(m3, False))
@@ -252,11 +269,22 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         with open(filename, 'w', encoding='utf-8') as qfile:
             #  print('4He Count, 3He Count, 4He/3He, Predicted', file=qfile)
             for line in range(self.tableQList.rowCount()):
-                datarow = '%s, %s, %s, %s' %(self.tableQList.item(line, 0).text(), self.tableQList.item(line, 1).text(),
-                                             self.tableQList.item(line, 2).text(), self.tableQList.item(line, 3).text())
+                datarow = '%s, %s, %s, %s' % (self.tableQList.item(line, 0).text(),
+                                              self.tableQList.item(line, 1).text(),
+                                              self.tableQList.item(line, 2).text(),
+                                              self.tableQList.item(line, 3).text())
                 logger.debug('qdata: %s', datarow)
                 print(datarow, file=qfile)
             qfile.close()
+
+
+def yvalues(dataset):
+    yvals = []
+    for point in dataset:
+        yvals.append(point[1])
+    maxy = int(max(yvals)) +1
+    miny = int(min(yvals))
+    return [miny, maxy]
 
 
 if __name__ == '__main__':

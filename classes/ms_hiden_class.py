@@ -5,11 +5,10 @@ import os
 import threading
 import time
 import sqlite3
-import numpy
-from scipy import stats
 from settings import settings, writesettings, friendlydirname
 from backup import backupfile
-from logmanager import  logger
+from ncc_calc import linbestfit
+from logmanager import logger
 
 
 class MsClass:
@@ -25,7 +24,6 @@ class MsClass:
     - __port: int - the port of the Hiden Mass Spectrometer
     - __multiplier: float - the multiplier used in calculations
     - timeoutretries: int - the maximum number of timeout retries
-    - startimeoffset: int - the offset start time
     - time: list - a list of time values
     - m1: list - a list of m1 values
     - m3: list - a list of m3 values
@@ -67,7 +65,6 @@ class MsClass:
         self.port = settings['MassSpec']['hidenport']
         self.multiplier = 1 / settings['MassSpec']['multiplier']
         self.timeoutretries = settings['MassSpec']['timeoutretries']
-        self.startimeoffset = settings['MassSpec']['startimeoffset']
         self.resetclass()
         self.time = []
         self.m1 = []
@@ -80,7 +77,7 @@ class MsClass:
         self.id = self.next_id()  # MS File ID in the format HEnnnnnR
         self.type = ''  # File Type
         self.filename = ''  # File Name
-        self.identifier = ''  ## Sample Identifier
+        self.identifier = ''  # Sample Identifier
         self.daterun = datetime.now()
         self.batchdescription = ''  # Batch description (For file path)
         self.batchid = 0  # Batch ID (For file path)
@@ -148,7 +145,7 @@ class MsClass:
             # logger.debug('MsHiden status recieved = %s', status[:-2])
             self.timeoutcounter = 0
             if status[:-2] == 'Unavailable':
-                logger.error('msHiden - return of Unavailable, the software cannot access the RGA' )
+                logger.error('msHiden - return of Unavailable, the software cannot access the RGA')
                 return 'Unavailable'
             return status[:-2]
         except socket.timeout:
@@ -297,25 +294,24 @@ class MsClass:
             return nextfile
         except sqlite3.Error as error:
             logger.error("msHiden: next_id error %s", error)
-            return"HE00000R"
+            return "HE00000R"
 
     def writefile(self):
         """Write Helium Data file to disk"""
         data = self.getdata()
         for row in data:
             sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
-            if sampledate > self.startimeoffset:
-                if len(self.time) < 20:
-                    self.time.append(round(sampledate, 6))
-                    self.m1.append(round(float(row[2]) * self.multiplier, 6))
-                    self.m3.append(round(float(row[3]) * self.multiplier, 6))
-                    self.m4.append(round(float(row[4]) * self.multiplier, 6))
-                    self.m5.append(0)
-                    self.m40.append(round(float(row[5]) * self.multiplier, 6))
-                    self.m6.append(0)
+            if sampledate > 0:
+                self.time.append(round(sampledate, 6))
+                self.m1.append(round(float(row[2]) * self.multiplier, 6))
+                self.m3.append(round(float(row[3]) * self.multiplier, 6))
+                self.m4.append(round(float(row[4]) * self.multiplier, 6))
+                self.m5.append(0)
+                self.m40.append(round(float(row[5]) * self.multiplier, 6))
+                self.m6.append(0)
         logger.debug('msHiden - Datafile has %s rows', len(self.time))
         logger.debug('msHiden: Calculating bestfit')
-        self.bestfit = linbestfit(self.time, self.m3, self.m1, self.m4, settings['Ncc']['HD_H'])
+        self.bestfit = linbestfit(self.time, self.m1, self.m3, self.m4)
         try:
             self.filename = self.next_id()
             logger.info('msHiden: filename = %s', self.filename)
@@ -365,19 +361,6 @@ class MsClass:
         except sqlite3.Error as error:
             logger.error('msHiden: failed to write to helium results database %s', error)
         self.resetclass()
-
-
-def linbestfit(sampletime, m, m1, m4, hd_h):
-    """Calculate the best-fit value for t=0"""
-    nt = len(sampletime)
-    hd = numpy.zeros(nt, dtype='double')
-    he3 = numpy.zeros(nt, dtype='double')
-    he4_he3 = numpy.zeros(nt, dtype='double')
-    for i in range(len(hd)):
-        hd[i] = m1[i] * hd_h
-        he3[i] = m[i] - hd[i]
-        he4_he3[i] = (m4[i] / he3[i]) * 1000
-    return stats.linregress(sampletime, he4_he3)
 
 
 ms = MsClass()

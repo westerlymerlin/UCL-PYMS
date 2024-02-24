@@ -24,7 +24,6 @@ class HeResults:
     - `q_pipette_err`: The error for the Q pipette NCC value.
     - `s_pipette_ncc`: The NCC value for the S pipette.
     - `s_offset`: The offset for S samples.
-    - `hd_h`: The conversion factor for HD to H.
     - `blanks_he34ratios`: The HE34 ratios for the line blanks.
     - `blanks_he34sterrs`: The HE34 standard errors for the line blanks.
     - `blanks_mean`: The mean of all line blanks.
@@ -71,7 +70,6 @@ class HeResults:
         self.q_pipette_err = settings['Ncc']['q_pipette_err']
         self.s_pipette_ncc = settings['Ncc']['s_pipette_ncc']
         self.s_offset = settings['Ncc']['s_offset']
-        self.hd_h = settings['Ncc']['HD_H']
         self.blanks_he34ratios = []
         self.blanks_he34sterrs = []
         self.blanks_mean = 0
@@ -132,34 +130,31 @@ class HeResults:
         filelist = glob.glob(filepath + "**\\HE*R")
         settings['Ncc']['ncc_filepath'] = filepath
         for filename in filelist:
-            rows = []
             self.files_names.append(os.path.basename(filename))
             self.files_he3_shots.append(int(os.path.basename(filename)[2:7]))
-            self.files_dates.append(datetime.strftime(datetime.fromtimestamp(os.path.getmtime(filename)), "%Y-%m-%d %H:%M:%S"))
+            self.files_dates.append(datetime.strftime(datetime.fromtimestamp(os.path.getmtime(filename)),
+                                                      "%Y-%m-%d %H:%M:%S"))
+            stime = []
+            h1 = []
+            he3 = []
+            he4 = []
             with open(filename, 'r', encoding='utf-8') as hefile:
                 read_data = csv.reader(hefile, delimiter='\t')
                 for row in read_data:
-                    rows.append(row)
+                    if len(stime) == 0:
+                        firstfield = row[0].split('@')
+                        filedesc = firstfield[0]
+                        self.files_descriptions.append(filedesc)
+                        stime.append(firstfield[1])
+                    else:
+                        stime.append(row[0])
+                    h1.append(row[1])
+                    he3.append(float(row[2]))
+                    he4.append(row[3])
             hefile.close()
-            firstfield = rows[0][0].split('@')
-            filedesc = firstfield[0]
-            self.files_descriptions.append(filedesc)
-            rows[0][0] = firstfield[1]
-            nt = len(rows)
-            sampletime = numpy.zeros(nt, dtype='double')
-            hd = numpy.zeros(nt, dtype='double')
-            he3 = numpy.zeros(nt, dtype='double')
-            he4 = numpy.zeros(nt, dtype='double')
-            he4_he3 = numpy.zeros(nt, dtype='double')
-            for i in range(len(hd)):
-                sampletime[i] = rows[i][0]
-                hd[i] = float(rows[i][1]) * self.hd_h
-                he3[i] = float(rows[i][2]) - hd[i]
-                he4[i] = float(rows[i][3])
-                he4_he3[i] = (he4[i] / he3[i]) * 1000
-            bestfit = stats.linregress(sampletime, he4_he3)
+            bestfit = linbestfit(stime, h1, he3, he4)
             self.files_he34ratios.append(bestfit[1])
-            self.files_he34stderrs.append(bestfit[0])
+            self.files_he34stderrs.append(bestfit[4])
             self.files_qnumbers.append(0)
             self.files_he34corrratios.append(0)
             self.files_he34corrstderrs.append(0)
@@ -240,27 +235,49 @@ class HeResults:
         self.write_ncc_file()
         self.reset()
 
-    def singlefilereader(self,filename):
-        """Read an He file and calculate NCC values"""
-        rows = []
-        with open(filename, 'r', encoding='utf-8') as hefile:
-            read_data = csv.reader(hefile, delimiter='\t')
-            for row in read_data:
-                rows.append(row)
-        hefile.close()
-        firstfield = rows[0][0].split('@')
-        rows[0][0] = firstfield[1]
-        nt = len(rows)
-        m1graph = []
-        m3graph = []
-        m4graph = []
-        ratiograph = []
-        for i in range(nt):
+
+def singlefilereader(filename):
+    """Read an He file and calculate bestfit values for graphs"""
+    rows = []
+    with open(filename, 'r', encoding='utf-8') as hefile:
+        read_data = csv.reader(hefile, delimiter='\t')
+        for row in read_data:
+            rows.append(row)
+    hefile.close()
+    firstfield = rows[0][0].split('@')
+    rows[0][0] = firstfield[1]
+    nt = len(rows)
+    m1graph = []
+    m3graph = []
+    m4graph = []
+    ratiograph = []
+    position = 0
+    for i in range(nt):
+        if float(rows[i][0]) >= settings['Ncc']['ncc_start_seconds']:
             m1graph.append([float(rows[i][0]), float(rows[i][1])])
-            m3graph.append([float(rows[i][0]), float(rows[i][2]) - float(rows[i][1]) * self.hd_h])
+            m3graph.append([float(rows[i][0]), float(rows[i][2]) - float(rows[i][1]) * settings['Ncc']['HD_H']])
             m4graph.append([float(rows[i][0]), float(rows[i][3])])
-            ratiograph.append([float(rows[i][0]), (m4graph[i][1]/m3graph[i][1]) * 1000])
-        return m1graph, m3graph, m4graph, ratiograph
+            ratiograph.append([float(rows[i][0]), (m4graph[position][1]/m3graph[position][1]) * 1000])
+            position = position + 1
+    return m1graph, m3graph, m4graph, ratiograph
+
+
+def linbestfit(sampletime, amu_1, amu_3, amu_4):
+    """Calculate the best-fit value for t=0"""
+    st = []
+    hd = []
+    he3 = []
+    he4_he3 = []
+    position = 0
+    for i in range(len(sampletime)):
+        if float(sampletime[i]) >= settings['Ncc']['ncc_start_seconds']:
+            st.append(float(sampletime[i]))
+            hd.append(float(amu_1[i]) * settings['Ncc']['HD_H'])
+            he3.append(float(amu_3[i]) - hd[position])
+            he4_he3.append((float(amu_4[i]) / he3[position]) * 1000)
+            position = position + 1
+    return stats.linregress(st, he4_he3)
+
 
 ncc = HeResults()
 
