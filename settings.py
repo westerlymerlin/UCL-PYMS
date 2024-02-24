@@ -6,7 +6,7 @@ has appeared it will creat from the defaults in the initialise function.
 import json
 import datetime
 
-VERSION = '3.1.8'
+VERSION = '3.1.9'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -51,7 +51,6 @@ def initialise():
                     "nextH": "HE19096R",
                     "nextQ": 4500,
                     "srs-rga-hide": 1,
-                    "startimeoffset": 19,
                     "timeoutretries": 5
                 },
                 "Ncc": {
@@ -63,7 +62,8 @@ def initialise():
                     "q_pipette_ncc": 10.23,
                     "s_dep_factor": 0.99996107,
                     "s_offset": 231,
-                    "s_pipette_ncc": 5.7
+                    "s_pipette_ncc": 5.7,
+                    "ncc_start_seconds": 30
                 },
                 "cycleeditform": {
                     "x": 100,
