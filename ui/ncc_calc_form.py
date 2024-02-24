@@ -282,9 +282,7 @@ def yvalues(dataset):
     yvals = []
     for point in dataset:
         yvals.append(point[1])
-    maxy = int(max(yvals)) +1
-    miny = int(min(yvals))
-    return [miny, maxy]
+    return [int(min(yvals)), int(max(yvals)) +1]
 
 
 if __name__ == '__main__':
