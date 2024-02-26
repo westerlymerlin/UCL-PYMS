@@ -51,6 +51,7 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(u"border-color: rgb(255, 255, 255);\n"
 "font: 10pt \"Segoe UI\";\n"
 "background-color: rgb(230, 230, 230);")
+        MainWindow.setIconSize(QSize(32, 32))
         MainWindow.setAnimated(True)
         self.actionExit = QAction(MainWindow)
         self.actionExit.setObjectName(u"actionExit")
@@ -538,7 +539,9 @@ class Ui_MainWindow(object):
         self.label_13.setScaledContents(True)
         self.btnNCCViewer = QPushButton(self.centralwidget)
         self.btnNCCViewer.setObjectName(u"btnNCCViewer")
-        self.btnNCCViewer.setGeometry(QRect(1713, 67, 75, 30))
+        self.btnNCCViewer.setGeometry(QRect(1697, 66, 91, 31))
+        self.btnNCCViewer.setStyleSheet(u"font: 700 10pt \"Segoe UI\";")
+        self.btnNCCViewer.setIconSize(QSize(33, 32))
         MainWindow.setCentralWidget(self.centralwidget)
         self.frmImage.raise_()
         self.label_9.raise_()
@@ -762,7 +765,7 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.btnNCCViewer.setToolTip(QCoreApplication.translate("MainWindow", u"Opens the Ncc Viewer app", None))
 #endif // QT_CONFIG(tooltip)
-        self.btnNCCViewer.setText(QCoreApplication.translate("MainWindow", u"Ncc", None))
+        self.btnNCCViewer.setText(QCoreApplication.translate("MainWindow", u"NCC Viewer", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuBatch.setTitle(QCoreApplication.translate("MainWindow", u"Batch", None))
         self.menuXYController.setTitle(QCoreApplication.translate("MainWindow", u"X-Y Controller", None))
