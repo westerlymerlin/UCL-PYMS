@@ -31,6 +31,9 @@ LogFile = RotatingFileHandler('%s%s.log' %(settings['logging']['logfilepath'],se
 formatter = logging.Formatter('%(asctime)s, %(name)s, %(levelname)s : %(message)s')
 LogFile.setFormatter(formatter)
 logger.addHandler(LogFile)
-LogFile.doRollover()
+try:
+    LogFile.doRollover()
+except PermissionError:
+    logger.warning('log file was already open')
 logger.info('Runnng Python %s on %s', sys.version, sys.platform)
 logger.info('Logging level set to: %s',settings['logging']['level'].upper())
