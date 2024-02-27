@@ -188,7 +188,7 @@ class BatchClass:
 
     def completecurrent(self):
         """Mark the current task in the bach complete"""
-        if len(self.runnumber) > 0:
+        if len(self.runnumber) > 0:  # move on to the next task
             logger.info('BatchClass-Complete Current: Updating main database')
             database = sqlite3.connect(settings['database']['databasepath'])
             cursor_obj = database.cursor()
@@ -203,27 +203,28 @@ class BatchClass:
             del self.identifier[0]
             del self.status[0]
             self.changed = 1
-            backupfile(settings['database']['databasepath'])
-            backupfile(settings['database']['resultsdatabasepath'])
             logger.debug('BatchClass-Remaining cycles are %s', self.runnumber)
-        if len(self.runnumber) == 0:
+        if len(self.runnumber) == 0:  # all tasks completed
             self.id = -1
             self.date = None
             self.description = None
             self.type = None
+            backupfile(settings['database']['databasepath'])
+            backupfile(settings['database']['resultsdatabasepath'])
+            current_path = os.getcwd()
+            backupfile(current_path + "\\settings.json")
+            backupfile(current_path + "\\alerts.json")
+            backupfile(current_path + "\\backup.json")
 
     def writebatchlog(self):
         """Generate the batchlog.csv file"""
         try:
             logger.info('BatchClass-Complete Current: Creating Results Directory')
             filepath = settings['MassSpec']['datadirectory'] + \
-                       friendlydirname(str(self.id) + ' ' + self.description)
+                friendlydirname(str(self.id) + ' ' + self.description)
             os.makedirs(filepath, exist_ok=True)
-            formatteddata = []
-            formatteddata.append('"Batch No:","%s"' % self.id)
-            formatteddata.append('"Batch Description:","%s"' % self.description)
-            formatteddata.append(' ')
-            formatteddata.append('"Date","HE File","Description","Best Fit"')
+            formatteddata = ['"Batch No:","%s"' % self.id, '"Batch Description:","%s"' % self.description, ' ',
+                             '"Date","HE File","Description","Best Fit"']
             logger.info('BatchClass-Complete Current: Opening Results Database')
             database = sqlite3.connect(settings['database']['resultsdatabasepath'])
             cursor_obj = database.cursor()
@@ -410,7 +411,7 @@ class BatchClass:
                     ' cycles.name and cycles.id = cyclesteps.id and batchsteps.status = 0 and cyclesteps.target = "end"'
         cursor_obj.execute(sql_query)
         dbreturn = cursor_obj.fetchall()
-        totalseconds= dbreturn[0][0]
+        totalseconds = dbreturn[0][0]
         database.close()
         logger.info('Time to add %s', totalseconds)
         if totalseconds is None:
@@ -419,5 +420,6 @@ class BatchClass:
             endtime = datetime.strftime(datetime.now() + timedelta(seconds=totalseconds),
                                         'Estimated End Time: %a %d %b %Y, %H:%M')
         return endtime
+
 
 batch = BatchClass()
