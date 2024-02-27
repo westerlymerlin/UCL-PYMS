@@ -12,9 +12,10 @@ def lasergetalarm():
     logger.debug('host_queries: get laser alarm')
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['laserhost'] = 0
         logger.debug('host_queries: Laser alarm repone = %s', resp.json())
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_queries: Laser Get Alarm Timeout Error')
         alarms['laserhost'] += 1
@@ -27,8 +28,9 @@ def lasergetstatus():
     headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['laserhost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_queries: Laser Get Status Timeout Error')
         alarms['laserhost'] += 1
@@ -40,8 +42,9 @@ def valvegetstatus():
     headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
     try:
         resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['valvehost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_queries: Valve Get Status Timeout Error')
         alarms['valvehost'] += 1
@@ -54,11 +57,12 @@ def pressuresread():
     headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
         resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message, timeout=1)
-        settings['vacuum']['turbo']['current'] = float(resp.json()[0]['pressure'])
-        settings['vacuum']['tank']['current'] = float(resp.json()[1]['pressure'])
-        settings['vacuum']['ion']['current'] = float(resp.json()[2]['pressure'])
+        json_message = resp.json()
+        settings['vacuum']['turbo']['current'] = float(json_message[0]['pressure'])
+        settings['vacuum']['tank']['current'] = float(json_message[1]['pressure'])
+        settings['vacuum']['ion']['current'] = float(json_message[2]['pressure'])
         alarms['pumphost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_queries: Get Pressures Pump Reader Timeout Error')
         alarms['pumphost'] += 1
@@ -71,12 +75,11 @@ def tempratureread():
     headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
         resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message, timeout=1)
-        settings['pyrometer']['current'] = float(resp.json()['temperature'])
-        alarms['pumphost'] = 0
-        return resp.json()
+        json_message = resp.json()
+        settings['pyrometer']['current'] = float(json_message['temperature'])
+        return json_message
     except requests.RequestException:
         logger.warning('host_queries: Get Temperature Pump Reader Timeout Error')
-        alarms['pumphost'] = 0
         return {"laser": 0, "maxtemp": 0, "temperature": 'timeout'}
 
 
@@ -87,8 +90,9 @@ def xyread():
     headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['xyhost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_queries: Get Status X-Y Controller Timeout Error')
         alarms['xyhost'] += 1

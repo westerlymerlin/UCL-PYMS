@@ -12,8 +12,9 @@ def lasercommand(state):
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
         logger.debug('host_commands: Setting Laser to %s', state)
+        json_message = resp.json()
         alarms['laserhost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         alarms['laserhost'] += 5
         logger.warning('host_commands: Laser Command Timeout Error')
@@ -27,9 +28,10 @@ def lasersetpower(power):
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
         logger.debug('host_commands: Setting laser power to %s', settings['laser']['power'])
+        json_message = resp.json()
         alarms['laserhost'] = 0
         settings['laser']['power'] = power
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_commands: Laser Set Power Timeout Error')
         alarms['laserhost'] += 5
@@ -46,8 +48,9 @@ def valvechange(valve, command):
     headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
     try:
         resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['valvehost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_commands: Valve Change Timeout Error')
         alarms['valvehost'] += 5
@@ -60,8 +63,9 @@ def xymoveto(axis, location):
     headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['xyhost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_commands: X-Y Moveto Timeout Error')
         alarms['xyhost'] += 5
@@ -74,8 +78,9 @@ def xymove(axis, steps):
     headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['xyhost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_commands: X-Y Move Timeout Error')
         alarms['xyhost'] += 5
@@ -88,8 +93,9 @@ def pyrolasercommand(state):
     headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
         resp = requests.post(settings['hosts']['pumphost'],headers=headers, json=message, timeout=1)
+        json_message = resp.json()
         alarms['pumphost'] = 0
-        return resp.json()
+        return json_message
     except requests.RequestException:
         logger.warning('host_commands: Pump Command Timeout Error')
         alarms['pumphost'] += 5
