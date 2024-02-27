@@ -188,7 +188,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             if ms.check_quad_is_online() == 'Off Line':
                 status = status + 'The Hiden Quad Reader is showing as offline.\nIt might ' \
                                       'be that the MAS10 application has stopped responding and needs a restart or ' \
-                                  'the Hiden Control unit has been switched off, the system is paused. \n '
+                                  'the Hiden Control unit has been switched off, the system is paused. \n'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
@@ -196,7 +196,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             logger.error('%s laser alarm firing', alarms['laseralarm'])
             status = status + ('The laser is not ready, please ensure that the laser is powered on, the key is in '
                                'position 2 and the enable button has been pressed. This error can also follow a '
-                               'power fail\n')
+                               'power fail. \n')
             alarms['laseralarm'] = lasergetalarm()['status']
             self.secondincrement = 0
             self.run = 0
@@ -216,7 +216,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
-        if alarms['laserhost'] > 100:
+        if alarms['laserhost'] > 10:
             status = status + 'Laser controller is offline, the system is paused. \n'
             self.secondincrement = 0
             self.run = 0

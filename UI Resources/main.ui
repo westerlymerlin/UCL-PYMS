@@ -1435,14 +1435,14 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="font">
      <font>
       <family>Segoe UI</family>
-      <pointsize>10</pointsize>
+      <pointsize>8</pointsize>
       <italic>false</italic>
       <fontweight>DemiBold</fontweight>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255, 255, 255, 0);
-font: 600 10pt &quot;Segoe UI&quot;;
+font: 600 8pt &quot;Segoe UI&quot;;
 color: rgb(255, 0, 0);
 </string>
     </property>

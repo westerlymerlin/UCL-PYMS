@@ -516,12 +516,12 @@ class Ui_MainWindow(object):
         self.lblAalarm.setGeometry(QRect(610, 850, 650, 90))
         font3 = QFont()
         font3.setFamilies([u"Segoe UI"])
-        font3.setPointSize(10)
+        font3.setPointSize(8)
         font3.setWeight(QFont.DemiBold)
         font3.setItalic(False)
         self.lblAalarm.setFont(font3)
         self.lblAalarm.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
-"font: 600 10pt \"Segoe UI\";\n"
+"font: 600 8pt \"Segoe UI\";\n"
 "color: rgb(255, 0, 0);\n"
 "")
         self.lblAalarm.setScaledContents(True)
