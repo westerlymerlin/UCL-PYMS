@@ -18,7 +18,7 @@ def msgraph_auth(tenantid, appid, thumbprint, scope, cert_file_name):
     authority = 'https://login.microsoftonline.com/' + tenantid
     scope = [scope + '/.default']
     thumbprint_and_cert = {"thumbprint": thumbprint, "private_key": open(cert_file_name, encoding='utf-8').read()}
-    app = ConfidentialClientApplication(appid, authority=authority, client_credential = thumbprint_and_cert)
+    app = ConfidentialClientApplication(appid, authority=authority, client_credential=thumbprint_and_cert)
     try:
         access_token = app.acquire_token_silent(scope, account=None)
         if not access_token:
@@ -27,7 +27,8 @@ def msgraph_auth(tenantid, appid, thumbprint, scope, cert_file_name):
                 if access_token['access_token']:
                     logger.debug('backup.py: New access token retreived')
                 else:
-                    logger.error('backup:py Error aquiring authorization token. Check your tenantID, clientID and clientSecret.')
+                    logger.error('backup:py Error aquiring authorization token. Check your tenantID,'
+                                 ' clientID and clientSecret.')
             except:
                 pass
         else:
@@ -59,8 +60,8 @@ def delayedbackupfile(file_name):
     session.headers.update(headers)
     base_url = o365_key[4]
     sys_folder = backupsettings['Identifier']
-    fileurl=(base_url + "web/GetFolderByServerRelativeUrl('Documents/" + sys_folder + '/' + nested_folder
-             + "')/Files/add(url='" + filedec + "',overwrite=true)")
+    fileurl = (base_url + "web/GetFolderByServerRelativeUrl('Documents/" + sys_folder + '/' + nested_folder
+               + "')/Files/add(url='" + filedec + "',overwrite=true)")
     folderurl = (base_url + "web/GetFolderByServerRelativeUrl('Documents/" + sys_folder + "')/folders/add(url='"
                  + nested_folder + "')")
     response1 = session.post(url=folderurl)
@@ -81,6 +82,7 @@ def delayedbackupfile(file_name):
 def backupfile(file_name):
     """run backup in its own thread"""
     threading.Timer(1, lambda: delayedbackupfile(file_name)).start()
+
 
 if __name__ == '__main__':
     print('Starting backup')
