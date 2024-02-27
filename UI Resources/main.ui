@@ -1614,6 +1614,8 @@ color: rgb(255, 0, 0);
     <addaction name="actionViewPyMSLog"/>
     <addaction name="actionViewPyMSSettings"/>
     <addaction name="separator"/>
+    <addaction name="actionHelp"/>
+    <addaction name="separator"/>
     <addaction name="actionAboutPyMS"/>
    </widget>
    <widget class="QMenu" name="menuPump_Reader">
@@ -1854,6 +1856,11 @@ color: rgb(255, 0, 0);
   <action name="actionNCCViewer">
    <property name="text">
     <string>Ncc Viewer</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
    </property>
   </action>
  </widget>
