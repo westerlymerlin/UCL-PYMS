@@ -90,6 +90,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionPyroLaserOn.triggered.connect(lambda: manual_laser('on'))
         self.actionPyroLaserOff.triggered.connect(lambda: manual_laser('off'))
         self.actionAboutPyMS.triggered.connect(self.menu_show_about)
+        self.actionHelp.triggered.connect(lambda: menu_open_web_page('Help File'))
         self.actionViewPyMSLog.triggered.connect(self.menu_show_log_viewer)
         self.actionViewPyMSSettings.triggered.connect(self.menu_show_settings_viewer)
         self.actionStartMIDScan.triggered.connect(ms.start_mid)
@@ -666,4 +667,7 @@ def menu_open_web_page(page):
         webbrowser.open(url)
     elif page == 'Pump Log':
         url = settings['hosts']['pumphost'][:-3] + 'pylog'
+        webbrowser.open(url)
+    elif page == 'Help File':
+        url = 'readme.pdf'
         webbrowser.open(url)
