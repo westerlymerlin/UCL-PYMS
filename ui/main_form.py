@@ -12,9 +12,9 @@ from PySide6.QtCore import Qt
 from settings import settings, writesettings, setrunning, running, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread, tempratureread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, pyrolasercommand, rpi_reboot
-from classes.batchclass import batch
-from classes.cycleclass import currentcycle
-from classes.ms_hiden_class import ms
+from batchclass import batch
+from cycleclass import currentcycle
+from ms_hiden_class import ms
 from alertmessage import alert
 from logmanager import logger
 from ui.ui_layout_main import Ui_MainWindow
@@ -55,7 +55,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.wValve11.setHidden(True)
         self.wValve12.setHidden(True)
         self.wValve13.setHidden(True)
-        self.imgSRS.setHidden(settings['MassSpec']['srs-rga-hide'])
         self.move(settings['mainform']['x'], settings['mainform']['y'])
         self.tbValve1.clicked.connect(lambda: valvechange('valve1', self.wValve1.isHidden()))
         self.tbValve2.clicked.connect(lambda: valvechange('valve2', self.wValve2.isHidden()))

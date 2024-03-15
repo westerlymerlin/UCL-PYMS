@@ -6,8 +6,8 @@ import sys
 from PySide6.QtWidgets import QDialog, QApplication
 from ui.ui_layout_planchet_batch import Ui_dialogPlanchet
 from settings import settings
-from classes.batchclass import batch
-from classes.cycleclass import currentcycle
+from batchclass import batch
+from cycleclass import currentcycle
 
 
 class UiPlanchet(QDialog, Ui_dialogPlanchet):

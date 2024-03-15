@@ -53,7 +53,7 @@
   <property name="styleSheet">
    <string notr="true">border-color: rgb(255, 255, 255);
 font: 10pt &quot;Segoe UI&quot;;
-background-color: rgb(230, 230, 230);</string>
+background-color: rgb(235, 235, 235);</string>
   </property>
   <property name="iconSize">
    <size>
@@ -99,7 +99,8 @@ background-color: rgb(230, 230, 230);</string>
      <string>Click on the valves to operate</string>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+     <string notr="true">background-color: rgba(255, 255, 255, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -490,22 +491,6 @@ background-color: rgb(230, 230, 230);</string>
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_version">
-     <property name="geometry">
-      <rect>
-       <x>857</x>
-       <y>10</y>
-       <width>81</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
     <widget class="QToolButton" name="btnHidenMID">
      <property name="geometry">
       <rect>
@@ -629,25 +614,6 @@ border-color: rgb(76, 76, 76);</string>
       <set>Qt::TextSelectableByMouse</set>
      </property>
     </widget>
-    <widget class="QFrame" name="imgSRS">
-     <property name="geometry">
-      <rect>
-       <x>551</x>
-       <y>516</y>
-       <width>230</width>
-       <height>91</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: url(:/main/srs.png);</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
    </widget>
    <widget class="QLCDNumber" name="lcdElapsedTime">
     <property name="geometry">
@@ -659,7 +625,8 @@ border-color: rgb(76, 76, 76);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+image: &quot;&quot;;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -670,6 +637,10 @@ border-color: rgb(76, 76, 76);</string>
       <width>135</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Elapsed Time</string>
@@ -690,6 +661,10 @@ border-color: rgb(76, 76, 76);</string>
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>Remaining Commands</string>
     </property>
@@ -705,6 +680,10 @@ border-color: rgb(76, 76, 76);</string>
       <width>571</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Status: Manual Control</string>
@@ -722,6 +701,10 @@ border-color: rgb(76, 76, 76);</string>
       <height>20</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>Batch</string>
     </property>
@@ -737,6 +720,10 @@ border-color: rgb(76, 76, 76);</string>
       <width>171</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Location / Sample</string>
@@ -758,7 +745,9 @@ border-color: rgb(76, 76, 76);</string>
      <string>Emergency STOP. Close all valves and switch off laser</string>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-color: rgb(255, 255, 255);</string>
+     <string notr="true">border-color: rgb(255, 255, 255);
+background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string/>
@@ -799,6 +788,9 @@ border-color: rgb(76, 76, 76);</string>
     <property name="toolTip">
      <string>Press Run to start or Pause to halt at the end of currenct cycle</string>
     </property>
+    <property name="styleSheet">
+     <string notr="true">image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>Run</string>
     </property>
@@ -837,7 +829,8 @@ border-color: rgb(76, 76, 76);</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border-color: rgb(61, 61, 61);
-alternate-background-color: rgb(225, 245, 255);</string>
+alternate-background-color: rgb(225, 245, 255);
+image: &quot;&quot;;</string>
     </property>
     <property name="midLineWidth">
      <number>1</number>
@@ -855,6 +848,10 @@ alternate-background-color: rgb(225, 245, 255);</string>
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>Ion Gauge</string>
     </property>
@@ -870,6 +867,10 @@ alternate-background-color: rgb(225, 245, 255);</string>
       <width>111</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Turbo Gauge</string>
@@ -888,7 +889,8 @@ alternate-background-color: rgb(225, 245, 255);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Tank Gauge</string>
@@ -905,6 +907,10 @@ alternate-background-color: rgb(225, 245, 255);</string>
       <width>251</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Batch Items  (Currrent / Next)</string>
@@ -933,7 +939,8 @@ alternate-background-color: rgb(225, 245, 255);</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border-color: rgb(61, 61, 61);
-alternate-background-color: rgb(225, 245, 255);</string>
+alternate-background-color: rgb(225, 245, 255);
+image: &quot;&quot;;</string>
     </property>
     <property name="midLineWidth">
      <number>1</number>
@@ -963,7 +970,8 @@ alternate-background-color: rgb(225, 245, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255)</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -993,7 +1001,8 @@ alternate-background-color: rgb(225, 245, 255);</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1021,7 +1030,8 @@ alternate-background-color: rgb(225, 245, 255);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;</string>
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1055,7 +1065,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;</string>
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1089,7 +1100,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;</string>
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1123,7 +1135,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;</string>
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1157,7 +1170,8 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;</string>
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1181,6 +1195,10 @@ font: 14pt &quot;Segoe UI&quot;;</string>
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>X Position</string>
     </property>
@@ -1196,6 +1214,10 @@ font: 14pt &quot;Segoe UI&quot;;</string>
       <width>111</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Y Position</string>
@@ -1233,6 +1255,10 @@ background-color: rgba(255, 255, 255, 0);</string>
       <height>101</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>Current Command</string>
     </property>
@@ -1255,101 +1281,16 @@ background-color: rgba(255, 255, 255, 0);</string>
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
     <property name="text">
      <string>Results</string>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
-   </widget>
-   <widget class="QTableWidget" name="tableResults">
-    <property name="geometry">
-     <rect>
-      <x>1290</x>
-      <y>100</y>
-      <width>500</width>
-      <height>851</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-border-color: rgb(61, 61, 61);
-alternate-background-color: rgb(225, 245, 255);</string>
-    </property>
-    <property name="lineWidth">
-     <number>1</number>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOn</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="dragDropOverwriteMode">
-     <bool>false</bool>
-    </property>
-    <property name="alternatingRowColors">
-     <bool>true</bool>
-    </property>
-    <property name="selectionMode">
-     <enum>QAbstractItemView::ContiguousSelection</enum>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
-    </property>
-    <property name="textElideMode">
-     <enum>Qt::ElideLeft</enum>
-    </property>
-    <property name="wordWrap">
-     <bool>false</bool>
-    </property>
-    <attribute name="horizontalHeaderHighlightSections">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderStretchLastSection">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="verticalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="verticalHeaderHighlightSections">
-     <bool>false</bool>
-    </attribute>
-    <column>
-     <property name="text">
-      <string>Date</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignLeading|AlignVCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Data File</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignLeading|AlignVCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Sample</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignLeading|AlignVCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Best Fit</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignLeading|AlignVCenter</set>
-     </property>
-    </column>
    </widget>
    <widget class="QLabel" name="linePyrometer">
     <property name="geometry">
@@ -1370,7 +1311,8 @@ alternate-background-color: rgb(225, 245, 255);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;</string>
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -1393,6 +1335,10 @@ font: 14pt &quot;Segoe UI&quot;;</string>
       <width>111</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Pyrometer</string>
@@ -1472,7 +1418,9 @@ color: rgb(255, 0, 0);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+     <string notr="true">font: 12pt &quot;Segoe UI&quot;;
+background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string/>
@@ -1489,6 +1437,10 @@ color: rgb(255, 0, 0);
       <width>171</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>Current Command</string>
@@ -1510,7 +1462,8 @@ color: rgb(255, 0, 0);
      <string>Opens the Ncc Viewer app</string>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 700 10pt &quot;Segoe UI&quot;;</string>
+     <string notr="true">font: 700 10pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
     </property>
     <property name="text">
      <string>NCC Viewer</string>
@@ -1521,6 +1474,116 @@ color: rgb(255, 0, 0);
       <height>32</height>
      </size>
     </property>
+   </widget>
+   <widget class="QFrame" name="frameResults">
+    <property name="geometry">
+     <rect>
+      <x>1290</x>
+      <y>100</y>
+      <width>504</width>
+      <height>854</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <widget class="QTableWidget" name="tableResults">
+     <property name="geometry">
+      <rect>
+       <x>1</x>
+       <y>1</y>
+       <width>500</width>
+       <height>851</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+border-color: rgb(61, 61, 61);
+alternate-background-color: rgb(225, 245, 255);
+image: &quot;&quot;;</string>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="dragDropOverwriteMode">
+      <bool>false</bool>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ContiguousSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="textElideMode">
+      <enum>Qt::ElideLeft</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <attribute name="horizontalHeaderHighlightSections">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderHighlightSections">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Date</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeading|AlignVCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Data File</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeading|AlignVCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Sample</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeading|AlignVCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Best Fit</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeading|AlignVCenter</set>
+      </property>
+     </column>
+    </widget>
    </widget>
    <zorder>frmImage</zorder>
    <zorder>label_9</zorder>
@@ -1549,7 +1612,6 @@ color: rgb(255, 0, 0);
    <zorder>lineYPosition</zorder>
    <zorder>lblCurrent</zorder>
    <zorder>label_11</zorder>
-   <zorder>tableResults</zorder>
    <zorder>linePyrometer</zorder>
    <zorder>label_12</zorder>
    <zorder>imgPyrometer</zorder>
@@ -1557,6 +1619,7 @@ color: rgb(255, 0, 0);
    <zorder>lblFinishTime</zorder>
    <zorder>label_13</zorder>
    <zorder>btnNCCViewer</zorder>
+   <zorder>frameResults</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

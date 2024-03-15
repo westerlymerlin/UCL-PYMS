@@ -11,8 +11,8 @@ from ui.ui_layout_xy_manual_control import Ui_dialogXYSetup
 from settings import settings
 from host_queries import xyread
 from host_commands import xymove, xymoveto
-from classes.cycleclass import currentcycle
-from classes.batchclass import batch
+from cycleclass import currentcycle
+from batchclass import batch
 
 
 class ManualXyForm(QDialog, Ui_dialogXYSetup):

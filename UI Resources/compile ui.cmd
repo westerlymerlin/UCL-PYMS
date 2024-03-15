@@ -9,4 +9,3 @@
 "..\.venv\Lib\site-packages\PySide6\uic.exe" -g python simplebatch.ui -o ..\ui\ui_layout_simple_batch.py
 "..\.venv\Lib\site-packages\PySide6\uic.exe" -g python xymanualcontrol.ui -o ..\ui\ui_layout_xy_manual_control.py
 "..\.venv\Lib\site-packages\PySide6\rcc.exe" -g python main.qrc -o ..\main_rc.py
-pause

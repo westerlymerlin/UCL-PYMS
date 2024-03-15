@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"border-color: rgb(255, 255, 255);\n"
 "font: 10pt \"Segoe UI\";\n"
-"background-color: rgb(230, 230, 230);")
+"background-color: rgb(235, 235, 235);")
         MainWindow.setIconSize(QSize(32, 32))
         MainWindow.setAnimated(True)
         self.actionExit = QAction(MainWindow)
@@ -131,7 +131,8 @@ class Ui_MainWindow(object):
         self.frmHeLine.setSizePolicy(sizePolicy1)
         self.frmHeLine.setMinimumSize(QSize(949, 852))
         self.frmHeLine.setMaximumSize(QSize(950, 852))
-        self.frmHeLine.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
+        self.frmHeLine.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);\n"
+"image: \"\";")
         self.frmHeLine.setFrameShape(QFrame.Box)
         self.frmHeLine.setFrameShadow(QFrame.Plain)
         self.frmHeLine.setLineWidth(1)
@@ -238,10 +239,6 @@ class Ui_MainWindow(object):
         self.imgQMS.setStyleSheet(u"image: url(:/main/QMS.png);")
         self.imgQMS.setFrameShape(QFrame.StyledPanel)
         self.imgQMS.setFrameShadow(QFrame.Raised)
-        self.label_version = QLabel(self.frmHeLine)
-        self.label_version.setObjectName(u"label_version")
-        self.label_version.setGeometry(QRect(857, 10, 81, 20))
-        self.label_version.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
         self.btnHidenMID = QToolButton(self.frmHeLine)
         self.btnHidenMID.setObjectName(u"btnHidenMID")
         self.btnHidenMID.setGeometry(QRect(370, 30, 50, 50))
@@ -282,41 +279,48 @@ class Ui_MainWindow(object):
         self.lblLaserPower.setLineWidth(1)
         self.lblLaserPower.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
         self.lblLaserPower.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        self.imgSRS = QFrame(self.frmHeLine)
-        self.imgSRS.setObjectName(u"imgSRS")
-        self.imgSRS.setGeometry(QRect(551, 516, 230, 91))
-        self.imgSRS.setStyleSheet(u"image: url(:/main/srs.png);")
-        self.imgSRS.setFrameShape(QFrame.StyledPanel)
-        self.imgSRS.setFrameShadow(QFrame.Raised)
         self.lcdElapsedTime = QLCDNumber(self.centralwidget)
         self.lcdElapsedTime.setObjectName(u"lcdElapsedTime")
         self.lcdElapsedTime.setGeometry(QRect(10, 5, 131, 41))
-        self.lcdElapsedTime.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.lcdElapsedTime.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"image: \"\";")
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(10, 45, 135, 21))
+        self.label.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label.setScaledContents(True)
         self.label.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(10, 340, 251, 21))
+        self.label_2.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_2.setScaledContents(True)
         self.lblStatus = QLabel(self.centralwidget)
         self.lblStatus.setObjectName(u"lblStatus")
         self.lblStatus.setGeometry(QRect(330, 75, 571, 21))
+        self.lblStatus.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.lblStatus.setScaledContents(True)
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(10, 76, 191, 20))
+        self.label_4.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_4.setScaledContents(True)
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(10, 135, 171, 21))
+        self.label_5.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_5.setScaledContents(True)
         self.tbStop = QToolButton(self.centralwidget)
         self.tbStop.setObjectName(u"tbStop")
         self.tbStop.setGeometry(QRect(169, 820, 134, 134))
-        self.tbStop.setStyleSheet(u"border-color: rgb(255, 255, 255);")
+        self.tbStop.setStyleSheet(u"border-color: rgb(255, 255, 255);\n"
+"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         icon4 = QIcon()
         icon4.addFile(u":/main/stop_up.png", QSize(), QIcon.Normal, QIcon.Off)
         icon4.addFile(u":/main/stop_down.png", QSize(), QIcon.Normal, QIcon.On)
@@ -329,6 +333,7 @@ class Ui_MainWindow(object):
         self.tbRun = QToolButton(self.centralwidget)
         self.tbRun.setObjectName(u"tbRun")
         self.tbRun.setGeometry(QRect(10, 810, 84, 44))
+        self.tbRun.setStyleSheet(u"image: \"\";")
         icon5 = QIcon()
         icon5.addFile(u":/main/run.png", QSize(), QIcon.Normal, QIcon.Off)
         icon5.addFile(u":/main/pause.png", QSize(), QIcon.Normal, QIcon.On)
@@ -341,25 +346,33 @@ class Ui_MainWindow(object):
         self.listCommands.setFont(font)
         self.listCommands.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "border-color: rgb(61, 61, 61);\n"
-"alternate-background-color: rgb(225, 245, 255);")
+"alternate-background-color: rgb(225, 245, 255);\n"
+"image: \"\";")
         self.listCommands.setMidLineWidth(1)
         self.listCommands.setAlternatingRowColors(True)
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(910, 46, 111, 21))
+        self.label_3.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_3.setScaledContents(True)
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(1040, 46, 111, 21))
+        self.label_6.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_6.setScaledContents(True)
         self.label_7 = QLabel(self.centralwidget)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setGeometry(QRect(1170, 46, 111, 21))
-        self.label_7.setStyleSheet(u"")
+        self.label_7.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_7.setScaledContents(True)
         self.label_8 = QLabel(self.centralwidget)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setGeometry(QRect(10, 560, 251, 21))
+        self.label_8.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_8.setScaledContents(True)
         self.listBatch = QListWidget(self.centralwidget)
         self.listBatch.setObjectName(u"listBatch")
@@ -367,7 +380,8 @@ class Ui_MainWindow(object):
         self.listBatch.setFont(font)
         self.listBatch.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "border-color: rgb(61, 61, 61);\n"
-"alternate-background-color: rgb(225, 245, 255);")
+"alternate-background-color: rgb(225, 245, 255);\n"
+"image: \"\";")
         self.listBatch.setMidLineWidth(1)
         self.listBatch.setAlternatingRowColors(True)
         self.listBatch.setModelColumn(0)
@@ -375,14 +389,16 @@ class Ui_MainWindow(object):
         self.linePlanchet.setObjectName(u"linePlanchet")
         self.linePlanchet.setGeometry(QRect(10, 100, 301, 30))
         self.linePlanchet.setFont(font)
-        self.linePlanchet.setStyleSheet(u"background-color: rgb(255, 255, 255)")
+        self.linePlanchet.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"image: \"\";")
         self.linePlanchet.setFrameShape(QFrame.Box)
         self.linePlanchet.setLineWidth(1)
         self.lineLocation = QLabel(self.centralwidget)
         self.lineLocation.setObjectName(u"lineLocation")
         self.lineLocation.setGeometry(QRect(10, 160, 301, 30))
         self.lineLocation.setFont(font)
-        self.lineLocation.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.lineLocation.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"image: \"\";")
         self.lineLocation.setFrameShape(QFrame.Box)
         self.lineIonPump = QLabel(self.centralwidget)
         self.lineIonPump.setObjectName(u"lineIonPump")
@@ -394,7 +410,8 @@ class Ui_MainWindow(object):
         font2.setItalic(False)
         self.lineIonPump.setFont(font2)
         self.lineIonPump.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Segoe UI\";")
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
         self.lineIonPump.setFrameShape(QFrame.Box)
         self.lineIonPump.setLineWidth(1)
         self.lineIonPump.setScaledContents(True)
@@ -403,7 +420,8 @@ class Ui_MainWindow(object):
         self.lineTurboPump.setGeometry(QRect(1040, 5, 111, 41))
         self.lineTurboPump.setFont(font2)
         self.lineTurboPump.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Segoe UI\";")
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
         self.lineTurboPump.setFrameShape(QFrame.Box)
         self.lineTurboPump.setLineWidth(1)
         self.lineTurboPump.setScaledContents(True)
@@ -412,7 +430,8 @@ class Ui_MainWindow(object):
         self.lineScrollPump.setGeometry(QRect(1170, 5, 111, 41))
         self.lineScrollPump.setFont(font2)
         self.lineScrollPump.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Segoe UI\";")
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
         self.lineScrollPump.setFrameShape(QFrame.Box)
         self.lineScrollPump.setLineWidth(1)
         self.lineScrollPump.setScaledContents(True)
@@ -421,7 +440,8 @@ class Ui_MainWindow(object):
         self.lineXPosition.setGeometry(QRect(600, 5, 111, 41))
         self.lineXPosition.setFont(font2)
         self.lineXPosition.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Segoe UI\";")
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
         self.lineXPosition.setFrameShape(QFrame.Box)
         self.lineXPosition.setLineWidth(1)
         self.lineXPosition.setScaledContents(True)
@@ -430,17 +450,22 @@ class Ui_MainWindow(object):
         self.lineYPosition.setGeometry(QRect(730, 5, 111, 41))
         self.lineYPosition.setFont(font2)
         self.lineYPosition.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Segoe UI\";")
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
         self.lineYPosition.setFrameShape(QFrame.Box)
         self.lineYPosition.setLineWidth(1)
         self.lineYPosition.setScaledContents(True)
         self.label_9 = QLabel(self.centralwidget)
         self.label_9.setObjectName(u"label_9")
         self.label_9.setGeometry(QRect(600, 46, 111, 21))
+        self.label_9.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_9.setScaledContents(True)
         self.label_10 = QLabel(self.centralwidget)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setGeometry(QRect(730, 46, 111, 21))
+        self.label_10.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_10.setScaledContents(True)
         self.frmImage = QFrame(self.centralwidget)
         self.frmImage.setObjectName(u"frmImage")
@@ -452,59 +477,32 @@ class Ui_MainWindow(object):
         self.lblCurrent = QLabel(self.centralwidget)
         self.lblCurrent.setObjectName(u"lblCurrent")
         self.lblCurrent.setGeometry(QRect(10, 220, 301, 101))
+        self.lblCurrent.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.lblCurrent.setScaledContents(True)
         self.lblCurrent.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.lblCurrent.setWordWrap(True)
         self.label_11 = QLabel(self.centralwidget)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setGeometry(QRect(1290, 75, 151, 21))
+        self.label_11.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_11.setScaledContents(True)
-        self.tableResults = QTableWidget(self.centralwidget)
-        if (self.tableResults.columnCount() < 4):
-            self.tableResults.setColumnCount(4)
-        __qtablewidgetitem = QTableWidgetItem()
-        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
-        self.tableResults.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
-        self.tableResults.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
-        self.tableResults.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        __qtablewidgetitem3.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
-        self.tableResults.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        self.tableResults.setObjectName(u"tableResults")
-        self.tableResults.setGeometry(QRect(1290, 100, 500, 851))
-        self.tableResults.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border-color: rgb(61, 61, 61);\n"
-"alternate-background-color: rgb(225, 245, 255);")
-        self.tableResults.setLineWidth(1)
-        self.tableResults.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.tableResults.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.tableResults.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableResults.setDragDropOverwriteMode(False)
-        self.tableResults.setAlternatingRowColors(True)
-        self.tableResults.setSelectionMode(QAbstractItemView.ContiguousSelection)
-        self.tableResults.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tableResults.setTextElideMode(Qt.ElideLeft)
-        self.tableResults.setWordWrap(False)
-        self.tableResults.horizontalHeader().setHighlightSections(False)
-        self.tableResults.horizontalHeader().setStretchLastSection(False)
-        self.tableResults.verticalHeader().setVisible(False)
-        self.tableResults.verticalHeader().setHighlightSections(False)
         self.linePyrometer = QLabel(self.centralwidget)
         self.linePyrometer.setObjectName(u"linePyrometer")
         self.linePyrometer.setGeometry(QRect(1340, 5, 111, 41))
         self.linePyrometer.setFont(font2)
         self.linePyrometer.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"font: 14pt \"Segoe UI\";")
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
         self.linePyrometer.setFrameShape(QFrame.Box)
         self.linePyrometer.setLineWidth(1)
         self.linePyrometer.setScaledContents(True)
         self.label_12 = QLabel(self.centralwidget)
         self.label_12.setObjectName(u"label_12")
         self.label_12.setGeometry(QRect(1340, 46, 111, 21))
+        self.label_12.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_12.setScaledContents(True)
         self.imgPyrometer = QFrame(self.centralwidget)
         self.imgPyrometer.setObjectName(u"imgPyrometer")
@@ -533,17 +531,64 @@ class Ui_MainWindow(object):
         self.lblFinishTime = QLabel(self.centralwidget)
         self.lblFinishTime.setObjectName(u"lblFinishTime")
         self.lblFinishTime.setGeometry(QRect(150, 10, 431, 41))
-        self.lblFinishTime.setStyleSheet(u"font: 12pt \"Segoe UI\";")
+        self.lblFinishTime.setStyleSheet(u"font: 12pt \"Segoe UI\";\n"
+"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.lblFinishTime.setScaledContents(True)
         self.label_13 = QLabel(self.centralwidget)
         self.label_13.setObjectName(u"label_13")
         self.label_13.setGeometry(QRect(10, 200, 171, 21))
+        self.label_13.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
         self.label_13.setScaledContents(True)
         self.btnNCCViewer = QPushButton(self.centralwidget)
         self.btnNCCViewer.setObjectName(u"btnNCCViewer")
         self.btnNCCViewer.setGeometry(QRect(1697, 66, 91, 31))
-        self.btnNCCViewer.setStyleSheet(u"font: 700 10pt \"Segoe UI\";")
+        self.btnNCCViewer.setStyleSheet(u"font: 700 10pt \"Segoe UI\";\n"
+"image: \"\";")
         self.btnNCCViewer.setIconSize(QSize(33, 32))
+        self.frameResults = QFrame(self.centralwidget)
+        self.frameResults.setObjectName(u"frameResults")
+        self.frameResults.setGeometry(QRect(1290, 100, 504, 854))
+        self.frameResults.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
+        self.frameResults.setFrameShape(QFrame.Box)
+        self.frameResults.setFrameShadow(QFrame.Plain)
+        self.tableResults = QTableWidget(self.frameResults)
+        if (self.tableResults.columnCount() < 4):
+            self.tableResults.setColumnCount(4)
+        __qtablewidgetitem = QTableWidgetItem()
+        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tableResults.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tableResults.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tableResults.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        __qtablewidgetitem3.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        self.tableResults.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        self.tableResults.setObjectName(u"tableResults")
+        self.tableResults.setGeometry(QRect(1, 1, 500, 851))
+        self.tableResults.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(61, 61, 61);\n"
+"alternate-background-color: rgb(225, 245, 255);\n"
+"image: \"\";")
+        self.tableResults.setLineWidth(1)
+        self.tableResults.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.tableResults.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.tableResults.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableResults.setDragDropOverwriteMode(False)
+        self.tableResults.setAlternatingRowColors(True)
+        self.tableResults.setSelectionMode(QAbstractItemView.ContiguousSelection)
+        self.tableResults.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableResults.setTextElideMode(Qt.ElideLeft)
+        self.tableResults.setWordWrap(False)
+        self.tableResults.horizontalHeader().setHighlightSections(False)
+        self.tableResults.horizontalHeader().setStretchLastSection(False)
+        self.tableResults.verticalHeader().setVisible(False)
+        self.tableResults.verticalHeader().setHighlightSections(False)
         MainWindow.setCentralWidget(self.centralwidget)
         self.frmImage.raise_()
         self.label_9.raise_()
@@ -572,7 +617,6 @@ class Ui_MainWindow(object):
         self.lineYPosition.raise_()
         self.lblCurrent.raise_()
         self.label_11.raise_()
-        self.tableResults.raise_()
         self.linePyrometer.raise_()
         self.label_12.raise_()
         self.imgPyrometer.raise_()
@@ -580,6 +624,7 @@ class Ui_MainWindow(object):
         self.lblFinishTime.raise_()
         self.label_13.raise_()
         self.btnNCCViewer.raise_()
+        self.frameResults.raise_()
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 1800, 24))
@@ -712,7 +757,6 @@ class Ui_MainWindow(object):
         self.tbValve13.setText("")
         self.tbValve12.setText("")
         self.lblMS.setText(QCoreApplication.translate("MainWindow", u"Connecting . . .", None))
-        self.label_version.setText("")
 #if QT_CONFIG(tooltip)
         self.btnHidenMID.setToolTip(QCoreApplication.translate("MainWindow", u"Run a MID Scan", None))
 #endif // QT_CONFIG(tooltip)
@@ -754,14 +798,6 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Y Position", None))
         self.lblCurrent.setText(QCoreApplication.translate("MainWindow", u"Current Command", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Results", None))
-        ___qtablewidgetitem = self.tableResults.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Date", None));
-        ___qtablewidgetitem1 = self.tableResults.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Data File", None));
-        ___qtablewidgetitem2 = self.tableResults.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Sample", None));
-        ___qtablewidgetitem3 = self.tableResults.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Best Fit", None));
         self.linePyrometer.setText(QCoreApplication.translate("MainWindow", u"0.0", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Pyrometer", None))
         self.lblAalarm.setText("")
@@ -771,6 +807,14 @@ class Ui_MainWindow(object):
         self.btnNCCViewer.setToolTip(QCoreApplication.translate("MainWindow", u"Opens the Ncc Viewer app", None))
 #endif // QT_CONFIG(tooltip)
         self.btnNCCViewer.setText(QCoreApplication.translate("MainWindow", u"NCC Viewer", None))
+        ___qtablewidgetitem = self.tableResults.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Date", None));
+        ___qtablewidgetitem1 = self.tableResults.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Data File", None));
+        ___qtablewidgetitem2 = self.tableResults.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Sample", None));
+        ___qtablewidgetitem3 = self.tableResults.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Best Fit", None));
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuBatch.setTitle(QCoreApplication.translate("MainWindow", u"Batch", None))
         self.menuXYController.setTitle(QCoreApplication.translate("MainWindow", u"X-Y Controller", None))

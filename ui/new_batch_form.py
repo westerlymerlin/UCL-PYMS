@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QDialog
 from ui.ui_layout_new_batch import Ui_dialogNewBatch
 from ui.simple_batch_form import UiSimpleBatch
 from ui.planchet_form import UiPlanchet
-from classes.batchclass import batch
+from batchclass import batch
 from settings import settings
 
 class UiBatch(QDialog, Ui_dialogNewBatch):

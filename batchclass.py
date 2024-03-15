@@ -9,7 +9,7 @@ from logmanager import logger
 from imagefiler import imager
 from backup import backupfile
 from ncc_calc import ncc
-from classes.cycleclass import currentcycle
+from cycleclass import currentcycle
 
 
 class BatchClass:

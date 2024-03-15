@@ -1,5 +1,5 @@
 """Test generator for new batches"""
-from classes.batchclass import batch
+from batchclass import batch
 
 
 def commit_planchet(description):
