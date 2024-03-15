@@ -87,20 +87,6 @@ def xymove(axis, steps):
         return {'xmoving': 'timeout', 'xpos': 0, 'ymoving': 'timout', '"ypos': 0}
 
 
-def pyrolasercommand(state):
-    """enable / disable the rangefinder laser on the pyrometer"""
-    message = {"item": 'laser', "command": state}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
-    try:
-        resp = requests.post(settings['hosts']['pumphost'],headers=headers, json=message, timeout=1)
-        json_message = resp.json()
-        alarms['pumphost'] = 0
-        return json_message
-    except requests.RequestException:
-        logger.warning('host_commands: Pump Command Timeout Error')
-        alarms['pumphost'] += 5
-        return {'laser': 'timeout'}
-
 def rpi_reboot(host):
     """reboot the raspberry pi"""
     message = {"item": 'restart', "command": 'pi'}

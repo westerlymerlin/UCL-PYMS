@@ -6,7 +6,7 @@ has appeared it will creat from the defaults in the initialise function.
 import json
 import datetime
 
-VERSION = '3.2.4'
+VERSION = '3.2.6'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -50,7 +50,6 @@ def initialise():
                     "multiplier": 1e-12,
                     "nextH": "HE19096R",
                     "nextQ": 4500,
-                    "srs-rga-hide": 1,
                     "timeoutretries": 5
                 },
                 "Ncc": {

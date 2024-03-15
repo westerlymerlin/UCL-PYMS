@@ -10,8 +10,8 @@ from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt
 from settings import settings, writesettings, setrunning, running, alarms, VERSION
-from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread, tempratureread
-from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, pyrolasercommand, rpi_reboot
+from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
+from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, rpi_reboot
 from batchclass import batch
 from cycleclass import currentcycle
 from ms_hiden_class import ms
@@ -41,7 +41,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle('PyMS - Python Mass Spectrometry v%s' % VERSION)
         self.imgLaser.setHidden(True)
-        self.imgPyrometer.setHidden(True)
         self.imgQMS.setHidden(True)
         self.wValve1.setHidden(True)
         self.wValve2.setHidden(True)
@@ -86,8 +85,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionLaserOpenLogPage.triggered.connect(lambda: menu_open_web_page('Laser Log'))
         self.actionReboot_Laser.triggered.connect(lambda: restart_pi('laserhost'))
         self.actionCO2LaserOn.triggered.connect(self.menu_show_lasermanual)
-        self.actionPyroLaserOn.triggered.connect(lambda: manual_laser('on'))
-        self.actionPyroLaserOff.triggered.connect(lambda: manual_laser('off'))
         self.actionAboutPyMS.triggered.connect(self.menu_show_about)
         self.actionHelp.triggered.connect(lambda: menu_open_web_page('Help File'))
         self.actionViewPyMSLog.triggered.connect(self.menu_show_log_viewer)
@@ -165,8 +162,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
             if self.timertick == 0:
                 pressurereaderthread = threading.Timer(0.5, self.update_ui_pressures)
                 pressurereaderthread.start()
-                pyroreaderthread = threading.Timer(0.7, self.update_ui_temprature)
-                pyroreaderthread.start()
             if self.timertick == 3:
                 self.timertick = 0
             else:
@@ -552,12 +547,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.lineTurboPump.setText('%.2e' % settings['vacuum']['turbo']['current'])
         self.lineScrollPump.setText('%.2e' % settings['vacuum']['tank']['current'])
 
-    def update_ui_temprature(self):
-        """Update the pyro temperature on the top of teh Main Form"""
-        status = tempratureread()
-        self.linePyrometer.setText('%s' % settings['pyrometer']['current'])
-        self.imgPyrometer.setHidden(not status['laser'])
-
     def update_ui_xy_positions(self):
         """Update the X anmd Y positions on the top of teh Main Form"""
         status = xyread()
@@ -619,14 +608,6 @@ def move_y():
     """Move the Y axis to the next planchet location"""
     location = batch.locxy(batch.nextlocation())
     xymoveto('y', location[1])
-
-
-def manual_laser(state):
-    """Pyrometer rangefinder laser handler"""
-    pyrolasercommand(state)
-
-
-
 
 
 def restart_pi(host):

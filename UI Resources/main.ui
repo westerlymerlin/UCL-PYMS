@@ -1292,83 +1292,6 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="linePyrometer">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>5</y>
-      <width>111</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Segoe UI</family>
-      <pointsize>14</pointsize>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-font: 14pt &quot;Segoe UI&quot;;
-image: &quot;&quot;;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="lineWidth">
-     <number>1</number>
-    </property>
-    <property name="text">
-     <string>0.0</string>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_12">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>46</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(235, 235, 235, 0);
-image: &quot;&quot;;</string>
-    </property>
-    <property name="text">
-     <string>Pyrometer</string>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QFrame" name="imgPyrometer">
-    <property name="geometry">
-     <rect>
-      <x>1453</x>
-      <y>5</y>
-      <width>49</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/main/pyrolaser.png);</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-   </widget>
    <widget class="QLabel" name="lblAalarm">
     <property name="geometry">
      <rect>
@@ -1612,9 +1535,6 @@ image: &quot;&quot;;</string>
    <zorder>lineYPosition</zorder>
    <zorder>lblCurrent</zorder>
    <zorder>label_11</zorder>
-   <zorder>linePyrometer</zorder>
-   <zorder>label_12</zorder>
-   <zorder>imgPyrometer</zorder>
    <zorder>lblAalarm</zorder>
    <zorder>lblFinishTime</zorder>
    <zorder>label_13</zorder>
@@ -1688,9 +1608,6 @@ image: &quot;&quot;;</string>
     <addaction name="actionPumpOpenStatusPage"/>
     <addaction name="actionPumpOpenLogPage"/>
     <addaction name="actionReboot_Pump"/>
-    <addaction name="separator"/>
-    <addaction name="actionPyroLaserOn"/>
-    <addaction name="actionPyroLaserOff"/>
    </widget>
    <widget class="QMenu" name="menuMass_Spectrometer">
     <property name="enabled">
@@ -1848,22 +1765,6 @@ image: &quot;&quot;;</string>
   <action name="actionPumpOpenLogPage">
    <property name="text">
     <string>Open Log Page</string>
-   </property>
-  </action>
-  <action name="actionPyroLaserOn">
-   <property name="text">
-    <string>Pyrometer Laser On</string>
-   </property>
-   <property name="toolTip">
-    <string>Switch on Pyrometer Location Laser</string>
-   </property>
-  </action>
-  <action name="actionPyroLaserOff">
-   <property name="text">
-    <string>Pyrometer Laser Off</string>
-   </property>
-   <property name="toolTip">
-    <string>Switch Off Pyrometer Location Laser</string>
    </property>
   </action>
   <action name="actionStartMIDScan">

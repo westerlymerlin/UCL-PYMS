@@ -5,6 +5,7 @@ import requests
 from settings import settings, alarms
 from logmanager import logger
 
+
 def lasergetalarm():
     """Get laser alarms"""
     message = {"item": 'laseralarm', "command": 1}
@@ -35,6 +36,7 @@ def lasergetstatus():
         logger.warning('host_queries: Laser Get Status Timeout Error')
         alarms['laserhost'] += 1
         return {'laser': 'timeout'}
+
 
 def valvegetstatus():
     """Get valve status"""
@@ -67,21 +69,6 @@ def pressuresread():
         logger.warning('host_queries: Get Pressures Pump Reader Timeout Error')
         alarms['pumphost'] += 1
         return {"pressure": 'timeout', "pump": "turbo"}
-
-
-def tempratureread():
-    """Get pyro temperature"""
-    message = {"item": 'gettemperature', "command": True}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
-    try:
-        resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message, timeout=1)
-        json_message = resp.json()
-        settings['pyrometer']['current'] = float(json_message['temperature'])
-        return json_message
-    except requests.RequestException:
-        logger.warning('host_queries: Get Temperature Pump Reader Timeout Error')
-        return {"laser": 0, "maxtemp": 0, "temperature": 'timeout'}
-
 
 
 def xyread():
