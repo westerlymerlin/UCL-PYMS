@@ -7,7 +7,6 @@ import os
 from settings import settings, friendlydirname, writesettings
 from logmanager import logger
 from imagefiler import imager
-from backup import backupfile
 from ncc_calc import ncc
 from cycleclass import currentcycle
 
@@ -209,12 +208,6 @@ class BatchClass:
             self.date = None
             self.description = None
             self.type = None
-            backupfile(settings['database']['databasepath'])
-            backupfile(settings['database']['resultsdatabasepath'])
-            current_path = os.getcwd()
-            backupfile(current_path + "\\settings.json")
-            backupfile(current_path + "\\alerts.json")
-            backupfile(current_path + "\\backup.json")
 
     def writebatchlog(self):
         """Generate the batchlog.csv file"""
@@ -242,7 +235,6 @@ class BatchClass:
                 print(formattedline, file=logfile)
             logfile.close()
             ncc.filegenerator(filepath)
-            backupfile(filename)
         except:
             logger.error("batchclass: Error createing batchlog")
 

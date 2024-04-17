@@ -6,7 +6,6 @@ import threading
 import time
 import sqlite3
 from settings import settings, writesettings, friendlydirname
-from backup import backupfile
 from ncc_calc import linbestfit
 from logmanager import logger
 
@@ -331,8 +330,6 @@ class MsClass:
                 print(line, file=outfile)
                 line = ''
             outfile.close()
-            backupfile(filename)
-            logger.debug('closed filepath = %s', filename)
             writesettings()
             with open(filename, 'rb') as infile:
                 blobfile = infile.read()

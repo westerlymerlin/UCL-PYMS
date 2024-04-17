@@ -8,7 +8,6 @@ import win32ui
 import win32gui
 from PIL import Image
 from settings import settings, friendlydirname
-from backup import backupfile
 from logmanager import logger
 
 
@@ -63,8 +62,6 @@ def imager(application, batchid, batchdescription, formatteddescription):
     if result == 1:
         #PrintWindow Succeeded
         im.save(filename)
-        backupfile(filename)
-
 
 def enumHandler(hwnd, lparm):
     """List all open windows - used for debugging purposes."""
