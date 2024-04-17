@@ -4,7 +4,7 @@ Author: Gary Twinn
 """
 import sys
 from PySide6.QtWidgets import QApplication
-from settings import VERSION
+from app_control import VERSION
 from logmanager import logger
 from ui.cycle_edit_form import CycleEditUI
 

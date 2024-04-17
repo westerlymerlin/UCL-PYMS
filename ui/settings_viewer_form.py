@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QDialog, QAbstractItemView, QTableWidget, QTableWi
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from ui.ui_layout_log_viewer import Ui_LogDialog
-from settings import settings, writesettings
+from app_control import settings, writesettings
 from logmanager import logger
 
 

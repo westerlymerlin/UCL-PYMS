@@ -7,7 +7,7 @@ from ui.ui_layout_new_batch import Ui_dialogNewBatch
 from ui.simple_batch_form import UiSimpleBatch
 from ui.planchet_form import UiPlanchet
 from batchclass import batch
-from settings import settings
+from app_control import settings
 
 class UiBatch(QDialog, Ui_dialogNewBatch):
     """Dialog class to handle the form"""

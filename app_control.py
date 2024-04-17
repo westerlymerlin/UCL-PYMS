@@ -13,8 +13,8 @@ alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost
 
 def friendlydirname(sourcename: str) -> str:
     """Removes invalid characters from file names"""
-    INVALID_CHARS = ['/', '\\', ':', '*', '?', '<', '>', '"', '&', '%', '#', '$', "'", ',']
-    for invalid_char in INVALID_CHARS:
+    invalid_chars = ['/', '\\', ':', '*', '?', '<', '>', '"', '&', '%', '#', '$', "'", ',']
+    for invalid_char in invalid_chars:
         sourcename = sourcename.replace(invalid_char, '-')
     # Remove subsequent dash characters effectively
     while '--' in sourcename:
@@ -165,9 +165,9 @@ def loadsettings():
     global settings
     fsettings = readsettings()
     for item in settings.keys():
-        if type(settings[item]) == dict:
+        if isinstance(settings[item], dict):
             for subitem in settings[item]:
-                if type(settings[item][subitem]) == dict:
+                if isinstance(settings[item][subitem], dict):
                     for subsubitem in settings[item][subitem]:
                         try:
                             settings[item][subitem][subsubitem] = fsettings[item][subitem][subsubitem]

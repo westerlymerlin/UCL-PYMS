@@ -9,7 +9,7 @@ from PySide6.QtCore import Qt, QRect, QMargins
 from PySide6.QtGui import QFont, QColor
 import numpy
 from ui.ui_layout_ncc_calc import Ui_dialogNccCalc
-from settings import settings, writesettings
+from app_control import settings, writesettings
 from logmanager import logger
 from ncc_calc import ncc, singlefilereader
 

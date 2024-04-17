@@ -4,7 +4,7 @@ About Dialog
 from datetime import datetime
 from PySide6.QtWidgets import QDialog, QMainWindow
 from ui.ui_layout_about import Ui_AboutDialog
-from settings import VERSION
+from app_control import VERSION
 
 
 class UiAbout(QDialog, QMainWindow, Ui_AboutDialog):

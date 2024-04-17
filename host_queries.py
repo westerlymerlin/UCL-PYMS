@@ -2,7 +2,7 @@
 Queries to the controller APIs
 """
 import requests
-from settings import settings, alarms
+from app_control import settings, alarms
 from logmanager import logger
 
 

@@ -5,7 +5,7 @@ import os
 import threading
 import time
 import sqlite3
-from settings import settings, writesettings, friendlydirname
+from app_control import settings, writesettings, friendlydirname
 from ncc_calc import linbestfit
 from logmanager import logger
 

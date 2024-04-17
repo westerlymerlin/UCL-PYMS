@@ -7,7 +7,7 @@ from ctypes import windll
 import win32ui
 import win32gui
 from PIL import Image
-from settings import settings, friendlydirname
+from app_control import settings, friendlydirname
 from logmanager import logger
 
 

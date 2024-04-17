@@ -8,7 +8,7 @@ import os.path
 import os
 import time
 import sqlite3
-from settings import settings
+from app_control import settings
 
 
 def backup_database():

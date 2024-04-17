@@ -6,7 +6,7 @@ import sys
 import sqlite3
 from PySide6.QtWidgets import QDialog, QApplication, QTableWidgetItem, QMessageBox, QInputDialog, QLineEdit
 from ui.ui_layout_cycle_edit import Ui_dialogCycleEdit
-from settings import settings, writesettings
+from app_control import settings, writesettings
 from logmanager import  logger
 
 

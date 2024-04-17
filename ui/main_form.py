@@ -9,7 +9,7 @@ from tkinter import messagebox
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt
-from settings import settings, writesettings, setrunning, running, alarms, VERSION
+from app_control import settings, writesettings, setrunning, running, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, rpi_reboot
 from batchclass import batch

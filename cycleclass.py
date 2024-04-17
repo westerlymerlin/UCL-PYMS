@@ -3,7 +3,7 @@ Cycle Class
 Author: Gary Twinn
 """
 import sqlite3
-from settings import settings
+from app_control import settings
 from logmanager import logger
 
 

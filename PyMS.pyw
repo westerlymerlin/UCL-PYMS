@@ -5,7 +5,7 @@ Author: Gary Twinn
 import sys
 from PySide6.QtWidgets import QApplication
 from logmanager import logger
-from settings import setrunning, VERSION
+from app_control import setrunning, VERSION
 from ui.main_form import UiMain
 
 logger.info('****** PyMS version %s started ******', VERSION)

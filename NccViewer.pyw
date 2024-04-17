@@ -5,7 +5,7 @@ Author: Gary Twinn
 import sys
 from PySide6.QtWidgets import QApplication
 from logmanager import logger
-from settings import VERSION
+from app_control import VERSION
 from ui.ncc_calc_form import NccCalcUI
 
 logger.info('****** Ncc Viewer version %s started ******', VERSION)

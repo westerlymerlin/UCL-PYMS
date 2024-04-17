@@ -8,7 +8,7 @@ from time import sleep
 import sys
 from PySide6.QtWidgets import QApplication, QDialog
 from ui.ui_layout_xy_manual_control import Ui_dialogXYSetup
-from settings import settings
+from app_control import settings
 from host_queries import xyread
 from host_commands import xymove, xymoveto
 from cycleclass import currentcycle

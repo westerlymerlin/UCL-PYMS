@@ -8,7 +8,7 @@ import csv
 from datetime import datetime
 import numpy
 from scipy import stats
-from settings import settings, writesettings
+from app_control import settings, writesettings
 
 
 class HeResults:

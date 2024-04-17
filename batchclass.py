@@ -4,7 +4,7 @@ BatchClass - used to manage a batch of cycles (samples, blanks, qshots or other 
 import sqlite3
 from datetime import datetime, timedelta
 import os
-from settings import settings, friendlydirname, writesettings
+from app_control import settings, friendlydirname, writesettings
 from logmanager import logger
 from imagefiler import imager
 from ncc_calc import ncc

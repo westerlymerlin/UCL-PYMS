@@ -4,7 +4,7 @@ UI form for viewing the logs
 from PySide6.QtWidgets import QDialog, QApplication
 from logmanager import logger
 from ui.ui_layout_log_viewer import Ui_LogDialog
-from settings import settings
+from app_control import settings
 
 
 class UiLogViewer(QDialog, Ui_LogDialog):

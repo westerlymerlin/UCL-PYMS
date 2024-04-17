@@ -5,7 +5,7 @@ Author: Gary Twinn
 import sys
 from PySide6.QtWidgets import QDialog, QApplication
 from ui.ui_layout_simple_batch import Ui_dialogSimpleBatch
-from settings import settings
+from app_control import settings
 from batchclass import batch
 from cycleclass import currentcycle
 from logmanager import logger

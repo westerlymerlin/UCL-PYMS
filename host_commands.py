@@ -3,7 +3,7 @@ Commands to the controller APIs
 """
 import requests
 from logmanager import logger
-from settings import settings, alarms
+from app_control import settings, alarms
 
 def lasercommand(state):
     """Set laser state (on or off)"""
