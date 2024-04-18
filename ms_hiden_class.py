@@ -64,6 +64,7 @@ class MsClass:
         self.port = settings['MassSpec']['hidenport']
         self.multiplier = 1 / settings['MassSpec']['multiplier']
         self.timeoutretries = settings['MassSpec']['timeoutretries']
+        self.timeoutseconds = settings['MassSpec']['timeoutseconds']
         self.resetclass()
         self.time = []
         self.m1 = []
@@ -137,7 +138,7 @@ class MsClass:
     def check_quad_is_online(self):
         """Self test to check the quad is online and ready"""
         try:
-            s = socket.create_connection((self.host, self.port), .5)
+            s = socket.create_connection((self.host, self.port), self.timeoutseconds)
             s.recv(1024).decode()
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
@@ -155,7 +156,7 @@ class MsClass:
     def start_mid(self):
         """Start a multiple ion detection run on the Hiden Mass Spectrometer"""
         runningfile = 'none  '
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
@@ -185,7 +186,7 @@ class MsClass:
     def start_profile(self):
         """Start a 1 to 10 amu scan on the Hiden Mass Spectrometer"""
         runningfile = 'none  '
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
@@ -213,7 +214,7 @@ class MsClass:
 
     def getdata(self):
         """Request mid data from Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-lData -v1 -c50 -t1 -m1 \r\n', 'utf-8'))
         sdata = s.recv(16385).decode()
@@ -226,7 +227,7 @@ class MsClass:
 
     def getcolumns(self):
         """Request columns from Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-lLegends -v1 \r\n', 'utf-8'))
         legends = s.recv(1024).decode()
@@ -235,7 +236,7 @@ class MsClass:
 
     def getcycle(self):
         """Request cycles from Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-lCycle -v1 \r\n', 'utf-8'))
         scycle = s.recv(1024).decode()
@@ -244,7 +245,7 @@ class MsClass:
 
     def getenv(self):
         """Request environment from Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-lEnvironment -v1 \r\n', 'utf-8'))
         senv = s.recv(1024).decode()
@@ -253,7 +254,7 @@ class MsClass:
 
     def getloadedfile(self):
         """Return the loaded file from the Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xFilename \r\n', 'utf-8'))
         senv = s.recv(1024).decode()
@@ -262,7 +263,7 @@ class MsClass:
 
     def stop_runnning(self):
         """Stop the running experiment on the Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), .5)
+        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()

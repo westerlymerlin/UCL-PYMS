@@ -10,7 +10,8 @@ def lasercommand(state):
     message = {"item": 'laser', "command": state}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         logger.debug('host_commands: Setting Laser to %s', state)
         json_message = resp.json()
         alarms['laserhost'] = 0
@@ -25,8 +26,10 @@ def lasersetpower(power):
     """Set the laser power"""
     message = {"item": 'setlaserpower', "command": power}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
+    timeout = settings['hosts']['timoutsettings']
     try:
-        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         logger.debug('host_commands: Setting laser power to %s', settings['laser']['power'])
         json_message = resp.json()
         alarms['laserhost'] = 0
@@ -47,7 +50,8 @@ def valvechange(valve, command):
     message = {"item": valve, "command": command}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['valvehost'] = 0
         return json_message
@@ -62,7 +66,8 @@ def xymoveto(axis, location):
     message = {'item': '%smoveto' % axis, "command": location}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message
@@ -77,7 +82,8 @@ def xymove(axis, steps):
     message = {'item': '%smove' % axis, "command": steps}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['xyhost'],headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message
@@ -93,7 +99,8 @@ def rpi_reboot(host):
     apikey = host + '-api-key'
     headers = {"Accept": "application/json", "api-key": settings['hosts'][apikey]}
     try:
-        resp = requests.post(settings['hosts'][host],headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts'][host],headers=headers,
+                             json=message, timeout=settings['hosts']['timeoutseconds'])
         logger.info('Rebooting the %s Raspberry Pi', host)
         return resp.json()
     except requests.RequestException:

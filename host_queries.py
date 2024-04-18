@@ -12,7 +12,8 @@ def lasergetalarm():
     headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     logger.debug('host_queries: get laser alarm')
     try:
-        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['laserhost'] = 0
         logger.debug('host_queries: Laser alarm repone = %s', resp.json())
@@ -28,7 +29,8 @@ def lasergetstatus():
     message = {"item": 'laserstatus', "command": 1}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['laserhost'] = 0
         return json_message
@@ -43,7 +45,8 @@ def valvegetstatus():
     message = {"item": 'getstatus', "command": True}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['valvehost'] = 0
         return json_message
@@ -58,7 +61,8 @@ def pressuresread():
     message = {"item": 'getpressures', "command": True}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         settings['vacuum']['turbo']['current'] = float(json_message[0]['pressure'])
         settings['vacuum']['tank']['current'] = float(json_message[1]['pressure'])
@@ -76,7 +80,8 @@ def xyread():
     message = {"item": 'getxystatus', "command": True}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
     try:
-        resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message, timeout=1)
+        resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message,
+                             timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message

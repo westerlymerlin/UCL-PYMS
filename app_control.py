@@ -6,7 +6,7 @@ has appeared it will creat from the defaults in the initialise function.
 import json
 import datetime
 
-VERSION = '3.2.6'
+VERSION = '3.2.9'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -50,7 +50,8 @@ def initialise():
                     "multiplier": 1e-12,
                     "nextH": "HE19096R",
                     "nextQ": 4500,
-                    "timeoutretries": 5
+                    "timeoutretries": 5,
+                    "timeoutseconds": 0.5
                 },
                 "Ncc": {
                     "HD_H": 0.01,
@@ -80,7 +81,8 @@ def initialise():
                     "valvehost": "http://192.168.2.3/api",
                     "valvehost-api-key": "changeme",
                     "xyhost": "http://192.168.2.4/api",
-                    "xyhost-api-key": "changeme"
+                    "xyhost-api-key": "changeme",
+                    "timeoutseconds": 1
                 },
                 "image": {
                     "dynolite": "DinoCapture 2.0",
