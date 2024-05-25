@@ -547,6 +547,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.lineTurboPump.setText('%.2e' % settings['vacuum']['turbo']['current'])
         self.lineScrollPump.setText('%.2e' % settings['vacuum']['tank']['current'])
 
+
     def update_ui_xy_positions(self):
         """Update the X anmd Y positions on the top of teh Main Form"""
         status = xyread()

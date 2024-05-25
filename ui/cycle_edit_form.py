@@ -283,8 +283,6 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         elif target[:5] == 'image':
             self.comboCommand.addItems(['dynolite', 'microscope', 'microscope-reheat', 'hiden-mid', 'hiden-mid-reheat',
                                         'hiden-profile'])
-        elif target[:9] == 'pyrometer':
-            self.comboCommand.addItems(['read'])
         elif target[:3] == 'end':
             self.comboCommand.addItems(['end'])
 

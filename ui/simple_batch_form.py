@@ -20,79 +20,180 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
         self.recordnumber = -1
 
     def startup(self):
-        """Initialise the form, if new set to blank but if the batch exists populate sample names into relevant
+        """Initialise the form, if new set to blank but if the batch exists populate sample names into the relavent
          locations"""
-        self.configure_tasks_and_locations()
+        self.comboTask1.activated.connect(lambda: self.taskcomboclick(1))
+        self.comboTask2.activated.connect(lambda: self.taskcomboclick(2))
+        self.comboTask3.activated.connect(lambda: self.taskcomboclick(3))
+        self.comboTask4.activated.connect(lambda: self.taskcomboclick(4))
+        self.comboTask5.activated.connect(lambda: self.taskcomboclick(5))
+        self.comboTask6.activated.connect(lambda: self.taskcomboclick(6))
+        self.comboTask7.activated.connect(lambda: self.taskcomboclick(7))
+        self.comboTask8.activated.connect(lambda: self.taskcomboclick(8))
         self.btnSave.clicked.connect(self.savechecks)
         self.btnClose.clicked.connect(self.formclose)
+        self.comboTask1.addItems(currentcycle.cycles)
+        self.comboTask2.addItems(currentcycle.cycles)
+        self.comboTask3.addItems(currentcycle.cycles)
+        self.comboTask4.addItems(currentcycle.cycles)
+        self.comboTask5.addItems(currentcycle.cycles)
+        self.comboTask6.addItems(currentcycle.cycles)
+        self.comboTask7.addItems(currentcycle.cycles)
+        self.comboTask8.addItems(currentcycle.cycles)
+        self.comboLocation1.addItems(currentcycle.locations)
+        self.comboLocation2.addItems(currentcycle.locations)
+        self.comboLocation3.addItems(currentcycle.locations)
+        self.comboLocation4.addItems(currentcycle.locations)
+        self.comboLocation5.addItems(currentcycle.locations)
+        self.comboLocation6.addItems(currentcycle.locations)
+        self.comboLocation7.addItems(currentcycle.locations)
+        self.comboLocation8.addItems(currentcycle.locations)
         self.lineDescription.setText(batch.description)
         self.lineDate.setText(batch.date)
-        self.update_ui_for_batch_info()
-
-    def configure_tasks_and_locations(self):
-        """"setup the individual combo boxes"""
-        for i in range(1, 9):
-            getattr(self, f'comboTask{i}').activated.connect(lambda index=i: self.task_combo_click(index))
-            getattr(self, f'comboTask{i}').addItems(currentcycle.cycles)
-            getattr(self, f'comboLocation{i}').addItems(currentcycle.locations)
-
-    def update_ui_for_batch_info(self):
-        """Add in infor from the current batch"""
-        for i in range(1, 9):
-            if len(batch.runnumber) > i - 1:
-                getattr(self, f'comboTask{i}').setCurrentText(batch.cycle[i - 1])
-                getattr(self, f'comboLocation{i}').setCurrentText(batch.location[i - 1])
-                getattr(self, f'lineSample{i}').setText(batch.identifier[i - 1])
-            self.task_combo_click(i)
-        if batch.runnumber:
+        if len(batch.runnumber) > 7:
+            self.comboTask8.setCurrentText(batch.cycle[7])
+            self.comboLocation8.setCurrentText(batch.location[7])
+            self.lineSample8.setText(batch.identifier[7])
+        if len(batch.runnumber) > 6:
+            self.comboTask7.setCurrentText(batch.cycle[6])
+            self.comboLocation7.setCurrentText(batch.location[6])
+            self.lineSample7.setText(batch.identifier[6])
+        if len(batch.runnumber) > 5:
+            self.comboTask6.setCurrentText(batch.cycle[5])
+            self.comboLocation6.setCurrentText(batch.location[5])
+            self.lineSample6.setText(batch.identifier[5])
+        if len(batch.runnumber) > 4:
+            self.comboTask5.setCurrentText(batch.cycle[4])
+            self.comboLocation5.setCurrentText(batch.location[4])
+            self.lineSample5.setText(batch.identifier[4])
+        if len(batch.runnumber) > 3:
+            self.comboTask4.setCurrentText(batch.cycle[3])
+            self.comboLocation4.setCurrentText(batch.location[3])
+            self.lineSample4.setText(batch.identifier[3])
+        if len(batch.runnumber) > 2:
+            self.comboTask3.setCurrentText(batch.cycle[2])
+            self.comboLocation3.setCurrentText(batch.location[2])
+            self.lineSample3.setText(batch.identifier[2])
+        if len(batch.runnumber) > 1:
+            self.comboTask2.setCurrentText(batch.cycle[1])
+            self.comboLocation2.setCurrentText(batch.location[1])
+            self.lineSample2.setText(batch.identifier[1])
+        if len(batch.runnumber) > 0:
+            self.comboTask1.setCurrentText(batch.cycle[0])
+            self.comboLocation1.setCurrentText(batch.location[0])
+            self.lineSample1.setText(batch.identifier[0])
+            self.lineDate.setText(batch.date)
+            self.lineDescription.setText(batch.description)
             self.setWindowTitle('Unfinished steps from batch # %i' % batch.id)
-
+            self.taskcomboclick(1)
     def formclose(self):
         """Form close handler"""
         settings['simplebatchform']['x'] = self.x()
         settings['simplebatchform']['y'] = self.y()
         self.deleteLater()
 
-    def task_combo_click(self, index):
-        """ Handles the clicking of the task combo boxes. """
-        combos_task = [
-            self.comboTask1, self.comboTask2, self.comboTask3, self.comboTask4,
-            self.comboTask5, self.comboTask6, self.comboTask7, self.comboTask8
-        ]
-        combos_location = [
-            self.comboLocation1, self.comboLocation2, self.comboLocation3,
-            self.comboLocation4, self.comboLocation5, self.comboLocation6,
-            self.comboLocation7, self.comboLocation8
-        ]
-        lines_sample = [
-            self.lineSample1, self.lineSample2, self.lineSample3, self.lineSample4,
-            self.lineSample5, self.lineSample6, self.lineSample7, self.lineSample8
-        ]
-        self.handle_combo_click(index, combos_task, combos_location, lines_sample)
-
-    def handle_combo_click(self, index, combos_task, combos_location, lines_sample):
-        """ setup combo boxes """
-        if combos_task[index - 1].currentText() == 'End':
-            try:
-                combos_task[index].setCurrentIndex(0)
-                combos_task[index].setEnabled(False)
+    def taskcomboclick(self, index):
+        """Combo box handler"""
+        if index == 1:
+            if self.comboTask1.currentText() == 'End':
+                self.comboTask2.setCurrentIndex(0)
+                self.comboTask2.setEnabled(False)
                 self.btnSave.setEnabled(False)
-                self.handle_combo_click(index + 1, combos_task, combos_location, lines_sample)
-            except IndexError:
-                pass
-        else:
-            try:
-                combos_task[index].setEnabled(True)
+                self.taskcomboclick(2)
+            else:
+                self.comboTask2.setEnabled(True)
                 self.btnSave.setEnabled(True)
-            except IndexError:
-                pass
-
-        if currentcycle.sample(combos_task[index - 1].currentText()):
-            combos_location[index - 1].setEnabled(True)
-            lines_sample[index - 1].setEnabled(True)
-        else:
-            combos_location[index - 1].setEnabled(False)
-            lines_sample[index - 1].setEnabled(False)
+            if currentcycle.sample(self.comboTask1.currentText()):
+                self.comboLocation1.setEnabled(True)
+                self.lineSample1.setEnabled(True)
+            else:
+                self.comboLocation1.setEnabled(False)
+                self.lineSample1.setEnabled(False)
+        elif index == 2:
+            if self.comboTask2.currentText() == 'End':
+                self.comboTask3.setCurrentIndex(0)
+                self.comboTask3.setEnabled(False)
+                self.taskcomboclick(3)
+            else:
+                self.comboTask3.setEnabled(True)
+            if currentcycle.sample(self.comboTask2.currentText()):
+                self.comboLocation2.setEnabled(True)
+                self.lineSample2.setEnabled(True)
+            else:
+                self.comboLocation2.setEnabled(False)
+                self.lineSample2.setEnabled(False)
+        elif index == 3:
+            if self.comboTask3.currentText() == 'End':
+                self.comboTask4.setCurrentIndex(0)
+                self.comboTask4.setEnabled(False)
+                self.taskcomboclick(4)
+            else:
+                self.comboTask4.setEnabled(True)
+            if currentcycle.sample(self.comboTask3.currentText()):
+                self.comboLocation3.setEnabled(True)
+                self.lineSample3.setEnabled(True)
+            else:
+                self.comboLocation3.setEnabled(False)
+                self.lineSample3.setEnabled(False)
+        elif index == 4:
+            if self.comboTask4.currentText() == 'End':
+                self.comboTask5.setCurrentIndex(0)
+                self.comboTask5.setEnabled(False)
+                self.taskcomboclick(5)
+            else:
+                self.comboTask5.setEnabled(True)
+            if currentcycle.sample(self.comboTask4.currentText()):
+                self.comboLocation4.setEnabled(True)
+                self.lineSample4.setEnabled(True)
+            else:
+                self.comboLocation4.setEnabled(False)
+                self.lineSample4.setEnabled(False)
+        elif index == 5:
+            if self.comboTask5.currentText() == 'End':
+                self.comboTask6.setCurrentIndex(0)
+                self.comboTask6.setEnabled(False)
+                self.taskcomboclick(6)
+            else:
+                self.comboTask6.setEnabled(True)
+            if currentcycle.sample(self.comboTask5.currentText()):
+                self.comboLocation5.setEnabled(True)
+                self.lineSample5.setEnabled(True)
+            else:
+                self.comboLocation5.setEnabled(False)
+                self.lineSample5.setEnabled(False)
+        elif index == 6:
+            if self.comboTask6.currentText() == 'End':
+                self.comboTask7.setCurrentIndex(0)
+                self.comboTask7.setEnabled(False)
+                self.taskcomboclick(7)
+            else:
+                self.comboTask7.setEnabled(True)
+            if currentcycle.sample(self.comboTask6.currentText()):
+                self.comboLocation6.setEnabled(True)
+                self.lineSample6.setEnabled(True)
+            else:
+                self.comboLocation6.setEnabled(False)
+                self.lineSample6.setEnabled(False)
+        elif index == 7:
+            if self.comboTask7.currentText() == 'End':
+                self.comboTask8.setCurrentIndex(0)
+                self.comboTask8.setEnabled(False)
+                self.taskcomboclick(7)
+            else:
+                self.comboTask8.setEnabled(True)
+            if currentcycle.sample(self.comboTask6.currentText()):
+                self.comboLocation7.setEnabled(True)
+                self.lineSample7.setEnabled(True)
+            else:
+                self.comboLocation7.setEnabled(False)
+                self.lineSample7.setEnabled(False)
+        elif index == 8:
+            if currentcycle.sample(self.comboTask5.currentText()):
+                self.comboLocation8.setEnabled(True)
+                self.lineSample8.setEnabled(True)
+            else:
+                self.comboLocation8.setEnabled(False)
+                self.lineSample8.setEnabled(False)
 
     def savechecks(self):
         """Tests to run before saving to ensure every sample has a valid name"""

@@ -6,7 +6,7 @@ has appeared it will creat from the defaults in the initialise function.
 import json
 import datetime
 
-VERSION = '3.2.9'
+VERSION = '3.2.10'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -119,11 +119,6 @@ def initialise():
                 "planchetform": {
                     "x": 600,
                     "y": 100
-                },
-                "pyrometer": {
-                    "current": 385.0,
-                    "high": 1200,
-                    "low": 700
                 },
                 "simplebatchform": {
                     "x": 600,
