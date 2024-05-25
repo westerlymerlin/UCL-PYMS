@@ -54,30 +54,37 @@ class UiSimpleBatch(QDialog, Ui_dialogSimpleBatch):
             self.comboTask8.setCurrentText(batch.cycle[7])
             self.comboLocation8.setCurrentText(batch.location[7])
             self.lineSample8.setText(batch.identifier[7])
+            self.taskcomboclick(8)
         if len(batch.runnumber) > 6:
             self.comboTask7.setCurrentText(batch.cycle[6])
             self.comboLocation7.setCurrentText(batch.location[6])
             self.lineSample7.setText(batch.identifier[6])
+            self.taskcomboclick(7)
         if len(batch.runnumber) > 5:
             self.comboTask6.setCurrentText(batch.cycle[5])
             self.comboLocation6.setCurrentText(batch.location[5])
             self.lineSample6.setText(batch.identifier[5])
+            self.taskcomboclick(6)
         if len(batch.runnumber) > 4:
             self.comboTask5.setCurrentText(batch.cycle[4])
             self.comboLocation5.setCurrentText(batch.location[4])
             self.lineSample5.setText(batch.identifier[4])
+            self.taskcomboclick(5)
         if len(batch.runnumber) > 3:
             self.comboTask4.setCurrentText(batch.cycle[3])
             self.comboLocation4.setCurrentText(batch.location[3])
             self.lineSample4.setText(batch.identifier[3])
+            self.taskcomboclick(4)
         if len(batch.runnumber) > 2:
             self.comboTask3.setCurrentText(batch.cycle[2])
             self.comboLocation3.setCurrentText(batch.location[2])
             self.lineSample3.setText(batch.identifier[2])
+            self.taskcomboclick(3)
         if len(batch.runnumber) > 1:
             self.comboTask2.setCurrentText(batch.cycle[1])
             self.comboLocation2.setCurrentText(batch.location[1])
             self.lineSample2.setText(batch.identifier[1])
+            self.taskcomboclick(2)
         if len(batch.runnumber) > 0:
             self.comboTask1.setCurrentText(batch.cycle[0])
             self.comboLocation1.setCurrentText(batch.location[0])
