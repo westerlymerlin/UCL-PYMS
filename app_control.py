@@ -6,7 +6,7 @@ has appeared it will creat from the defaults in the initialise function.
 import json
 import datetime
 
-VERSION = '3.2.11'
+VERSION = '3.2.12'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -127,15 +127,23 @@ def initialise():
                 "vacuum": {
                     "ion": {
                         "current": 4.5e-09,
-                        "high": 9.9e-08
+                        "high": 9.9e-08,
+                        "units": "mBar"
                     },
                     "tank": {
                         "current": 0.00116,
-                        "high": 0.0001
+                        "high": 0.0001,
+                        "units": "mBar"
                     },
                     "turbo": {
                         "current": 3.41e-08,
-                        "high": 9.9e-08
+                        "high": 9.9e-08,
+                        "units": "mBar"
+                    },
+                    "gas": {"current": 1,
+                            "high": 9.0,
+                            "low":  6.0,
+                            "units": "Bar"
                     }
                 },
                 "xymanualform": {

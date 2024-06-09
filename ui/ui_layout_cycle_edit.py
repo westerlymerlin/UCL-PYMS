@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'cycleedit.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -135,7 +135,7 @@ class Ui_dialogCycleEdit(object):
         self.line.setFrameShadow(QFrame.Plain)
         self.line.setLineWidth(2)
         self.line.setMidLineWidth(1)
-        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShape(QFrame.Shape.HLine)
         self.txtLaserPower = QLineEdit(dialogCycleEdit)
         self.txtLaserPower.setObjectName(u"txtLaserPower")
         self.txtLaserPower.setGeometry(QRect(140, 140, 113, 21))

@@ -65,8 +65,13 @@ def pressuresread():
                              timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         settings['vacuum']['turbo']['current'] = float(json_message[0]['pressure'])
+        settings['vacuum']['turbo']['units'] = json_message[0]['units']
         settings['vacuum']['tank']['current'] = float(json_message[1]['pressure'])
+        settings['vacuum']['tank']['units'] = json_message[1]['units']
         settings['vacuum']['ion']['current'] = float(json_message[2]['pressure'])
+        settings['vacuum']['ion']['units'] = json_message[2]['units']
+        settings['vacuum']['gas']['current'] = float(json_message[3]['pressure'])
+        settings['vacuum']['gas']['units'] = json_message[3]['units']
         alarms['pumphost'] = 0
         return json_message
     except requests.RequestException:

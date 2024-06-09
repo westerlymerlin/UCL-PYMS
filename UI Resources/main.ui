@@ -839,12 +839,12 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="lblIonPump">
     <property name="geometry">
      <rect>
       <x>910</x>
       <y>46</y>
-      <width>111</width>
+      <width>121</width>
       <height>21</height>
      </rect>
     </property>
@@ -859,12 +859,12 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="lblTurboPump">
     <property name="geometry">
      <rect>
-      <x>1040</x>
+      <x>1050</x>
       <y>46</y>
-      <width>111</width>
+      <width>121</width>
       <height>21</height>
      </rect>
     </property>
@@ -879,12 +879,12 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="lblTankPump">
     <property name="geometry">
      <rect>
-      <x>1170</x>
+      <x>1190</x>
       <y>46</y>
-      <width>111</width>
+      <width>121</width>
       <height>21</height>
      </rect>
     </property>
@@ -1016,7 +1016,7 @@ image: &quot;&quot;;</string>
      <rect>
       <x>910</x>
       <y>5</y>
-      <width>111</width>
+      <width>121</width>
       <height>41</height>
      </rect>
     </property>
@@ -1049,9 +1049,9 @@ image: &quot;&quot;;</string>
    <widget class="QLabel" name="lineTurboPump">
     <property name="geometry">
      <rect>
-      <x>1040</x>
+      <x>1050</x>
       <y>5</y>
-      <width>111</width>
+      <width>121</width>
       <height>41</height>
      </rect>
     </property>
@@ -1084,9 +1084,9 @@ image: &quot;&quot;;</string>
    <widget class="QLabel" name="lineScrollPump">
     <property name="geometry">
      <rect>
-      <x>1170</x>
+      <x>1190</x>
       <y>5</y>
-      <width>111</width>
+      <width>121</width>
       <height>41</height>
      </rect>
     </property>
@@ -1521,9 +1521,9 @@ image: &quot;&quot;;</string>
    <zorder>tbStop</zorder>
    <zorder>tbRun</zorder>
    <zorder>listCommands</zorder>
-   <zorder>label_3</zorder>
-   <zorder>label_6</zorder>
-   <zorder>label_7</zorder>
+   <zorder>lblIonPump</zorder>
+   <zorder>lblTurboPump</zorder>
+   <zorder>lblTankPump</zorder>
    <zorder>label_8</zorder>
    <zorder>listBatch</zorder>
    <zorder>linePlanchet</zorder>

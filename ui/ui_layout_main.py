@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -346,24 +346,24 @@ class Ui_MainWindow(object):
 "image: \"\";")
         self.listCommands.setMidLineWidth(1)
         self.listCommands.setAlternatingRowColors(True)
-        self.label_3 = QLabel(self.centralwidget)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(910, 46, 111, 21))
-        self.label_3.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+        self.lblIonPump = QLabel(self.centralwidget)
+        self.lblIonPump.setObjectName(u"lblIonPump")
+        self.lblIonPump.setGeometry(QRect(910, 46, 121, 21))
+        self.lblIonPump.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
 "image: \"\";")
-        self.label_3.setScaledContents(True)
-        self.label_6 = QLabel(self.centralwidget)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(1040, 46, 111, 21))
-        self.label_6.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+        self.lblIonPump.setScaledContents(True)
+        self.lblTurboPump = QLabel(self.centralwidget)
+        self.lblTurboPump.setObjectName(u"lblTurboPump")
+        self.lblTurboPump.setGeometry(QRect(1050, 46, 121, 21))
+        self.lblTurboPump.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
 "image: \"\";")
-        self.label_6.setScaledContents(True)
-        self.label_7 = QLabel(self.centralwidget)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setGeometry(QRect(1170, 46, 111, 21))
-        self.label_7.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+        self.lblTurboPump.setScaledContents(True)
+        self.lblTankPump = QLabel(self.centralwidget)
+        self.lblTankPump.setObjectName(u"lblTankPump")
+        self.lblTankPump.setGeometry(QRect(1190, 46, 121, 21))
+        self.lblTankPump.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
 "image: \"\";")
-        self.label_7.setScaledContents(True)
+        self.lblTankPump.setScaledContents(True)
         self.label_8 = QLabel(self.centralwidget)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setGeometry(QRect(10, 560, 251, 21))
@@ -398,7 +398,7 @@ class Ui_MainWindow(object):
         self.lineLocation.setFrameShape(QFrame.Box)
         self.lineIonPump = QLabel(self.centralwidget)
         self.lineIonPump.setObjectName(u"lineIonPump")
-        self.lineIonPump.setGeometry(QRect(910, 5, 111, 41))
+        self.lineIonPump.setGeometry(QRect(910, 5, 121, 41))
         font2 = QFont()
         font2.setFamilies([u"Segoe UI"])
         font2.setPointSize(14)
@@ -413,7 +413,7 @@ class Ui_MainWindow(object):
         self.lineIonPump.setScaledContents(True)
         self.lineTurboPump = QLabel(self.centralwidget)
         self.lineTurboPump.setObjectName(u"lineTurboPump")
-        self.lineTurboPump.setGeometry(QRect(1040, 5, 111, 41))
+        self.lineTurboPump.setGeometry(QRect(1050, 5, 121, 41))
         self.lineTurboPump.setFont(font2)
         self.lineTurboPump.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "font: 14pt \"Segoe UI\";\n"
@@ -423,7 +423,7 @@ class Ui_MainWindow(object):
         self.lineTurboPump.setScaledContents(True)
         self.lineScrollPump = QLabel(self.centralwidget)
         self.lineScrollPump.setObjectName(u"lineScrollPump")
-        self.lineScrollPump.setGeometry(QRect(1170, 5, 111, 41))
+        self.lineScrollPump.setGeometry(QRect(1190, 5, 121, 41))
         self.lineScrollPump.setFont(font2)
         self.lineScrollPump.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "font: 14pt \"Segoe UI\";\n"
@@ -576,9 +576,9 @@ class Ui_MainWindow(object):
         self.tbStop.raise_()
         self.tbRun.raise_()
         self.listCommands.raise_()
-        self.label_3.raise_()
-        self.label_6.raise_()
-        self.label_7.raise_()
+        self.lblIonPump.raise_()
+        self.lblTurboPump.raise_()
+        self.lblTankPump.raise_()
         self.label_8.raise_()
         self.listBatch.raise_()
         self.linePlanchet.raise_()
@@ -742,9 +742,9 @@ class Ui_MainWindow(object):
         self.tbRun.setToolTip(QCoreApplication.translate("MainWindow", u"Press Run to start or Pause to halt at the end of currenct cycle", None))
 #endif // QT_CONFIG(tooltip)
         self.tbRun.setText(QCoreApplication.translate("MainWindow", u"Run", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Ion Gauge", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Turbo Gauge", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Tank Gauge", None))
+        self.lblIonPump.setText(QCoreApplication.translate("MainWindow", u"Ion Gauge", None))
+        self.lblTurboPump.setText(QCoreApplication.translate("MainWindow", u"Turbo Gauge", None))
+        self.lblTankPump.setText(QCoreApplication.translate("MainWindow", u"Tank Gauge", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Batch Items  (Currrent / Next)", None))
         self.linePlanchet.setText("")
         self.lineLocation.setText("")

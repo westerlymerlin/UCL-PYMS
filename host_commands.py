@@ -26,7 +26,6 @@ def lasersetpower(power):
     """Set the laser power"""
     message = {"item": 'setlaserpower', "command": power}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
-    timeout = settings['hosts']['timoutsettings']
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
                              timeout=settings['hosts']['timeoutseconds'])
