@@ -145,30 +145,29 @@ class UiMain(QMainWindow, Ui_MainWindow):
 
     def global_timer(self):
         """Timer thread for updating displays, runs every second"""
-        if running:
-            self.secondcount = self.secondcount + self.secondincrement
-            self.lcdElapsedTime.display(self.secondcount)
-            timerthread = threading.Timer(1, self.global_timer)
-            timerthread.start()
-            valvereaderthread = threading.Timer(0.05, self.update_ui_display_items)
-            valvereaderthread.start()
-            msreaderthread = threading.Timer(0.1, self.read_ms)
-            msreaderthread.start()
-            alarmreaderthread = threading.Timer(0.3, self.check_alarms)
-            alarmreaderthread.start()
-            if not self.taskrunning:
-                taskrunnerthread = threading.Timer(0.2, self.event_timer)
-                taskrunnerthread.start()
-            if self.timertick == 0 or self.timertick == 2:
-                xyreaderthread = threading.Timer(0.1, self.update_ui_xy_positions)
-                xyreaderthread.start()
-            if self.timertick == 0:
-                pressurereaderthread = threading.Timer(0.5, self.update_ui_pressures)
-                pressurereaderthread.start()
-            if self.timertick == 3:
-                self.timertick = 0
-            else:
-                self.timertick += 1
+        self.secondcount = self.secondcount + self.secondincrement
+        self.lcdElapsedTime.display(self.secondcount)
+        timerthread = threading.Timer(1, self.global_timer)
+        timerthread.start()
+        valvereaderthread = threading.Timer(0.05, self.update_ui_display_items)
+        valvereaderthread.start()
+        msreaderthread = threading.Timer(0.1, self.read_ms)
+        msreaderthread.start()
+        alarmreaderthread = threading.Timer(0.3, self.check_alarms)
+        alarmreaderthread.start()
+        if not self.taskrunning:
+            taskrunnerthread = threading.Timer(0.2, self.event_timer)
+            taskrunnerthread.start()
+        if self.timertick == 0 or self.timertick == 2:
+            xyreaderthread = threading.Timer(0.1, self.update_ui_xy_positions)
+            xyreaderthread.start()
+        if self.timertick == 0:
+            pressurereaderthread = threading.Timer(0.5, self.update_ui_pressures)
+            pressurereaderthread.start()
+        if self.timertick >= 3:
+            self.timertick = 0
+        else:
+            self.timertick += 1
 
     def read_ms(self):
         """Update the Hiden Mass Spectrometer widget with its status"""
