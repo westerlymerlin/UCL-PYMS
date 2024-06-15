@@ -1546,6 +1546,61 @@ image: &quot;&quot;;</string>
      </column>
     </widget>
    </widget>
+   <widget class="QLabel" name="lineN2Pressure">
+    <property name="geometry">
+     <rect>
+      <x>1330</x>
+      <y>5</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>14</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Segoe UI&quot;;
+image: &quot;&quot;;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>0.0</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblN2Pump">
+    <property name="geometry">
+     <rect>
+      <x>1330</x>
+      <y>46</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(235, 235, 235, 0);
+image: &quot;&quot;;</string>
+    </property>
+    <property name="text">
+     <string>N2 Gauge</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>frmImage</zorder>
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
@@ -1578,6 +1633,8 @@ image: &quot;&quot;;</string>
    <zorder>label_13</zorder>
    <zorder>btnNCCViewer</zorder>
    <zorder>frameResults</zorder>
+   <zorder>lineN2Pressure</zorder>
+   <zorder>lblN2Pump</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

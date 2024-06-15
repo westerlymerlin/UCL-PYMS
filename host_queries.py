@@ -70,8 +70,8 @@ def pressuresread():
         settings['vacuum']['tank']['units'] = json_message[1]['units']
         settings['vacuum']['ion']['current'] = float(json_message[2]['pressure'])
         settings['vacuum']['ion']['units'] = json_message[2]['units']
-        settings['vacuum']['gas']['current'] = float(json_message[3]['pressure'])
-        settings['vacuum']['gas']['units'] = json_message[3]['units']
+        settings['vacuum']['N2']['current'] = float(json_message[3]['pressure'])
+        settings['vacuum']['N2']['units'] = json_message[3]['units']
         alarms['pumphost'] = 0
         return json_message
     except requests.RequestException:

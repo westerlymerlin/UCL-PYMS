@@ -100,6 +100,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.lblIonPump.setText('Ion Gauge (%s)' % settings['vacuum']['ion']['units'])
         self.lblTurboPump.setText('Turbo Gauge (%s)' % settings['vacuum']['turbo']['units'])
         self.lblTankPump.setText('Tank Gauge (%s)' % settings['vacuum']['tank']['units'])
+        self.lblN2Pump.setText('N2 Gauge (%s)' % settings['vacuum']['N2']['units'])
         font1 = QFont()
         font1.setFamilies(['Segoe UI'])
         font1.setPointSize(10)
@@ -137,6 +138,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.taskrunning = False
         self.turbopumphigh = 0
         self.ionpumphigh = 0
+        self.N2pressurelow = 0
         self.lblCurrent.setText('idle')
         self.update_ui_batch_list()
         self.update_ui_commandlist()
@@ -247,6 +249,15 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
+        if settings['vacuum']['N2']['current'] < settings['vacuum']['N2']['low']:
+            self.N2pressurelow += 1
+            if self.N2pressurelow > 29:
+                status = status + 'N2 gauge is showing loss of pressure, the system is paused. \n'
+                self.secondincrement = 0
+                self.run = 0
+                self.tbRun.setChecked(False)
+        else:
+            self.N2pressurelow = 0
         if self.lblAalarm.text() != status:
             self.lblAalarm.setText(status)
             self.lblFinishTime.setText('')
@@ -543,15 +554,19 @@ class UiMain(QMainWindow, Ui_MainWindow):
             logger.error('mainUIForm: command list error')
 
     def update_ui_pressures(self):
-        """Update the guage pressures on the top of teh Main Form"""
+        """Update the guage pressures on the top of the Main Form"""
         pressuresread()
         self.lineIonPump.setText('%.2e' % settings['vacuum']['ion']['current'])
         self.lineTurboPump.setText('%.2e' % settings['vacuum']['turbo']['current'])
         self.lineScrollPump.setText('%.2e' % settings['vacuum']['tank']['current'])
+        if settings['vacuum']['N2']['current'] > 500:
+            self.lineN2Pressure.setText('N/A')
+        else:
+            self.lineN2Pressure.setText('%.2f' % settings['vacuum']['N2']['current'])
 
 
     def update_ui_xy_positions(self):
-        """Update the X anmd Y positions on the top of teh Main Form"""
+        """Update the X anmd Y positions on the top of the Main Form"""
         status = xyread()
         if status['xmoving'] != 'timeout':
             self.xposition = status['xpos']

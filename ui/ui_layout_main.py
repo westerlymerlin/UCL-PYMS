@@ -576,6 +576,22 @@ class Ui_MainWindow(object):
         self.tableResults.horizontalHeader().setStretchLastSection(False)
         self.tableResults.verticalHeader().setVisible(False)
         self.tableResults.verticalHeader().setHighlightSections(False)
+        self.lineN2Pressure = QLabel(self.centralwidget)
+        self.lineN2Pressure.setObjectName(u"lineN2Pressure")
+        self.lineN2Pressure.setGeometry(QRect(1330, 5, 121, 41))
+        self.lineN2Pressure.setFont(font2)
+        self.lineN2Pressure.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"font: 14pt \"Segoe UI\";\n"
+"image: \"\";")
+        self.lineN2Pressure.setFrameShape(QFrame.Shape.Box)
+        self.lineN2Pressure.setLineWidth(1)
+        self.lineN2Pressure.setScaledContents(True)
+        self.lblN2Pump = QLabel(self.centralwidget)
+        self.lblN2Pump.setObjectName(u"lblN2Pump")
+        self.lblN2Pump.setGeometry(QRect(1330, 46, 121, 21))
+        self.lblN2Pump.setStyleSheet(u"background-color: rgba(235, 235, 235, 0);\n"
+"image: \"\";")
+        self.lblN2Pump.setScaledContents(True)
         MainWindow.setCentralWidget(self.centralwidget)
         self.frmImage.raise_()
         self.label_9.raise_()
@@ -609,6 +625,8 @@ class Ui_MainWindow(object):
         self.label_13.raise_()
         self.btnNCCViewer.raise_()
         self.frameResults.raise_()
+        self.lineN2Pressure.raise_()
+        self.lblN2Pump.raise_()
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 1800, 33))
@@ -786,6 +804,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Sample", None));
         ___qtablewidgetitem3 = self.tableResults.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Best Fit", None));
+        self.lineN2Pressure.setText(QCoreApplication.translate("MainWindow", u"0.0", None))
+        self.lblN2Pump.setText(QCoreApplication.translate("MainWindow", u"N2 Gauge", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuBatch.setTitle(QCoreApplication.translate("MainWindow", u"Batch", None))
         self.menuXYController.setTitle(QCoreApplication.translate("MainWindow", u"X-Y Controller", None))
