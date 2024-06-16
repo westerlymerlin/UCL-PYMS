@@ -1,12 +1,13 @@
 """
-Settings module, reads the settings from a settings.json file. If it does not exist or a new setting
-has appeared it will creat from the defaults in the initialise function.
+Application Control module, reads the settings from a settings.json file. If it does not exist or a new setting
+has appeared it will creat from the defaults in the initialise function. Has global vraiables and routine for
+calculating a file name and removing illegal character.
 """
 
 import json
 import datetime
 
-VERSION = '3.2.14'
+VERSION = '3.2.15'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
