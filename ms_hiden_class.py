@@ -83,6 +83,7 @@ class MsClass:
         self.batchid = 0  # Batch ID (For file path)
         self.batchitemid = 0
         self.socketreturn = 0
+        self.processing = 0
         self.running = False
         self.timeoutcounter = 0
 
@@ -137,6 +138,8 @@ class MsClass:
 
     def check_quad_is_online(self):
         """Self test to check the quad is online and ready"""
+        if self.processing:
+            return 'Proessing'
         try:
             s = socket.create_connection((self.host, self.port), self.timeoutseconds)
             s.recv(1024).decode()
@@ -150,11 +153,12 @@ class MsClass:
             return status[:-2]
         except socket.timeout:
             self.timeoutcounter += 1
-            logger.warning('msHiden - Timeout to MS software - try %s', self.timeoutcounter)
+            logger.warning('msHiden checking quad is online - Timeout to MS software - try %s', self.timeoutcounter)
             return 'Off Line'
 
     def start_mid(self):
         """Start a multiple ion detection run on the Hiden Mass Spectrometer"""
+        self.processing = 1
         runningfile = 'none  '
         s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
@@ -170,7 +174,7 @@ class MsClass:
                 self.socketreturn = s.recv(1024).decode()
             s.send(bytes('-xFilename \r\n', 'utf-8'))
             runningfile = s.recv(1024).decode()
-            logger.debug('Loaded file - %s', runningfile)
+            logger.info('Start MID loaded file - %s', runningfile)
             time.sleep(1)
             s.send(bytes('-xGo %s \r\n' % self.runfile, 'utf-8'))
             time.sleep(.5)
@@ -181,10 +185,12 @@ class MsClass:
             logger.debug('Run file status = %s', status)
             self.running = True
         s.close()
+        self.processing = 0
         return [runningfile[:-2], status[:-2]]
 
     def start_profile(self):
         """Start a 1 to 10 amu scan on the Hiden Mass Spectrometer"""
+        self.processing = 1
         runningfile = 'none  '
         s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
@@ -200,7 +206,7 @@ class MsClass:
                 self.socketreturn = s.recv(1024).decode()
             s.send(bytes('-xFilename \r\n', 'utf-8'))
             runningfile = s.recv(1024).decode()
-            logger.debug('Loaded file - %s', runningfile)
+            logger.info('Start profile loaded file - %s', runningfile)
             time.sleep(1)
             s.send(bytes('-xGo %s \r\n' % self.runfile, 'utf-8'))
             # self.socketreturn = s.recv(1024).decode()
@@ -210,10 +216,12 @@ class MsClass:
             logger.debug('Run file status = %s', status)
             self.running = True
         s.close()
+        self.processing = 0
         return [runningfile[:-2], status[:-2]]
 
     def getdata(self):
         """Request mid data from Hiden Mass Spectrometer"""
+        self.processing = 1
         s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-lData -v1 -c50 -t1 -m1 \r\n', 'utf-8'))
@@ -223,6 +231,7 @@ class MsClass:
         for item in sdata.split('\r\n'):
             outputdata.append(item.split('\t'))
         # outputdata = outputdata[len(outputdata) - 21:]
+        self.processing = 0
         return outputdata[:-1]
 
     def getcolumns(self):
@@ -263,6 +272,7 @@ class MsClass:
 
     def stop_runnning(self):
         """Stop the running experiment on the Hiden Mass Spectrometer"""
+        self.processing = 1
         s = socket.create_connection((self.host, self.port), self.timeoutseconds)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
@@ -281,6 +291,7 @@ class MsClass:
             time.sleep(2)
             self.socketreturn = s.recv(1024).decode()
         s.close()
+        self.processing = 0
 
     def next_id(self):
         """Generate the next Helium run ID"""
