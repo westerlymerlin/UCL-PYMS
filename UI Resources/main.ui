@@ -97,17 +97,17 @@ font: 10pt &quot;Segoe UI&quot;;
      </size>
     </property>
     <property name="toolTip">
-     <string>Click on the valves to operate</string>
+     <string notr="true"/>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(255, 255, 255,);
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Shadow::Plain</enum>
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -131,10 +131,10 @@ image: &quot;&quot;;</string>
       <string notr="true">image: url(:/main/laser.png);</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Shadow::Plain</enum>
+      <enum>QFrame::Plain</enum>
      </property>
     </widget>
     <widget class="QWidget" name="wValve1" native="true">
@@ -506,7 +506,7 @@ image: &quot;&quot;;</string>
       <string>Connecting . . .</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+      <set>Qt::AlignHCenter|Qt::AlignTop</set>
      </property>
     </widget>
     <widget class="QFrame" name="imgQMS">
@@ -523,10 +523,10 @@ image: &quot;&quot;;</string>
 background-color: rgba(255, 255, 255, 0);</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::StyledPanel</enum>
+      <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
+      <enum>QFrame::Raised</enum>
      </property>
     </widget>
     <widget class="QToolButton" name="btnHidenMID">
@@ -634,10 +634,10 @@ background-color: rgb(255, 255, 255);
 border-color: rgb(76, 76, 76);</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Panel</enum>
+      <enum>QFrame::Panel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Shadow::Sunken</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
      <property name="lineWidth">
       <number>1</number>
@@ -646,10 +646,10 @@ border-color: rgb(76, 76, 76);</string>
       <string>0.0</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
      <property name="textInteractionFlags">
-      <set>Qt::TextInteractionFlag::TextSelectableByMouse</set>
+      <set>Qt::TextSelectableByMouse</set>
      </property>
     </widget>
    </widget>
@@ -687,7 +687,7 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -779,8 +779,11 @@ image: &quot;&quot;;</string>
       <height>134</height>
      </rect>
     </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
+    </property>
     <property name="toolTip">
-     <string>Emergency STOP. Close all valves and switch off laser</string>
+     <string notr="true"/>
     </property>
     <property name="styleSheet">
      <string notr="true">border-color: rgb(255, 255, 255);
@@ -805,13 +808,13 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
     <property name="popupMode">
-     <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+     <enum>QToolButton::DelayedPopup</enum>
     </property>
     <property name="autoRaise">
      <bool>true</bool>
     </property>
     <property name="arrowType">
-     <enum>Qt::ArrowType::NoArrow</enum>
+     <enum>Qt::NoArrow</enum>
     </property>
    </widget>
    <widget class="QToolButton" name="tbRun">
@@ -824,7 +827,7 @@ image: &quot;&quot;;</string>
      </rect>
     </property>
     <property name="toolTip">
-     <string>Press Run to start or Pause to halt at the end of currenct cycle</string>
+     <string notr="true"/>
     </property>
     <property name="styleSheet">
      <string notr="true">image: &quot;&quot;;</string>
@@ -875,6 +878,9 @@ image: &quot;&quot;;</string>
     </property>
     <property name="alternatingRowColors">
      <bool>true</bool>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
     </property>
    </widget>
    <widget class="QLabel" name="lblIonPump">
@@ -986,6 +992,9 @@ image: &quot;&quot;;</string>
     <property name="alternatingRowColors">
      <bool>true</bool>
     </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
     <property name="modelColumn">
      <number>0</number>
     </property>
@@ -1012,7 +1021,7 @@ image: &quot;&quot;;</string>
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1043,7 +1052,7 @@ image: &quot;&quot;;</string>
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="text">
      <string/>
@@ -1072,7 +1081,7 @@ font: 14pt &quot;Segoe UI&quot;;
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1107,7 +1116,7 @@ font: 14pt &quot;Segoe UI&quot;;
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1142,7 +1151,7 @@ font: 14pt &quot;Segoe UI&quot;;
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1177,7 +1186,7 @@ font: 14pt &quot;Segoe UI&quot;;
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1212,7 +1221,7 @@ font: 14pt &quot;Segoe UI&quot;;
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1278,10 +1287,10 @@ image: &quot;&quot;;</string>
 background-color: rgba(255, 255, 255, 0);</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
+     <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+     <enum>QFrame::Raised</enum>
     </property>
    </widget>
    <widget class="QLabel" name="lblCurrent">
@@ -1304,7 +1313,7 @@ image: &quot;&quot;;</string>
      <bool>true</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
@@ -1360,13 +1369,13 @@ color: rgb(255, 0, 0);
      <bool>true</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
     </property>
     <property name="textInteractionFlags">
-     <set>Qt::TextInteractionFlag::NoTextInteraction</set>
+     <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
    <widget class="QLabel" name="lblFinishTime">
@@ -1420,7 +1429,7 @@ image: &quot;&quot;;</string>
      </rect>
     </property>
     <property name="toolTip">
-     <string>Opens the Ncc Viewer app</string>
+     <string notr="true"/>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 700 10pt &quot;Segoe UI&quot;;
@@ -1450,10 +1459,10 @@ image: &quot;&quot;;</string>
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Shadow::Plain</enum>
+     <enum>QFrame::Plain</enum>
     </property>
     <widget class="QTableWidget" name="tableResults">
      <property name="geometry">
@@ -1474,13 +1483,13 @@ image: &quot;&quot;;</string>
       <number>1</number>
      </property>
      <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      <enum>Qt::ScrollBarAlwaysOn</enum>
      </property>
      <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
      <property name="editTriggers">
-      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+      <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="dragDropOverwriteMode">
       <bool>false</bool>
@@ -1489,13 +1498,13 @@ image: &quot;&quot;;</string>
       <bool>true</bool>
      </property>
      <property name="selectionMode">
-      <enum>QAbstractItemView::SelectionMode::ContiguousSelection</enum>
+      <enum>QAbstractItemView::NoSelection</enum>
      </property>
      <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+      <enum>QAbstractItemView::SelectRows</enum>
      </property>
      <property name="textElideMode">
-      <enum>Qt::TextElideMode::ElideLeft</enum>
+      <enum>Qt::ElideLeft</enum>
      </property>
      <property name="wordWrap">
       <bool>false</bool>
@@ -1569,7 +1578,7 @@ font: 14pt &quot;Segoe UI&quot;;
 image: &quot;&quot;;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
+     <enum>QFrame::Box</enum>
     </property>
     <property name="lineWidth">
      <number>1</number>
@@ -1642,7 +1651,7 @@ image: &quot;&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>1800</width>
-     <height>33</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

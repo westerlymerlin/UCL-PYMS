@@ -230,7 +230,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.tbRun.setChecked(False)
         if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
             self.ionpumphigh += 1
-            self.lineIonPump.setStyleSheet(GUAGE_BAD)
+            # self.lineIonPump.setStyleSheet(GUAGE_BAD)
             if self.ionpumphigh > 29:
                 status = status + 'Ion pump is showing loss of vacuum, the system is paused. \n'
                 self.secondincrement = 0
@@ -238,10 +238,10 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tbRun.setChecked(False)
         else:
             self.ionpumphigh = 0
-            self.lineIonPump.setStyleSheet(GUAGE_GOOD)
+            # self.lineIonPump.setStyleSheet(GUAGE_GOOD)
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
             self.turbopumphigh += 1
-            self.lineTurboPump.setStyleSheet(GUAGE_BAD)
+            # self.lineTurboPump.setStyleSheet(GUAGE_BAD)
             if self.turbopumphigh > 29:
                 status = status + 'Turbo gauge is showing loss of vacuum, the system is paused. \n' \
                                   'This is norrmal during a planchet load \n'
@@ -250,7 +250,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tbRun.setChecked(False)
         else:
             self.turbopumphigh = 0
-            self.lineTurboPump.setStyleSheet(GUAGE_GOOD)
+            # self.lineTurboPump.setStyleSheet(GUAGE_GOOD)
         if settings['vacuum']['turbo']['current'] == 0:
             status = status + 'Turbo gauge is offline, the system is paused. \n'
             self.secondincrement = 0
@@ -258,7 +258,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.tbRun.setChecked(False)
         if settings['vacuum']['N2']['current'] < settings['vacuum']['N2']['low']:
             self.N2pressurelow += 1
-            self.lineN2Pressure.setStyleSheet(GUAGE_BAD)
+            # self.lineN2Pressure.setStyleSheet(GUAGE_BAD)
             if self.N2pressurelow > 29:
                 status = status + 'N2 gauge is showing loss of pressure, the system is paused. \n'
                 self.secondincrement = 0
@@ -266,7 +266,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tbRun.setChecked(False)
         else:
             self.N2pressurelow = 0
-            self.lineN2Pressure.setStyleSheet(GUAGE_GOOD)
+            # self.lineN2Pressure.setStyleSheet(GUAGE_GOOD)
         if self.lblAalarm.text() != status:
             self.lblAalarm.setText(status)
             self.lblFinishTime.setText('')
@@ -411,7 +411,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     elif current[2] == 'setpower':
                         lasersetpower(currentcycle.laserpower)
                     elif current[2] == 'checkalarms':
-                        if lasergetalarm()['status'] != 133:
+                        if lasergetalarm()['status'] > 133: # != 133:
                             alarms['laseralarm'] = 0
                             self.run = 0  # pause the run as the laser is not ready
                             self.secondincrement = 0

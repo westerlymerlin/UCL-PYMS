@@ -75,7 +75,7 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
     def update_laser(self):
         """Update laser status and laser power"""
         self.state = lasergetalarm()
-        if self.state['status'] == 133:
+        if self.state['status'] >= 0: # == 133:
             self.lblStatus.setText('Laser On')
             self.sliderEnable.setToolTip('Slide down to enable ON button')
         else:
