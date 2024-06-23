@@ -8,7 +8,7 @@ import webbrowser
 from tkinter import messagebox
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from app_control import settings, writesettings, setrunning, running, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, rpi_reboot
@@ -144,15 +144,20 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.lblCurrent.setText('idle')
         self.update_ui_batch_list()
         self.update_ui_commandlist()
-        threading.Timer(5, self.global_timer).start()
+        #threading.Timer(5, self.global_timer).start()
         self.update_ui_results_table()
+        self.globaltimer = QTimer()
+        self.globaltimer.setTimerType(Qt.TimerType.PreciseTimer)
+        self.globaltimer.setInterval(1000)
+        self.globaltimer.timeout.connect(self.global_timer)
+        self.globaltimer.start()
 
     def global_timer(self):
-        """Timer thread for updating displays, runs every second"""
+        """Timer routine for updating displays, runs every second"""
         self.secondcount = self.secondcount + self.secondincrement
         self.lcdElapsedTime.display(self.secondcount)
-        timerthread = threading.Timer(1, self.global_timer)
-        timerthread.start()
+        #timerthread = threading.Timer(1, self.global_timer)
+        #timerthread.start()
         valvereaderthread = threading.Timer(0.05, self.update_ui_display_items)
         valvereaderthread.start()
         msreaderthread = threading.Timer(0.1, self.read_ms)
