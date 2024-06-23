@@ -144,7 +144,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.lblCurrent.setText('idle')
         self.update_ui_batch_list()
         self.update_ui_commandlist()
-        #threading.Timer(5, self.global_timer).start()
         self.update_ui_results_table()
         self.globaltimer = QTimer()
         self.globaltimer.setTimerType(Qt.TimerType.PreciseTimer)
@@ -156,8 +155,6 @@ class UiMain(QMainWindow, Ui_MainWindow):
         """Timer routine for updating displays, runs every second"""
         self.secondcount = self.secondcount + self.secondincrement
         self.lcdElapsedTime.display(self.secondcount)
-        #timerthread = threading.Timer(1, self.global_timer)
-        #timerthread.start()
         valvereaderthread = threading.Timer(0.05, self.update_ui_display_items)
         valvereaderthread.start()
         msreaderthread = threading.Timer(0.1, self.read_ms)
@@ -235,7 +232,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.tbRun.setChecked(False)
         if settings['vacuum']['ion']['current'] > settings['vacuum']['ion']['high']:
             self.ionpumphigh += 1
-            # self.lineIonPump.setStyleSheet(GUAGE_BAD)
+            self.lineIonPump.setStyleSheet(GUAGE_BAD)
             if self.ionpumphigh > 29:
                 status = status + 'Ion pump is showing loss of vacuum, the system is paused. \n'
                 self.secondincrement = 0
@@ -243,10 +240,10 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tbRun.setChecked(False)
         else:
             self.ionpumphigh = 0
-            # self.lineIonPump.setStyleSheet(GUAGE_GOOD)
+            self.lineIonPump.setStyleSheet(GUAGE_GOOD)
         if settings['vacuum']['turbo']['current'] > settings['vacuum']['turbo']['high']:
             self.turbopumphigh += 1
-            # self.lineTurboPump.setStyleSheet(GUAGE_BAD)
+            self.lineTurboPump.setStyleSheet(GUAGE_BAD)
             if self.turbopumphigh > 29:
                 status = status + 'Turbo gauge is showing loss of vacuum, the system is paused. \n' \
                                   'This is norrmal during a planchet load \n'
@@ -255,7 +252,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tbRun.setChecked(False)
         else:
             self.turbopumphigh = 0
-            # self.lineTurboPump.setStyleSheet(GUAGE_GOOD)
+            self.lineTurboPump.setStyleSheet(GUAGE_GOOD)
         if settings['vacuum']['turbo']['current'] == 0:
             status = status + 'Turbo gauge is offline, the system is paused. \n'
             self.secondincrement = 0
@@ -263,7 +260,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.tbRun.setChecked(False)
         if settings['vacuum']['N2']['current'] < settings['vacuum']['N2']['low']:
             self.N2pressurelow += 1
-            # self.lineN2Pressure.setStyleSheet(GUAGE_BAD)
+            self.lineN2Pressure.setStyleSheet(GUAGE_BAD)
             if self.N2pressurelow > 29:
                 status = status + 'N2 gauge is showing loss of pressure, the system is paused. \n'
                 self.secondincrement = 0
@@ -271,7 +268,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.tbRun.setChecked(False)
         else:
             self.N2pressurelow = 0
-            # self.lineN2Pressure.setStyleSheet(GUAGE_GOOD)
+            self.lineN2Pressure.setStyleSheet(GUAGE_GOOD)
         if self.lblAalarm.text() != status:
             self.lblAalarm.setText(status)
             self.lblFinishTime.setText('')
