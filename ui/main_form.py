@@ -9,7 +9,7 @@ from tkinter import messagebox
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt, QTimer
-from app_control import settings, writesettings, setrunning, running, alarms, VERSION
+from app_control import settings, writesettings, setrunning, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, rpi_reboot
 from batchclass import batch
@@ -140,7 +140,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.taskrunning = False
         self.turbopumphigh = 0
         self.ionpumphigh = 0
-        self.N2pressurelow = 0
+        self.n2_pressurel_ow = 0
         self.lblCurrent.setText('idle')
         self.update_ui_batch_list()
         self.update_ui_commandlist()
@@ -259,15 +259,15 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.run = 0
             self.tbRun.setChecked(False)
         if settings['vacuum']['N2']['current'] < settings['vacuum']['N2']['low']:
-            self.N2pressurelow += 1
+            self.n2_pressurel_ow += 1
             self.lineN2Pressure.setStyleSheet(GUAGE_BAD)
-            if self.N2pressurelow > 29:
+            if self.n2_pressurel_ow > 29:
                 status = status + 'N2 gauge is showing loss of pressure, the system is paused. \n'
                 self.secondincrement = 0
                 self.run = 0
                 self.tbRun.setChecked(False)
         else:
-            self.N2pressurelow = 0
+            self.n2_pressurel_ow = 0
             self.lineN2Pressure.setStyleSheet(GUAGE_GOOD)
         if self.lblAalarm.text() != status:
             self.lblAalarm.setText(status)
@@ -279,7 +279,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
     def update_ui_display_items(self):
         """Update the valve and laser widgets on the display"""
         status = valvegetstatus()
-        if status[0]['status'] != 'timeout':
+        if status[0]['status'] != 'exception':
             if self.wValve1.isVisible() != valvestatus(status[0]['status']):
                 logger.debug('t=%s mainUIForm: Valve 1 changed', self.secondcount)
                 self.wValve1.setVisible(valvestatus(status[0]['status']))
@@ -318,7 +318,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                 self.wValve13.setVisible(valvestatus(status[11]['status']))
         self.lblLaserPower.setText('%.1f' % settings['laser']['power'])
         status = lasergetstatus()
-        if status['laser'] != 'timeout':
+        if status['laser'] != 'exception':
             if self.imgLaser.isVisible() != status['laser']:
                 logger.debug('t=%s mainUIForm: Laser Status changed', self.secondcount)
                 self.imgLaser.setVisible(status['laser'])

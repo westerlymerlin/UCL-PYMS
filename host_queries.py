@@ -18,11 +18,14 @@ def lasergetalarm():
         alarms['laserhost'] = 0
         logger.debug('host_queries: Laser alarm repone = %s', resp.json())
         return json_message
-    except requests.RequestException:
+    except requests.Timeout:
         logger.warning('host_queries: Laser Get Alarm Timeout Error')
         alarms['laserhost'] += 1
-        return {'alarm': 'timout'}
-
+        return {'alarm': 'exception'}
+    except requests.RequestException:
+        logger.exception('host_queries: Laser Get Alarm Exception')
+        alarms['laserhost'] += 1
+        return {'alarm': 'exception'}
 
 def lasergetstatus():
     """Get laser status"""
@@ -34,11 +37,14 @@ def lasergetstatus():
         json_message = resp.json()
         alarms['laserhost'] = 0
         return json_message
-    except requests.RequestException:
+    except requests.Timeout:
         logger.warning('host_queries: Laser Get Status Timeout Error')
         alarms['laserhost'] += 1
-        return {'laser': 'timeout'}
-
+        return {'laser': 'exception'}
+    except requests.RequestException:
+        logger.exception('host_queries: Laser Get Status Exception')
+        alarms['laserhost'] += 1
+        return {'laser': 'exception'}
 
 def valvegetstatus():
     """Get valve status"""
@@ -50,11 +56,14 @@ def valvegetstatus():
         json_message = resp.json()
         alarms['valvehost'] = 0
         return json_message
-    except requests.RequestException:
+    except requests.Timeout:
         logger.warning('host_queries: Valve Get Status Timeout Error')
         alarms['valvehost'] += 1
-        return [{"status": "timeout", "valve": 0}]
-
+        return [{"status": "exception", "valve": 0}]
+    except requests.RequestException:
+        logger.exception('host_queries: Valve Get Status Exception')
+        alarms['valvehost'] += 1
+        return [{"status": "exception", "valve": 0}]
 
 def pressuresread():
     """Get guage pressures"""
@@ -74,11 +83,14 @@ def pressuresread():
         settings['vacuum']['N2']['units'] = json_message[3]['units']
         alarms['pumphost'] = 0
         return json_message
-    except requests.RequestException:
+    except requests.Timeout:
         logger.warning('host_queries: Get Pressures Pump Reader Timeout Error')
         alarms['pumphost'] += 1
-        return {"pressure": 'timeout', "pump": "turbo"}
-
+        return {"pressure": 'exception', "pump": "turbo"}
+    except requests.RequestException:
+        logger.exception('host_queries: Get Pressures Pump Reader Exception')
+        alarms['pumphost'] += 1
+        return {"pressure": 'exception', "pump": "turbo"}
 
 def xyread():
     """Get X Y Positions"""
@@ -90,7 +102,11 @@ def xyread():
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message
-    except requests.RequestException:
+    except requests.Timeout:
         logger.warning('host_queries: Get Status X-Y Controller Timeout Error')
         alarms['xyhost'] += 1
-        return {"xmoving": 'timeout', "xpos": 0, "ymoving": 'timout', "ypos": 0}
+        return {"xmoving": 'exception', "xpos": 0, "ymoving": 'exception', "ypos": 0}
+    except requests.RequestException:
+        logger.exception('host_queries: Get Status X-Y Controller Exception')
+        alarms['xyhost'] += 1
+        return {"xmoving": 'exception', "xpos": 0, "ymoving": 'exception', "ypos": 0}
