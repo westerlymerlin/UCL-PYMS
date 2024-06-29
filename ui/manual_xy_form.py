@@ -2,10 +2,11 @@
 Manual XY-Form
 Author: Gary Twinn
 """
-import threading
+
 import sqlite3
 from time import sleep
 import sys
+from PySide6.QtCore import Qt, QTimer, QThreadPool
 from PySide6.QtWidgets import QApplication, QDialog
 from ui.ui_layout_xy_manual_control import Ui_dialogXYSetup
 from app_control import settings
@@ -31,6 +32,7 @@ class ManualXyForm(QDialog, Ui_dialogXYSetup):
         self.btnGotoNext.clicked.connect(self.gotonextpress)
         self.btnStop.clicked.connect(self.stopall)
         self.btnSave.clicked.connect(self.savelocation)
+        self.thread_manager = QThreadPool()
         self.btnUp.clicked.connect(lambda: self.movepress(['y', 1]))
         self.btnDown.clicked.connect(lambda: self.movepress(['y', -1]))
         self.btnRight.clicked.connect(lambda: self.movepress(['x', 1]))
@@ -44,7 +46,11 @@ class ManualXyForm(QDialog, Ui_dialogXYSetup):
                               'B6', 'B7', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2', 'C1', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6',
                               'D7', 'E7', 'E6', 'E5', 'E4', 'E3', 'E2', 'E1', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7',
                               'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', 'S4', 'S5', 'S6', 'UL']
-        threading.Timer(1, self.timer).start()
+        self.globaltimer = QTimer()
+        self.globaltimer.setTimerType(Qt.TimerType.PreciseTimer)
+        self.globaltimer.setInterval(1000)
+        self.globaltimer.timeout.connect(self.timer)
+        self.globaltimer.start()
 
     def formclose(self):
         """Close event"""
@@ -56,10 +62,7 @@ class ManualXyForm(QDialog, Ui_dialogXYSetup):
     def timer(self):
         """Timer function to update the display of X and Y positions"""
         if self.running:
-            timerthread = threading.Timer(1, self.timer)
-            timerthread.start()
-            xyreaderthread = threading.Timer(0.05, self.update_xy)
-            xyreaderthread.start()
+            self.thread_manager.start(self.update_xy)
 
     def update_xy(self):
         """Display the current X and Y positions"""

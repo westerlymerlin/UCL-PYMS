@@ -3,12 +3,11 @@ Main Helium line form - graphical outut of the Heliumline state and timers for r
 Author: Gary Twinn
 """
 
-import threading
 import webbrowser
 from tkinter import messagebox
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, QThreadPool
 from app_control import settings, writesettings, setrunning, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, rpi_reboot
@@ -33,8 +32,10 @@ def valvestatus(status):
         return 1
     return 0
 
+
 GUAGE_GOOD = 'background-color: rgb(255, 255, 255);  color: rgb(10, 10, 10); font: 14pt "Segoe UI"; image: "";'
 GUAGE_BAD = 'background-color: rgb(180, 0, 0); color: rgb(255, 255, 255); font: 14pt "Segoe UI"; image: "";'
+
 
 class UiMain(QMainWindow, Ui_MainWindow):
     """Qt Class for main window"""
@@ -111,6 +112,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.tableResults.setColumnWidth(1, 100)
         self.tableResults.setColumnWidth(2, 175)
         self.tableResults.setColumnWidth(3, 83)
+        self.thread_manager = QThreadPool()
         newitem0 = QTableWidgetItem('Date')
         newitem0.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
         newitem0.setFont(font1)
@@ -155,21 +157,15 @@ class UiMain(QMainWindow, Ui_MainWindow):
         """Timer routine for updating displays, runs every second"""
         self.secondcount = self.secondcount + self.secondincrement
         self.lcdElapsedTime.display(self.secondcount)
-        valvereaderthread = threading.Timer(0.05, self.update_ui_display_items)
-        valvereaderthread.start()
-        msreaderthread = threading.Timer(0.1, self.read_ms)
-        msreaderthread.start()
-        alarmreaderthread = threading.Timer(0.3, self.check_alarms)
-        alarmreaderthread.start()
+        self.thread_manager.start(self.update_ui_display_items)
+        self.thread_manager.start(self.read_ms)
+        self.thread_manager.start(self.check_alarms)
         if not self.taskrunning:
-            taskrunnerthread = threading.Timer(0.2, self.event_timer)
-            taskrunnerthread.start()
+            self.thread_manager.start(self.event_timer)
         if self.timertick == 0 or self.timertick == 2:
-            xyreaderthread = threading.Timer(0.1, self.update_ui_xy_positions)
-            xyreaderthread.start()
+            self.thread_manager.start(self.update_ui_xy_positions)
         if self.timertick == 0:
-            pressurereaderthread = threading.Timer(0.5, self.update_ui_pressures)
-            pressurereaderthread.start()
+            self.thread_manager.start(self.update_ui_pressures)
         if self.timertick >= 3:
             self.repaint()
             self.timertick = 0
@@ -610,10 +606,12 @@ class UiMain(QMainWindow, Ui_MainWindow):
     def move_next(self):
         """Move to the next planchet location"""
         logger.debug('t:%s mainUIform: Move to %s', self.secondcount, batch.nextlocation())
-        movexthread = threading.Timer(0.5, move_x)
-        movexthread.start()
-        moveythread = threading.Timer(1.5, move_y)
-        moveythread.start()
+        self.thread_manager.start(move_x)
+        self.thread_manager.start(move_y)
+        #movexthread = threading.Timer(0.5, move_x)
+        #movexthread.start()
+        #moveythread = threading.Timer(1.5, move_y)
+        #moveythread.start()
 
     def manual_message(self, message):
         """ Pop up message box"""

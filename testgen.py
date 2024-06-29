@@ -57,8 +57,8 @@ def commit_q(description):
 
 
 if __name__ == '__main__':
-    descriptiontext = input('Enter the test description')
-    batch_type = input('Planchet (p) or Qshots (q)?')
+    descriptiontext = input('Enter the test description: ')
+    batch_type = input('Planchet (p) or Qshots (q)? ')
     if len(descriptiontext) > 0 and batch_type.lower() == 'p':
         commit_planchet(descriptiontext)
         print('New test planchet created')

@@ -2,8 +2,9 @@
 Laser Manual Form, used to manually control the Helium line laser ina  controlled manner
 Author: Gary Twinn
 """
-import threading
+
 import sys
+from PySide6.QtCore import Qt, QTimer, QThreadPool
 from PySide6.QtWidgets import QDialog, QApplication
 from ui.ui_layout_laser import Ui_dialogLaserControl
 from app_control import settings
@@ -26,17 +27,20 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
         self.btnOn.clicked.connect(self.laser_click)
         self.sliderLaser.valueChanged.connect(self.slidermove)
         self.btnOn.setEnabled(False)
+        self.thread_manager = QThreadPool()
         self.running = 1
         self.state = {'laser': 0, 'power': 0, 'status': 0}
-        threading.Timer(1, self.timer).start()
+        self.globaltimer = QTimer()
+        self.globaltimer.setTimerType(Qt.TimerType.PreciseTimer)
+        self.globaltimer.setInterval(1000)
+        self.globaltimer.timeout.connect(self.timer)
+        self.globaltimer.start()
 
     def timer(self):
         """Timer thread for showing the laser status"""
         if self.running:
-            timerthread = threading.Timer(1, self.timer)
-            timerthread.start()
-            laserthread = threading.Timer(0.05, self.update_laser)
-            laserthread.start()
+            self.thread_manager.start(self.update_laser)
+
 
     def formclose(self):
         """Form close event handler"""
@@ -82,7 +86,7 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
             self.lblStatus.setText('Laser Off')
             self.sliderEnable.setValue(0)
             self.sliderEnable.setToolTip('Laser is not ready, please switch it on, switch the key to 2 and press the yellow button')
-        self.imgLaser.setVisible(self.state['laser'])
+
 
 
 if __name__ == '__main__':
