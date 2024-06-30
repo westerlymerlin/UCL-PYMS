@@ -16,7 +16,9 @@ def lasergetalarm():
                              timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['laserhost'] = 0
-        logger.debug('host_queries: Laser alarm repone = %s', resp.json())
+        logger.debug('host_queries: Laser alarm responce = %s', resp.json())
+        if settings['laser']['ignorestatus'] == 1:
+            json_message['status'] = 133
         return json_message
     except requests.Timeout:
         logger.warning('host_queries: Laser Get Alarm Timeout Error')

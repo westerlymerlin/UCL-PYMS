@@ -409,7 +409,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
                     elif current[2] == 'setpower':
                         lasersetpower(currentcycle.laserpower)
                     elif current[2] == 'checkalarms':
-                        if lasergetalarm()['status'] > 133: # != 133:
+                        if lasergetalarm()['status'] != 133:
                             alarms['laseralarm'] = 0
                             self.run = 0  # pause the run as the laser is not ready
                             self.secondincrement = 0
