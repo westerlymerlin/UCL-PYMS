@@ -7,7 +7,7 @@ calculating a file name and removing illegal character.
 import json
 import datetime
 
-VERSION = '3.2.22'
+VERSION = '3.2.23'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -39,120 +39,120 @@ def writesettings():
 def initialise():
     """Setup the settings structure with default values"""
     isettings = {
-                "LastSave": "01/01/1900 01:00:00",
-                "MassSpec": {
-                    "HD/H": 0.01,
-                    "datadirectory": "C:\\Users\\UCL Helium Line\\Documents\\Helium Line Data\\",
-                    "hidenMID": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-MID.exp",
-                    "hidenProfile": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-Profile.exp",
-                    "hidenRunfile": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-Running.exp",
-                    "hidenhost": "127.0.0.1",
-                    "hidenport": 5026,
-                    "multiplier": 1e-12,
-                    "nextH": "HE19096R",
-                    "nextQ": 4500,
-                    "timeoutretries": 5,
-                    "timeoutseconds": 0.5
-                },
-                "Ncc": {
-                    "HD_H": 0.01,
-                    "ncc_filepath": "",
-                    "q_dep_factor": 0.9999526,
-                    "q_depletion_err": 4e-07,
-                    "q_pipette_err": 0.07,
-                    "q_pipette_ncc": 10.23,
-                    "s_dep_factor": 0.99996107,
-                    "s_offset": 231,
-                    "s_pipette_ncc": 5.7,
-                    "ncc_start_seconds": 30
-                },
-                "cycleeditform": {
-                    "x": 100,
-                    "y": 100
-                },
-                "database": {
-                    "databasepath": ".\\database\\PyMs.db",
-                    "resultsdatabasepath": ".\\database\\HeliumResults.db"
-                },
-                "hosts": {
-                    "laserhost": "http://192.168.2.6/api",
-                    "laserhost-api-key": "changeme",
-                    "pumphost": "http://192.168.2.5/api",
-                    "pumphost-api-key": "changeme",
-                    "valvehost": "http://192.168.2.3/api",
-                    "valvehost-api-key": "changeme",
-                    "xyhost": "http://192.168.2.4/api",
-                    "xyhost-api-key": "changeme",
-                    "timeoutseconds": 1
-                },
-                "image": {
-                    "dynolite": "DinoCapture 2.0",
-                    "hiden-mid": "MASsoft 10 Professional",
-                    "hiden-mid-reheat": "MASsoft 10 Professional",
-                    "hiden-profile": "MASsoft 10 Professional",
-                    "microscope": "GXCapture-T",
-                    "microscope-reheat": "GXCapture-T"
-                },
-                "laser": {
-                    "power": 00.0,
-                    "ignorestatus": 1
-                },
-                "laserform": {
-                    "x": 100,
-                    "y": 100
-                },
-                "logging": {
-                    "logappname": "PyMS",
-                    "logfilepath": ".\\logs\\",
-                    "level": "INFO"
-                },
-                "mainform": {
-                    "x": 100,
-                    "y": 100
-                },
-                "ncccalcform": {
-                    "x": 100,
-                    "y": 100
-                },
-                "newbatchform": {
-                    "x": 600,
-                    "y": 100
-                },
-                "planchetform": {
-                    "x": 600,
-                    "y": 100
-                },
-                "simplebatchform": {
-                    "x": 600,
-                    "y": 100
-                },
-                "vacuum": {
-                    "ion": {
-                        "current": 4.5e-09,
-                        "high": 9.9e-08,
-                        "units": "mbar"
-                    },
-                    "tank": {
-                        "current": 0.00116,
-                        "high": 0.0001,
-                        "units": "mbar"
-                    },
-                    "turbo": {
-                        "current": 3.41e-08,
-                        "high": 9.9e-08,
-                        "units": "mbar"
-                    },
-                    "N2": {"current": 1,
-                            "high": 9.0,
-                            "low":  5.0,
-                            "units": "bar"
-                    }
-                },
-                "xymanualform": {
-                    "x": 1137,
-                    "y": 870
-                }
-            }
+        "LastSave": "01/01/1900 01:00:00",
+        "MassSpec": {
+            "HD/H": 0.01,
+            "datadirectory": "C:\\Users\\UCL Helium Line\\Documents\\Helium Line Data\\",
+            "hidenMID": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-MID.exp",
+            "hidenProfile": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-Profile.exp",
+            "hidenRunfile": "C:\\Users\\UCL Helium Line\\Documents\\Hiden Analytical\\MASsoft10\\PyMS-Running.exp",
+            "hidenhost": "127.0.0.1",
+            "hidenport": 5026,
+            "multiplier": 1e-12,
+            "nextH": "HE19096R",
+            "nextQ": 4500,
+            "timeoutretries": 5,
+            "timeoutseconds": 0.5
+        },
+        "Ncc": {
+            "HD_H": 0.01,
+            "ncc_filepath": "",
+            "q_dep_factor": 0.9999526,
+            "q_depletion_err": 4e-07,
+            "q_pipette_err": 0.07,
+            "q_pipette_ncc": 10.23,
+            "s_dep_factor": 0.99996107,
+            "s_offset": 231,
+            "s_pipette_ncc": 5.7,
+            "ncc_start_seconds": 30
+        },
+        "cycleeditform": {
+            "x": 100,
+            "y": 100
+        },
+        "database": {
+            "databasepath": ".\\database\\PyMs.db",
+            "resultsdatabasepath": ".\\database\\HeliumResults.db"
+        },
+        "hosts": {
+            "laserhost": "http://192.168.2.6/api",
+            "laserhost-api-key": "changeme",
+            "pumphost": "http://192.168.2.5/api",
+            "pumphost-api-key": "changeme",
+            "valvehost": "http://192.168.2.3/api",
+            "valvehost-api-key": "changeme",
+            "xyhost": "http://192.168.2.4/api",
+            "xyhost-api-key": "changeme",
+            "timeoutseconds": 1
+        },
+        "image": {
+            "dynolite": "DinoCapture 2.0",
+            "hiden-mid": "MASsoft 10 Professional",
+            "hiden-mid-reheat": "MASsoft 10 Professional",
+            "hiden-profile": "MASsoft 10 Professional",
+            "microscope": "GXCapture-T",
+            "microscope-reheat": "GXCapture-T"
+        },
+        "laser": {
+            "power": 00.0,
+            "ignorestatus": 1
+        },
+        "laserform": {
+            "x": 100,
+            "y": 100
+        },
+        "logging": {
+            "logappname": "PyMS",
+            "logfilepath": ".\\logs\\",
+            "level": "INFO"
+        },
+        "mainform": {
+            "x": 100,
+            "y": 100
+        },
+        "ncccalcform": {
+            "x": 100,
+            "y": 100
+        },
+        "newbatchform": {
+            "x": 600,
+            "y": 100
+        },
+        "planchetform": {
+            "x": 600,
+            "y": 100
+        },
+        "simplebatchform": {
+            "x": 600,
+            "y": 100
+        },
+        "vacuum": {
+            "ion": {
+                "current": 4.5e-09,
+                "high": 9.9e-08,
+                "units": "mbar"
+            },
+            "tank": {
+                "current": 0.00116,
+                "high": 0.0001,
+                "units": "mbar"
+            },
+            "turbo": {
+                "current": 3.41e-08,
+                "high": 9.9e-08,
+                "units": "mbar"
+            },
+            "N2": {"current": 1,
+                   "high": 9.0,
+                   "low": 5.0,
+                   "units": "bar"
+                   }
+        },
+        "xymanualform": {
+            "x": 1137,
+            "y": 870
+        }
+    }
     return isettings
 
 

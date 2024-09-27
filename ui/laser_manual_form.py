@@ -19,7 +19,6 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
         self.setupUi(self)
         self.move(settings['laserform']['x'], settings['laserform']['y'])
         self.laserpower = settings['laser']['power']
-        self.lblLaser.setText('%.1f' % self.laserpower)
         self.sliderLaser.setValue(self.laserpower * 10)
         self.imgLaser.setVisible(False)
         self.btnClose.clicked.connect(self.formclose)
@@ -28,23 +27,15 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
         self.sliderLaser.valueChanged.connect(self.slidermove)
         self.btnOn.setEnabled(False)
         self.thread_manager = QThreadPool()
-        self.running = 1
         self.state = {'laser': 0, 'power': 0, 'status': 0}
         self.globaltimer = QTimer()
         self.globaltimer.setTimerType(Qt.TimerType.PreciseTimer)
         self.globaltimer.setInterval(1000)
-        self.globaltimer.timeout.connect(self.timer)
+        self.globaltimer.timeout.connect(self.update_laser)
         self.globaltimer.start()
-
-    def timer(self):
-        """Timer thread for showing the laser status"""
-        if self.running:
-            self.thread_manager.start(self.update_laser)
-
 
     def formclose(self):
         """Form close event handler"""
-        self.running = 0
         settings['laserform']['x'] = self.x()
         settings['laserform']['y'] = self.y()
         self.btnOn.setChecked(False)
@@ -54,8 +45,7 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
 
     def slidermove(self):
         """Laser power slider event handler"""
-        self.laserpower = self.sliderLaser.value() /10
-        self.lblLaser.setText('%.1f' % self.laserpower)
+        self.laserpower = self.sliderLaser.value()
 
     def enable_click(self):
         """Laser enable button event handler"""
@@ -79,6 +69,7 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
     def update_laser(self):
         """Update laser status and laser power"""
         self.state = lasergetalarm()
+        print(self.state)
         if self.state['status'] == 133:
             self.lblStatus.setText('Laser On')
             self.sliderEnable.setToolTip('Slide down to enable ON button')
@@ -86,6 +77,10 @@ class LaserFormUI(QDialog, Ui_dialogLaserControl):
             self.lblStatus.setText('Laser Off')
             self.sliderEnable.setValue(0)
             self.sliderEnable.setToolTip('Laser is not ready, please switch it on, switch the key to 2 and press the yellow button')
+        if self.state['laser'] == 1:
+            self.imgLaser.setVisible(True)
+        else:
+            self.imgLaser.setVisible(False)
 
 
 
