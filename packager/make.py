@@ -90,7 +90,7 @@ packagefile.close()
 
 
 # run pyinstaller
-print('Starting Pyinstaller - this may take some time')
+print('Starting Pyinstaller - this may take some time only warn logs are output')
 
 PyInstaller.__main__.run(['package.spec', '--noconfirm', '--log-level=WARN'])
 
