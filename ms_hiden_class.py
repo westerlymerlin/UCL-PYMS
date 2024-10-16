@@ -221,18 +221,21 @@ class MsClass:
 
     def getdata(self):
         """Request mid data from Hiden Mass Spectrometer"""
-        self.processing = 1
-        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
-        self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-lData -v1 -c50 -t1 -m1 \r\n', 'utf-8'))
-        sdata = s.recv(16385).decode()
-        s.close()
-        outputdata = []
-        for item in sdata.split('\r\n'):
-            outputdata.append(item.split('\t'))
-        # outputdata = outputdata[len(outputdata) - 21:]
-        self.processing = 0
-        return outputdata[:-1]
+        try:
+            self.processing = 1
+            s = socket.create_connection((self.host, self.port), self.timeoutseconds)
+            self.socketreturn = s.recv(1024).decode()
+            s.send(bytes('-lData -v1 -c50 -t1 -m1 \r\n', 'utf-8'))
+            sdata = s.recv(16385).decode()
+            s.close()
+            outputdata = []
+            for item in sdata.split('\r\n'):
+                outputdata.append(item.split('\t'))
+            # outputdata = outputdata[len(outputdata) - 21:]
+            self.processing = 0
+            return outputdata[:-1]
+        except:
+            logger.error('msHiden: error in getdata routine %s', Exception)
 
     def getcolumns(self):
         """Request columns from Hiden Mass Spectrometer"""
@@ -310,19 +313,22 @@ class MsClass:
     def writefile(self):
         """Write Helium Data file to disk"""
         data = self.getdata()
-        for row in data:
-            sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
-            if sampledate > 0:
-                self.time.append(round(sampledate, 6))
-                self.m1.append(round(float(row[2]) * self.multiplier, 6))
-                self.m3.append(round(float(row[3]) * self.multiplier, 6))
-                self.m4.append(round(float(row[4]) * self.multiplier, 6))
-                self.m5.append(0)
-                self.m40.append(round(float(row[5]) * self.multiplier, 6))
-                self.m6.append(0)
-        logger.debug('msHiden - Datafile has %s rows', len(self.time))
-        logger.debug('msHiden: Calculating bestfit')
-        self.bestfit = linbestfit(self.time, self.m1, self.m3, self.m4)
+        try:
+            for row in data:
+                sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
+                if sampledate > 0:
+                    self.time.append(round(sampledate, 6))
+                    self.m1.append(round(float(row[2]) * self.multiplier, 6))
+                    self.m3.append(round(float(row[3]) * self.multiplier, 6))
+                    self.m4.append(round(float(row[4]) * self.multiplier, 6))
+                    self.m5.append(0)
+                    self.m40.append(round(float(row[5]) * self.multiplier, 6))
+                    self.m6.append(0)
+            logger.debug('msHiden - Datafile has %s rows', len(self.time))
+            logger.debug('msHiden: Calculating bestfit')
+            self.bestfit = linbestfit(self.time, self.m1, self.m3, self.m4)
+        except:
+            logger.error('msHiden: writefile error parsing the data %s', Exception)
         try:
             self.filename = self.next_id()
             logger.info('msHiden: filename = %s', self.filename)
