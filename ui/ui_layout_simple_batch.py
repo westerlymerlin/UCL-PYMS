@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'simplebatch.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -29,7 +29,7 @@ class Ui_dialogSimpleBatch(object):
         dialogSimpleBatch.setMinimumSize(QSize(808, 550))
         dialogSimpleBatch.setMaximumSize(QSize(810, 550))
         icon = QIcon()
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         dialogSimpleBatch.setWindowIcon(icon)
         dialogSimpleBatch.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         self.comboTask1 = QComboBox(dialogSimpleBatch)

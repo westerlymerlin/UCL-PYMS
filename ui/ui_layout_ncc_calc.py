@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'ncccalc.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -29,7 +29,7 @@ class Ui_dialogNccCalc(object):
         dialogNccCalc.setMinimumSize(QSize(1000, 790))
         dialogNccCalc.setMaximumSize(QSize(1000, 790))
         icon = QIcon()
-        icon.addFile(u":/main/iconNccCalc.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/main/iconNccCalc.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         dialogNccCalc.setWindowIcon(icon)
         dialogNccCalc.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         self.tableFileList = QTableWidget(dialogNccCalc)

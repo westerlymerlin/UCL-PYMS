@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'newbatch.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -33,7 +33,7 @@ class Ui_dialogNewBatch(object):
         dialogNewBatch.setMinimumSize(QSize(970, 200))
         dialogNewBatch.setMaximumSize(QSize(970, 200))
         icon = QIcon()
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         dialogNewBatch.setWindowIcon(icon)
         dialogNewBatch.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         self.btnClose = QPushButton(dialogNewBatch)
