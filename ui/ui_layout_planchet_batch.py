@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'planchetbatch.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,9 +25,9 @@ class Ui_dialogPlanchet(object):
             dialogPlanchet.setObjectName(u"dialogPlanchet")
         dialogPlanchet.resize(1100, 750)
         icon = QIcon()
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Normal, QIcon.Off)
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Disabled, QIcon.Off)
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Selected, QIcon.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Selected, QIcon.State.Off)
         dialogPlanchet.setWindowIcon(icon)
         dialogPlanchet.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         dialogPlanchet.setModal(True)

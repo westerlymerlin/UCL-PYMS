@@ -100,6 +100,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.btnHidenProfile.clicked.connect(ms.start_profile)
         self.btnHidenStop.clicked.connect(ms.stop_runnning)
         self.btnNCCViewer.clicked.connect(self.menu_show_ncc)
+        self.btnNCCViewer.setHidden(True)
         self.lblIonPump.setText('Ion Gauge (%s)' % settings['vacuum']['ion']['units'])
         self.lblTurboPump.setText('Turbo Gauge (%s)' % settings['vacuum']['turbo']['units'])
         self.lblTankPump.setText('Tank Gauge (%s)' % settings['vacuum']['tank']['units'])

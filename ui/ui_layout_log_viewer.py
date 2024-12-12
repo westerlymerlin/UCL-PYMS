@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'logviewer.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -32,7 +32,7 @@ class Ui_LogDialog(object):
         LogDialog.setMinimumSize(QSize(1200, 990))
         LogDialog.setMaximumSize(QSize(1200, 990))
         icon = QIcon()
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         LogDialog.setWindowIcon(icon)
         LogDialog.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         self.txtLog = QTextEdit(LogDialog)

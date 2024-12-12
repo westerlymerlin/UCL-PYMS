@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -43,10 +43,10 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         MainWindow.setFont(font)
         icon = QIcon()
-        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Normal, QIcon.Off)
-        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Disabled, QIcon.Off)
-        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Selected, QIcon.Off)
-        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Selected, QIcon.On)
+        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Mode.Selected, QIcon.State.Off)
+        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Mode.Selected, QIcon.State.On)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"background-color: rgb(235, 235, 235);\n"
 "border-color: rgb(255, 255, 255);\n"
@@ -257,9 +257,9 @@ class Ui_MainWindow(object):
         self.btnHidenMID.setGeometry(QRect(370, 30, 50, 50))
         self.btnHidenMID.setStyleSheet(u"")
         icon1 = QIcon()
-        icon1.addFile(u":/main/hiden-mid.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon1.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Disabled, QIcon.Off)
-        icon1.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Disabled, QIcon.On)
+        icon1.addFile(u":/main/hiden-mid.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        icon1.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.On)
         self.btnHidenMID.setIcon(icon1)
         self.btnHidenMID.setIconSize(QSize(46, 46))
         self.btnHidenMID.setAutoRaise(False)
@@ -267,18 +267,18 @@ class Ui_MainWindow(object):
         self.btnHidenProfile.setObjectName(u"btnHidenProfile")
         self.btnHidenProfile.setGeometry(QRect(420, 30, 50, 50))
         icon2 = QIcon()
-        icon2.addFile(u":/main/hiden-profile.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon2.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Disabled, QIcon.Off)
-        icon2.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Disabled, QIcon.On)
+        icon2.addFile(u":/main/hiden-profile.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon2.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        icon2.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.On)
         self.btnHidenProfile.setIcon(icon2)
         self.btnHidenProfile.setIconSize(QSize(46, 46))
         self.btnHidenStop = QToolButton(self.frmHeLine)
         self.btnHidenStop.setObjectName(u"btnHidenStop")
         self.btnHidenStop.setGeometry(QRect(470, 30, 50, 50))
         icon3 = QIcon()
-        icon3.addFile(u":/main/hiden-stop.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon3.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Disabled, QIcon.Off)
-        icon3.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Disabled, QIcon.On)
+        icon3.addFile(u":/main/hiden-stop.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon3.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        icon3.addFile(u":/main/hiden-disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.On)
         self.btnHidenStop.setIcon(icon3)
         self.btnHidenStop.setIconSize(QSize(46, 46))
         self.lblLaserPower = QLabel(self.frmHeLine)
@@ -339,8 +339,8 @@ class Ui_MainWindow(object):
 "background-color: rgba(235, 235, 235, 0);\n"
 "image: \"\";")
         icon4 = QIcon()
-        icon4.addFile(u":/main/stop_up.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon4.addFile(u":/main/stop_down.png", QSize(), QIcon.Normal, QIcon.On)
+        icon4.addFile(u":/main/stop_up.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon4.addFile(u":/main/stop_down.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.tbStop.setIcon(icon4)
         self.tbStop.setIconSize(QSize(154, 150))
         self.tbStop.setCheckable(True)
@@ -355,8 +355,8 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.tbRun.setStyleSheet(u"image: \"\";")
         icon5 = QIcon()
-        icon5.addFile(u":/main/run.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon5.addFile(u":/main/pause.png", QSize(), QIcon.Normal, QIcon.On)
+        icon5.addFile(u":/main/run.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon5.addFile(u":/main/pause.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.tbRun.setIcon(icon5)
         self.tbRun.setIconSize(QSize(84, 44))
         self.tbRun.setCheckable(True)

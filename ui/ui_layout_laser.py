@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'laser.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -31,7 +31,7 @@ class Ui_dialogLaserControl(object):
         sizePolicy.setHeightForWidth(dialogLaserControl.sizePolicy().hasHeightForWidth())
         dialogLaserControl.setSizePolicy(sizePolicy)
         icon = QIcon()
-        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/main/iconPyMSRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         dialogLaserControl.setWindowIcon(icon)
         dialogLaserControl.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         self.imgLaser = QLabel(dialogLaserControl)
@@ -47,7 +47,7 @@ class Ui_dialogLaserControl(object):
         self.btnClose.setObjectName(u"btnClose")
         self.btnClose.setGeometry(QRect(170, 200, 63, 31))
         icon1 = QIcon()
-        icon1.addFile(u":/laser/laserform_close.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/laser/laserform_close.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btnClose.setIcon(icon1)
         self.btnClose.setIconSize(QSize(61, 31))
         self.btnOn = QToolButton(dialogLaserControl)
@@ -55,10 +55,10 @@ class Ui_dialogLaserControl(object):
         self.btnOn.setGeometry(QRect(100, 200, 63, 31))
         self.btnOn.setStyleSheet(u"")
         icon2 = QIcon()
-        icon2.addFile(u":/laser/laserform_on_disabled.png", QSize(), QIcon.Disabled, QIcon.Off)
-        icon2.addFile(u":/laser/laserform_on_disabled.png", QSize(), QIcon.Disabled, QIcon.On)
-        icon2.addFile(u":/laser/laserform_on.png", QSize(), QIcon.Active, QIcon.Off)
-        icon2.addFile(u":/laser/laserform_off.png", QSize(), QIcon.Active, QIcon.On)
+        icon2.addFile(u":/laser/laserform_on_disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        icon2.addFile(u":/laser/laserform_on_disabled.png", QSize(), QIcon.Mode.Disabled, QIcon.State.On)
+        icon2.addFile(u":/laser/laserform_on.png", QSize(), QIcon.Mode.Active, QIcon.State.Off)
+        icon2.addFile(u":/laser/laserform_off.png", QSize(), QIcon.Mode.Active, QIcon.State.On)
         self.btnOn.setIcon(icon2)
         self.btnOn.setIconSize(QSize(61, 31))
         self.btnOn.setCheckable(True)

@@ -324,11 +324,11 @@ class MsClass:
                     self.m5.append(0)
                     self.m40.append(round(float(row[5]) * self.multiplier, 6))
                     self.m6.append(0)
-            logger.debug('msHiden - Datafile has %s rows', len(self.time))
-            logger.debug('msHiden: Calculating bestfit')
+            logger.info('msHiden - Datafile has %s rows', len(self.time))
+            logger.info('msHiden: Calculating bestfit')
             self.bestfit = linbestfit(self.time, self.m1, self.m3, self.m4)
         except:
-            logger.error('msHiden: writefile error parsing the data %s', Exception)
+            logger.exception('msHiden: writefile error parsing the data')
         try:
             self.filename = self.next_id()
             logger.info('msHiden: filename = %s', self.filename)

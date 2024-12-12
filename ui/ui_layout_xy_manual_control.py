@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'xymanualcontrol.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.7.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -29,7 +29,7 @@ class Ui_dialogXYSetup(object):
         dialogXYSetup.setMinimumSize(QSize(530, 330))
         dialogXYSetup.setMaximumSize(QSize(530, 330))
         icon = QIcon()
-        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         dialogXYSetup.setWindowIcon(icon)
         dialogXYSetup.setStyleSheet(u"font: 10pt \"Segoe UI\";")
         dialogXYSetup.setModal(True)
@@ -68,8 +68,8 @@ class Ui_dialogXYSetup(object):
         self.btnUp.setObjectName(u"btnUp")
         self.btnUp.setGeometry(QRect(410, 50, 50, 50))
         icon1 = QIcon()
-        icon1.addFile(u":/xy setup/arrorwe up.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon1.addFile(u":/xy setup/arrorw up.png", QSize(), QIcon.Normal, QIcon.On)
+        icon1.addFile(u":/xy setup/arrorwe up.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/xy setup/arrorw up.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.btnUp.setIcon(icon1)
         self.btnUp.setIconSize(QSize(30, 30))
         self.btnUp.setAutoRepeat(True)
@@ -77,8 +77,8 @@ class Ui_dialogXYSetup(object):
         self.btnLeft.setObjectName(u"btnLeft")
         self.btnLeft.setGeometry(QRect(360, 100, 50, 50))
         icon2 = QIcon()
-        icon2.addFile(u":/xy setup/arrorwe left.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon2.addFile(u":/xy setup/arrorw left.png", QSize(), QIcon.Normal, QIcon.On)
+        icon2.addFile(u":/xy setup/arrorwe left.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon2.addFile(u":/xy setup/arrorw left.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.btnLeft.setIcon(icon2)
         self.btnLeft.setIconSize(QSize(30, 30))
         self.btnLeft.setAutoRepeat(True)
@@ -86,8 +86,8 @@ class Ui_dialogXYSetup(object):
         self.btnRight.setObjectName(u"btnRight")
         self.btnRight.setGeometry(QRect(460, 100, 50, 50))
         icon3 = QIcon()
-        icon3.addFile(u":/xy setup/arrorwe right.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon3.addFile(u":/xy setup/arrorw right.png", QSize(), QIcon.Normal, QIcon.On)
+        icon3.addFile(u":/xy setup/arrorwe right.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon3.addFile(u":/xy setup/arrorw right.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.btnRight.setIcon(icon3)
         self.btnRight.setIconSize(QSize(30, 30))
         self.btnRight.setCheckable(False)
@@ -97,8 +97,8 @@ class Ui_dialogXYSetup(object):
         self.btnDown.setObjectName(u"btnDown")
         self.btnDown.setGeometry(QRect(410, 150, 50, 50))
         icon4 = QIcon()
-        icon4.addFile(u":/xy setup/arrorwe down.png", QSize(), QIcon.Normal, QIcon.Off)
-        icon4.addFile(u":/xy setup/arrorw down.png", QSize(), QIcon.Normal, QIcon.On)
+        icon4.addFile(u":/xy setup/arrorwe down.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon4.addFile(u":/xy setup/arrorw down.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.btnDown.setIcon(icon4)
         self.btnDown.setIconSize(QSize(30, 30))
         self.btnDown.setAutoRepeat(True)
