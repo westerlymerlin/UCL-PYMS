@@ -233,6 +233,7 @@ class MsClass:
                 outputdata.append(item.split('\t'))
             # outputdata = outputdata[len(outputdata) - 21:]
             self.processing = 0
+            logger.info('msHiden - getdata retrieved %s rows', len(outputdata))
             return outputdata[:-1]
         except:
             logger.error('msHiden: error in getdata routine %s', Exception)
