@@ -71,7 +71,7 @@ def valvegetstatus():
     except requests.RequestException:
         logger.exception('host_queries: Valve Get Status Exception')
         alarms['valvehost'] += 1
-        return [{"status": "exception", "valve": 0}]
+        return 1
 
 def pressuresread():
     """Get guage pressures"""
