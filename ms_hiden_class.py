@@ -314,6 +314,7 @@ class MsClass:
     def writefile(self):
         """Write Helium Data file to disk"""
         data = self.getdata()
+
         try:
             for row in data:
                 sampledate = (datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S') - self.daterun).total_seconds()
@@ -329,7 +330,9 @@ class MsClass:
             logger.info('msHiden: Calculating bestfit')
             self.bestfit = linbestfit(self.time, self.m1, self.m3, self.m4)
         except:
+
             logger.exception('msHiden: writefile error parsing the data')
+            self.filedump(data)
         try:
             self.filename = self.next_id()
             logger.info('msHiden: filename = %s', self.filename)
@@ -378,6 +381,16 @@ class MsClass:
             logger.error('msHiden: failed to write to helium results database %s', error)
         self.resetclass()
 
+    def filedump(self, data):
+        self.filename = self.next_id() + 'datadump.txt'
+        logger.warning('msHiden: dumping data to filename = %s', self.filename)
+        filepath = settings['MassSpec']['datadirectory'] + friendlydirname(str(self.batchid)
+                                                                           + ' ' + self.batchdescription)
+        os.makedirs(filepath, exist_ok=True)
+        filename = filepath + '\\' + self.filename
+        outfile = open(filename, 'w', encoding='utf-8')
+        print(data, file=outfile)
+        outfile.close()
 
 ms = MsClass()
 

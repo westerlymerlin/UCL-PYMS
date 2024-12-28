@@ -49,19 +49,25 @@ def lasergetstatus():
         return {'laser': 'exception'}
 
 def valvegetstatus():
-    """Get valve status"""
+    """Get valve status and return a list with each valve status as an item in the list"""
     message = {"item": 'getstatus', "command": True}
     headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
+    statusmessage = [0] * 16
     try:
         resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message,
                              timeout=settings['hosts']['timeoutseconds'])
         json_message = resp.json()
         alarms['valvehost'] = 0
-        return json_message
+        for item in json_message:
+            if item['status'] == 'open':
+                statusmessage[item['valve']] = 1
+            else:
+                statusmessage[item['valve']] = 0
+        return statusmessage
     except requests.Timeout:
         logger.warning('host_queries: Valve Get Status Timeout Error')
         alarms['valvehost'] += 1
-        return [{"status": "exception", "valve": 0}]
+        return 1
     except requests.RequestException:
         logger.exception('host_queries: Valve Get Status Exception')
         alarms['valvehost'] += 1
