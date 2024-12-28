@@ -26,13 +26,6 @@ from ui.laser_manual_form import LaserFormUI
 from ui.ncc_calc_form import NccCalcUI
 
 
-def valvestatus(status):
-    """convertor for valve status messages from valve controller"""
-    if status == 'open':
-        return 1
-    return 0
-
-
 GUAGE_GOOD = 'background-color: rgb(255, 255, 255);  color: rgb(10, 10, 10); font: 14pt "Segoe UI"; image: "";'
 GUAGE_BAD = 'background-color: rgb(180, 0, 0); color: rgb(255, 255, 255); font: 14pt "Segoe UI"; image: "";'
 
@@ -276,43 +269,43 @@ class UiMain(QMainWindow, Ui_MainWindow):
     def update_ui_display_items(self):
         """Update the valve and laser widgets on the display"""
         status = valvegetstatus()
-        if status[0]['status'] != 'exception':
-            if self.wValve1.isVisible() != valvestatus(status[0]['status']):
+        if status[0] == 0:
+            if self.wValve1.isVisible() != status[1]:
                 logger.debug('t=%s mainUIForm: Valve 1 changed', self.secondcount)
-                self.wValve1.setVisible(valvestatus(status[0]['status']))
-            if self.wValve2.isVisible() != valvestatus(status[1]['status']):
+                self.wValve1.setVisible(status[1])
+            if self.wValve2.isVisible() != status[2]:
                 logger.debug('t=%s mainUIForm: Valve 2 changed', self.secondcount)
-                self.wValve2.setVisible(valvestatus(status[1]['status']))
-            if self.wValve3.isVisible() != valvestatus(status[2]['status']):
+                self.wValve2.setVisible(status[2])
+            if self.wValve3.isVisible() != status[3]:
                 logger.debug('t=%s mainUIForm: Valve 3 changed', self.secondcount)
-                self.wValve3.setVisible(valvestatus(status[2]['status']))
-            if self.wValve4.isVisible() != valvestatus(status[3]['status']):
+                self.wValve3.setVisible(status[3])
+            if self.wValve4.isVisible() != status[4]:
                 logger.debug('t=%s mainUIForm: Valve 4 changed', self.secondcount)
-                self.wValve4.setVisible(valvestatus(status[3]['status']))
-            if self.wValve5.isVisible() != valvestatus(status[4]['status']):
+                self.wValve4.setVisible(status[4])
+            if self.wValve5.isVisible() != status[5]:
                 logger.debug('t=%s mainUIForm: Valve 5 changed', self.secondcount)
-                self.wValve5.setVisible(valvestatus(status[4]['status']))
-            if self.wValve6.isVisible() != valvestatus(status[5]['status']):
+                self.wValve5.setVisible(status[5])
+            if self.wValve6.isVisible() != status[6]:
                 logger.debug('t=%s mainUIForm: Valve 6 changed', self.secondcount)
-                self.wValve6.setVisible(valvestatus(status[5]['status']))
-            if self.wValve7.isVisible() != valvestatus(status[6]['status']):
+                self.wValve6.setVisible(status[6])
+            if self.wValve7.isVisible() != status[7]:
                 logger.debug('t=%s mainUIForm: Valve 7 changed', self.secondcount)
-                self.wValve7.setVisible(valvestatus(status[6]['status']))
-            if self.wValve8.isVisible() != valvestatus(status[7]['status']):
+                self.wValve7.setVisible(status[7])
+            if self.wValve8.isVisible() != status[8]:
                 logger.debug('t=%s mainUIForm: Valve 8 changed', self.secondcount)
-                self.wValve8.setVisible(valvestatus(status[7]['status']))
-            if self.wValve10.isVisible() != valvestatus(status[8]['status']):
+                self.wValve8.setVisible(status[8])
+            if self.wValve10.isVisible() != status[10]:
                 logger.debug('t=%s mainUIForm: Valve 10 changed', self.secondcount)
-                self.wValve10.setVisible(valvestatus(status[8]['status']))
-            if self.wValve11.isVisible() != valvestatus(status[9]['status']):
+                self.wValve10.setVisible(status[10])
+            if self.wValve11.isVisible() != status[11]:
                 logger.debug('t=%s mainUIForm: Valve 11 changed', self.secondcount)
-                self.wValve11.setVisible(valvestatus(status[9]['status']))
-            if self.wValve12.isVisible() != valvestatus(status[10]['status']):
+                self.wValve11.setVisible(status[11])
+            if self.wValve12.isVisible() != status[12]:
                 logger.debug('t=%s mainUIForm: Valve 12 changed', self.secondcount)
-                self.wValve12.setVisible(valvestatus(status[10]['status']))
-            if self.wValve13.isVisible() != valvestatus(status[11]['status']):
+                self.wValve12.setVisible(status[12])
+            if self.wValve13.isVisible() != status[13]:
                 logger.debug('t=%s mainUIForm: Valve 13 changed', self.secondcount)
-                self.wValve13.setVisible(valvestatus(status[11]['status']))
+                self.wValve13.setVisible(status[13])
         self.lblLaserPower.setText('%.1f' % settings['laser']['power'])
         status = lasergetstatus()
         if status['laser'] != 'exception':
