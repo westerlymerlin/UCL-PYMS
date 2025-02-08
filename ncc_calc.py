@@ -142,6 +142,7 @@ class HeResults:
                 read_data = csv.reader(hefile, delimiter='\t')
                 for row in read_data:
                     if len(stime) == 0:
+                        #print(row)
                         firstfield = row[0].split('@')
                         filedesc = firstfield[0]
                         self.files_descriptions.append(filedesc)
@@ -152,6 +153,8 @@ class HeResults:
                     he3.append(float(row[2]))
                     he4.append(row[3])
             hefile.close()
+            if len(stime) == 0:
+                self.files_descriptions.append('Empty File')
             bestfit = linbestfit(stime, h1, he3, he4)
             self.files_he34ratios.append(bestfit[1])
             self.files_he34stderrs.append(bestfit[4])
@@ -244,6 +247,8 @@ def singlefilereader(filename):
         for row in read_data:
             rows.append(row)
     hefile.close()
+    if len(rows) == 0:
+        return [0], [0], [0], [0]
     firstfield = rows[0][0].split('@')
     rows[0][0] = firstfield[1]
     nt = len(rows)
@@ -269,15 +274,17 @@ def linbestfit(sampletime, amu_1, amu_3, amu_4):
     he3 = []
     he4_he3 = []
     position = 0
-    for i in range(len(sampletime)):
-        if float(sampletime[i]) >= settings['Ncc']['ncc_start_seconds']:
-            st.append(float(sampletime[i]))
-            hd.append(float(amu_1[i]) * settings['Ncc']['HD_H'])
-            he3.append(float(amu_3[i]) - hd[position])
-            he4_he3.append((float(amu_4[i]) / he3[position]) * 1000)
-            position = position + 1
-    return stats.linregress(st, he4_he3)
-
+    try:
+        for i in range(len(sampletime)):
+            if float(sampletime[i]) >= settings['Ncc']['ncc_start_seconds']:
+                st.append(float(sampletime[i]))
+                hd.append(float(amu_1[i]) * settings['Ncc']['HD_H'])
+                he3.append(float(amu_3[i]) - hd[position])
+                he4_he3.append((float(amu_4[i]) / he3[position]) * 1000)
+                position = position + 1
+        return stats.linregress(st, he4_he3)
+    except ValueError:
+        return 0, 0, 0, 0, 0
 
 ncc = HeResults()
 
