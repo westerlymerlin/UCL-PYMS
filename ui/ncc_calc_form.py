@@ -33,7 +33,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.tableFileList.setHorizontalHeaderItem(1, self.columnheader('Date', 'l'))
         self.tableFileList.setHorizontalHeaderItem(2, self.columnheader('Description', 'l'))
         self.tableFileList.setHorizontalHeaderItem(3, self.columnheader('4He/3He', 'r'))
-        self.tableFileList.horizontalHeader().setStyleSheet("::section {""background-color: rgb(0, 85, 255); }")
+        self.tableFileList.horizontalHeader().setStyleSheet('{background-color: rgb(0, 85, 255);}')
         self.tableFileList.setColumnWidth(0, 80)
         self.tableFileList.setColumnWidth(1, 150)
         self.tableFileList.setColumnWidth(2, 150)
@@ -43,7 +43,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.tableBlankList.setHorizontalHeaderItem(1, self.columnheader('Description', 'l'))
         self.tableBlankList.setHorizontalHeaderItem(2, self.columnheader('4He/3He', 'r'))
         self.tableBlankList.setHorizontalHeaderItem(3, self.columnheader('σ', 'r'))
-        self.tableBlankList.horizontalHeader().setStyleSheet("::section {""background-color: rgb(0, 85, 255); }")
+        self.tableBlankList.horizontalHeader().setStyleSheet('{background-color: rgb(0, 85, 255);}')
         self.tableBlankList.setColumnWidth(0, 80)
         self.tableBlankList.setColumnWidth(1, 150)
         self.tableBlankList.setColumnWidth(2, 115)
@@ -54,7 +54,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         self.tableQList.setHorizontalHeaderItem(2, self.columnheader('4He/3He', 'r'))
         self.tableQList.setHorizontalHeaderItem(3, self.columnheader('predicted', 'r'))
         self.tableQList.setHorizontalHeaderItem(4, self.columnheader('%', 'r'))
-        self.tableQList.horizontalHeader().setStyleSheet("::section {""background-color: rgb(0, 85, 255); }")
+        self.tableQList.horizontalHeader().setStyleSheet('{background-color: rgb(0, 85, 255); }')
         self.tableQList.setColumnWidth(0, 100)
         self.tableQList.setColumnWidth(1, 100)
         self.tableQList.setColumnWidth(2, 90)
@@ -166,6 +166,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
             self.tableQList.setItem(x, 4, newppercent)
 
     def secondchanged(self):
+        """Change the seconds to skip on the helium line data"""
         settings['Ncc']['ncc_start_seconds'] = self.spinSeconds.value()
         writesettings()
         self.refreshlist()
@@ -253,10 +254,11 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         if len(self.tableFileList.selectedItems()) > 0:
             filename = ncc.nccfilepath + '\\' + self.tableFileList.selectedItems()[0].text()
             m1, m3, m4, m43 = singlefilereader(filename)
-            self.m43chartview.setChart(self.create_scatterchart(m43, True))
-            self.m1chartview.setChart(self.create_scatterchart(m1, False))
-            self.m3chartview.setChart(self.create_scatterchart(m3, False))
-            self.m4chartview.setChart(self.create_scatterchart(m4, False))
+            if len(m1) > 1:
+                self.m43chartview.setChart(self.create_scatterchart(m43, True))
+                self.m1chartview.setChart(self.create_scatterchart(m1, False))
+                self.m3chartview.setChart(self.create_scatterchart(m3, False))
+                self.m4chartview.setChart(self.create_scatterchart(m4, False))
 
     def refreshlist(self):
         """File list refresher"""
@@ -279,6 +281,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
 
 
 def yvalues(dataset):
+    """Return max and min of y values"""
     yvals = []
     for point in dataset:
         yvals.append(point[1])
