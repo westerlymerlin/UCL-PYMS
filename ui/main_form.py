@@ -200,6 +200,11 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
+        if alarms['hidenhost'] == 10:
+            status = status + 'Hiden Issue = Hiden has just returned 0 line of data, stopping processing. \n'
+            self.secondincrement = 0
+            self.run = 0
+            self.tbRun.setChecked(False)
         if alarms['xyhost'] > 10:
             status = status + 'X-Y controller is offline, the system is paused. \n'
             self.secondincrement = 0

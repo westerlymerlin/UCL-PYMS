@@ -5,7 +5,7 @@ import os
 import threading
 import time
 import sqlite3
-from app_control import settings, writesettings, friendlydirname
+from app_control import settings, writesettings, friendlydirname, alarms
 from ncc_calc import linbestfit
 from logmanager import logger
 
@@ -129,6 +129,7 @@ class MsClass:
         logger.debug('msHiden: start timer %s, %s, %s, %s, %s,', batchtype, identifier, batchdescription,
                      batchid, batchitemid)
         self.daterun = datetime.now()
+        logger.info('msHiden: writefile startime= %s', self.daterun)
         self.id = self.next_id()
         self.type = batchtype
         self.identifier = identifier
@@ -313,7 +314,6 @@ class MsClass:
 
     def writefile(self):
         """Write Helium Data file to disk"""
-        logger.info('msHiden: writefile startime= %s', self.daterun)
         data = self.getdata()
         try:
             for row in data:
@@ -327,6 +327,11 @@ class MsClass:
                     self.m40.append(round(float(row[5]) * self.multiplier, 6))
                     self.m6.append(0)
             logger.info('msHiden - Datafile has %s rows', len(self.time))
+            if len(self.time) == 0:
+                self.filedump(data)
+                logger.warning('O rows added to file, Data dumped to a file')
+                alarms['hidenhost'] = 10
+                return
             logger.info('msHiden: Calculating bestfit')
             self.bestfit = linbestfit(self.time, self.m1, self.m3, self.m4)
         except:

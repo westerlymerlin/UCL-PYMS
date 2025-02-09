@@ -7,7 +7,7 @@ calculating a file name and removing illegal character.
 import json
 import datetime
 
-VERSION = '3.2.30'
+VERSION = '3.2.31'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
