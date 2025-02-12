@@ -165,7 +165,7 @@ class MsClass:
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        logger.debug('Status = %s', status)
+        logger.info('msHiden: start mid status = %s', status)
         if status[:-2] in ('StoppedShutDown', 'Protected'):
             s.send(bytes('-f"%s" \r\n' % self.midfile, 'utf-8'))
             try:
@@ -197,7 +197,7 @@ class MsClass:
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        logger.debug('Status = %s', status)
+        logger.info('msHiden: start profile status = %s', status)
         if status[:-2] in ('StoppedShutDown', 'Protected', 'Available'):
             s.send(bytes('-f"%s" \r\n' % self.profilefile, 'utf-8'))
             try:
@@ -282,7 +282,7 @@ class MsClass:
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        logger.debug('Status = %s', status)
+        logger.info('msHiden: stop hiden status = %s', status)
         if self.running:
             self.running = False
             logger.info('msHiden - Stopping Hiden')
