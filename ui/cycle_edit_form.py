@@ -277,7 +277,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
                 self.comboCommand.addItems(['checkalarms'])
         elif target[:4] == 'quad':
             self.comboCommand.addItems(['starttimer', 'starttimer-reheat', 'writefile', 'hiden-startmid',
-                                        'hiden-startprofile', 'hiden-stop'])
+                                        'hiden-startprofile', 'hiden-stop', 'check-stopped'])
         elif target[:7] == 'xytable':
             self.comboCommand.addItems(['move'])
         elif target[:5] == 'image':

@@ -104,6 +104,8 @@ class MsClass:
         if command == 'writefile':
             self.writefile()
             return 1
+        if command == 'check-stopped':
+            return self.check_if_stopped()
         return 0
 
     def resetclass(self):
@@ -151,6 +153,8 @@ class MsClass:
             if status[:-2] == 'Unavailable':
                 logger.error('msHiden - return of Unavailable, the software cannot access the RGA')
                 return 'Unavailable'
+            if status[:-2] == 'StoppedShutDown' and alarms['hidenhost'] == 11:
+                alarms['hidenhost'] = 0
             return status[:-2]
         except socket.timeout:
             self.timeoutcounter += 1
@@ -266,15 +270,6 @@ class MsClass:
         s.close()
         logger.debug('Hidenclass: %s', senv)
 
-    def getloadedfile(self):
-        """Return the loaded file from the Hiden Mass Spectrometer"""
-        s = socket.create_connection((self.host, self.port), self.timeoutseconds)
-        self.socketreturn = s.recv(1024).decode()
-        s.send(bytes('-xFilename \r\n', 'utf-8'))
-        senv = s.recv(1024).decode()
-        s.close()
-        logger.info('Hidenclass checking loaded filename: %s', senv)
-
     def stop_runnning(self):
         """Stop the running experiment on the Hiden Mass Spectrometer"""
         self.processing = 1
@@ -282,7 +277,7 @@ class MsClass:
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        self.getloadedfile()
+        logger.info('msHiden: start profile status = %s', status)
         self.running = False
         logger.info('msHiden - Stopping Hiden')
         s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
@@ -310,6 +305,25 @@ class MsClass:
         except sqlite3.Error as error:
             logger.error("msHiden: next_id error %s", error)
             return "HE00000R"
+
+    def check_if_stopped(self):
+        """Check if the run is stopped, if not then raise an alarm"""
+        try:
+            s = socket.create_connection((self.host, self.port), self.timeoutseconds)
+            self.socketreturn = s.recv(1024).decode()
+            s.send(bytes('-xStatus \r\n', 'utf-8'))
+            status = s.recv(1024).decode()
+            logger.info('msHiden: chedk if stopped-profile status = %s', status)
+            s.close()
+            if status[:-2] in ('StoppedShutDown', 'Protected', 'Available'):
+                alarms['hidenhost'] = 0
+                return 1
+            else:
+                alarms['hidenhost'] = 11
+                return 0
+        except:
+            alarms['hidenhost'] = 12
+            return 0
 
     def writefile(self):
         """Write Helium Data file to disk"""
