@@ -273,7 +273,7 @@ class MsClass:
         s.send(bytes('-xFilename \r\n', 'utf-8'))
         senv = s.recv(1024).decode()
         s.close()
-        logger.debug('Hidenclass filename: %s', senv)
+        logger.info('Hidenclass checking loaded filename: %s', senv)
 
     def stop_runnning(self):
         """Stop the running experiment on the Hiden Mass Spectrometer"""
@@ -282,19 +282,18 @@ class MsClass:
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xStatus \r\n', 'utf-8'))
         status = s.recv(1024).decode()
-        logger.info('msHiden: stop hiden status = %s', status)
-        if self.running:
-            self.running = False
-            logger.info('msHiden - Stopping Hiden')
-            s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
-            self.socketreturn = s.recv(1024).decode()
-            time.sleep(2)
-            s.send(bytes('-xAbort \r\n', 'utf-8'))
-            time.sleep(2)
-            self.socketreturn = s.recv(1024).decode()
-            s.send(bytes('-xClose \r\n', 'utf-8'))
-            time.sleep(2)
-            self.socketreturn = s.recv(1024).decode()
+        self.getloadedfile()
+        self.running = False
+        logger.info('msHiden - Stopping Hiden')
+        s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
+        self.socketreturn = s.recv(1024).decode()
+        time.sleep(2)
+        s.send(bytes('-xAbort \r\n', 'utf-8'))
+        time.sleep(2)
+        self.socketreturn = s.recv(1024).decode()
+        s.send(bytes('-xClose \r\n', 'utf-8'))
+        time.sleep(2)
+        self.socketreturn = s.recv(1024).decode()
         s.close()
         self.processing = 0
 
