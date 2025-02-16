@@ -6,7 +6,7 @@ import sys
 import sqlite3
 from PySide6.QtWidgets import QDialog, QApplication, QTableWidgetItem, QMessageBox, QInputDialog, QLineEdit
 from ui.ui_layout_cycle_edit import Ui_dialogCycleEdit
-from app_control import settings, writesettings
+from app_control import settings, writesettings, VERSION
 from logmanager import  logger
 
 
@@ -33,6 +33,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle('PyMS - Cycle Editor v%s' % VERSION)
         self.move(settings['cycleeditform']['x'], settings['cycleeditform']['y'])
         self.btnClose.clicked.connect(self.formclose)
         self.tableSteps.clicked.connect(self.rowselect)
@@ -268,8 +269,6 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
             self.comboCommand.setEditable(False)
         if target[:5] == 'valve':
             self.comboCommand.addItems(['open', 'close'])
-        elif target[:7] == 'pipette':
-            self.comboCommand.addItems(['load', 'unload', 'close'])
         elif target[:5] == 'laser':
             if self.chkSample.isChecked():
                 self.comboCommand.addItems(['on', 'off', 'setpower', 'checkalarms'])
