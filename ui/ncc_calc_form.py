@@ -101,11 +101,13 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
             item.setTextAlignment(Qt.AlignRight)
         elif align == 'l':
             item.setTextAlignment(Qt.AlignLeft)
-        font = QFont()
-        font.setBold(True)
-        item.setFont(font)
+        font1 = QFont()
+        font1.setFamilies(['Segoe UI'])
+        font1.setPointSize(10)
+        font1.setBold(True)
+        item.setFont(font1)
         colour = QColor()
-        colour.setRgb(255, 255, 255)
+        colour.setRgb(64, 64, 64)
         item.setForeground(colour)
         return item
 
