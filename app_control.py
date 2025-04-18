@@ -40,6 +40,7 @@ def initialise():
     """Setup the settings structure with default values"""
     isettings = {
         "LastSave": "01/01/1900 01:00:00",
+        "app-name": "UCL PyMs",
         "MassSpec": {
             "HD/H": 0.01,
             "datadirectory": "C:\\Users\\UCL Helium Line\\Documents\\Helium Line Data\\",

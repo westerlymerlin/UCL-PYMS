@@ -13,7 +13,9 @@ PyMS is designed using Python and QT6 UI framework via PySide6.
 
 ---
 
-Full documentation can be found in the file: [readme.pdf](./readme.pdf)
+Application dcumentaton can be found in [readme.pdf](./readme.pdf)
+
+Python module documentation can be found in the folder: [docs](./docs/readme.md)
 
 Change log can be found in the file [changelog.txt](./changelog.txt)
 
