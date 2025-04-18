@@ -46,6 +46,7 @@ def create_docs():
             renderer.code_headers = False
             renderer.process([module], None)
             renderer.render([module])
+    print('Creating Readme')
     linedata.sort()
     with open( DOCSPATH + '/readme.md', 'w', encoding='utf8') as outfile:
         print('# Module Documentation\n\n', file=outfile)
