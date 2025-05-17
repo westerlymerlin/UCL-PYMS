@@ -1,7 +1,7 @@
 # Module Documentation
 
 
-This document contains the documentation for all the modules in the **UCL PyMs** version 3.2.36 application.
+This document contains the documentation for all the modules in this project.
 
 ---
 
