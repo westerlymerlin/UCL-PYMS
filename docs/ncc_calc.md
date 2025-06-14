@@ -1,28 +1,4 @@
-# Contents for: ncc_calc
-
-* [ncc\_calc](#ncc_calc)
-  * [os](#ncc_calc.os)
-  * [glob](#ncc_calc.glob)
-  * [csv](#ncc_calc.csv)
-  * [datetime](#ncc_calc.datetime)
-  * [numpy](#ncc_calc.numpy)
-  * [stats](#ncc_calc.stats)
-  * [settings](#ncc_calc.settings)
-  * [writesettings](#ncc_calc.writesettings)
-  * [HeResults](#ncc_calc.HeResults)
-    * [\_\_init\_\_](#ncc_calc.HeResults.__init__)
-    * [reset](#ncc_calc.HeResults.reset)
-    * [readdirectory](#ncc_calc.HeResults.readdirectory)
-    * [calculate\_blank\_all](#ncc_calc.HeResults.calculate_blank_all)
-    * [set\_blank](#ncc_calc.HeResults.set_blank)
-    * [blankcorrect](#ncc_calc.HeResults.blankcorrect)
-    * [calculate\_estimated\_qbestfit](#ncc_calc.HeResults.calculate_estimated_qbestfit)
-    * [calculate\_ncc](#ncc_calc.HeResults.calculate_ncc)
-    * [write\_ncc\_file](#ncc_calc.HeResults.write_ncc_file)
-    * [filegenerator](#ncc_calc.HeResults.filegenerator)
-  * [singlefilereader](#ncc_calc.singlefilereader)
-  * [linbestfit](#ncc_calc.linbestfit)
-  * [ncc](#ncc_calc.ncc)
+# None
 
 <a id="ncc_calc"></a>
 

@@ -1,37 +1,4 @@
-# Contents for: cycle_edit_form
-
-* [cycle\_edit\_form](#cycle_edit_form)
-  * [sys](#cycle_edit_form.sys)
-  * [sqlite3](#cycle_edit_form.sqlite3)
-  * [QDialog](#cycle_edit_form.QDialog)
-  * [QApplication](#cycle_edit_form.QApplication)
-  * [QTableWidgetItem](#cycle_edit_form.QTableWidgetItem)
-  * [QMessageBox](#cycle_edit_form.QMessageBox)
-  * [QInputDialog](#cycle_edit_form.QInputDialog)
-  * [QLineEdit](#cycle_edit_form.QLineEdit)
-  * [Ui\_dialogCycleEdit](#cycle_edit_form.Ui_dialogCycleEdit)
-  * [settings](#cycle_edit_form.settings)
-  * [writesettings](#cycle_edit_form.writesettings)
-  * [VERSION](#cycle_edit_form.VERSION)
-  * [logger](#cycle_edit_form.logger)
-  * [listkey](#cycle_edit_form.listkey)
-  * [CycleEditUI](#cycle_edit_form.CycleEditUI)
-    * [\_\_init\_\_](#cycle_edit_form.CycleEditUI.__init__)
-    * [formclose](#cycle_edit_form.CycleEditUI.formclose)
-    * [loadcycles](#cycle_edit_form.CycleEditUI.loadcycles)
-    * [combochange](#cycle_edit_form.CycleEditUI.combochange)
-    * [sample\_check](#cycle_edit_form.CycleEditUI.sample_check)
-    * [laserchange](#cycle_edit_form.CycleEditUI.laserchange)
-    * [refreshtable](#cycle_edit_form.CycleEditUI.refreshtable)
-    * [rowselect](#cycle_edit_form.CycleEditUI.rowselect)
-    * [add\_button\_clicked](#cycle_edit_form.CycleEditUI.add_button_clicked)
-    * [update\_button\_clicked](#cycle_edit_form.CycleEditUI.update_button_clicked)
-    * [delete\_button\_clicked](#cycle_edit_form.CycleEditUI.delete_button_clicked)
-    * [save\_steps\_button\_clicked](#cycle_edit_form.CycleEditUI.save_steps_button_clicked)
-    * [save\_cycle\_button\_clicked](#cycle_edit_form.CycleEditUI.save_cycle_button_clicked)
-    * [duplicate\_cycle\_button\_clicked](#cycle_edit_form.CycleEditUI.duplicate_cycle_button_clicked)
-    * [revert\_button\_clicked](#cycle_edit_form.CycleEditUI.revert_button_clicked)
-    * [commandselector](#cycle_edit_form.CycleEditUI.commandselector)
+# None
 
 <a id="cycle_edit_form"></a>
 

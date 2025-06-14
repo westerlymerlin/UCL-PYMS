@@ -1,31 +1,4 @@
-# Contents for: manual_xy_form
-
-* [manual\_xy\_form](#manual_xy_form)
-  * [sqlite3](#manual_xy_form.sqlite3)
-  * [sleep](#manual_xy_form.sleep)
-  * [sys](#manual_xy_form.sys)
-  * [Qt](#manual_xy_form.Qt)
-  * [QTimer](#manual_xy_form.QTimer)
-  * [QThreadPool](#manual_xy_form.QThreadPool)
-  * [QApplication](#manual_xy_form.QApplication)
-  * [QDialog](#manual_xy_form.QDialog)
-  * [Ui\_dialogXYSetup](#manual_xy_form.Ui_dialogXYSetup)
-  * [settings](#manual_xy_form.settings)
-  * [xyread](#manual_xy_form.xyread)
-  * [xymove](#manual_xy_form.xymove)
-  * [xymoveto](#manual_xy_form.xymoveto)
-  * [currentcycle](#manual_xy_form.currentcycle)
-  * [batch](#manual_xy_form.batch)
-  * [ManualXyForm](#manual_xy_form.ManualXyForm)
-    * [\_\_init\_\_](#manual_xy_form.ManualXyForm.__init__)
-    * [formclose](#manual_xy_form.ManualXyForm.formclose)
-    * [timer](#manual_xy_form.ManualXyForm.timer)
-    * [update\_xy](#manual_xy_form.ManualXyForm.update_xy)
-    * [gotopress](#manual_xy_form.ManualXyForm.gotopress)
-    * [gotonextpress](#manual_xy_form.ManualXyForm.gotonextpress)
-    * [movepress](#manual_xy_form.ManualXyForm.movepress)
-    * [stopall](#manual_xy_form.ManualXyForm.stopall)
-    * [savelocation](#manual_xy_form.ManualXyForm.savelocation)
+# None
 
 <a id="manual_xy_form"></a>
 

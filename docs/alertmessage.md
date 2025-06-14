@@ -1,11 +1,4 @@
-# Contents for: alertmessage
-
-* [alertmessage](#alertmessage)
-  * [smtplib](#alertmessage.smtplib)
-  * [json](#alertmessage.json)
-  * [base64](#alertmessage.base64)
-  * [logger](#alertmessage.logger)
-  * [alert](#alertmessage.alert)
+# None
 
 <a id="alertmessage"></a>
 
@@ -38,5 +31,20 @@ Author: Gary Twinn
 def alert(body)
 ```
 
-Send an email alert message to recipeinets in the alerts.json file
+Sends an alert through email by loading configuration information from a JSON file,
+formatting the message content, and sending the email to specified recipients.
+
+Parameters
+----------
+body : str
+    The custom message content to be included in the body of the alert email.
+
+Raises
+------
+FileNotFoundError
+    If the 'alerts.json' configuration file does not exist.
+JSONDecodeError
+    If there is an error parsing the 'alerts.json' file.
+SMTPException
+    If an error occurs while connecting to or interacting with the SMTP server.
 
