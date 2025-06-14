@@ -1,15 +1,4 @@
-# Contents for: host_queries
-
-* [host\_queries](#host_queries)
-  * [requests](#host_queries.requests)
-  * [settings](#host_queries.settings)
-  * [alarms](#host_queries.alarms)
-  * [logger](#host_queries.logger)
-  * [lasergetalarm](#host_queries.lasergetalarm)
-  * [lasergetstatus](#host_queries.lasergetstatus)
-  * [valvegetstatus](#host_queries.valvegetstatus)
-  * [pressuresread](#host_queries.pressuresread)
-  * [xyread](#host_queries.xyread)
+# None
 
 <a id="host_queries"></a>
 

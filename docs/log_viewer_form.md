@@ -1,15 +1,4 @@
-# Contents for: log_viewer_form
-
-* [log\_viewer\_form](#log_viewer_form)
-  * [QDialog](#log_viewer_form.QDialog)
-  * [QApplication](#log_viewer_form.QApplication)
-  * [logger](#log_viewer_form.logger)
-  * [Ui\_LogDialog](#log_viewer_form.Ui_LogDialog)
-  * [settings](#log_viewer_form.settings)
-  * [UiLogViewer](#log_viewer_form.UiLogViewer)
-    * [\_\_init\_\_](#log_viewer_form.UiLogViewer.__init__)
-    * [loadlog](#log_viewer_form.UiLogViewer.loadlog)
-    * [formclose](#log_viewer_form.UiLogViewer.formclose)
+# None
 
 <a id="log_viewer_form"></a>
 

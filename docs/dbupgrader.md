@@ -1,16 +1,4 @@
-# Contents for: dbupgrader
-
-* [dbupgrader](#dbupgrader)
-  * [zipfile](#dbupgrader.zipfile)
-  * [path](#dbupgrader.path)
-  * [os](#dbupgrader.os)
-  * [time](#dbupgrader.time)
-  * [sqlite3](#dbupgrader.sqlite3)
-  * [settings](#dbupgrader.settings)
-  * [backup\_database](#dbupgrader.backup_database)
-  * [pyms\_database\_update](#dbupgrader.pyms_database_update)
-  * [check\_db\_version](#dbupgrader.check_db_version)
-  * [results\_database\_update](#dbupgrader.results_database_update)
+# None
 
 <a id="dbupgrader"></a>
 

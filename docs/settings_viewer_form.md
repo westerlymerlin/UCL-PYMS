@@ -1,23 +1,4 @@
-# Contents for: settings_viewer_form
-
-* [settings\_viewer\_form](#settings_viewer_form)
-  * [sys](#settings_viewer_form.sys)
-  * [QDialog](#settings_viewer_form.QDialog)
-  * [QAbstractItemView](#settings_viewer_form.QAbstractItemView)
-  * [QTableWidget](#settings_viewer_form.QTableWidget)
-  * [QTableWidgetItem](#settings_viewer_form.QTableWidgetItem)
-  * [QApplication](#settings_viewer_form.QApplication)
-  * [Qt](#settings_viewer_form.Qt)
-  * [QFont](#settings_viewer_form.QFont)
-  * [Ui\_LogDialog](#settings_viewer_form.Ui_LogDialog)
-  * [settings](#settings_viewer_form.settings)
-  * [writesettings](#settings_viewer_form.writesettings)
-  * [logger](#settings_viewer_form.logger)
-  * [UiSettingsViewer](#settings_viewer_form.UiSettingsViewer)
-    * [\_\_init\_\_](#settings_viewer_form.UiSettingsViewer.__init__)
-    * [loadsettings](#settings_viewer_form.UiSettingsViewer.loadsettings)
-    * [settingchanged](#settings_viewer_form.UiSettingsViewer.settingchanged)
-    * [formclose](#settings_viewer_form.UiSettingsViewer.formclose)
+# None
 
 <a id="settings_viewer_form"></a>
 

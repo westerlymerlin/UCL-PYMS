@@ -1,21 +1,4 @@
-# Contents for: cycleclass
-
-* [cycleclass](#cycleclass)
-  * [sqlite3](#cycleclass.sqlite3)
-  * [settings](#cycleclass.settings)
-  * [logger](#cycleclass.logger)
-  * [CycleClass](#cycleclass.CycleClass)
-    * [\_\_init\_\_](#cycleclass.CycleClass.__init__)
-    * [readdatabase](#cycleclass.CycleClass.readdatabase)
-    * [setcycle](#cycleclass.CycleClass.setcycle)
-    * [current](#cycleclass.CycleClass.current)
-    * [currenttask](#cycleclass.CycleClass.currenttask)
-    * [currentstep](#cycleclass.CycleClass.currentstep)
-    * [completecurrent](#cycleclass.CycleClass.completecurrent)
-    * [steplist](#cycleclass.CycleClass.steplist)
-    * [steplistformatted](#cycleclass.CycleClass.steplistformatted)
-    * [sample](#cycleclass.CycleClass.sample)
-  * [currentcycle](#cycleclass.currentcycle)
+# None
 
 <a id="cycleclass"></a>
 
