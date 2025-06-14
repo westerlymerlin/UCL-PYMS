@@ -1,8 +1,20 @@
-"""Make file to package the Pyms application as a windows app and then create a windows deistribution packahe
-uses:
-pyinstaller_versionfile to create the version text files ina windows format
-pyinstaller to build the windows executables
-sourceforge to create a windows setupfile """
+"""
+Build script for Python Mass Spectrometry (PyMS) Windows distribution packages.
+
+This script handles the complete build process for PyMS Windows applications:
+1. Updates version information in all application components
+2. Builds executable files using PyInstaller
+3. Creates Windows installation packages using SourceForge Install Forge
+
+Dependencies:
+- pyinstaller_versionfile: Creates Windows-format version files
+- PyInstaller: Builds Windows executables
+- SourceForge Install Forge: Creates Windows setup packages
+
+Usage:
+    python make.py
+"""
+
 
 import os
 import shutil
@@ -18,18 +30,21 @@ print('Starting build for Version: %s' % VERSION)
 
 # set version information
 winver = '%s.0' % VERSION
+legal_copyright = '© %s Gary Twinn. All rights reserved.' % str(datetime.now().year)
+company_name = 'Gary Twinn https://github.com/westerlymerlin/'
+product_name = 'Python Mass Spectrometry (PyMS)'
 print('Updating version info in build files to %s' % winver)
 
 
 pyinstaller_versionfile.create_versionfile(
     output_file="pyms-version.txt",
     version=winver,
-    company_name="Gary Twinn",
+    company_name=company_name,
     file_description="PyMS Main application",
     internal_name="PyMS",
-    legal_copyright="© Gary Twinn. All rights reserved.",
+    legal_copyright=legal_copyright,
     original_filename="PyMS.exe",
-    product_name="Python Mass Spectrometry",
+    product_name=product_name,
     translations=[0, 1200]
 )
 print('Finished updating version info in pyms-version.txt')
@@ -38,12 +53,12 @@ print('Finished updating version info in pyms-version.txt')
 pyinstaller_versionfile.create_versionfile(
     output_file="ncc-version.txt",
     version=winver,
-    company_name="Gary Twinn",
+    company_name=company_name,
     file_description="PyMS Ncc file viewer and calculator",
     internal_name="NccViewer",
-    legal_copyright="© Gary Twinn. All rights reserved.",
+    legal_copyright=legal_copyright,
     original_filename="NccViewer.exe",
-    product_name="Python Mass Spectrometry",
+    product_name=product_name,
     translations=[0, 1200]
 )
 print('Finished updating version info in ncc-version.txt')
@@ -51,12 +66,12 @@ print('Finished updating version info in ncc-version.txt')
 pyinstaller_versionfile.create_versionfile(
     output_file="cycle-version.txt",
     version=winver,
-    company_name="Gary Twinn",
+    company_name=company_name,
     file_description="PyMS cycle editor",
     internal_name="CycleEditor",
-    legal_copyright="© Gary Twinn. All rights reserved.",
+    legal_copyright=legal_copyright,
     original_filename="CycleEditor.exe",
-    product_name="Python Mass Spectrometry",
+    product_name=product_name,
     translations=[0, 1200]
 )
 print('Finished updating version info in cycle-version.txt')
@@ -64,12 +79,12 @@ print('Finished updating version info in cycle-version.txt')
 pyinstaller_versionfile.create_versionfile(
     output_file="testgen-version.txt",
     version=winver,
-    company_name="Gary Twinn",
+    company_name=company_name,
     file_description="PyMS test application",
     internal_name="PyMS",
-    legal_copyright="© Gary Twinn. All rights reserved.",
+    legal_copyright=legal_copyright,
     original_filename="testgen.exe",
-    product_name="Python Mass Spectrometry",
+    product_name=product_name,
     translations=[0, 1200]
 )
 print('Finished updating version info in testgen-version.txt')

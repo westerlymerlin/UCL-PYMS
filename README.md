@@ -1,21 +1,71 @@
-# PyMS
+# PyMS - Python Mass Spectrometry 
 
-PyMS is a desktop application designed to provide a Graphical User Interface (GUI) control to manage cycles of batches.
-PyMS is designed using Python and QT6 UI framework via PySide6.
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![PySide6](https://img.shields.io/badge/PySide6-Qt6-green.svg)](https://wiki.qt.io/Qt_for_Python)
 
-| Script File       | Description                                                                                                |                                                                      
-|-------------------|------------------------------------------------------------------------------------------------------------|
-| `PyMS.pyw`        | This is the main application.                                                                              |
-| `NccViewer.pyw`   | This script is used to view NCC values for run samples, and generate new NCC files depending on line blanks. |
-| `CycleEditor.pyw` | This script allows you to edit the cycle steps, add, change, and delete tasks at set run times.            |
-| `imagefiler.py`   | Lists all of the open windows  (useful for window names when using apps that hold camera images).          |
-| `settings.json`   | Main settings file holding settings for laser, host addresses, and data file locations.                    |
+PyMS is a desktop application that provides a Graphical User Interface (GUI) for managing cycles of batches on the
+London Geochronolocy Centres's Helium extraction line. Built with Python and the Qt6 UI framework via PySide6,
+PyMS offers robust tools for batch processing control and visualisation.
 
----
+## 🚀 Features
 
-Application dcumentaton can be found in [readme.pdf](./readme.pdf)
+- Intuitive graphical interface for batch cycle management
+- Real-time monitoring of cycle processes
+- NCC value viewing and generation
+- Cycle step editing capabilities
 
-Python module documentation can be found in the folder: [docs](./docs/readme.md)
+## 📋 Application Components
 
-Change log can be found in the file [changelog.txt](./changelog.txt)
+| Component | Description |
+|-----------|-------------|
+| `PyMS.pyw` | Main application entry point |
+| `NccViewer.pyw` | Tool for viewing NCC values for run samples and generating new NCC files based on line blanks |
+| `CycleEditor.pyw` | Interface for editing cycle steps - add, modify, or delete tasks at specific run times |
+| `imagefiler.py` | Utility that lists all open windows (helpful for identifying window names when using applications with camera images) |
+| `settings.json` | Configuration file containing settings for laser, host addresses, and data file locations |
+
+## 📖 Documentation
+
+- **Application Documentation**: See [readme.pdf](./readme.pdf)
+- **Python Module Documentation**: Available in the [docs](./docs/readme.md) folder
+- **Change Log**: View recent changes in [changelog.txt](./changelog.txt)
+
+## 🔧 Installation
+
+A windows installer is found in the [distribution](./distribution) folder.  
+Download the file and run it (requires Windows 10 or higher)
+
+
+
+-------
+
+
+&nbsp;   
+&nbsp;    
+&nbsp;  
+&nbsp;   
+&nbsp;   
+&nbsp;   
+--------------
+
+#### Copyright (C) 2025 Gary Twinn
+
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or  
+(at your option) any later version.  
+
+This program is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
+GNU General Public License for more details.  
+
+You should have received a copy of the GNU General Public License  
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+
+Author:  Gary Twinn  
+Repository:  [github.com/westerlymerlin](https://github)
+
+-------------
 
