@@ -1,13 +1,4 @@
-# Contents for: about_form
-
-* [about\_form](#about_form)
-  * [datetime](#about_form.datetime)
-  * [QDialog](#about_form.QDialog)
-  * [QMainWindow](#about_form.QMainWindow)
-  * [Ui\_AboutDialog](#about_form.Ui_AboutDialog)
-  * [VERSION](#about_form.VERSION)
-  * [UiAbout](#about_form.UiAbout)
-    * [\_\_init\_\_](#about_form.UiAbout.__init__)
+# None
 
 <a id="about_form"></a>
 

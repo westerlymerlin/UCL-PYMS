@@ -1,16 +1,4 @@
-# Contents for: imagefiler
-
-* [imagefiler](#imagefiler)
-  * [os](#imagefiler.os)
-  * [windll](#imagefiler.windll)
-  * [win32ui](#imagefiler.win32ui)
-  * [win32gui](#imagefiler.win32gui)
-  * [Image](#imagefiler.Image)
-  * [settings](#imagefiler.settings)
-  * [friendlydirname](#imagefiler.friendlydirname)
-  * [logger](#imagefiler.logger)
-  * [imager](#imagefiler.imager)
-  * [enumHandler](#imagefiler.enumHandler)
+# None
 
 <a id="imagefiler"></a>
 

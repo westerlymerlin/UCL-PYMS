@@ -1,20 +1,4 @@
-# Contents for: simple_batch_form
-
-* [simple\_batch\_form](#simple_batch_form)
-  * [sys](#simple_batch_form.sys)
-  * [QDialog](#simple_batch_form.QDialog)
-  * [QApplication](#simple_batch_form.QApplication)
-  * [Ui\_dialogSimpleBatch](#simple_batch_form.Ui_dialogSimpleBatch)
-  * [settings](#simple_batch_form.settings)
-  * [batch](#simple_batch_form.batch)
-  * [currentcycle](#simple_batch_form.currentcycle)
-  * [logger](#simple_batch_form.logger)
-  * [UiSimpleBatch](#simple_batch_form.UiSimpleBatch)
-    * [\_\_init\_\_](#simple_batch_form.UiSimpleBatch.__init__)
-    * [startup](#simple_batch_form.UiSimpleBatch.startup)
-    * [formclose](#simple_batch_form.UiSimpleBatch.formclose)
-    * [taskcomboclick](#simple_batch_form.UiSimpleBatch.taskcomboclick)
-    * [savechecks](#simple_batch_form.UiSimpleBatch.savechecks)
+# None
 
 <a id="simple_batch_form"></a>
 

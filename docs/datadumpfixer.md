@@ -1,19 +1,4 @@
-# Contents for: datadumpfixer
-
-* [datadumpfixer](#datadumpfixer)
-  * [datetime](#datadumpfixer.datetime)
-  * [os](#datadumpfixer.os)
-  * [literal\_eval](#datadumpfixer.literal_eval)
-  * [sqlite3](#datadumpfixer.sqlite3)
-  * [settings](#datadumpfixer.settings)
-  * [linbestfit](#datadumpfixer.linbestfit)
-  * [getdata](#datadumpfixer.getdata)
-  * [writefile](#datadumpfixer.writefile)
-  * [dumpfilename](#datadumpfixer.dumpfilename)
-  * [dateruntxt](#datadumpfixer.dateruntxt)
-  * [daterun](#datadumpfixer.daterun)
-  * [heliumfilepath](#datadumpfixer.heliumfilepath)
-  * [heliumrun](#datadumpfixer.heliumrun)
+# None
 
 <a id="datadumpfixer"></a>
 

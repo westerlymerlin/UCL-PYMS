@@ -1,18 +1,4 @@
-# Contents for: new_batch_form
-
-* [new\_batch\_form](#new_batch_form)
-  * [QDialog](#new_batch_form.QDialog)
-  * [Ui\_dialogNewBatch](#new_batch_form.Ui_dialogNewBatch)
-  * [UiSimpleBatch](#new_batch_form.UiSimpleBatch)
-  * [UiPlanchet](#new_batch_form.UiPlanchet)
-  * [batch](#new_batch_form.batch)
-  * [settings](#new_batch_form.settings)
-  * [UiBatch](#new_batch_form.UiBatch)
-    * [\_\_init\_\_](#new_batch_form.UiBatch.__init__)
-    * [formclose](#new_batch_form.UiBatch.formclose)
-    * [openbatcheck](#new_batch_form.UiBatch.openbatcheck)
-    * [newbatch](#new_batch_form.UiBatch.newbatch)
-    * [editbatch](#new_batch_form.UiBatch.editbatch)
+# None
 
 <a id="new_batch_form"></a>
 
