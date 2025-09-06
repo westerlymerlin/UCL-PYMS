@@ -35,17 +35,33 @@ PyMS offers robust tools for batch processing control and visualisation.
 A windows installer is found in the [distribution](./distribution) folder.  
 Download the file and run it (requires Windows 10 or higher)
 
+## 🔧 Building a new version
 
+To create a new version of PyMS, first clone the repo from Github using the command below:  
+`git clone https://github.com/westerlymerlin/UCL-PYMS.git`  
+you will need to have Python 3.12 installed with all the dependencies listed in [requirements.txt](./requirements.txt).  
+`pip install -r requirements.txt`  
 
--------
+In order to package the code into a windows application, you will need the latest version of **pyinstaller** and **pyinstaller_versionfile** and installed.  
+`pip install pyinstaller pyinstaller_versionfile` 
+You will need sourceforge installed to crate the windows installer file - download and install from [sourceforge](https://sourceforge.net/projects/nsis/files/NSIS%203/3.08/nsis-3.08-setup.exe/download)
 
+Please create a new branch in git for your edits. 
+`git branch -b my-new-feature`    
+Make your changes to the code and test them, once you are happy with the results you are ready to package the new version:  
+1. Update the version number in the module app_control.py  
+2. Add a new line to the changelog.txt  
+3. Run the following command to package the application:  
+`python -m ./packager/make.py`  
+   The makefile will create the new packaged files and start sourceforge, you will need to click the build button to create the new installed into the ./distribution folder.
 
-&nbsp;   
-&nbsp;    
-&nbsp;  
-&nbsp;   
-&nbsp;   
-&nbsp;   
+Please commit the changes you have made to git and push to the repository to git for version control.  
+`git add .`  
+`git commit -m "My commit message"`  
+`git push origin my-new-feature`
+
+There is a workflow that will update the docs files and create a pull request for the code owner to review and merge to the main branch.
+
 --------------
 
 #### Copyright (C) 2025 Gary Twinn
