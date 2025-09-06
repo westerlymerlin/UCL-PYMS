@@ -44,13 +44,13 @@ you will need to have Python 3.12 installed with all the dependencies listed in 
 
 In order to package the code into a windows application, you will need the latest version of **pyinstaller** and **pyinstaller_versionfile** and installed.  
 `pip install pyinstaller pyinstaller_versionfile` 
-You will need sourceforge installed to crate the windows installer file - download and install from [sourceforge](https://sourceforge.net/projects/nsis/files/NSIS%203/3.08/nsis-3.08-setup.exe/download)
+You will need InstallForge installed to create the windows installer file - download and install from [**InstallForge.net**](https://installforge.net/download/ )
 
 Please create a new branch in git for your edits. 
 `git branch -b my-new-feature`    
-Make your changes to the code and test them, once you are happy with the results you are ready to package the new version:  
+Make your changes to the code in your favorite IDE and test them, once you are happy with the results you are ready to package the new version:  
 1. Update the version number in the module app_control.py  
-2. Add a new line to the changelog.txt  
+2. Add a new line to the `changelog.txt`  
 3. Run the following command to package the application:  
 `python -m ./packager/make.py`  
    The makefile will create the new packaged files and start sourceforge, you will need to click the build button to create the new installed into the ./distribution folder.
