@@ -4,7 +4,36 @@
 
 # ms\_hiden\_class
 
-Class to read data from a Hiden Mass Spectrometer and calculate the best-fit value for t=0
+Mass spectrometry control and data management class for a Hiden Residual Gas Analyser.
+
+This class manages the complete workflow for mass spectrometry operations including:
+- Batch processing and step execution
+- Network communication with measurement equipment
+- Data acquisition and file output
+- Timer and timeout management
+- System status monitoring and control
+
+The class handles both MID (Multiple Ion Detection) and profile scanning modes,
+manages socket connections to external equipment, and coordinates the execution
+of measurement batches with proper error handling and retry mechanisms.
+
+Key Features:
+- Automated batch execution with configurable timeouts
+- Real-time data acquisition and processing
+- File-based result storage with customizable output formats
+- Network communication for equipment control
+- Comprehensive error handling and recovery
+
+Attributes:
+    host (str): Network host address for equipment communication
+    port (int): Network port for equipment communication
+    timeoutseconds (int): Timeout duration for operations
+    timeoutretries (int): Number of retry attempts on timeout
+    running (bool): Current execution state
+    processing (bool): Data processing state
+    batchid (int): Current batch identifier
+
+Author: Gary Twinn
 
 <a id="ms_hiden_class.socket"></a>
 

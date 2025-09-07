@@ -93,7 +93,7 @@ Set the current cycle to the given name and retrieve all the steps (used when th
 def current()
 ```
 
-Return the current Cycle name and discription
+Return the current Cycle name and description
 
 <a id="cycleclass.CycleClass.currenttask"></a>
 
