@@ -1,5 +1,5 @@
 """
-NCC Viwer application
+NCC Viewer application
 Author: Gary Twinn
 """
 import sys

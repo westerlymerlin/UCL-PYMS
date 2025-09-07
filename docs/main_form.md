@@ -4,7 +4,7 @@
 
 # main\_form
 
-Main Helium line form - graphical outut of the Heliumline state and timers for running samples
+Main Helium line form - graphical output of the Heliumline state and timers for running samples
 Author: Gary Twinn
 
 <a id="main_form.webbrowser"></a>
@@ -98,10 +98,6 @@ Author: Gary Twinn
 <a id="main_form.xymove"></a>
 
 ## xymove
-
-<a id="main_form.rpi_reboot"></a>
-
-## rpi\_reboot
 
 <a id="main_form.batch"></a>
 
@@ -440,16 +436,6 @@ def move_y()
 ```
 
 Move the Y axis to the next planchet location
-
-<a id="main_form.restart_pi"></a>
-
-#### restart\_pi
-
-```python
-def restart_pi(host)
-```
-
-Reboot a raspberry pi
 
 <a id="main_form.menu_open_web_page"></a>
 

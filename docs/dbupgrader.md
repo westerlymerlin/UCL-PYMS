@@ -39,7 +39,7 @@ Author: Gary Twinn
 def backup_database()
 ```
 
-Backup the exisiting database
+Backup the existing database
 
 <a id="dbupgrader.pyms_database_update"></a>
 
@@ -49,7 +49,7 @@ Backup the exisiting database
 def pyms_database_update()
 ```
 
-Upgrade the exisiting database
+Upgrade the existing database
 
 <a id="dbupgrader.check_db_version"></a>
 
@@ -59,7 +59,7 @@ Upgrade the exisiting database
 def check_db_version(database)
 ```
 
-Check the exisiting database vesrions
+Check the existing database versions
 
 <a id="dbupgrader.results_database_update"></a>
 

@@ -46,7 +46,7 @@ class CycleClass:
         self.id = -1
         self.name = None  # The name of the current cycle
         self.description = None  # The description of the current cycle
-        self.enabled = True  # the ststus of the current cycle
+        self.enabled = True  # the status of the current cycle
         self.laserpower = 0  # The laserpower of the current cycle
         self.cycles = []  # The list of available cycle names
         self.samples = []  # Is the available cycle one that processes samples and uses the laser
@@ -104,7 +104,7 @@ class CycleClass:
             self.stepcommand.append(task[3])
 
     def current(self):
-        """Return the current Cycle name and discription"""
+        """Return the current Cycle name and description"""
         return [self.name, self.description]
 
     def currenttask(self, time):

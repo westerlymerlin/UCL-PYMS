@@ -5,7 +5,7 @@
 # app\_control
 
 Application Control module, reads the settings from a settings.json file. If it does not exist or a new setting
-has appeared it will creat from the defaults in the initialise function. Has global vraiables and routine for
+has appeared it will creat from the defaults in the initialise function. Has global variables and routine for
 calculating a file name and removing illegal character.
 
 <a id="app_control.json"></a>
@@ -86,7 +86,7 @@ Read the json file
 def loadsettings()
 ```
 
-Replace the default settings with thsoe from the json files
+Replace the default settings with those from the json files
 
 <a id="app_control.settings"></a>
 

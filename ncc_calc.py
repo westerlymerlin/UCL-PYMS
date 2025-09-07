@@ -297,7 +297,7 @@ class HeResults:
             as determined during a depletion test
         q_offset (int): The offset value for the 4He-pipette standard shots, used to account for lost 4He
             as determined during a depletion test
-        for the offsets: a poistive number indicates a loss of gas from the tank, a negative number that not as much
+        for the offsets: a positive number indicates a loss of gas from the tank, a negative number that not as much
             helium as expected has been released
 
         Returns:
@@ -325,7 +325,7 @@ class HeResults:
         The calculations incorporate adjustments for depletion effects and provide standardized
         data for subsequent analysis.
         """
-        q_to_use = 0  # used to determin which q-standard withn the directory to use (there may be more than one in a run)
+        q_to_use = 0  # used to determine which q-standard within the directory to use (there may be more than one in a run)
         for i in range(len(self.files_names)):
             if q_to_use < len(self.qs_qnumbers) - 1:
                 if self.files_he3_shots[i] >= self.qs_he3_shots[q_to_use+1]:
@@ -385,16 +385,7 @@ def singlefilereader(filename):
     """
     Reads a single file and processes its data to extract specific graphs based on provided settings. The function parses a
     tab-delimited file, processes its rows, and returns processed data in the form of several graphs. These graphs include
-    m1graph, m3graph, m4graph, and ratiograph. Each graph is a list of paired float values.
-
-    Parameters:
-    filename: str
-        The name of the file to be read.
-
-    Returns:
-    tuple
-        A tuple containing four lists (m1graph, m3graph, m4graph, ratiograph). Each list includes a series of paired float
-        values extracted and computed from the file.
+    m1graph, m3graph, m4graph, and ratio graph. Each graph is a list of paired float values.
     """
     rows = []
     with open(filename, 'r', encoding='utf-8') as hefile:

@@ -247,7 +247,7 @@ Return the sysle type for the current task in the batch
 def formatdescription()
 ```
 
-Format the description based on the batch identifier and the descri[ption field
+Format the description based on the batch identifier and the description field
 
 <a id="batchclass.BatchClass.getlocationsample"></a>
 

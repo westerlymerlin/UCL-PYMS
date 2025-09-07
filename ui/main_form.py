@@ -1,5 +1,5 @@
 """
-Main Helium line form - graphical outut of the Heliumline state and timers for running samples
+Main Helium line form - graphical output of the Heliumline state and timers for running samples
 Author: Gary Twinn
 """
 
@@ -10,7 +10,7 @@ from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt, QTimer, QThreadPool
 from app_control import settings, writesettings, setrunning, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
-from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove, rpi_reboot
+from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove
 from batchclass import batch
 from cycleclass import currentcycle
 from ms_hiden_class import ms
@@ -642,19 +642,6 @@ def move_y():
     """Move the Y axis to the next planchet location"""
     location = batch.locxy(batch.nextlocation())
     xymoveto('y', location[1])
-
-
-def restart_pi(host):
-    """Reboot a raspberry pi"""
-    logger.info('Reboot requested for %s', host)
-    msg_box = messagebox.askyesno('Restart the Raspberry Pi',
-                                  'Are you really sure you want to reboot the %s?' % host, type=messagebox.YESNO)
-    if msg_box:
-        logger.warning('Restart confirmed for %s', host)
-        rpi_reboot(host)
-    else:
-        logger.info('Restart cancelled for %s', host)
-
 
 def menu_open_web_page(page):
     """Menu handler - open host web page"""

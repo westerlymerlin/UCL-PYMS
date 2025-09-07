@@ -60,7 +60,7 @@ class BatchClass:
         self.id = -1                # ID number of the batch. -1 = not saved yet otherwise taken from database
         self.date = None
         self.description = None     # Batch description / planchet description
-        self.type = None            # can be Simple Batch or Planchett
+        self.type = None            # can be Simple Batch or Planchet
         self.runnumber = []         # ID of each item in the batch inc lb, q and samples
         self.cycle = []             # type of cycle required
         self.location = []          # hole location if needed
@@ -289,7 +289,7 @@ class BatchClass:
         return self.cycle[0]
 
     def formatdescription(self):
-        """Format the description based on the batch identifier and the descri[ption field"""
+        """Format the description based on the batch identifier and the description field"""
         try:
             if self.id == -1:
                 return 'No batch loaded'

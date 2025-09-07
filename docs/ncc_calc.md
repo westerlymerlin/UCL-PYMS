@@ -253,7 +253,7 @@ s_offset (int): The offset value for the 3He-pipette spike shots, used to accoun
     as determined during a depletion test
 q_offset (int): The offset value for the 4He-pipette standard shots, used to account for lost 4He
     as determined during a depletion test
-for the offsets: a poistive number indicates a loss of gas from the tank, a negative number that not as much
+for the offsets: a positive number indicates a loss of gas from the tank, a negative number that not as much
     helium as expected has been released
 
 Returns:
@@ -327,16 +327,7 @@ def singlefilereader(filename)
 
 Reads a single file and processes its data to extract specific graphs based on provided settings. The function parses a
 tab-delimited file, processes its rows, and returns processed data in the form of several graphs. These graphs include
-m1graph, m3graph, m4graph, and ratiograph. Each graph is a list of paired float values.
-
-Parameters:
-filename: str
-    The name of the file to be read.
-
-Returns:
-tuple
-    A tuple containing four lists (m1graph, m3graph, m4graph, ratiograph). Each list includes a series of paired float
-    values extracted and computed from the file.
+m1graph, m3graph, m4graph, and ratio graph. Each graph is a list of paired float values.
 
 <a id="ncc_calc.linbestfit"></a>
 
