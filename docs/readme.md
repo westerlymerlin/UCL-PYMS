@@ -13,6 +13,36 @@ About Dialog
 
 [alertmessage](./alertmessage.md)  
 Alert Message Module
+
+This module provides functionality to send alert notifications via email using
+SMTP and Office 365 authentication. It reads configuration from 'alerts.json'
+and supports sending customized alert messages to multiple recipients.
+
+Features:
+- Secure authentication using base64 encoded Office 365 credentials
+- Configurable SMTP settings, subjects, and message templates
+- Logging of alert delivery status
+- Support for multiple recipients
+
+Usage:
+    from alertmessage import alert
+
+    # Send a custom alert message
+    alert("Critical error in data processing module")
+
+Configuration:
+    Requires 'alerts.json' file with the following structure:
+    {
+        "SMTPServer": "smtp.office365.com",
+        "SMTPPort": 587,
+        "O365Sender": "alerts@example.com",
+        "O365From": "alerts@example.com",
+        "O365Key": "<base64-encoded-username-and-password>",
+        "Subject": "System Alert",
+        "Message": "The following alert was triggered:",
+        "Recipients": ["admin@example.com", "manager@example.com"]
+    }
+
 Author: Gary Twinn
 
 [app_control](./app_control.md)  
@@ -71,8 +101,24 @@ Author: Gary Twinn
 Class to read data from a Hiden Mass Spectrometer and calculate the best-fit value for t=0
 
 [ncc_calc](./ncc_calc.md)  
-Ncc Calculator
+Noble Gas Concentration Calculator (NCC) Module
 Author: Gary Twinn
+
+This module provides functionality for processing helium isotope measurement data and calculating
+noble gas concentrations. It handles data file reading, blank correction, linear regression
+analysis, and NCC (Nano Cubic Centimetre) calculation for mass spectrometry results.
+e
+Key Components:
+- HeResults: Main class for processing helium isotope measurement data
+- singlefilereader: Function for reading individual measurement files
+- linbestfit: Linear regression analysis function
+
+The module supports:
+- Reading and parsing helium measurement data files
+- Blank correction calculations
+- Linear regression fitting for isotope ratios
+- NCC (Noble Gas Concentration) calculations
+- File output generation for processed results
 
 [ncc_calc_form](./ncc_calc_form.md)  
 NCC Calculation Form
