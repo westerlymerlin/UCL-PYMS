@@ -267,7 +267,7 @@ float: The estimated Q-best fit value after calculating the corrections and rati
 def calculate_ncc()
 ```
 
-Calculates and assigns corrected Helium Gas Concentration in nano cubic centimres (NCC) values and the
+Calculates and assigns corrected Helium Gas Concentration in nano cubic centimetres (NCC) values and the
  standard errors for all the files in the directory and writes them to memory.
 
 4HeSample = 4HeQstandard (4He/3He) * Spiked Sample / (4He/3He) Spiked Q-standard
