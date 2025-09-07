@@ -1,5 +1,5 @@
 """
-Dialog for a simple batch (used for tesing the Helium line) has a maximum of 5 stepa
+Dialog for a simple batch (used for testing the Helium line) has a maximum of 8 steps
 Author: Gary Twinn
 """
 import sys

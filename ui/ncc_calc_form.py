@@ -1,5 +1,7 @@
 """
-NCC Calculation Form
+NCC (Nano Cubic Centimetre) Calculation Form
+Provides a GUI interface for loading, processing, and visualizing NCC data files.
+Includes functionality for statistical analysis, chart generation, and data export.
 Author: Gary Twinn
 """
 import sys
