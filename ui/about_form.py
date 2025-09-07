@@ -1,5 +1,5 @@
 """
-About Dialog
+About Dialog UI
 """
 from datetime import datetime
 from PySide6.QtWidgets import QDialog, QMainWindow
