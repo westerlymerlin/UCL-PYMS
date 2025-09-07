@@ -4,7 +4,7 @@
 
 # about\_form
 
-About Dialog
+About Dialog UI
 
 <a id="about_form.datetime"></a>
 
