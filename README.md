@@ -4,7 +4,7 @@
 [![PySide6](https://img.shields.io/badge/PySide6-Qt6-green.svg)](https://wiki.qt.io/Qt_for_Python)
 
 PyMS is a desktop application that provides a Graphical User Interface (GUI) for managing cycles of batches on the
-London Geochronolocy Centres's Helium extraction line. Built with Python and the Qt6 UI framework via PySide6,
+London Geochronology Centres's Helium extraction line. Built with Python and the Qt6 UI framework via PySide6,
 PyMS offers robust tools for batch processing control and visualisation.
 
 ## 🚀 Features

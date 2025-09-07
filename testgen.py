@@ -1,4 +1,27 @@
-"""Test generator for new batches"""
+"""
+Test batch generator for analytical system automation.
+
+This module provides utilities to programmatically create standardized test batches
+for an analytical system. It supports two types of test configurations:
+
+1. Planchet batches - Creates a comprehensive test sequence with 56 steps covering
+   special locations (S1-S6) and a full 7x7 grid (A1-G7) for systematic sample analysis
+2. Q-standard batches - Creates simple calibration sequences with line cleaning,
+   blanks, and 10 Q-standard measurements
+
+Both batch types follow predefined analytical protocols and automatically generate
+sequential sample identifiers. The module can be run interactively via command line
+or imported for programmatic batch creation.
+
+Functions:
+    commit_planchet(description): Creates a 56-step planchet test batch
+    commit_q(description): Creates a Q-standard calibration batch
+
+Example:
+    $ python testgen.py
+    Enter the test description: Daily calibration check
+    Planchet (p) or Qshots (q)? p
+"""
 from batchclass import batch
 
 

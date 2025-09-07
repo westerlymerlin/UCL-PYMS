@@ -12,7 +12,7 @@ from app_control import settings
 
 
 def backup_database():
-    """Backup the exisiting database"""
+    """Backup the existing database"""
     print('Starting Database Backup')
     backupfile= os.path.dirname(os.path.abspath(settings['database']['databasepath']))  + '\\pre-upgrade-db-backup.zip'
     dbzip = zipfile.ZipFile(backupfile, 'w')
@@ -25,7 +25,7 @@ def backup_database():
     print('**** Backup Script Finished ****')
 
 def pyms_database_update():
-    """Upgrade the exisiting database"""
+    """Upgrade the existing database"""
     print('Stating PyMS Database upgrade')
     database = sqlite3.connect(settings['database']['databasepath'])
     cursor_obj = database.cursor()
@@ -67,7 +67,7 @@ def pyms_database_update():
     database.close()
 
 def check_db_version(database):
-    """Check the exisiting database vesrions"""
+    """Check the existing database versions"""
     cursor_obj = database.cursor()
     sql_query = 'SELECT * from settings'
     try:

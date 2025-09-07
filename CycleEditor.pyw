@@ -8,7 +8,7 @@ from app_control import VERSION
 from logmanager import logger
 from ui.cycle_edit_form import CycleEditUI
 
-logger.info('****** Cycle editer version %s started ******', VERSION)
+logger.info('****** Cycle editor version %s started ******', VERSION)
 app = QApplication(sys.argv)
 mainform = CycleEditUI()
 mainform.show()
