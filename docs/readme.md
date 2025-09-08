@@ -236,7 +236,9 @@ The module supports:
 - File output generation for processed results
 
 [ncc_calc_form](./ncc_calc_form.md)  
-NCC Calculation Form
+NCC (Nano Cubic Centimetre) Calculation Form
+Provides a GUI interface for loading, processing, and visualizing NCC data files.
+Includes functionality for statistical analysis, chart generation, and data export.
 Author: Gary Twinn
 
 [new_batch_form](./new_batch_form.md)  
@@ -252,7 +254,7 @@ Settings Viewer form
 Author: Gary Twinn
 
 [simple_batch_form](./simple_batch_form.md)  
-Dialog for a simple batch (used for tesing the Helium line) has a maximum of 5 stepa
+Dialog for a simple batch (used for testing the Helium line) has a maximum of 8 steps
 Author: Gary Twinn
 
 
