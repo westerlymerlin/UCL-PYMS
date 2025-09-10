@@ -4,25 +4,21 @@
 
 # host\_commands
 
-Noble Gas Concentration Calculator (NCC) Module
+Host Commands Module - Hardware Control Interface
+
+This module provides command functions for controlling various hardware components
+in the PyMS (Python Mass Spectrometry) system. It includes functions for:
+
+- Laser control and power management
+- Valve operations and state changes
+- XY positioning system movement and positioning
+- Communication with hardware controllers
+
+These functions serve as the interface layer between the PyMS application
+and the underlying hardware systems, handling the low-level command protocols
+and hardware-specific communication.
+
 Author: Gary Twinn
-
-This module provides comprehensive functionality for processing helium isotope measurement data
-and calculating noble gas concentrations from mass spectrometry results. It handles the complete
-workflow from data file reading through blank correction to final NCC calculation and output.
-
-Key Components:
-- HeResults: Main class for processing and analyzing helium isotope measurement data
-- singlefilereader: Function for reading and parsing individual measurement data files
-- linbestfit: Linear regression analysis function for isotope ratio calculations
-
-The module supports:
-- Reading and parsing helium measurement data files from various sources
-- Blank correction calculations and statistical analysis
-- Linear regression fitting for He3/He4 isotope ratios
-- NCC (Noble Gas Concentration) calculations with error propagation
-- Automated file output generation for processed results
-- Quality control and data validation throughout the analysis pipeline
 
 <a id="host_commands.requests"></a>
 
