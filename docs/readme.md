@@ -9,7 +9,7 @@ This document contains the documentation for all the modules in this project.
 
 
 [about_form](./about_form.md)  
-About Dialog
+About Dialog UI
 
 [alertmessage](./alertmessage.md)  
 Alert Message Module
@@ -69,25 +69,21 @@ Database upgrader
 Author: Gary Twinn
 
 [host_commands](./host_commands.md)  
-Noble Gas Concentration Calculator (NCC) Module
+Host Commands Module - Hardware Control Interface
+
+This module provides command functions for controlling various hardware components
+in the PyMS (Python Mass Spectrometry) system. It includes functions for:
+
+- Laser control and power management
+- Valve operations and state changes
+- XY positioning system movement and positioning
+- Communication with hardware controllers
+
+These functions serve as the interface layer between the PyMS application
+and the underlying hardware systems, handling the low-level command protocols
+and hardware-specific communication.
+
 Author: Gary Twinn
-
-This module provides comprehensive functionality for processing helium isotope measurement data
-and calculating noble gas concentrations from mass spectrometry results. It handles the complete
-workflow from data file reading through blank correction to final NCC calculation and output.
-
-Key Components:
-- HeResults: Main class for processing and analyzing helium isotope measurement data
-- singlefilereader: Function for reading and parsing individual measurement data files
-- linbestfit: Linear regression analysis function for isotope ratio calculations
-
-The module supports:
-- Reading and parsing helium measurement data files from various sources
-- Blank correction calculations and statistical analysis
-- Linear regression fitting for He3/He4 isotope ratios
-- NCC (Noble Gas Concentration) calculations with error propagation
-- Automated file output generation for processed results
-- Quality control and data validation throughout the analysis pipeline
 
 [host_queries](./host_queries.md)  
 Hardware Query Interface Module
@@ -240,7 +236,9 @@ The module supports:
 - File output generation for processed results
 
 [ncc_calc_form](./ncc_calc_form.md)  
-NCC Calculation Form
+NCC (Nano Cubic Centimetre) Calculation Form
+Provides a GUI interface for loading, processing, and visualizing NCC data files.
+Includes functionality for statistical analysis, chart generation, and data export.
 Author: Gary Twinn
 
 [new_batch_form](./new_batch_form.md)  
@@ -256,7 +254,7 @@ Settings Viewer form
 Author: Gary Twinn
 
 [simple_batch_form](./simple_batch_form.md)  
-Dialog for a simple batch (used for tesing the Helium line) has a maximum of 5 stepa
+Dialog for a simple batch (used for testing the Helium line) has a maximum of 8 steps
 Author: Gary Twinn
 
 
