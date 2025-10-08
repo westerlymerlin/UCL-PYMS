@@ -61,11 +61,29 @@ def commit_q(description, qshot_qty=10):
     """
     batch.cancel()
     batch.new('simple', description)
-    batch.addstep('Line Clean','','')
     batch.addstep('Line Blank', '', '')
     counter =0
     for _ in range (qshot_qty):
         batch.addstep('Q-Standard', '', '')
+        counter += 1
+        if counter == 25:
+            batch.addstep('Pump', '', '')
+            batch.addstep('Line Blank', '', '')
+            counter = 0
+    batch.addstep('Line Blank', '', '')
+    batch.save()
+
+def commit_des_pair(description, des_pair_qty=3):
+    """
+    Commits a new batch with a description and a series of Des Q and D shots.
+    """
+    batch.cancel()
+    batch.new('simple', description)
+    batch.addstep('Line Blank', '', '')
+    counter =0
+    for _ in range (des_pair_qty):
+        batch.addstep('Q-Des', '', '')
+        batch.addstep('D-Des-2', '', '')
         counter += 1
         if counter == 20:
             batch.addstep('Pump', '', '')
@@ -74,15 +92,17 @@ def commit_q(description, qshot_qty=10):
     batch.addstep('Line Blank', '', '')
     batch.save()
 
-
 if __name__ == '__main__':
     descriptiontext = input('Enter the test description: ')
-    batch_type = input('Planchet (p) or Qshots (q)? ')
+    batch_type = input('Planchet (p), Qshots (q) or Des pairs (Q-Des followed by D-Des-2) (d)? ')
     if batch_type.lower() == 'q':
         number_of_qshots = int(input('Enter the number of Qshots to run: '))
+        print('New test Qlist created')
+        commit_q(descriptiontext, number_of_qshots)
+    if batch_type.lower() == 'd':
+        number_of_des_pairs = int(input('Enter the number of Des pairs to run: '))
+        print('New test Des pair list created')
+        commit_des_pair(descriptiontext, number_of_des_pairs)
     if len(descriptiontext) > 0 and batch_type.lower() == 'p':
         commit_planchet(descriptiontext)
         print('New test planchet created')
-    elif len(descriptiontext) > 0 and batch_type.lower() == 'q':
-        commit_q(descriptiontext, number_of_qshots)
-        print('New test Qlist created')
