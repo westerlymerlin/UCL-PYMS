@@ -4,7 +4,7 @@
  <class>dialogNewBatch</class>
  <widget class="QDialog" name="dialogNewBatch">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::WindowModality::ApplicationModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -52,7 +52,7 @@
     </rect>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::TabFocus</enum>
+    <enum>Qt::FocusPolicy::TabFocus</enum>
    </property>
    <property name="text">
     <string>Cancel</string>
@@ -84,7 +84,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Simple Batch (up to 8 steps). Allows user to define Line Blanks and Q-Standards as well as samples.</string>
+    <string>Manual Batch. Allows user to define Line Blanks and Q-Standards as well as samples and tests.</string>
    </property>
    <property name="checked">
     <bool>false</bool>

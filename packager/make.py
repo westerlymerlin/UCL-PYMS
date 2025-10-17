@@ -23,28 +23,28 @@ import pyinstaller_versionfile
 import PyInstaller.__main__
 from app_control import VERSION
 
-starttime = datetime.now()
+START_TIME = datetime.now()
 
 print('Starting build for Version: %s' % VERSION)
 
 
 # set version information
-winver = '%s.0' % VERSION
-legal_copyright = '© %s Gary Twinn. All rights reserved.' % str(datetime.now().year)
-company_name = 'Gary Twinn https://github.com/westerlymerlin/'
-product_name = 'Python Mass Spectrometry (PyMS)'
-print('Updating version info in build files to %s' % winver)
+WINDOWS_FORMAT_VERSION = '%s.0' % VERSION
+LEGAL_COPYRIGHT = '© %s TS Technologies. All rights reserved.' % str(datetime.now().year)
+COMPANY_NAME = 'TS Technologies https://github.com/westerlymerlin/'
+PRODUCT_NAME = 'Python Mass Spectrometry (PyMS)'
+print('Updating version info in build files to %s' % WINDOWS_FORMAT_VERSION)
 
 
 pyinstaller_versionfile.create_versionfile(
     output_file="pyms-version.txt",
-    version=winver,
-    company_name=company_name,
+    version=WINDOWS_FORMAT_VERSION,
+    company_name=COMPANY_NAME,
     file_description="PyMS Main application",
     internal_name="PyMS",
-    legal_copyright=legal_copyright,
+    legal_copyright=LEGAL_COPYRIGHT,
     original_filename="PyMS.exe",
-    product_name=product_name,
+    product_name=PRODUCT_NAME,
     translations=[0, 1200]
 )
 print('Finished updating version info in pyms-version.txt')
@@ -52,56 +52,56 @@ print('Finished updating version info in pyms-version.txt')
 
 pyinstaller_versionfile.create_versionfile(
     output_file="ncc-version.txt",
-    version=winver,
-    company_name=company_name,
+    version=WINDOWS_FORMAT_VERSION,
+    company_name=COMPANY_NAME,
     file_description="PyMS Ncc file viewer and calculator",
     internal_name="NccViewer",
-    legal_copyright=legal_copyright,
+    legal_copyright=LEGAL_COPYRIGHT,
     original_filename="NccViewer.exe",
-    product_name=product_name,
+    product_name=PRODUCT_NAME,
     translations=[0, 1200]
 )
 print('Finished updating version info in ncc-version.txt')
 
 pyinstaller_versionfile.create_versionfile(
     output_file="cycle-version.txt",
-    version=winver,
-    company_name=company_name,
+    version=WINDOWS_FORMAT_VERSION,
+    company_name=COMPANY_NAME,
     file_description="PyMS cycle editor",
     internal_name="CycleEditor",
-    legal_copyright=legal_copyright,
+    legal_copyright=LEGAL_COPYRIGHT,
     original_filename="CycleEditor.exe",
-    product_name=product_name,
+    product_name=PRODUCT_NAME,
     translations=[0, 1200]
 )
 print('Finished updating version info in cycle-version.txt')
 
 pyinstaller_versionfile.create_versionfile(
     output_file="testgen-version.txt",
-    version=winver,
-    company_name=company_name,
+    version=WINDOWS_FORMAT_VERSION,
+    company_name=COMPANY_NAME,
     file_description="PyMS test application",
     internal_name="PyMS",
-    legal_copyright=legal_copyright,
+    legal_copyright=LEGAL_COPYRIGHT,
     original_filename="testgen.exe",
-    product_name=product_name,
+    product_name=PRODUCT_NAME,
     translations=[0, 1200]
 )
 print('Finished updating version info in testgen-version.txt')
 
 
 package_data = []
-with open("package.ifp", "r", encoding='utf-8') as packagefile:
-    for line in packagefile:
+with open("package.ifp", "r", encoding='utf-8') as package_file:
+    for line in package_file:
         package_data.append(line)
-packagefile.close()
+package_file.close()
 
-with open("package.ifp", "w", encoding='utf-8') as packagefile:
+with open("package.ifp", "w", encoding='utf-8') as package_file:
     for line in package_data:
         if line[:15] == 'Program version':
             line = 'Program version = %s\n' % VERSION
-        packagefile.write(line)
-packagefile.close()
+        package_file.write(line)
+package_file.close()
 
 
 # run pyinstaller
@@ -116,6 +116,6 @@ shutil.copy('..\\settings.json', '.\\dist\\PyMS')
 shutil.copy('..\\alerts.json', '.\\dist\\PyMS')
 print('copy completed')
 
-print('Starting Installforge')
+print('Starting Install Forge')
 os.system('package.ifp')
-print('make script finished after %s seconds' % (datetime.now() - starttime).seconds)
+print('make script finished after %s seconds' % (datetime.now() - START_TIME).seconds)

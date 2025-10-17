@@ -4,7 +4,7 @@ Author: Gary Twinn
 """
 from PySide6.QtWidgets import QDialog
 from ui.ui_layout_new_batch import Ui_dialogNewBatch
-from ui.simple_batch_form import UiSimpleBatch
+from ui.manual_batch_form import UiManualBatch
 from ui.planchet_form import UiPlanchet
 from batchclass import batch
 from app_control import settings
@@ -18,7 +18,7 @@ class UiBatch(QDialog, Ui_dialogNewBatch):
         self.btnClose.clicked.connect(self.formclose)
         self.btnNew.clicked.connect(self.newbatch)
         self.btnEdit.clicked.connect(self.editbatch)
-        self.simpledialog = None
+        self.manual_dialog = None
         if batch.id == -1:
             self.btnEdit.setVisible(False)
 
@@ -45,28 +45,28 @@ class UiBatch(QDialog, Ui_dialogNewBatch):
         """Create a new simple batch or planchet and close this form"""
         if self.radioNewSimple.isChecked():
             batch.new('simple', '')
-            self.simpledialog = UiSimpleBatch()
-            self.simpledialog.setModal(True)
-            self.simpledialog.startup()
-            self.simpledialog.show()
+            self.manual_dialog = UiManualBatch()
+            self.manual_dialog.setModal(True)
+            self.manual_dialog.startup()
+            self.manual_dialog.show()
         else:
             batch.new('planchet', '')
-            self.simpledialog = UiPlanchet()
-            self.simpledialog.setModal(True)
-            self.simpledialog.startup()
-            self.simpledialog.show()
+            self.manual_dialog = UiPlanchet()
+            self.manual_dialog.setModal(True)
+            self.manual_dialog.startup()
+            self.manual_dialog.show()
         self.close()
 
     def editbatch(self):
         """Open the simple batch or planchet for editing and close this form"""
         if self.radioNewSimple.isChecked():
-            self.simpledialog = UiSimpleBatch()
-            self.simpledialog.setModal(True)
-            self.simpledialog.startup()
-            self.simpledialog.show()
+            self.manual_dialog = UiManualBatch()
+            self.manual_dialog.setModal(True)
+            self.manual_dialog.startup()
+            self.manual_dialog.show()
         else:
-            self.simpledialog = UiPlanchet()
-            self.simpledialog.setModal(True)
-            self.simpledialog.startup()
-            self.simpledialog.show()
+            self.manual_dialog = UiPlanchet()
+            self.manual_dialog.setModal(True)
+            self.manual_dialog.startup()
+            self.manual_dialog.show()
         self.close()

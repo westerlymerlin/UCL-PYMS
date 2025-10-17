@@ -7,7 +7,7 @@ calculating a file name and removing illegal character.
 import json
 import datetime
 
-VERSION = '3.2.38'
+VERSION = '3.3.0'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -124,7 +124,7 @@ def initialise():
             "x": 600,
             "y": 100
         },
-        "simplebatchform": {
+        "manualbatchform": {
             "x": 600,
             "y": 100
         },
