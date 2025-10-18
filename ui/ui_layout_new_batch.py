@@ -23,7 +23,7 @@ class Ui_dialogNewBatch(object):
     def setupUi(self, dialogNewBatch):
         if not dialogNewBatch.objectName():
             dialogNewBatch.setObjectName(u"dialogNewBatch")
-        dialogNewBatch.setWindowModality(Qt.ApplicationModal)
+        dialogNewBatch.setWindowModality(Qt.WindowModality.ApplicationModal)
         dialogNewBatch.resize(970, 200)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -39,7 +39,7 @@ class Ui_dialogNewBatch(object):
         self.btnClose = QPushButton(dialogNewBatch)
         self.btnClose.setObjectName(u"btnClose")
         self.btnClose.setGeometry(QRect(880, 170, 75, 23))
-        self.btnClose.setFocusPolicy(Qt.TabFocus)
+        self.btnClose.setFocusPolicy(Qt.FocusPolicy.TabFocus)
         self.btnNew = QPushButton(dialogNewBatch)
         self.btnNew.setObjectName(u"btnNew")
         self.btnNew.setGeometry(QRect(790, 170, 75, 23))
@@ -83,7 +83,7 @@ class Ui_dialogNewBatch(object):
         self.btnNew.setToolTip(QCoreApplication.translate("dialogNewBatch", u"create a new batch (will discard the current batch)", None))
 #endif // QT_CONFIG(tooltip)
         self.btnNew.setText(QCoreApplication.translate("dialogNewBatch", u"New", None))
-        self.radioNewSimple.setText(QCoreApplication.translate("dialogNewBatch", u"Simple Batch (up to 8 steps). Allows user to define Line Blanks and Q-Standards as well as samples.", None))
+        self.radioNewSimple.setText(QCoreApplication.translate("dialogNewBatch", u"Manual Batch. Allows user to define Line Blanks and Q-Standards as well as samples and tests.", None))
         self.radioNewPlanchet.setText(QCoreApplication.translate("dialogNewBatch", u"New Planchet. Allows the definition of each sample within a planchet, automatilally adds Line Blanks and Q-Standards. ", None))
 #if QT_CONFIG(tooltip)
         self.btnEdit.setToolTip(QCoreApplication.translate("dialogNewBatch", u"Edit the current batch", None))
