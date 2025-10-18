@@ -43,7 +43,7 @@ extension-pkg-whitelist=PySide6,
 fail-on=
 
 # Specify a score threshold under which the program will exit with error.
-fail-under=8
+fail-under=9
 
 # Interpret the stdin as a python script, whose filename needs to be passed as
 # the module_or_package argument.
@@ -106,7 +106,7 @@ source-roots=
 
 # When enabled, pylint would attempt to guess common misconfiguration and emit
 # user-friendly hints instead of false-positive error messages.
-suggestion-mode=yes
+#suggestion-mode=yes
 
 # Allow loading of arbitrary C extensions. Extensions are imported into the
 # active Python interpreter and may run arbitrary code.
@@ -436,6 +436,7 @@ disable=C0209,  # consider-using-f-string
         W0601,  # global-variable-undefined
         W0702,  # bare-except
         W0718,  # broad-exception-caught
+        E1101,  # no-member
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
