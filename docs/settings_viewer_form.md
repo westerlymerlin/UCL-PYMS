@@ -4,12 +4,9 @@
 
 # settings\_viewer\_form
 
-Settings Viewer form
+Settings viewer / editor form. allows user to edit setting values manually. settings are then saves in the
+settings.json file
 Author: Gary Twinn
-
-<a id="settings_viewer_form.sys"></a>
-
-## sys
 
 <a id="settings_viewer_form.QDialog"></a>
 
@@ -26,10 +23,6 @@ Author: Gary Twinn
 <a id="settings_viewer_form.QTableWidgetItem"></a>
 
 ## QTableWidgetItem
-
-<a id="settings_viewer_form.QApplication"></a>
-
-## QApplication
 
 <a id="settings_viewer_form.Qt"></a>
 
