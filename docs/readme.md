@@ -179,6 +179,10 @@ Author: Gary Twinn
 Main Helium line form - graphical output of the Heliumline state and timers for running samples
 Author: Gary Twinn
 
+[manual_batch_form](./manual_batch_form.md)  
+Dialog for a Manual batch (used for testing the Helium line) has a default of 8 steps but more can be added
+Author: Gary Twinn
+
 [manual_xy_form](./manual_xy_form.md)  
 Manual XY-Form
 Author: Gary Twinn
@@ -203,15 +207,6 @@ Key Features:
 - File-based result storage with customizable output formats
 - Network communication for equipment control
 - Comprehensive error handling and recovery
-
-Attributes:
-    host (str): Network host address for equipment communication
-    port (int): Network port for equipment communication
-    timeoutseconds (int): Timeout duration for operations
-    timeoutretries (int): Number of retry attempts on timeout
-    running (bool): Current execution state
-    processing (bool): Data processing state
-    batchid (int): Current batch identifier
 
 Author: Gary Twinn
 
@@ -250,11 +245,8 @@ Planchet entry form
 Author: Gary Twinn
 
 [settings_viewer_form](./settings_viewer_form.md)  
-Settings Viewer form
-Author: Gary Twinn
-
-[simple_batch_form](./simple_batch_form.md)  
-Dialog for a simple batch (used for testing the Helium line) has a maximum of 8 steps
+Settings viewer / editor form. allows user to edit setting values manually. settings are then saves in the
+settings.json file
 Author: Gary Twinn
 
 
