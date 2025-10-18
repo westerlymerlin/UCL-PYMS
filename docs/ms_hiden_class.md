@@ -24,15 +24,6 @@ Key Features:
 - Network communication for equipment control
 - Comprehensive error handling and recovery
 
-Attributes:
-    host (str): Network host address for equipment communication
-    port (int): Network port for equipment communication
-    timeoutseconds (int): Timeout duration for operations
-    timeoutretries (int): Number of retry attempts on timeout
-    running (bool): Current execution state
-    processing (bool): Data processing state
-    batchid (int): Current batch identifier
-
 Author: Gary Twinn
 
 <a id="ms_hiden_class.socket"></a>

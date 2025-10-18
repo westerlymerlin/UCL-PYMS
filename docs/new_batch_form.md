@@ -15,9 +15,9 @@ Author: Gary Twinn
 
 ## Ui\_dialogNewBatch
 
-<a id="new_batch_form.UiSimpleBatch"></a>
+<a id="new_batch_form.UiManualBatch"></a>
 
-## UiSimpleBatch
+## UiManualBatch
 
 <a id="new_batch_form.UiPlanchet"></a>
 
