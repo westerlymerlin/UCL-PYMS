@@ -1,72 +1,79 @@
 """
-Alert Message Module
+Provides functionality to send emails using the Microsoft Graph API.
 
-This module provides functionality to send alert notifications via email using
-SMTP and Office 365 authentication. It reads configuration from 'alerts.json'
-and supports sending customized alert messages to multiple recipients.
+This module defines a function that sends an email through the Microsoft Graph API by authenticating
+via Microsoft Authentication Library (MSAL). It uses OAuth2-based client authentication and constructs
+an email payload dynamically based on input data. The email can include sender, recipient, subject, and
+message body details. Logs and errors are appropriately recorded.
 
-Features:
-- Secure authentication using base64 encoded Office 365 credentials
-- Configurable SMTP settings, subjects, and message templates
-- Logging of alert delivery status
-- Support for multiple recipients
-
-Usage:
-    from alertmessage import alert
-
-    # Send a custom alert message
-    alert("Critical error in data processing module")
-
-Configuration:
-    Requires 'alerts.json' file with the following structure:
-    {
-        "SMTPServer": "smtp.office365.com",
-        "SMTPPort": 587,
-        "O365Sender": "alerts@example.com",
-        "O365From": "alerts@example.com",
-        "O365Key": "<base64-encoded-username-and-password>",
-        "Subject": "System Alert",
-        "Message": "The following alert was triggered:",
-        "Recipients": ["admin@example.com", "manager@example.com"]
-    }
-
-Author: Gary Twinn
 """
-import smtplib
-import json
-import base64
+
+import msal
+import requests
 from logmanager import logger
+from app_control import settings, SECRETS
 
 
 def alert(body):
     """
-    Sends an alert through email by loading configuration information from a JSON file,
-    formatting the message content, and sending the email to specified recipients.
+    Sends an email using Microsoft Graph API based on the provided email payload.
 
-    Parameters
-    ----------
-    body : str
-        The custom message content to be included in the body of the alert email.
-
-    Raises
-    ------
-    FileNotFoundError
-        If the 'alerts.json' configuration file does not exist.
-    JSONDecodeError
-        If there is an error parsing the 'alerts.json' file.
-    SMTPException
-        If an error occurs while connecting to or interacting with the SMTP server.
+    This function utilises the MSAL library to authenticate using client credentials
+    and obtain an OAuth2 token, which is used to send the email through the API.
+    Email details such as the subject, body, sender, and recipient are customised
+    based on the input data.
     """
-    with open('alerts.json', 'r', encoding='utf-8') as json_file:
-        alertsettings = json.load(json_file)
-    for recipient in alertsettings['Recipients']:
-        message = 'From: ' + alertsettings['O365Sender'] + '\nTo:%s\nSubject: PyMS Alert : %s\n\n%s\n%s\n' \
-                  % (recipient, alertsettings['Subject'], alertsettings['Message'], body)
-        mailserver = smtplib.SMTP(alertsettings['SMTPServer'], alertsettings['SMTPPort'])
-        mailserver.ehlo()
-        mailserver.starttls()
-        o365_key = str(base64.b64decode(alertsettings['O365Key']), 'UTF-8').split(' ')
-        mailserver.login(o365_key[0], o365_key[1])
-        mailserver.sendmail(alertsettings['O365From'], recipient, message)
-        mailserver.quit()
-        logger.info('Alert sent to %s', recipient)
+    if len(settings['email_recipients']) == 0:
+        return
+
+    client_id = SECRETS['email_client_id']
+    tenant_id = SECRETS['email_tenant_id']
+    client_secret = SECRETS['email_client_secret']
+    message_body ='PyMS - Alert has activated\n\n%s ' % body
+    subject = 'PyMS Alert'
+
+    recipients = []
+    for recipient in settings['email_recipients'].split(';'):
+        recipients.append({'emailAddress': {'address': recipient.strip()}})
+
+    email_data = {
+        "message": {
+            "subject": subject,
+            "body": {
+                "contentType": "Text",
+                "content": message_body
+            },
+            "toRecipients": recipients
+        },
+        "saveToSentItems": "false"
+    }
+
+    # Initialize MSAL Confidential Client
+    app = msal.ConfidentialClientApplication(
+        client_id,
+        authority=f"https://login.microsoftonline.com/{tenant_id}",
+        client_credential=client_secret
+    )
+
+    # Acquire token for the Service Principal
+    result = app.acquire_token_for_client(scopes=["https://graph.microsoft.com/.default"])
+    if "access_token" not in result:
+        logger.error("Error acquiring token: %s", result.get('error_description'))
+        return False
+    access_token = result['access_token']
+
+    # Send the Request
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json'
+    }
+    response = requests.post(f"https://graph.microsoft.com/v1.0/users/{SECRETS['email_account']}/sendMail",
+                             headers=headers, json=email_data, timeout=10)
+
+    if response.status_code == 202:
+        logger.info("Alert email sent successfully!")
+        return True
+
+    logger.error("Failed to send alert email: %s", response.status_code)
+    print(response.json())
+    return False

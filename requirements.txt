@@ -11,4 +11,5 @@ pip
 numpy
 six
 image
+msal
 

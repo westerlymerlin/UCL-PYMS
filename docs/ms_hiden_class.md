@@ -42,9 +42,9 @@ Author: Gary Twinn
 
 ## threading
 
-<a id="ms_hiden_class.time"></a>
+<a id="ms_hiden_class.sleep"></a>
 
-## time
+## sleep
 
 <a id="ms_hiden_class.sqlite3"></a>
 

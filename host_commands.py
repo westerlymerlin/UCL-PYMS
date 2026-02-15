@@ -18,7 +18,7 @@ Author: Gary Twinn
 """
 import requests
 from logmanager import logger
-from app_control import settings, alarms
+from app_control import settings, alarms, SECRETS
 
 
 def lasercommand(state):
@@ -40,10 +40,10 @@ def lasercommand(state):
     requests.RequestException: For general request-related errors.
     """
     message = {"item": 'laser', "command": state}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['laserhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         logger.info('host_commands: Setting Laser to %s', state)
         json_message = resp.json()
         alarms['laserhost'] = 0
@@ -78,10 +78,10 @@ def lasersetpower(power):
         indicating a timeout or exception.
     """
     message = {"item": 'setlaserpower', "command": power}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['laserhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         logger.info('host_commands: Setting laser power to %s', settings['laser']['power'])
         json_message = resp.json()
         alarms['laserhost'] = 0
@@ -123,10 +123,10 @@ def valvechange(valve, command):
     elif command == 0:
         command = 'close'
     message = {"item": valve, "command": command}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['valvehost-api-key']}
     try:
         resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         logger.info('host_commands: %s changed to %s', valve, command)
         alarms['valvehost'] = 0
@@ -165,10 +165,10 @@ def xymoveto(axis, location):
         other reasons.
     """
     message = {'item': '%smoveto' % axis, "command": location}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['xyhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message
@@ -204,10 +204,10 @@ def xymove(axis, steps):
         requests.RequestException: If a general request error occurs.
     """
     message = {'item': '%smove' % axis, "command": steps}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['xyhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message

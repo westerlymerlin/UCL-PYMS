@@ -27,7 +27,7 @@ import socket
 from datetime import datetime
 import os
 import threading
-import time
+from time import sleep
 import sqlite3
 from app_control import settings, writesettings, friendlydirname, alarms
 from ncc_calc import linbestfit
@@ -89,6 +89,7 @@ class MsClass:
         self.multiplier = 1 / settings['MassSpec']['multiplier']
         self.timeoutretries = settings['MassSpec']['timeoutretries']
         self.timeoutseconds = settings['MassSpec']['timeoutseconds']
+        self.socket_wait = settings['MassSpec']['socket_wait']
         self.resetclass()
         self.time = []
         self.m1 = []
@@ -166,7 +167,7 @@ class MsClass:
     def check_quad_is_online(self):
         """Self test to check the quad is online and ready"""
         if self.processing:
-            return 'Proessing'
+            return 'Processing'
         try:
             s = socket.create_connection((self.host, self.port), self.timeoutseconds)
             s.recv(1024).decode()
@@ -199,16 +200,16 @@ class MsClass:
             try:
                 self.socketreturn = s.recv(1024).decode()
             except socket.timeout:
-                time.sleep(4)
+                sleep(4)
                 self.socketreturn = s.recv(1024).decode()
             s.send(bytes('-xFilename \r\n', 'utf-8'))
             runningfile = s.recv(1024).decode()
             logger.info('Start MID loaded file - %s', runningfile)
-            time.sleep(1)
+            sleep(1)
             s.send(bytes('-xGo %s \r\n' % self.runfile, 'utf-8'))
-            time.sleep(.5)
+            sleep(.5)
             # self.socketreturn = s.recv(1024).decode()
-            time.sleep(2)
+            sleep(2)
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
             logger.debug('Run file status = %s', status)
@@ -231,15 +232,15 @@ class MsClass:
             try:
                 self.socketreturn = s.recv(1024).decode()
             except socket.timeout:
-                time.sleep(4)
+                sleep(4)
                 self.socketreturn = s.recv(1024).decode()
             s.send(bytes('-xFilename \r\n', 'utf-8'))
             runningfile = s.recv(1024).decode()
             logger.info('Start profile loaded file - %s', runningfile)
-            time.sleep(1)
+            sleep(1)
             s.send(bytes('-xGo %s \r\n' % self.runfile, 'utf-8'))
             # self.socketreturn = s.recv(1024).decode()
-            time.sleep(2)
+            sleep(2)
             s.send(bytes('-xStatus \r\n', 'utf-8'))
             status = s.recv(1024).decode()
             logger.debug('Run file status = %s', status)
@@ -255,7 +256,8 @@ class MsClass:
             s = socket.create_connection((self.host, self.port), self.timeoutseconds)
             self.socketreturn = s.recv(1024).decode()
             s.send(bytes('-lData -v1 -c50 -t1 -m1 \r\n', 'utf-8'))
-            sdata = s.recv(16385).decode()
+            sleep(self.socket_wait) # wait before reading from buffer as there could be a large amount of data
+            sdata = s.recv(16385).decode(encoding='utf-8')
             s.close()
             outputdata = []
             for item in sdata.split('\r\n'):
@@ -306,12 +308,12 @@ class MsClass:
         logger.info('msHiden - Stopping Hiden')
         s.send(bytes('-f"%s" \r\n' % self.runfile, 'utf-8'))
         self.socketreturn = s.recv(1024).decode()
-        time.sleep(2)
+        sleep(2)
         s.send(bytes('-xAbort \r\n', 'utf-8'))
-        time.sleep(2)
+        sleep(2)
         self.socketreturn = s.recv(1024).decode()
         s.send(bytes('-xClose \r\n', 'utf-8'))
-        time.sleep(2)
+        sleep(2)
         self.socketreturn = s.recv(1024).decode()
         s.close()
         self.processing = 0
@@ -342,9 +344,8 @@ class MsClass:
             if status[:-2] in ('StoppedShutDown', 'Protected', 'Available'):
                 alarms['hidenhost'] = 0
                 return 1
-            else:
-                alarms['hidenhost'] = 11
-                return 0
+            alarms['hidenhost'] = 11
+            return 0
         except:
             alarms['hidenhost'] = 12
             return 0
@@ -386,7 +387,7 @@ class MsClass:
             else:
                 line = self.identifier + '@'
             outfile = open(filename, 'w', encoding='utf-8')
-            logger.debug('mshiden: openng filepath = %s', filename)
+            logger.debug('mshiden: opening filepath = %s', filename)
             for i in range(0, len(self.time)):
                 line = line + '%s\t%s\t%s\t%s\t%s\t%s\t%s' % (
                     self.time[i], self.m1[i], self.m3[i], self.m4[i], self.m5[i], self.m40[i], self.m6[i])
@@ -438,4 +439,8 @@ ms = MsClass()
 
 if __name__ == '__main__':
     print('Starting ms class')
-    print("ms.starttimer('Line Blank', 'Line Blank', 'manual test', 272, 3486)")
+    # ms.starttimer('Line Blank', 'Line Blank', 'manual test', 272, 3486)
+    linecounter = 0
+    for line in ms.getdata():
+        linecounter += 1
+        print('line %s = %s' % (linecounter, line))
