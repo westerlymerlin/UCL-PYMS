@@ -4,7 +4,9 @@ has appeared it will creat from the defaults in the initialise function. Has glo
 calculating a file name and removing illegal character.
 """
 
+from shutil import copyfile
 import json
+from base64 import b64decode, b64encode
 import datetime
 
 VERSION = '3.3.0'
@@ -41,6 +43,7 @@ def initialise():
     isettings = {
         "LastSave": "01/01/1900 01:00:00",
         "app-name": "UCL PyMs",
+        "email_recipients": "",
         "MassSpec": {
             "HD/H": 0.01,
             "datadirectory": "C:\\Users\\UCL Helium Line\\Documents\\Helium Line Data\\",
@@ -53,7 +56,8 @@ def initialise():
             "nextH": "HE19096R",
             "nextQ": 4500,
             "timeoutretries": 5,
-            "timeoutseconds": 0.5
+            "timeoutseconds": 1.0,
+            "socket_wait": 0.5
         },
         "Ncc": {
             "HD_H": 0.01,
@@ -77,14 +81,10 @@ def initialise():
             "resultsdatabasepath": ".\\database\\HeliumResults.db"
         },
         "hosts": {
-            "laserhost": "http://192.168.2.6/api",
-            "laserhost-api-key": "changeme",
-            "pumphost": "http://192.168.2.5/api",
-            "pumphost-api-key": "changeme",
-            "valvehost": "http://192.168.2.3/api",
-            "valvehost-api-key": "changeme",
-            "xyhost": "http://192.168.2.4/api",
-            "xyhost-api-key": "changeme",
+            "laserhost": "https://192.168.2.6/api",
+            "pumphost": "https://192.168.2.5/api",
+            "valvehost": "https://192.168.2.3/api",
+            "xyhost": "https://192.168.2.4/api",
             "timeoutseconds": 1
         },
         "image": {
@@ -196,6 +196,38 @@ def loadsettings():
             except KeyError:
                 print('settings[%s] Not found in json file using default' % item)
 
+def load_secrets():
+    """
+    Load secrets from a file and decode them.
 
+    This function reads a file named 'SECRETS', decodes its contents using Base64,
+    and then parses the resulting JSON. It is used to securely retrieve stored
+    configuration or sensitive data. The file is expected to contain secrets
+    encoded in a specific format.
+    """
+    try:
+        with open('SECRETS', 'r', encoding='utf-8') as s_file:
+            raw_secrets = s_file.read()
+        s_file.close()
+        return json.loads(b64decode(raw_secrets))
+    except FileNotFoundError:
+        print('SECRETS file not found - using empty secrets')
+        return {}
+
+def update_secret(key, value):
+    """
+    Updates the secret storage by adding or updating a key-value pair. The method also creates a
+    backup of the existing storage file before writing the updated encoded secrets back to the file.
+    """
+    global SECRETS
+    SECRETS[key] = value
+    new_secret = b64encode(json.dumps(SECRETS).encode('utf-8')).decode('utf-8')
+    copyfile('SECRETS', 'SECRETS.bak')
+    with open('SECRETS', 'w', encoding='utf-8') as s_file:
+        s_file.write(new_secret)
+    s_file.close()
+
+
+SECRETS = load_secrets()
 settings = initialise()
 loadsettings()
