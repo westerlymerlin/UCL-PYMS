@@ -22,7 +22,7 @@ This module works in conjunction with host_commands.py to provide complete hardw
 interface functionality for the mass spectrometry automation system.
 """
 import requests
-from app_control import settings, alarms
+from app_control import settings, alarms, SECRETS
 from logmanager import logger
 
 
@@ -45,11 +45,11 @@ def lasergetalarm():
         request to the laser host API.
     """
     message = {"item": 'laseralarm', "command": 1}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['laserhost-api-key']}
     logger.debug('host_queries: get laser alarm')
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         alarms['laserhost'] = 0
         logger.debug('host_queries: Laser alarm responce = %s', resp.json())
@@ -83,10 +83,10 @@ def lasergetstatus():
         RequestException: For issues such as connection errors or invalid responses.
     """
     message = {"item": 'laserstatus', "command": 1}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['laserhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['laserhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['laserhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         alarms['laserhost'] = 0
         return json_message
@@ -126,11 +126,11 @@ def valvegetstatus():
           logging and alarm tracking purposes.
     """
     message = {"item": 'getstatus', "command": True}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['valvehost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['valvehost-api-key']}
     statusmessage = [0] * 16
     try:
         resp = requests.post(settings['hosts']['valvehost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         alarms['valvehost'] = 0
         for item in json_message:
@@ -167,10 +167,10 @@ def pressuresread():
         In case of an exception, returns a dictionary with exception details.
     """
     message = {"item": 'getpressures', "command": True}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['pumphost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['pumphost-api-key']}
     try:
         resp = requests.post(settings['hosts']['pumphost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         settings['vacuum']['turbo']['current'] = float(json_message[0]['pressure'])
         settings['vacuum']['turbo']['units'] = json_message[0]['units']
@@ -211,10 +211,10 @@ def xyread():
         requests.RequestException: For other request-related exceptions.
     """
     message = {"item": 'getxystatus', "command": True}
-    headers = {"Accept": "application/json", "api-key": settings['hosts']['xyhost-api-key']}
+    headers = {"Accept": "application/json", "api-key": SECRETS['xyhost-api-key']}
     try:
         resp = requests.post(settings['hosts']['xyhost'], headers=headers, json=message,
-                             timeout=settings['hosts']['timeoutseconds'])
+                             timeout=settings['hosts']['timeoutseconds'], verify='cacerts')
         json_message = resp.json()
         alarms['xyhost'] = 0
         return json_message
