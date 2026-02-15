@@ -36,6 +36,10 @@ Author: Gary Twinn
 
 ## alarms
 
+<a id="host_commands.SECRETS"></a>
+
+## SECRETS
+
 <a id="host_commands.lasercommand"></a>
 
 #### lasercommand

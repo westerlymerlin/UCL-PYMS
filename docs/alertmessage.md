@@ -4,54 +4,32 @@
 
 # alertmessage
 
-Alert Message Module
+Provides functionality to send emails using the Microsoft Graph API.
 
-This module provides functionality to send alert notifications via email using
-SMTP and Office 365 authentication. It reads configuration from 'alerts.json'
-and supports sending customized alert messages to multiple recipients.
+This module defines a function that sends an email through the Microsoft Graph API by authenticating
+via Microsoft Authentication Library (MSAL). It uses OAuth2-based client authentication and constructs
+an email payload dynamically based on input data. The email can include sender, recipient, subject, and
+message body details. Logs and errors are appropriately recorded.
 
-Features:
-- Secure authentication using base64 encoded Office 365 credentials
-- Configurable SMTP settings, subjects, and message templates
-- Logging of alert delivery status
-- Support for multiple recipients
+<a id="alertmessage.msal"></a>
 
-Usage:
-    from alertmessage import alert
+## msal
 
-    # Send a custom alert message
-    alert("Critical error in data processing module")
+<a id="alertmessage.requests"></a>
 
-Configuration:
-    Requires 'alerts.json' file with the following structure:
-    {
-        "SMTPServer": "smtp.office365.com",
-        "SMTPPort": 587,
-        "O365Sender": "alerts@example.com",
-        "O365From": "alerts@example.com",
-        "O365Key": "<base64-encoded-username-and-password>",
-        "Subject": "System Alert",
-        "Message": "The following alert was triggered:",
-        "Recipients": ["admin@example.com", "manager@example.com"]
-    }
-
-Author: Gary Twinn
-
-<a id="alertmessage.smtplib"></a>
-
-## smtplib
-
-<a id="alertmessage.json"></a>
-
-## json
-
-<a id="alertmessage.base64"></a>
-
-## base64
+## requests
 
 <a id="alertmessage.logger"></a>
 
 ## logger
+
+<a id="alertmessage.settings"></a>
+
+## settings
+
+<a id="alertmessage.SECRETS"></a>
+
+## SECRETS
 
 <a id="alertmessage.alert"></a>
 
@@ -61,20 +39,10 @@ Author: Gary Twinn
 def alert(body)
 ```
 
-Sends an alert through email by loading configuration information from a JSON file,
-formatting the message content, and sending the email to specified recipients.
+Sends an email using Microsoft Graph API based on the provided email payload.
 
-Parameters
-----------
-body : str
-    The custom message content to be included in the body of the alert email.
-
-Raises
-------
-FileNotFoundError
-    If the 'alerts.json' configuration file does not exist.
-JSONDecodeError
-    If there is an error parsing the 'alerts.json' file.
-SMTPException
-    If an error occurs while connecting to or interacting with the SMTP server.
+This function utilises the MSAL library to authenticate using client credentials
+and obtain an OAuth2 token, which is used to send the email through the API.
+Email details such as the subject, body, sender, and recipient are customised
+based on the input data.
 

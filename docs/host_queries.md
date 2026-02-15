@@ -38,6 +38,10 @@ interface functionality for the mass spectrometry automation system.
 
 ## alarms
 
+<a id="host_queries.SECRETS"></a>
+
+## SECRETS
+
 <a id="host_queries.logger"></a>
 
 ## logger
