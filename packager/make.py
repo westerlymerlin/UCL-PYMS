@@ -16,7 +16,7 @@ Usage:
 """
 
 
-import os
+import subprocess
 import shutil
 from datetime import datetime
 import pyinstaller_versionfile
@@ -27,7 +27,8 @@ START_TIME = datetime.now()
 
 print('Starting build for Version: %s' % VERSION)
 
-
+# Install Forge executable for windows setup build
+INSTALL_FORGE_EXECUTABLE = 'C:\\Program Files (x86)\\solicus\\InstallForge\\bin\\ifbuildx86.exe'
 # set version information
 WINDOWS_FORMAT_VERSION = '%s.0' % VERSION
 LEGAL_COPYRIGHT = '© %s TS Technologies. All rights reserved.' % str(datetime.now().year)
@@ -96,12 +97,12 @@ with open("package.ifp", "r", encoding='utf-8') as package_file:
         package_data.append(line)
 package_file.close()
 
-with open("package.ifp", "w", encoding='utf-8') as package_file:
+with open("package.ifp", "w", encoding='utf-8') as packagefile:
     for line in package_data:
-        if line[:15] == 'Program version':
-            line = 'Program version = %s\n' % VERSION
-        package_file.write(line)
-package_file.close()
+        if line[:13] == '    <Version>':
+            line = '    <Version>%s</Version>\n' % VERSION
+        packagefile.write(line)
+packagefile.close()
 
 
 # run pyinstaller
@@ -113,9 +114,10 @@ print('Pyinstaller Completed')
 
 print('copying json files for testing')
 shutil.copy('..\\settings.json', '.\\dist\\PyMS')
-shutil.copy('..\\alerts.json', '.\\dist\\PyMS')
+shutil.copy('..\\SECRETS', '.\\dist\\PyMS')
 print('copy completed')
 
-print('Starting Install Forge')
-os.system('package.ifp')
+print('Starting Install forge')
+subprocess.call(INSTALL_FORGE_EXECUTABLE + ' -i "package.ifp" -o "..\\distribution\\PyMS-installer.exe"')
+
 print('make script finished after %s seconds' % (datetime.now() - START_TIME).seconds)
