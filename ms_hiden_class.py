@@ -167,7 +167,7 @@ class MsClass:
     def check_quad_is_online(self):
         """Self test to check the quad is online and ready"""
         if self.processing:
-            return 'Proessing'
+            return 'Processing'
         try:
             s = socket.create_connection((self.host, self.port), self.timeoutseconds)
             s.recv(1024).decode()
