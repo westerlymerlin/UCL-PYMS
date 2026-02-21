@@ -72,8 +72,11 @@ UI Form for Editing Cycles
 Author: Gary Twinn
 
 [cycleclass](./cycleclass.md)  
-Cycle Class
-Author: Gary Twinn
+Module for managing and manipulating cycle information in a system.
+
+This module defines the `CycleClass`, which represents a cycle and provides functionality for
+retrieving and setting cycle information, as well as managing the steps within a cycle. The cycle
+information is loaded from a database, and the class includes methods to query and process cycle data.
 
 [datadumpfixer](./datadumpfixer.md)  
 Imports data from a datatdump file and genertes a helium file and updates the database
