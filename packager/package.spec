@@ -136,6 +136,39 @@ testgen_exe = EXE(
     entitlements_file=None,
 )
 
+dbupgrader_a = Analysis(
+    ['..\\dbupgrader.py'],
+    pathex=[],
+    binaries=[],
+    datas=[],
+    hiddenimports=[],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
+    noarchive=False,
+)
+
+dbupgrader_pyz = PYZ(dbupgrader_a.pure)
+
+dbupgrader_exe = EXE(
+    dbupgrader_pyz,
+    dbupgrader_a.scripts,
+    exclude_binaries=True,
+    name='dbupgrader',
+    icon='..\\UI Resources\\iconPython.ico',
+    version='.\\dbupgrader-version.txt',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    console=True,
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
+)
 
 coll = COLLECT(
     pyms_exe,
@@ -150,6 +183,9 @@ coll = COLLECT(
     testgen_exe,
     testgen_a.binaries,
     testgen_a.datas,
+    dbupgrader_exe,
+    dbupgrader_a.binaries,
+    dbupgrader_a.datas,
     strip=False,
     upx=True,
     upx_exclude=[],

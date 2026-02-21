@@ -222,3 +222,5 @@ settings.json
 /packager/pyms-version.txt
 /packager/testgen-version.txt
 /packager/pyinstaller.log
+/packager/dbupdater-version.txt
+/packager/dbupgrader-version.txt

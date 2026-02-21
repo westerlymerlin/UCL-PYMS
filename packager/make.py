@@ -90,6 +90,18 @@ pyinstaller_versionfile.create_versionfile(
 )
 print('Finished updating version info in testgen-version.txt')
 
+pyinstaller_versionfile.create_versionfile(
+    output_file="dbupgrader-version.txt",
+    version=WINDOWS_FORMAT_VERSION,
+    company_name=COMPANY_NAME,
+    file_description="PyMS database upgrade application",
+    internal_name="PyMS",
+    legal_copyright=LEGAL_COPYRIGHT,
+    original_filename="dbupgrader.exe",
+    product_name=PRODUCT_NAME,
+    translations=[0, 1200]
+)
+print('Finished updating version info in dbupgrader-version.txt')
 
 package_data = []
 with open("package.ifp", "r", encoding='utf-8') as package_file:
