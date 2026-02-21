@@ -9,13 +9,19 @@ import json
 from base64 import b64decode, b64encode
 import datetime
 
-VERSION = '3.3.1'
+VERSION = '3.3.2'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
 
 def friendlydirname(sourcename: str) -> str:
-    """Removes invalid characters from file names"""
+    """
+    Transforms a given string into a filesystem-friendly directory name.
+
+    This function modifies the input string by replacing invalid characters with a dash ('-')
+    to ensure the string adheres to naming conventions suitable for directory/file storage.
+    It also removes consecutive dashes created as a result of replacing invalid characters.
+    """
     invalid_chars = ['/', '\\', ':', '*', '?', '<', '>', '"', '&', '%', '#', '$', "'", ',']
     for invalid_char in invalid_chars:
         sourcename = sourcename.replace(invalid_char, '-')
