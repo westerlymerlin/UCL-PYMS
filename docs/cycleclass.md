@@ -4,8 +4,11 @@
 
 # cycleclass
 
-Cycle Class
-Author: Gary Twinn
+Module for managing and manipulating cycle information in a system.
+
+This module defines the `CycleClass`, which represents a cycle and provides functionality for
+retrieving and setting cycle information, as well as managing the steps within a cycle. The cycle
+information is loaded from a database, and the class includes methods to query and process cycle data.
 
 <a id="cycleclass.sqlite3"></a>
 
@@ -73,7 +76,14 @@ def __init__()
 def readdatabase()
 ```
 
-Get the list of enabled cycles from the database
+Reads data from the configured database and updates the instance with retrieved records.
+
+The method performs the following operations:
+1. Connects to the database using the specified configuration.
+2. Retrieves a list of enabled cycles from the 'cycles' table and updates the internal cycles list.
+3. Identifies cycles marked as samples and adds them to the internal samples list.
+4. Retrieves all entries from the 'locations' table and updates the internal locations list.
+5. Closes the database connection after all operations are complete.
 
 <a id="cycleclass.CycleClass.setcycle"></a>
 
@@ -83,7 +93,10 @@ Get the list of enabled cycles from the database
 def setcycle(name)
 ```
 
-Set the current cycle to the given name and retrieve all the steps (used when the cycle starts)
+Sets the current cycle to the specified name if it exists in the list of available cycles.
+If the name is not found, logs a warning. Retrieves cycle data from the database and populates
+the object's attributes with its details and associated steps. The method skips further
+execution if the name is 'End'.
 
 <a id="cycleclass.CycleClass.current"></a>
 
@@ -93,7 +106,11 @@ Set the current cycle to the given name and retrieve all the steps (used when th
 def current()
 ```
 
-Return the current Cycle name and description
+Returns information about the current object.
+
+This method compiles selected details of the object, such as its
+name and description, into a list. It is useful for obtaining a
+quick summary of the primary attributes of the object.
 
 <a id="cycleclass.CycleClass.currenttask"></a>
 
@@ -103,7 +120,12 @@ Return the current Cycle name and description
 def currenttask(time)
 ```
 
-Return the current task
+Determines and returns the current task based on the given time.
+
+The method evaluates whether the provided time matches the scheduled
+time of the next step in the process and returns the respective
+task details. If no task matches the time, it provides default
+values indicating either no task or the end of the tasks.
 
 <a id="cycleclass.CycleClass.currentstep"></a>
 
@@ -113,7 +135,10 @@ Return the current task
 def currentstep()
 ```
 
-Return the current step
+Returns the current step details if available, otherwise returns the default
+step representation. The method checks if there are steps recorded and, if so,
+returns the first step's information. If no steps are present, it defaults to
+returning an end step.
 
 <a id="cycleclass.CycleClass.completecurrent"></a>
 
@@ -123,7 +148,12 @@ Return the current step
 def completecurrent()
 ```
 
-Delete the current step as it has been completed
+Complete the current step in the process.
+
+This method removes the oldest step details from the relevant attributes
+to mark the current step as completed. It logs the completion details
+including the step time, target, and command of the current step
+before removing them from their respective attributes.
 
 <a id="cycleclass.CycleClass.steplist"></a>
 
@@ -133,7 +163,7 @@ Delete the current step as it has been completed
 def steplist()
 ```
 
-return the list of steps to be completed
+Generates a list of step details combining step time, target, and command information.
 
 <a id="cycleclass.CycleClass.steplistformatted"></a>
 
@@ -143,7 +173,12 @@ return the list of steps to be completed
 def steplistformatted()
 ```
 
-Generate a formatted list of steps as a list of strings
+Generates a formatted list of steps based on step time, target, and command.
+
+This method combines the attributes `steptime`, `steptarget`, and `stepcommand` into
+a formatted list of strings. Each string contains the values from these attributes
+at the corresponding index, separated by commas. If no steps exist, a default step
+(`1, End, End`) is returned.
 
 <a id="cycleclass.CycleClass.sample"></a>
 
@@ -153,7 +188,11 @@ Generate a formatted list of steps as a list of strings
 def sample(cycleitem)
 ```
 
-Check is an item is in the list of samples
+Checks if a given item exists in the sample list.
+
+This method iterates through the 'samples' attribute and compares each
+item with the provided 'cycleitem'. If the 'cycleitem' matches any item
+in the list, the method returns True; otherwise, it returns False.
 
 <a id="cycleclass.currentcycle"></a>
 
