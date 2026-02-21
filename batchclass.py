@@ -1,5 +1,45 @@
 """
-BatchClass - used to manage a batch of cycles (samples, blanks, qshots or other tasks)
+The `BatchClass` represents a batch of samples or planchets. It allows for the creation, modification, and
+completion of batch steps. The class interacts with a SQLite database to store and retrieve batch information.
+
+Attributes:
+    id (int): ID number of the batch. -1 indicates that the batch has not been saved yet, otherwise it is taken
+    from the database.
+    date (datetime): The date and time when the batch was created.
+    description (str): The description or name of the batch.
+    type (str): The type of batch. Can be either 'Simple Batch' or 'Planchet'.
+    runnumber (list[int]): A list of ID numbers of each item in the batch, including the samples.
+    cycle (list[str]): A list of the type of cycle required for each item.
+    location (list[str]): A list of the hole location if needed for each item.
+    identifier (list[str]): A list of the description of the sample or qnumber for each item.
+    status (list[int]): A list of the status of each item. 0 indicates 'to do', 1 indicates 'complete', and 2
+    indicates 'cancelled'.
+    changed (int): A flag indicating whether the batch has been modified since the last save.
+
+Methods:
+    read_database()
+        Reads the PyMS database for any open batches.
+
+    cancel_batch()
+        Used to cancel_batch a batch. Marks all samples as cancelled and closes the batch.
+
+    new(batchtype: str, description: str)
+        Creates a new batch with the specified batch type and description.
+
+    addstep(cycle: str, location: str, identifier: str)
+        Adds a sample to the batch.
+
+    save()
+        Saves the batch details to the database.
+
+    current()
+        Returns the details of the current batch step or 'End' if there are no more steps.
+
+    completecurrent()
+        Marks the current batch step as complete.
+
+    writebatchlog()
+        Generates the batchlog.csv file for the batch.
 """
 import sqlite3
 from datetime import datetime, timedelta
@@ -32,11 +72,11 @@ class BatchClass:
         changed (int): A flag indicating whether the batch has been modified since the last save.
 
     Methods:
-        readdatabase()
+        read_database()
             Reads the PyMS database for any open batches.
 
-        cancel()
-            Used to cancel a batch. Marks all samples as cancelled and closes the batch.
+        cancel_batch()
+            Used to cancel_batch a batch. Marks all samples as cancelled and closes the batch.
 
         new(batchtype: str, description: str)
             Creates a new batch with the specified batch type and description.
@@ -56,6 +96,7 @@ class BatchClass:
         writebatchlog()
             Generates the batchlog.csv file for the batch.
     """
+
     def __init__(self):
         self.id = -1                # ID number of the batch. -1 = not saved yet otherwise taken from database
         self.date = None
@@ -67,10 +108,15 @@ class BatchClass:
         self.identifier = []        # description of sample or qnumber
         self.status = []            # item status 0=to do, 1=complete, 2=cancelled
         self.changed = 0
-        self.readdatabase()
+        self.read_database()
 
-    def readdatabase(self):
-        """Reads the PyMS database for any open batches"""
+    def read_database(self):
+        """
+        Reads the database to fetch batch step and batch details with specific status and updates
+        relevant attributes accordingly. The method retrieves information on batch steps with a
+        status of 0 and their corresponding batch details. Additionally, it updates internal
+        statuses, identifiers, and other related attributes based on the retrieved data.
+        """
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
         sql_query = 'SELECT * from batchsteps WHERE status = 0'
@@ -93,8 +139,14 @@ class BatchClass:
                 self.status.append(item[5])
         database.close()
 
-    def cancel(self):
-        """Used to cancel a batch - marks all samples and cancelled and closes the batch"""
+    def cancel_batch(self):
+        """
+        Cancels all batch steps with a status of 0 (unprocessed) and updates their status to 2 (cancelled).
+
+        This method connects to the database, retrieves all batch steps with a status
+        of 0, and updates their status to 2. It resets several internal attributes of
+        the object to default values after successfully processing the batch steps.
+        """
         try:
             database = sqlite3.connect(settings['database']['databasepath'])
             cursor_obj = database.cursor()
@@ -103,11 +155,17 @@ class BatchClass:
             batchlist = cursor_obj.fetchall()
             if len(batchlist) > 0:
                 self.id = batchlist[0][1]
-                sql_update_query = """ UPDATE batchsteps SET status = 2 WHERE id = ?  """
+                sql_update_query = """ UPDATE batchsteps SET status = 2 WHERE id = ? and status = 0 """
                 for _ in batchlist:
                     datarow = [(str(self.id))]
                     cursor_obj.execute(sql_update_query, datarow)
                 database.commit()
+            sql_query ="SELECT identifier from QNumbers"
+            cursor_obj.execute(sql_query)
+            lastq = cursor_obj.fetchone()
+            print(int(lastq[0]))
+            settings['MassSpec']['nextQ'] = int(lastq[0])+1
+            writesettings()
             database.close()
             self.changed = 1
             self.id = -1
@@ -120,18 +178,31 @@ class BatchClass:
             self.identifier = []
             self.status = []
         except sqlite3.OperationalError:
-            logger.error('BatchClass-batchclass batch cancel error')
+            logger.error('BatchClass-batchclass batch cancel_batch error')
 
     def new(self, batchtype, description):
-        """Creates a new batch ***batchtype*** is 'simple' or 'planchet'"""
+        """
+        Creates a new batch with the specified type and description.
+
+        This method initializes a new batch process by setting its type and description
+        attributes, and assigns the current date and time to the batch. If the batch
+        has already been created (identified by an id greater than 0), it cancels the
+        current batch before proceeding.
+
+        Parameters:
+            batchtype: The type of the batch to be created.
+            description: A description for the batch.
+        """
         if self.id > 0:
-            self.cancel()
+            self.cancel_batch()
         self.type = batchtype
         self.description = description
         self.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def addstep(self, cycle, location, identifier):
-        """Adds a sample to a batch"""
+        """
+        Adds a new step to track in the process by appending details to respective attributes.
+        """
         self.runnumber.append(-1)
         self.cycle.append(cycle)
         self.location.append(location)
@@ -139,7 +210,11 @@ class BatchClass:
         self.status.append(0)
 
     def save(self):
-        """Save to database"""
+        """
+        Saves the current state of the batch object and its associated steps to the database. If the batch is new, it inserts
+        a new batch record; otherwise, it updates the existing batch record. It also ensures that related batch steps are
+        inserted or updated appropriately. If the batch type is 'planchet', additional recalculations are performed.
+        """
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
         self.changed = 1
@@ -178,7 +253,15 @@ class BatchClass:
         writesettings()
 
     def current(self):
-        """Returns current step or 'End' if there are no more steps"""
+        """
+        Returns the details of the current batch being processed or a message indicating no batches remain.
+
+        Summary:
+        This method checks whether any batches are available for processing. If batches exist,
+        it returns a list containing the current cycle, location, and identifier of the batch.
+        If no batches are left, it returns a list with a message signaling the end of processing
+        along with default placeholder values.
+        """
         if len(self.runnumber) > 0:
             logger.debug('BatchClass-there is a batch %s', len(self.cycle))
             return [self.cycle[0], self.location[0], self.identifier[0]]
@@ -186,7 +269,11 @@ class BatchClass:
         return ['End', 'S1', 'No more samples to process']
 
     def completecurrent(self):
-        """Mark the current task in the bach complete"""
+        """
+        Updates the current batch step status to 1 (completed) in the database and moves on to the next task if
+        any remaining task exists. If all tasks are completed, it resets the relevant attributes
+        to their default values.
+        """
         if len(self.runnumber) > 0:  # move on to the next task
             logger.info('BatchClass-Complete Current: Updating main database')
             database = sqlite3.connect(settings['database']['databasepath'])
@@ -210,7 +297,11 @@ class BatchClass:
             self.type = None
 
     def writebatchlog(self):
-        """Generate the batchlog.csv file"""
+        """
+        Writes a detailed log for the batch process, including batch metadata and results. The method handles directory
+        creation, data retrieval from the database, CSV file generation, and integrates results into the specified
+        output directory.
+        """
         try:
             logger.info('BatchClass-Complete Current: Creating Results Directory')
             filepath = settings['MassSpec']['datadirectory'] + \
@@ -239,7 +330,14 @@ class BatchClass:
             logger.error("batchclass: Error createing batchlog")
 
     def list(self):
-        """Return a list of all of the outstancing tasks"""
+        """
+        Produces a consolidated list of details from multiple attributes.
+
+        This method iterates through the values of `runnumber`, combining corresponding
+        values from `cycle`, `location`, and `identifier` attributes to create a list of
+        lists. Each inner list contains the following elements in order: `runnumber`,
+        `cycle`, `location`, and `identifier`.
+        """
         index = 0
         returnval = []
         for _ in self.runnumber:
@@ -248,7 +346,14 @@ class BatchClass:
         return returnval
 
     def listformatted(self):
-        """return a formatted list of all the outstanding tasks"""
+        """
+        Generates a formatted list of data points based on run numbers, cycles, and other attributes.
+
+        Summary:
+        The method iterates over the 'runnumber' list of the class, creating a formatted string for each
+        data point. It combines the run number, cycle, and other attributes conditionally based on specific
+        criteria. If no data points are processed, a default value is returned.
+        """
         index = 0
         returnval = []
         for _ in self.runnumber:
@@ -265,7 +370,14 @@ class BatchClass:
         return returnval
 
     def formatsample(self):
-        """Generate a meaningful sample name based on the pit in the planchet and samplid, Qshot or line blank"""
+        """
+        Formatsample processes and formats a sample identifier based on its attributes and status.
+
+        This method determines the appropriate formatting for a sample by checking its cycle
+        status and related identifiers. Various conditions, such as whether the identifier is empty,
+        or specific cycle values match preset categories (e.g., 'Q-Standard', 'Index'), are used
+        to construct the formatted string.
+        """
         if len(self.identifier) == 0:
             return '-'
         if currentcycle.sample(self.cycle[0]):
@@ -277,19 +389,39 @@ class BatchClass:
         return self.cycle[0]
 
     def currentdescription(self):
-        """Return the description attribute for the current batch"""
+        """
+        Returns the description of the current batch or a default message if no batch
+        is loaded.
+
+        This method checks the value of the 'id' attribute to determine whether a
+        batch is loaded. If no batch is loaded (indicated by an 'id' value of -1),
+        it returns a default message stating that no batch is loaded. Otherwise,
+        it returns the description of the current batch.
+        """
         if self.id == -1:
             return 'No batch loaded'
         return self.description
 
     def currentcycle(self):
-        """Return the sysle type for the current task in the batch"""
+        """
+        Returns the current cycle of the loaded batch.
+
+        This method retrieves the current cycle from the loaded batch. If no batch
+        is loaded (indicated by `id` being -1), it returns a default message
+        stating that no batch is loaded.
+        """
         if self.id == -1:
             return 'No batch loaded'
         return self.cycle[0]
 
     def formatdescription(self):
-        """Format the description based on the batch identifier and the description field"""
+        """
+        Formats and returns a batch description string based on the batch ID and description.
+
+        This method attempts to construct a string representation of the batch information.
+        If the batch ID is set to -1, indicating no batch is loaded, a default message is returned.
+        In case of exceptions during formatting, an error message is provided.
+        """
         try:
             if self.id == -1:
                 return 'No batch loaded'
@@ -298,7 +430,12 @@ class BatchClass:
             return 'batch format description error'
 
     def getlocationsample(self, location):
-        """Return the location on the planchet of the current sample"""
+        """
+        Retrieves a sample identifier based on the provided location.
+
+        This method attempts to fetch a corresponding identifier for
+        the given location from the stored location list.
+        """
         try:
             if len(location) == 2:
                 return self.identifier[self.location.index(location)]
@@ -306,8 +443,13 @@ class BatchClass:
             return ''
 
     def insertcycle(self, index, cycle):
-        """Insert a new task into the batch - used when a planchet is created to add in Q-shots and line blanks at
-         the start, mid point and end"""
+        """
+        Inserts a new cycle and its associated default values at the specified index.
+
+        This method modifies several attributes of the class by inserting a new entry at
+        the given index. The inserted entry includes a cycle value and default values for
+        other corresponding attributes.
+        """
         self.runnumber.insert(index, -1)
         self.cycle.insert(index, cycle)
         self.location.insert(index, '')
@@ -315,7 +457,14 @@ class BatchClass:
         self.status.insert(index, 0)
 
     def recalulateplanchet(self):
-        """Calculate the positions of Q-shots, line blanks and unload tasks. Used when editing a planchet"""
+        """
+        Recalculates the planchet for the current run.
+
+        This method modifies the current run by inserting specific cycles at different
+        positions in the run. If the run number length exceeds 36, additional cycles
+        are inserted at the middle of the run. This is done to ensure standardization
+        across the run phases.
+        """
         if len(self.runnumber) > 36:
             insertpos = int(len(self.runnumber)/2)
             self.insertcycle(insertpos, 'Q-Standard')
@@ -329,21 +478,37 @@ class BatchClass:
         self.insertcycle(len(self.runnumber), 'Unload')
 
     def newq(self):
-        """Genrate the newxt Q-Shot number"""
+        """
+        Generates the next unique identifier for a MassSpec operation.
+
+        The function retrieves the current value of the "nextQ" setting from the
+        "MassSpec" configuration, increments it, updates the setting, and then
+        returns the original value as a string.
+        """
         q = settings['MassSpec']['nextQ']
         settings['MassSpec']['nextQ'] = q + 1
         return str(q)
 
     def nextlocation(self):
-        """Find the next location - used when moving laser to next spot. \n
-        if there is no next location then the unload 'UL' location is given"""
+        """
+        Returns the next non-empty location from the list of locations or a fallback value.
+
+        This method iterates through the `location` list, starting from the second
+        element, to look for the first non-empty string. If all subsequent elements
+        are empty, it returns a default value of 'UL'.
+        """
         for loc in self.location[1:]:
             if loc != '':
                 return loc
         return 'UL'
 
     def locxy(self, loc):
-        """for a location **loc** find the x and y values from the database"""
+        """
+        Retrieves the x and y coordinates of a specific location from the database.
+
+        Fetches information from the locations table in the connected SQLite database
+        to obtain the x and y positional values associated with the specified location name.
+        """
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
         sql_query = """SELECT * from locations WHERE location = ?"""
@@ -355,7 +520,15 @@ class BatchClass:
         return xpos, ypos
 
     def isitthereyet(self, current_x_pos, current_y_pos):
-        """Check if the laser has reached the desired location"""
+        """
+        Determines whether the current position is near the target location.
+
+        The method checks if the given x and y coordinates are within a threshold
+        distance from a specific target location. If the target location is not
+        specified or only the initial location is available, it considers the position
+        to have been reached by default. The method logs information when the x and y
+        coordinates are verified as close to the target location.
+        """
         if len(self.location) <= 1:
             return True
         if self.location[1] == '':
@@ -369,7 +542,15 @@ class BatchClass:
         return False
 
     def results(self):
-        """return the best-fit values for all processed tasks in the batch"""
+        """
+        Fetches the results of the most recent or specified batch run from a SQLite database.
+
+        This method retrieves records associated with a batch run from the database. If a specific batch
+        ID (`self.id`) is greater than zero, it is used directly. Otherwise, the method identifies the
+        most recent batch run using the `HeliumRuns` table. The results include details such as
+        record ID, identifier, date of the run, and best fit for each entry within the specified or
+        latest batch.
+        """
         try:
             database = sqlite3.connect(settings['database']['resultsdatabasepath'])
             cursor_obj = database.cursor()
@@ -391,12 +572,27 @@ class BatchClass:
             return ['0', 'Batch Error', 'today', 1]
 
     def image(self, application):
-        """Calls the **imager** task from the imagefiler module to crab a screen shot of that window"""
+        """
+        Formats a sample ID and initiates the imaging process for the application.
+
+        This method creates a sample ID by combining a prefix with a unique run
+        number and formatted sample data, then calls the `imager` function to
+        carry out the imaging process. The generated `sampleid` is passed along
+        with the application name, unique identifier, and description of the
+        sample to the imaging function.
+        """
         sampleid = 'IMG' + str(self.runnumber[0]) + '_' + self.formatsample()
         imager(application, str(self.id), self.description, sampleid)
 
     def finishtime(self):
-        """Calculate the theorectical finish time of the current batch"""
+        """
+        Calculates the estimated finish time for a batch process.
+
+        Connects to the database and calculates the total time of unfinished batch steps
+        where their corresponding cycle steps have a target set to "end". Uses the current
+        time and the total time retrieved from the database to compute the estimated end
+        time.
+        """
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
         sql_query = 'SELECT  sum(cyclesteps.time) from batchsteps, cyclesteps, cycles WHERE batchsteps.cycle =' \

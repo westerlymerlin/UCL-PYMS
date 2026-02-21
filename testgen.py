@@ -30,7 +30,7 @@ def commit_planchet(description):
         >>> commit_planchet("Planchet for testing")
 
     """
-    batch.cancel()
+    batch.cancel_batch()
     batch.new('planchet', description)
     counter = 1
     for i in range(1, 4):
@@ -59,7 +59,7 @@ def commit_q(description, qshot_qty=10):
     """
     Commits a new batch with a description and a series of Q shots.
     """
-    batch.cancel()
+    batch.cancel_batch()
     batch.new('simple', description)
     batch.addstep('Line Blank', '', '')
     counter =0
@@ -77,7 +77,7 @@ def commit_des_pair(description, des_pair_qty=3):
     """
     Commits a new batch with a description and a series of Des Q and D shots.
     """
-    batch.cancel()
+    batch.cancel_batch()
     batch.new('simple', description)
     batch.addstep('Line Blank', '', '')
     counter =0

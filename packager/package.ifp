@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <InstallForgeProject>
-  <Metadata productVersion="1.5.0" projectFileVersion="2.0"/>
+  <Metadata productVersion="1.6.1" projectFileVersion="2.0"/>
   <ProductInformation>
     <Name>PyMS</Name>
-    <Version>3.3.1</Version>
+    <Version>3.3.2</Version>
     <CompanyName>GT</CompanyName>
     <WebURI>https://github.com/westerlymerlin/UCL-PYMS</WebURI>
   </ProductInformation>
@@ -22,6 +22,7 @@
         <WindowsServer2019>false</WindowsServer2019>
         <WindowsServer2022>false</WindowsServer2022>
         <Windows11>true</Windows11>
+        <WindowsServer2025>false</WindowsServer2025>
       </OperatingSystem>
     </Prerequisites>
     <UserInterface>
@@ -41,6 +42,7 @@
       <InstallationFile size="1.3 KB" type="txt">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\changelog.txt</InstallationFile>
       <InstallationFile size="2.1 KB" type="">C:\Users\garyt\DEVELOPER\UCL-Oxide\UCL-Oxide-PyMS\cacerts</InstallationFile>
       <InstallationFile size="616 Byte" type="">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\SECRETS</InstallationFile>
+      <InstallationFile size="1.6 MB" type="exe">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\packager\dist\PyMS\dbupgrader.exe</InstallationFile>
     </InstallationFiles>
     <Languages>
       <Language>English</Language>

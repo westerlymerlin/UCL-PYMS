@@ -9,13 +9,19 @@ import json
 from base64 import b64decode, b64encode
 import datetime
 
-VERSION = '3.3.1'
+VERSION = '3.3.2'
 running = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
 
 def friendlydirname(sourcename: str) -> str:
-    """Removes invalid characters from file names"""
+    """
+    Transforms a given string into a filesystem-friendly directory name.
+
+    This function modifies the input string by replacing invalid characters with a dash ('-')
+    to ensure the string adheres to naming conventions suitable for directory/file storage.
+    It also removes consecutive dashes created as a result of replacing invalid characters.
+    """
     invalid_chars = ['/', '\\', ':', '*', '?', '<', '>', '"', '&', '%', '#', '$', "'", ',']
     for invalid_char in invalid_chars:
         sourcename = sourcename.replace(invalid_char, '-')
@@ -32,14 +38,29 @@ def setrunning(state):
 
 
 def writesettings():
-    """Write settings to json file"""
+    """
+    Writes and saves the current settings to a JSON file.
+
+    This function updates the 'LastSave' field in the settings dictionary with the
+    current date and time in the format 'DD/MM/YYYY HH:MM:SS' and writes the
+    updated dictionary to a file named 'settings.json'. The JSON file is saved
+    with UTF-8 encoding and is formatted with an indent of 4 spaces and keys sorted
+    in ascending order.
+    """
     settings['LastSave'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
     with open('settings.json', 'w', encoding='utf-8') as outfile:
         json.dump(settings, outfile, indent=4, sort_keys=True)
 
 
 def initialise():
-    """Setup the settings structure with default values"""
+    """
+    Initializes the application settings and configurations.
+
+    This function creates and returns a dictionary containing all default
+    settings used in the application. These settings include configurations
+    for mass spectrometry, laser parameters, logging, forms positioning,
+    database paths, vacuum measurements, and API hosts.
+    """
     isettings = {
         "LastSave": "01/01/1900 01:00:00",
         "app-name": "UCL PyMs",
@@ -159,7 +180,14 @@ def initialise():
 
 
 def readsettings():
-    """Read the json file"""
+    """
+    Reads settings from a JSON file and loads them into a dictionary.
+
+    This function attempts to read a JSON configuration file named 'settings.json'
+    from the current working directory. If the file is successfully found and read,
+    it returns the parsed JSON data as a dictionary. If the file does not exist,
+    it returns an empty dictionary.
+    """
     try:
         with open('settings.json', 'r', encoding='utf-8') as json_file:
             jsettings = json.load(json_file)
@@ -170,7 +198,14 @@ def readsettings():
 
 
 def loadsettings():
-    """Replace the default settings with those from the json files"""
+    """
+    This function reads configuration settings from an external source using the `readsettings`
+    function and updates the global `settings` dictionary. It handles multi-level dictionary
+    structures by iterating through their keys and updating corresponding values if found in
+    the external settings. If a key is missing in the external source, a message is printed,
+    and the current value in `settings` remains unchanged.
+
+    """
     global settings
     fsettings = readsettings()
     for item in settings.keys():

@@ -47,7 +47,7 @@ Attributes:
 - stepcommand (list): The list of commands for each step in the current cycle.
 
 Methods:
-- readdatabase(): Get the list of enabled cycles from the database.
+- read_database(): Get the list of enabled cycles from the database.
 - setcycle(name: str): Set the current cycle to the given name and retrieve all the steps.
 - current(): Return the current cycle name and description.
 - currenttask(time: float): Return the current task at the given time.
