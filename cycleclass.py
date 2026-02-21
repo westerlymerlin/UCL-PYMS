@@ -1,6 +1,9 @@
 """
-Cycle Class
-Author: Gary Twinn
+Module for managing and manipulating cycle information in a system.
+
+This module defines the `CycleClass`, which represents a cycle and provides functionality for
+retrieving and setting cycle information, as well as managing the steps within a cycle. The cycle
+information is loaded from a database, and the class includes methods to query and process cycle data.
 """
 import sqlite3
 from app_control import settings
@@ -57,7 +60,16 @@ class CycleClass:
         self.readdatabase()
 
     def readdatabase(self):
-        """Get the list of enabled cycles from the database"""
+        """
+        Reads data from the configured database and updates the instance with retrieved records.
+
+        The method performs the following operations:
+        1. Connects to the database using the specified configuration.
+        2. Retrieves a list of enabled cycles from the 'cycles' table and updates the internal cycles list.
+        3. Identifies cycles marked as samples and adds them to the internal samples list.
+        4. Retrieves all entries from the 'locations' table and updates the internal locations list.
+        5. Closes the database connection after all operations are complete.
+        """
         self.cycles.append('End')
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
@@ -76,7 +88,12 @@ class CycleClass:
         database.close()
 
     def setcycle(self, name):
-        """Set the current cycle to the given name and retrieve all the steps (used when the cycle starts)"""
+        """
+        Sets the current cycle to the specified name if it exists in the list of available cycles.
+        If the name is not found, logs a warning. Retrieves cycle data from the database and populates
+        the object's attributes with its details and associated steps. The method skips further
+        execution if the name is 'End'.
+        """
         if name not in self.cycles:
             logger.warning('Cycle Class: set cycle %s name not found', name)
             return
@@ -104,11 +121,24 @@ class CycleClass:
             self.stepcommand.append(task[3])
 
     def current(self):
-        """Return the current Cycle name and description"""
+        """
+        Returns information about the current object.
+
+        This method compiles selected details of the object, such as its
+        name and description, into a list. It is useful for obtaining a
+        quick summary of the primary attributes of the object.
+        """
         return [self.name, self.description]
 
     def currenttask(self, time):
-        """Return the current task"""
+        """
+        Determines and returns the current task based on the given time.
+
+        The method evaluates whether the provided time matches the scheduled
+        time of the next step in the process and returns the respective
+        task details. If no task matches the time, it provides default
+        values indicating either no task or the end of the tasks.
+        """
         if len(self.steptime) > 0:
             if time == self.steptime[0]:
                 return [self.steptime[0], self.steptarget[0], self.stepcommand[0]]
@@ -116,13 +146,25 @@ class CycleClass:
         return [1, 'End', 'End']
 
     def currentstep(self):
-        """Return the current step"""
+        """
+        Returns the current step details if available, otherwise returns the default
+        step representation. The method checks if there are steps recorded and, if so,
+        returns the first step's information. If no steps are present, it defaults to
+        returning an end step.
+        """
         if len(self.steptime) > 0:
             return [self.steptime[0], self.steptarget[0], self.stepcommand[0]]
         return [1, 'End', 'End']
 
     def completecurrent(self):
-        """Delete the current step as it has been completed"""
+        """
+        Complete the current step in the process.
+
+        This method removes the oldest step details from the relevant attributes
+        to mark the current step as completed. It logs the completion details
+        including the step time, target, and command of the current step
+        before removing them from their respective attributes.
+        """
         if len(self.steptime) >= 0:
             logger.debug('completed %s %s %s ', self.steptime[0], self.steptarget[0], self.stepcommand[0])
             del self.steptime[0]
@@ -130,7 +172,9 @@ class CycleClass:
             del self.stepcommand[0]
 
     def steplist(self):
-        """return the list of steps to be completed"""
+        """
+        Generates a list of step details combining step time, target, and command information.
+        """
         index = 0
         returnval = []
         for _ in self.steptime:
@@ -139,7 +183,14 @@ class CycleClass:
         return returnval
 
     def steplistformatted(self):
-        """Generate a formatted list of steps as a list of strings"""
+        """
+        Generates a formatted list of steps based on step time, target, and command.
+
+        This method combines the attributes `steptime`, `steptarget`, and `stepcommand` into
+        a formatted list of strings. Each string contains the values from these attributes
+        at the corresponding index, separated by commas. If no steps exist, a default step
+        (`1, End, End`) is returned.
+        """
         index = 0
         returnval = []
         for _ in self.steptime:
@@ -150,7 +201,13 @@ class CycleClass:
         return returnval
 
     def sample(self, cycleitem):
-        """Check is an item is in the list of samples"""
+        """
+        Checks if a given item exists in the sample list.
+
+        This method iterates through the 'samples' attribute and compares each
+        item with the provided 'cycleitem'. If the 'cycleitem' matches any item
+        in the list, the method returns True; otherwise, it returns False.
+        """
         for item in self.samples:
             if cycleitem == item:
                 return True
