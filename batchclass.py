@@ -163,7 +163,6 @@ class BatchClass:
             sql_query ="SELECT identifier from QNumbers"
             cursor_obj.execute(sql_query)
             lastq = cursor_obj.fetchone()
-            print(int(lastq[0]))
             settings['MassSpec']['nextQ'] = int(lastq[0])+1
             writesettings()
             database.close()
