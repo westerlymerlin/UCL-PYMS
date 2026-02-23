@@ -151,6 +151,7 @@ class UiSettingsViewer(QDialog, Ui_LogDialog):
         """
         if self.loading == 0:
             settings_ref = self.secrets_table.item(cell.row(), 0).text()
+            logger.info('Secret Changed: %s', settings_ref)
             update_secret(settings_ref, cell.data(Qt.EditRole))
 
     def formclose(self):
