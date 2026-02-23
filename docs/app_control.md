@@ -150,6 +150,16 @@ def update_secret(key, value)
 Updates the secret storage by adding or updating a key-value pair. The method also creates a
 backup of the existing storage file before writing the updated encoded secrets back to the file.
 
+<a id="app_control.list_secret_keys"></a>
+
+#### list\_secret\_keys
+
+```python
+def list_secret_keys()
+```
+
+Prints a list of all secret keys in the SECRETS file.
+
 <a id="app_control.SECRETS"></a>
 
 #### SECRETS
