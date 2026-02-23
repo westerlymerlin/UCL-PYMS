@@ -256,7 +256,7 @@ def update_secret(key, value):
     """
     global SECRETS
     SECRETS[key] = value
-    new_secret = b64encode(json.dumps(SECRETS).encode('utf-8')).decode('utf-8')
+    new_secret = b64encode(json.dumps(SECRETS, indent=4, sort_keys=True ).encode('utf-8')).decode('utf-8')
     copyfile('SECRETS', 'SECRETS.bak')
     with open('SECRETS', 'w', encoding='utf-8') as s_file:
         s_file.write(new_secret)
