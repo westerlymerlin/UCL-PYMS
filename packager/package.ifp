@@ -41,7 +41,6 @@
       <InstallationFile size="2 MB" type="exe">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\packager\dist\PyMS\CycleEditor.exe</InstallationFile>
       <InstallationFile size="1.3 KB" type="txt">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\changelog.txt</InstallationFile>
       <InstallationFile size="2.1 KB" type="">C:\Users\garyt\DEVELOPER\UCL-Oxide\UCL-Oxide-PyMS\cacerts</InstallationFile>
-      <InstallationFile size="616 Byte" type="">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\SECRETS</InstallationFile>
       <InstallationFile size="1.6 MB" type="exe">C:\Users\garyt\DEVELOPER\HeliumLine\UCL-PYMS\packager\dist\PyMS\dbupgrader.exe</InstallationFile>
     </InstallationFiles>
     <Languages>
