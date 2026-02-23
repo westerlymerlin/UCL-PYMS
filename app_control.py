@@ -263,10 +263,9 @@ def update_secret(key, value):
     s_file.close()
 
 def list_secret_keys():
-    """Prints a list of all secret keys in the SECRETS file."""
+    """Returns a list of all secret keys in the SECRETS file."""
     return(list(SECRETS.keys()))
 
 SECRETS = load_secrets()
 settings = initialise()
 loadsettings()
-

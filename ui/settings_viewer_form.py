@@ -30,15 +30,15 @@ class UiSettingsViewer(QDialog, Ui_LogDialog):
         font1.setFamilies(["Segoe UI"])
         font1.setPointSize(10)
         font1.setBold(True)
-        newitem = QTableWidgetItem('Setting')
-        newitem.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
-        newitem.setFont(font1)
-        self.settings_table.setHorizontalHeaderItem(0, newitem)
+        new_item = QTableWidgetItem('Setting')
+        new_item.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        new_item.setFont(font1)
+        self.settings_table.setHorizontalHeaderItem(0, new_item)
         self.settings_table.verticalHeader().setVisible(False)
-        newvalue = QTableWidgetItem('Value')
-        newvalue.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
-        newvalue.setFont(font1)
-        self.settings_table.setHorizontalHeaderItem(1, newvalue)
+        new_value = QTableWidgetItem('Value')
+        new_value.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        new_value.setFont(font1)
+        self.settings_table.setHorizontalHeaderItem(1, new_value)
         self.settings_table.setAlternatingRowColors(True)
         self.settings_table.itemChanged.connect(self.settingchanged)
         self.settings_table.setEditTriggers(QAbstractItemView.CurrentChanged)
@@ -48,21 +48,21 @@ class UiSettingsViewer(QDialog, Ui_LogDialog):
         self.secrets_table.setColumnWidth(0, 300)
         self.secrets_table.setColumnWidth(1, 859)
         self.secrets_table.setEditTriggers(QAbstractItemView.CurrentChanged)
-        newitem = QTableWidgetItem('Secret')
-        newitem.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
-        newitem.setFont(font1)
-        self.secrets_table.setHorizontalHeaderItem(0, newitem)
+        new_item = QTableWidgetItem('Secret')
+        new_item.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        new_item.setFont(font1)
+        self.secrets_table.setHorizontalHeaderItem(0, new_item)
         self.secrets_table.verticalHeader().setVisible(False)
-        newvalue = QTableWidgetItem('Value')
-        newvalue.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
-        newvalue.setFont(font1)
-        self.secrets_table.setHorizontalHeaderItem(1, newvalue)
+        new_value = QTableWidgetItem('Value')
+        new_value.setTextAlignment(Qt.AlignLeading | Qt.AlignVCenter)
+        new_value.setFont(font1)
+        self.secrets_table.setHorizontalHeaderItem(1, new_value)
         self.secrets_table.setAlternatingRowColors(True)
         self.secrets_table.itemChanged.connect(self.secret_changed)
         self.loading = 1
         self.changed = 0
 
-    def loadsettings(self):
+    def load_settings_secrets(self):
         """Load the settings into a table"""
         for item in settings.keys():
             if isinstance((settings[item]), dict):
@@ -146,7 +146,9 @@ class UiSettingsViewer(QDialog, Ui_LogDialog):
                              type(oldval), oldval, newval)
 
     def secret_changed(self, cell):
-        """update"""
+        """
+        Handles logic for when a secret value is changed in the secrets table.
+        """
         if self.loading == 0:
             settings_ref = self.secrets_table.item(cell.row(), 0).text()
             update_secret(settings_ref, cell.data(Qt.EditRole))
