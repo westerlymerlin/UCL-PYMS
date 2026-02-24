@@ -16,7 +16,7 @@ The application uses PySide6 (Qt) for the GUI framework and includes modules for
 - Database operations for sample tracking
 - Automated measurement cycles
 - Manual control interfaces
-- Data logging and visualization
+- Data logging and visualisation
 
 Author: Gary Twinn
 """
