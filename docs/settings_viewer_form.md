@@ -40,9 +40,17 @@ Author: Gary Twinn
 
 ## settings
 
+<a id="settings_viewer_form.SECRETS"></a>
+
+## SECRETS
+
 <a id="settings_viewer_form.writesettings"></a>
 
 ## writesettings
+
+<a id="settings_viewer_form.update_secret"></a>
+
+## update\_secret
 
 <a id="settings_viewer_form.logger"></a>
 
@@ -66,12 +74,12 @@ Initialise the settings viewer form
 def __init__()
 ```
 
-<a id="settings_viewer_form.UiSettingsViewer.loadsettings"></a>
+<a id="settings_viewer_form.UiSettingsViewer.load_settings_secrets"></a>
 
-#### loadsettings
+#### load\_settings\_secrets
 
 ```python
-def loadsettings()
+def load_settings_secrets()
 ```
 
 Load the settings into a table
@@ -85,6 +93,16 @@ def settingchanged(cell)
 ```
 
 If a setting has changed write it back to the settings file
+
+<a id="settings_viewer_form.UiSettingsViewer.secret_changed"></a>
+
+#### secret\_changed
+
+```python
+def secret_changed(cell)
+```
+
+Handles logic for when a secret value is changed in the secrets table.
 
 <a id="settings_viewer_form.UiSettingsViewer.formclose"></a>
 
