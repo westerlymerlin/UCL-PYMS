@@ -24,7 +24,7 @@ def alert(body):
     based on the input data.
     """
     if len(settings['email_recipients']) == 0:
-        return
+        return False
 
     client_id = SECRETS['email_client_id']
     tenant_id = SECRETS['email_tenant_id']
