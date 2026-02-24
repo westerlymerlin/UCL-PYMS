@@ -1,15 +1,15 @@
 """
 Application logging configuration and setup module.
 
-This module initializes and configures the logging system for the application,
+This module initialises and configures the logging system for the application,
 including file rotation, formatting, and log level management. It provides a
-centralized logger instance that can be imported and used throughout the application.
+centralised logger instance that can be imported and used throughout the application.
 
 Features:
     - Automatic log directory creation
     - Rotating file handler with configurable size limits and backup count
     - Configurable logging levels (DEBUG/INFO)
-    - Standardized log message formatting with timestamps
+    - Standardised log message formatting with timestamps
     - System information logging on startup
 
 Usage:
@@ -57,13 +57,13 @@ if settings['logging']['level'].upper() == 'DEBUG':
 else:
     logger.setLevel(logging.INFO)
 
-LogFile = RotatingFileHandler('%s%s.log' %(settings['logging']['logfilepath'],settings['logging']['logappname']),
-                              maxBytes=1048576, backupCount=10)
+log_file = RotatingFileHandler('%s%s.log' % (settings['logging']['logfilepath'], settings['logging']['logappname']),
+                               maxBytes=1048576, backupCount=10)
 formatter = logging.Formatter('%(asctime)s, %(name)s, %(levelname)s : %(message)s')
-LogFile.setFormatter(formatter)
-logger.addHandler(LogFile)
+log_file.setFormatter(formatter)
+logger.addHandler(log_file)
 try:
-    LogFile.doRollover()
+    log_file.doRollover()
 except PermissionError:
     logger.warning('log file was already open')
 logger.info('Running Python %s on %s', sys.version, sys.platform)
