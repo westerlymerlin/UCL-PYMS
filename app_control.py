@@ -10,7 +10,7 @@ from base64 import b64decode, b64encode
 import datetime
 
 VERSION = '3.3.2'
-running = True
+RUNNING = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
 
@@ -33,8 +33,8 @@ def friendlydirname(sourcename: str) -> str:
 
 def setrunning(state):
     """Global signal to detect if app is running - used to kill off threads"""
-    global running
-    running = state
+    global RUNNING
+    RUNNING = state
 
 
 def writesettings():
@@ -264,7 +264,7 @@ def update_secret(key, value):
 
 def list_secret_keys():
     """Returns a list of all secret keys in the SECRETS file."""
-    return(list(SECRETS.keys()))
+    return list(SECRETS.keys())
 
 SECRETS = load_secrets()
 settings = initialise()
