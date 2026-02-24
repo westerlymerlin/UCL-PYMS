@@ -521,7 +521,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
     def menu_show_settings_viewer(self):
         """Menu handler show settings viewer"""
         self.newdialog = UiSettingsViewer()
-        self.newdialog.loadsettings()
+        self.newdialog.load_settings_secrets()
         self.newdialog.show()
 
     def menu_show_xymanual(self):
