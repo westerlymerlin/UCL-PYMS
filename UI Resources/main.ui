@@ -1701,9 +1701,12 @@ image: &quot;&quot;;</string>
     <addaction name="actionViewPyMSLog"/>
     <addaction name="actionViewPyMSSettings"/>
     <addaction name="separator"/>
-    <addaction name="actionHelp"/>
     <addaction name="separator"/>
+    <addaction name="actionCheckForUpdates"/>
+    <addaction name="separator"/>
+    <addaction name="actionHelp"/>
     <addaction name="actionAboutPyMS"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuPump_Reader">
     <property name="title">
@@ -1915,6 +1918,11 @@ image: &quot;&quot;;</string>
    </property>
    <property name="text">
     <string>Valve A</string>
+   </property>
+  </action>
+  <action name="actionCheckForUpdates">
+   <property name="text">
+    <string>Check for Updates</string>
    </property>
   </action>
  </widget>
