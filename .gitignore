@@ -224,3 +224,4 @@ settings.json
 /packager/pyinstaller.log
 /packager/dbupdater-version.txt
 /packager/dbupgrader-version.txt
+/PyMS-installer.exe

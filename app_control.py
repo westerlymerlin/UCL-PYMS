@@ -174,6 +174,12 @@ def initialise():
         "xymanualform": {
             "x": 1137,
             "y": 870
+        },
+        "updater": {
+            "url": "https://api.github.com/repos/westerlymerlin/UCL-PYMS/contents/distribution/PyMS-installer.exe",
+            "branch": "master",
+            "out_path": "PyMS-installer.exe",
+            "sha": "xxxx"
         }
     }
     return isettings
