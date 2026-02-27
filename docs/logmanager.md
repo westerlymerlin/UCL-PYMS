@@ -6,15 +6,15 @@
 
 Application logging configuration and setup module.
 
-This module initializes and configures the logging system for the application,
+This module initialises and configures the logging system for the application,
 including file rotation, formatting, and log level management. It provides a
-centralized logger instance that can be imported and used throughout the application.
+centralised logger instance that can be imported and used throughout the application.
 
 Features:
     - Automatic log directory creation
     - Rotating file handler with configurable size limits and backup count
     - Configurable logging levels (DEBUG/INFO)
-    - Standardized log message formatting with timestamps
+    - Standardised log message formatting with timestamps
     - System information logging on startup
 
 Usage:
@@ -72,9 +72,9 @@ Usage:
 **logger.error('message')** for errors
 **logger.debug('message')** for debugging info
 
-<a id="logmanager.LogFile"></a>
+<a id="logmanager.log_file"></a>
 
-#### LogFile
+#### log\_file
 
 <a id="logmanager.formatter"></a>
 

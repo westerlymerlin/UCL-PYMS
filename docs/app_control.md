@@ -32,9 +32,9 @@ calculating a file name and removing illegal character.
 
 #### VERSION
 
-<a id="app_control.running"></a>
+<a id="app_control.RUNNING"></a>
 
-#### running
+#### RUNNING
 
 <a id="app_control.alarms"></a>
 
