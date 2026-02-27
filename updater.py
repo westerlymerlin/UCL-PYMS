@@ -58,7 +58,7 @@ def download_file_raw_via_api():
     with requests.get(settings['updater']['url'], headers=headers, params={"ref": settings['updater']['branch']},
                       stream=True, timeout=60) as r:
         if r.status_code == 304:
-            return False, headers.get("If-None-Match")
+            return False
 
         r.raise_for_status()
         new_etag = r.headers.get("ETag")
