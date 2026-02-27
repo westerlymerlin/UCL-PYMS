@@ -20,6 +20,7 @@ from cycleclass import currentcycle
 from ms_hiden_class import ms
 from alertmessage import alert
 from logmanager import logger
+from updater import download_file_raw_via_api
 from ui.ui_layout_main import Ui_MainWindow
 from ui.new_batch_form import UiBatch
 from ui.about_form import UiAbout
@@ -96,6 +97,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         self.actionStartProfileScan.triggered.connect(ms.start_profile)
         self.actionStopScan.triggered.connect(ms.stop_runnning)
         self.actionNCCViewer.triggered.connect(self.menu_show_ncc)
+        self.actionCheckForUpdates.triggered.connect(check_for_updates)
         self.btnHidenMID.clicked.connect(ms.start_mid)
         self.btnHidenProfile.clicked.connect(ms.start_profile)
         self.btnHidenStop.clicked.connect(ms.stop_runnning)
@@ -813,6 +815,23 @@ def move_y():
     """
     location = batch.locxy(batch.nextlocation())
     xymoveto('y', location[1])
+
+def check_for_updates():
+    """
+    Checks for updates to the application and provides appropriate messages.
+
+    This function checks if a new version of the application is available by
+    downloading update information via an API. If an update is detected, it
+    notifies the user to close the application and run the installer. Otherwise,
+    it informs the user that they are using the latest version.
+    """
+    result = download_file_raw_via_api()
+    if result:
+        message = ('A new version of PyMS has been downloaded.\n'
+                   'Please close this application and run "PyMS-installer" to upgrade to the latest version')
+    else:
+        message = 'You are currently running the latest version (%s).' % VERSION
+    messagebox.showinfo('PyMS Update', message)
 
 def menu_open_web_page(page):
     """
