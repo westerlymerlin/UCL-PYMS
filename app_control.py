@@ -9,7 +9,7 @@ import json
 from base64 import b64decode, b64encode
 import datetime
 
-VERSION = '3.3.2'
+VERSION = '3.3.3'
 RUNNING = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
