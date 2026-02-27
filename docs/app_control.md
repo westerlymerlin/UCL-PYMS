@@ -158,7 +158,7 @@ backup of the existing storage file before writing the updated encoded secrets b
 def list_secret_keys()
 ```
 
-Prints a list of all secret keys in the SECRETS file.
+Returns a list of all secret keys in the SECRETS file.
 
 <a id="app_control.SECRETS"></a>
 
