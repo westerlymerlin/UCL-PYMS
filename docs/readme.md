@@ -9,7 +9,11 @@ This document contains the documentation for all the modules in this project.
 
 
 [about_form](./about_form.md)  
-About Dialog UI
+Module for the About Dialogue UI.
+
+This module contains the UiAbout class which manages the About Dialogue user
+interface. It sets up the layout, replaces placeholder text with application
+version and current year information, and displays the dialogue.
 
 [alertmessage](./alertmessage.md)  
 Provides functionality to send emails using the Microsoft Graph API.
@@ -173,15 +177,15 @@ UI form for viewing the logs
 [logmanager](./logmanager.md)  
 Application logging configuration and setup module.
 
-This module initializes and configures the logging system for the application,
+This module initialises and configures the logging system for the application,
 including file rotation, formatting, and log level management. It provides a
-centralized logger instance that can be imported and used throughout the application.
+centralised logger instance that can be imported and used throughout the application.
 
 Features:
     - Automatic log directory creation
     - Rotating file handler with configurable size limits and backup count
     - Configurable logging levels (DEBUG/INFO)
-    - Standardized log message formatting with timestamps
+    - Standardised log message formatting with timestamps
     - System information logging on startup
 
 Usage:
@@ -206,8 +210,12 @@ system information including Python version and platform details.
 Author: Gary Twinn
 
 [main_form](./main_form.md)  
-Main Helium line form - graphical output of the Heliumline state and timers for running samples
-Author: Gary Twinn
+Module for the main window interface of the PyMS application.
+
+This module defines the structure and functionality for the main GUI window of
+the Python Mass Spectrometry (PyMS) application. It includes event handlers,
+UI updates, and interactions with mass spectrometry hardware and associated
+software components.
 
 [manual_batch_form](./manual_batch_form.md)  
 Dialog for a Manual batch (used for testing the Helium line) has a default of 8 steps but more can be added
@@ -278,6 +286,14 @@ Author: Gary Twinn
 Settings viewer / editor form. allows user to edit setting values manually. settings are then saves in the
 settings.json file
 Author: Gary Twinn
+
+[updater](./updater.md)  
+Utilities for interacting with the GitHub Contents API.
+
+This module provides functionality to fetch metadata of a repository file and
+download raw file content from the GitHub API. It uses an authenticated request
+to ensure proper access and handles caching mechanisms like ETag headers to
+improve efficiency.
 
 
 ---

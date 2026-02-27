@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.2
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -110,6 +110,8 @@ class Ui_MainWindow(object):
         self.actionValve_A = QAction(MainWindow)
         self.actionValve_A.setObjectName(u"actionValve_A")
         self.actionValve_A.setCheckable(True)
+        self.actionCheckForUpdates = QAction(MainWindow)
+        self.actionCheckForUpdates.setObjectName(u"actionCheckForUpdates")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.frmHeLine = QFrame(self.centralwidget)
@@ -689,9 +691,12 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionViewPyMSLog)
         self.menuHelp.addAction(self.actionViewPyMSSettings)
         self.menuHelp.addSeparator()
-        self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addSeparator()
+        self.menuHelp.addAction(self.actionCheckForUpdates)
+        self.menuHelp.addSeparator()
+        self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionAboutPyMS)
+        self.menuHelp.addSeparator()
         self.menuPump_Reader.addAction(self.actionPumpOpenStatusPage)
         self.menuPump_Reader.addAction(self.actionPumpOpenLogPage)
         self.menuMass_Spectrometer.addAction(self.actionStartMIDScan)
@@ -737,6 +742,7 @@ class Ui_MainWindow(object):
         self.actionNCCViewer.setText(QCoreApplication.translate("MainWindow", u"Ncc Viewer", None))
         self.actionHelp.setText(QCoreApplication.translate("MainWindow", u"Help", None))
         self.actionValve_A.setText(QCoreApplication.translate("MainWindow", u"Valve A", None))
+        self.actionCheckForUpdates.setText(QCoreApplication.translate("MainWindow", u"Check for Updates", None))
         self.tbValve1.setText("")
         self.tbValve2.setText("")
         self.tbValve6.setText("")

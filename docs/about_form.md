@@ -4,7 +4,11 @@
 
 # about\_form
 
-About Dialog UI
+Module for the About Dialogue UI.
+
+This module contains the UiAbout class which manages the About Dialogue user
+interface. It sets up the layout, replaces placeholder text with application
+version and current year information, and displays the dialogue.
 
 <a id="about_form.datetime"></a>
 
@@ -34,15 +38,9 @@ About Dialog UI
 class UiAbout(QDialog, QMainWindow, Ui_AboutDialog)
 ```
 
-A class representing the About Dialog UI.
+A class representing the About Dialogue UI.
 
 Inherits from QDialog, QMainWindow, and Ui_AboutDialog.
-
-Methods:
-    __init__()
-
-Attributes:
-    None
 
 <a id="about_form.UiAbout.__init__"></a>
 
