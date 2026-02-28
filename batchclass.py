@@ -1,45 +1,23 @@
 """
-The `BatchClass` represents a batch of samples or planchets. It allows for the creation, modification, and
-completion of batch steps. The class interacts with a SQLite database to store and retrieve batch information.
+Batch management for PyMS.
 
-Attributes:
-    id (int): ID number of the batch. -1 indicates that the batch has not been saved yet, otherwise it is taken
-    from the database.
-    date (datetime): The date and time when the batch was created.
-    description (str): The description or name of the batch.
-    type (str): The type of batch. Can be either 'Simple Batch' or 'Planchet'.
-    runnumber (list[int]): A list of ID numbers of each item in the batch, including the samples.
-    cycle (list[str]): A list of the type of cycle required for each item.
-    location (list[str]): A list of the hole location if needed for each item.
-    identifier (list[str]): A list of the description of the sample or qnumber for each item.
-    status (list[int]): A list of the status of each item. 0 indicates 'to do', 1 indicates 'complete', and 2
-    indicates 'cancelled'.
-    changed (int): A flag indicating whether the batch has been modified since the last save.
+This module provides a lightweight persistence layer and in-memory model for
+building and executing a queue of measurement steps (a “batch”). A batch may be
+a simple list of sample runs or a planchet layout; steps are stored in / loaded
+from the project’s SQLite database and processed in order.
 
-Methods:
-    read_database()
-        Reads the PyMS database for any open batches.
+Key features:
+- Create a new batch and append steps (cycle, location, identifier)
+- Load any unfinished steps from the database on startup
+- Persist batch metadata and steps (insert/update)
+- Mark the current step complete, cancel remaining steps, and advance the queue
+- Generate per-batch results output (CSV + NCC file generation)
 
-    cancel_batch()
-        Used to cancel_batch a batch. Marks all samples as cancelled and closes the batch.
-
-    new(batchtype: str, description: str)
-        Creates a new batch with the specified batch type and description.
-
-    addstep(cycle: str, location: str, identifier: str)
-        Adds a sample to the batch.
-
-    save()
-        Saves the batch details to the database.
-
-    current()
-        Returns the details of the current batch step or 'End' if there are no more steps.
-
-    completecurrent()
-        Marks the current batch step as complete.
-
-    writebatchlog()
-        Generates the batchlog.csv file for the batch.
+Notes:
+- Database paths and runtime settings are taken from the shared application
+  settings.
+- The module exposes a singleton-like `batch` instance for use by the UI and
+  control code.
 """
 import sqlite3
 from datetime import datetime, timedelta
@@ -105,7 +83,7 @@ class BatchClass:
         self.runnumber = []         # ID of each item in the batch inc lb, q and samples
         self.cycle = []             # type of cycle required
         self.location = []          # hole location if needed
-        self.identifier = []        # description of sample or qnumber
+        self.identifier = []        # description of sample or Q number
         self.status = []            # item status 0=to do, 1=complete, 2=cancelled
         self.changed = 0
         self.read_database()
@@ -121,17 +99,17 @@ class BatchClass:
         cursor_obj = database.cursor()
         sql_query = 'SELECT * from batchsteps WHERE status = 0'
         cursor_obj.execute(sql_query)
-        batchlist = cursor_obj.fetchall()
-        if len(batchlist) > 0:
+        batch_list = cursor_obj.fetchall()
+        if len(batch_list) > 0:
             self.changed = 1
-            self.id = batchlist[0][1]
+            self.id = batch_list[0][1]
             sql_query = """SELECT * from batches WHERE id = ? """
-            cursor_obj.execute(sql_query, [str(batchlist[0][1])])
-            batchdetails = cursor_obj.fetchall()
-            self.date = batchdetails[0][1]
-            self.description = batchdetails[0][2]
-            self.type = batchdetails[0][3]
-            for item in batchlist:
+            cursor_obj.execute(sql_query, [str(batch_list[0][1])])
+            batch_details = cursor_obj.fetchall()
+            self.date = batch_details[0][1]
+            self.description = batch_details[0][2]
+            self.type = batch_details[0][3]
+            for item in batch_list:
                 self.runnumber.append(item[0])
                 self.cycle.append(item[2])
                 self.location.append(item[3])
@@ -152,20 +130,15 @@ class BatchClass:
             cursor_obj = database.cursor()
             sql_query = 'SELECT * from batchsteps WHERE status = 0'
             cursor_obj.execute(sql_query)
-            batchlist = cursor_obj.fetchall()
-            if len(batchlist) > 0:
-                self.id = batchlist[0][1]
+            batch_list = cursor_obj.fetchall()
+            if len(batch_list) > 0:
+                self.id = batch_list[0][1]
                 sql_update_query = """ UPDATE batchsteps SET status = 2 WHERE id = ? and status = 0 """
-                for _ in batchlist:
-                    datarow = [(str(self.id))]
-                    cursor_obj.execute(sql_update_query, datarow)
+                for _ in batch_list:
+                    query_result = [(str(self.id))]
+                    cursor_obj.execute(sql_update_query, query_result)
                 database.commit()
-            sql_query ="SELECT identifier from QNumbers"
-            cursor_obj.execute(sql_query)
-            lastq = cursor_obj.fetchone()
-            settings['MassSpec']['nextQ'] = int(lastq[0])+1
-            writesettings()
-            database.close()
+            reset_q()
             self.changed = 1
             self.id = -1
             self.date = None
@@ -177,9 +150,9 @@ class BatchClass:
             self.identifier = []
             self.status = []
         except sqlite3.OperationalError:
-            logger.error('BatchClass-batchclass batch cancel_batch error')
+            logger.error('BatchClass cancel_batch error')
 
-    def new(self, batchtype, description):
+    def new(self, batch_type, description):
         """
         Creates a new batch with the specified type and description.
 
@@ -189,12 +162,12 @@ class BatchClass:
         current batch before proceeding.
 
         Parameters:
-            batchtype: The type of the batch to be created.
+            batch_type: The type of the batch to be created.
             description: A description for the batch.
         """
         if self.id > 0:
             self.cancel_batch()
-        self.type = batchtype
+        self.type = batch_type
         self.description = description
         self.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -214,39 +187,42 @@ class BatchClass:
         a new batch record; otherwise, it updates the existing batch record. It also ensures that related batch steps are
         inserted or updated appropriately. If the batch type is 'planchet', additional recalculations are performed.
         """
+        reset_q()
         database = sqlite3.connect(settings['database']['databasepath'])
         cursor_obj = database.cursor()
         self.changed = 1
         if self.id == -1:
             sql_insert_query = """ INSERT INTO batches (date, description, type) VALUES (?, ?, ?)"""
-            datarow = (self.date, self.description, self.type)
-            cursor_obj.execute(sql_insert_query, datarow)
+            query_result = (self.date, self.description, self.type)
+            cursor_obj.execute(sql_insert_query, query_result)
             self.id = cursor_obj.lastrowid
         else:
             sql_update_query = """ UPDATE batches SET description = ? WHERE id = ?"""
-            datarow = (self.description, str(self.id))
-            cursor_obj.execute(sql_update_query, datarow)
+            query_result = (self.description, str(self.id))
+            cursor_obj.execute(sql_update_query, query_result)
         database.commit()
-        itemcounter = 0
+        item_counter = 0
         if self.type == 'planchet':
             self.recalulateplanchet()
         for item in self.runnumber:
+            if self.cycle[item_counter] == 'Q-Standard':
+                self.identifier[item_counter] = next_q()
             if item == -1:
                 sql_insert_query = 'INSERT INTO batchsteps (id, cycle, location, identifier, status)' \
                                    ' VALUES (?, ?, ?, ?, ?)'
-                if self.cycle[itemcounter] == 'Q-Standard':
-                    self.identifier[itemcounter] = self.newq()
-                datarow = (self.id, self.cycle[itemcounter], self.location[itemcounter],
-                           self.identifier[itemcounter], 0)
-                cursor_obj.execute(sql_insert_query, datarow)
-                self.runnumber[itemcounter] = cursor_obj.lastrowid
+
+                query_result = (self.id, self.cycle[item_counter], self.location[item_counter],
+                           self.identifier[item_counter], 0)
+                cursor_obj.execute(sql_insert_query, query_result)
+                self.runnumber[item_counter] = cursor_obj.lastrowid
             else:
                 sql_update_query = 'UPDATE batchsteps SET cycle = ?, location = ?,  identifier = ?, status = ?' \
                                    '  WHERE runnumber = ?'
-                datarow = (self.cycle[itemcounter], self.location[itemcounter], self.identifier[itemcounter],
-                           self.status[itemcounter], self.runnumber[itemcounter])
-                cursor_obj.execute(sql_update_query, datarow)
-            itemcounter = itemcounter + 1
+                query_result = (self.cycle[item_counter], self.location[item_counter], self.identifier[item_counter],
+                           self.status[item_counter], self.runnumber[item_counter])
+                print(query_result)
+                cursor_obj.execute(sql_update_query, query_result)
+            item_counter = item_counter + 1
         database.commit()
         database.close()
         writesettings()
@@ -306,27 +282,27 @@ class BatchClass:
             filepath = settings['MassSpec']['datadirectory'] + \
                 friendlydirname(str(self.id) + ' ' + self.description)
             os.makedirs(filepath, exist_ok=True)
-            formatteddata = ['"Batch No:","%s"' % self.id, '"Batch Description:","%s"' % self.description, ' ',
+            formatted_data = ['"Batch No:","%s"' % self.id, '"Batch Description:","%s"' % self.description, ' ',
                              '"Date","HE File","Description","Best Fit"']
             logger.info('BatchClass-Complete Current: Opening Results Database')
             database = sqlite3.connect(settings['database']['resultsdatabasepath'])
             cursor_obj = database.cursor()
             sql_query = """SELECT id, identifier, daterun, bestfit from HeliumRuns WHERE batchid = ? """
             cursor_obj.execute(sql_query, [str(self.id)])
-            datarows = cursor_obj.fetchall()
-            for datarow in datarows:
-                formatteddata.append(
-                    '"%s","%s","%s",%.3f' % (datarow[2][:16], datarow[0], datarow[1], datarow[3]))
+            query_result = cursor_obj.fetchall()
+            for data_row in query_result:
+                formatted_data.append(
+                    '"%s","%s","%s",%.3f' % (data_row[2][:16], data_row[0], data_row[1], data_row[3]))
             database.close()
             logger.info('BatchClass-Complete Current: Writing Results File')
             filename = filepath + '\\' + 'batchresults.csv'
             logfile = open(filename, 'w', encoding='utf-8')
-            for formattedline in formatteddata:
-                print(formattedline, file=logfile)
+            for formatted_line in formatted_data:
+                print(formatted_line, file=logfile)
             logfile.close()
             ncc.filegenerator(filepath)
         except:
-            logger.error("batchclass: Error createing batchlog")
+            logger.error("BatchClass: Error creating batchlog file")
 
     def list(self):
         """
@@ -338,11 +314,11 @@ class BatchClass:
         `cycle`, `location`, and `identifier`.
         """
         index = 0
-        returnval = []
+        return_values = []
         for _ in self.runnumber:
-            returnval.append([self.runnumber[index], self.cycle[index], self.location[index], self.identifier[index]])
+            return_values.append([self.runnumber[index], self.cycle[index], self.location[index], self.identifier[index]])
             index = index + 1
-        return returnval
+        return return_values
 
     def listformatted(self):
         """
@@ -354,7 +330,7 @@ class BatchClass:
         criteria. If no data points are processed, a default value is returned.
         """
         index = 0
-        returnval = []
+        return_values = []
         for _ in self.runnumber:
             datapoint = '%s ' % self.runnumber[index]
             datapoint = datapoint + self.cycle[index]
@@ -362,11 +338,11 @@ class BatchClass:
                 datapoint = datapoint + ', HOLE_' + self.location[index] + '_' + self.identifier[index]
             if self.cycle[index] == 'Q-Standard':
                 datapoint = datapoint + ', Q' + self.identifier[index]
-            returnval.append(datapoint)
+            return_values.append(datapoint)
             index = index + 1
-        if len(returnval) == 0:
-            returnval = ['00: End']
-        return returnval
+        if len(return_values) == 0:
+            return_values = ['00: End']
+        return return_values
 
     def formatsample(self):
         """
@@ -465,10 +441,10 @@ class BatchClass:
         across the run phases.
         """
         if len(self.runnumber) > 36:
-            insertpos = int(len(self.runnumber)/2)
-            self.insertcycle(insertpos, 'Q-Standard')
-            self.insertcycle(insertpos, 'Line Blank')
-            self.insertcycle(insertpos, 'Pump')
+            insert_index = int(len(self.runnumber)/2)
+            self.insertcycle(insert_index, 'Q-Standard')
+            self.insertcycle(insert_index, 'Line Blank')
+            self.insertcycle(insert_index, 'Pump')
         self.insertcycle(0, 'Q-Standard')
         self.insertcycle(0, 'Line Blank')
         self.insertcycle(0, 'Line Clean')
@@ -476,17 +452,6 @@ class BatchClass:
         self.insertcycle(len(self.runnumber), 'Line Blank')
         self.insertcycle(len(self.runnumber), 'Unload')
 
-    def newq(self):
-        """
-        Generates the next unique identifier for a MassSpec operation.
-
-        The function retrieves the current value of the "nextQ" setting from the
-        "MassSpec" configuration, increments it, updates the setting, and then
-        returns the original value as a string.
-        """
-        q = settings['MassSpec']['nextQ']
-        settings['MassSpec']['nextQ'] = q + 1
-        return str(q)
 
     def nextlocation(self):
         """
@@ -512,10 +477,10 @@ class BatchClass:
         cursor_obj = database.cursor()
         sql_query = """SELECT * from locations WHERE location = ?"""
         cursor_obj.execute(sql_query, [loc])
-        datarow = cursor_obj.fetchall()[0]
+        query_result = cursor_obj.fetchall()[0]
         database.close()
-        xpos = datarow[1]
-        ypos = datarow[2]
+        xpos = query_result[1]
+        ypos = query_result[2]
         return xpos, ypos
 
     def isitthereyet(self, current_x_pos, current_y_pos):
@@ -559,15 +524,15 @@ class BatchClass:
             else:
                 sql_query = """SELECT MAX(daterun), batchid from HeliumRuns"""
                 cursor_obj.execute(sql_query)
-                datarows = cursor_obj.fetchall()
-                logger.info('batchclass: - last batch = %s', datarows)
-                batchid = datarows[0][1]
+                query_result = cursor_obj.fetchall()
+                logger.info('batchclass: - last batch = %s', query_result)
+                batchid = query_result[0][1]
             sql_query = """SELECT id, identifier, daterun, bestfit from HeliumRuns WHERE batchid = ? """
             cursor_obj.execute(sql_query, [str(batchid)])
-            datarows = cursor_obj.fetchall()
-            return datarows
+            query_result = cursor_obj.fetchall()
+            return query_result
         except:
-            logger.error('BatchClass-batchclass batch results error - %s', Exception)
+            logger.error('BatchClass results error - %s', Exception)
             return ['0', 'Batch Error', 'today', 1]
 
     def image(self, application):
@@ -576,12 +541,12 @@ class BatchClass:
 
         This method creates a sample ID by combining a prefix with a unique run
         number and formatted sample data, then calls the `imager` function to
-        carry out the imaging process. The generated `sampleid` is passed along
+        carry out the imaging process. The generated `sample_id` is passed along
         with the application name, unique identifier, and description of the
         sample to the imaging function.
         """
-        sampleid = 'IMG' + str(self.runnumber[0]) + '_' + self.formatsample()
-        imager(application, str(self.id), self.description, sampleid)
+        sample_id = 'IMG' + str(self.runnumber[0]) + '_' + self.formatsample()
+        imager(application, str(self.id), self.description, sample_id)
 
     def finishtime(self):
         """
@@ -597,16 +562,48 @@ class BatchClass:
         sql_query = 'SELECT  sum(cyclesteps.time) from batchsteps, cyclesteps, cycles WHERE batchsteps.cycle =' \
                     ' cycles.name and cycles.id = cyclesteps.id and batchsteps.status = 0 and cyclesteps.target = "end"'
         cursor_obj.execute(sql_query)
-        dbreturn = cursor_obj.fetchall()
-        totalseconds = dbreturn[0][0]
+        query_result = cursor_obj.fetchall()
+        total_seconds = query_result[0][0]
         database.close()
-        logger.info('Time to add %s', totalseconds)
-        if totalseconds is None:
+        logger.info('Time to add %s', total_seconds)
+        if total_seconds is None:
             endtime = ''
         else:
-            endtime = datetime.strftime(datetime.now() + timedelta(seconds=totalseconds),
+            endtime = datetime.strftime(datetime.now() + timedelta(seconds=total_seconds),
                                         'Estimated End Time: %a %d %b %Y, %H:%M')
         return endtime
 
+def next_q():
+    """
+    Generates the next unique identifier for a MassSpec operation.
+
+    The function retrieves the current value of the "nextQ" setting from the
+    "MassSpec" configuration, increments it, updates the setting, and then
+    returns the original value as a string.
+    """
+    q = settings['MassSpec']['nextQ']
+    settings['MassSpec']['nextQ'] = q + 1
+    return str(q)
+
+
+def reset_q():
+    """
+    Resets the 'Q' number to the next available identifier.
+
+    This method connects to the database, retrieves the last used identifier
+    from the 'QNumbers' view, and updates the application settings with the
+    next sequential number. If an error occurs during the process, it is logged.
+    """
+    try:
+        database = sqlite3.connect(settings['database']['databasepath'])
+        cursor_obj = database.cursor()
+        sql_query = "SELECT identifier from QNumbers"
+        cursor_obj.execute(sql_query)
+        query_result = cursor_obj.fetchone()
+        settings['MassSpec']['nextQ'] = int(query_result[0]) + 1
+        writesettings()
+        database.close()
+    except sqlite3.OperationalError:
+        logger.error('BatchClass - batch reset_q error')
 
 batch = BatchClass()
