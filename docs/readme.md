@@ -29,47 +29,25 @@ has appeared it will creat from the defaults in the initialise function. Has glo
 calculating a file name and removing illegal character.
 
 [batchclass](./batchclass.md)  
-The `BatchClass` represents a batch of samples or planchets. It allows for the creation, modification, and
-completion of batch steps. The class interacts with a SQLite database to store and retrieve batch information.
+Batch management for PyMS.
 
-Attributes:
-    id (int): ID number of the batch. -1 indicates that the batch has not been saved yet, otherwise it is taken
-    from the database.
-    date (datetime): The date and time when the batch was created.
-    description (str): The description or name of the batch.
-    type (str): The type of batch. Can be either 'Simple Batch' or 'Planchet'.
-    runnumber (list[int]): A list of ID numbers of each item in the batch, including the samples.
-    cycle (list[str]): A list of the type of cycle required for each item.
-    location (list[str]): A list of the hole location if needed for each item.
-    identifier (list[str]): A list of the description of the sample or qnumber for each item.
-    status (list[int]): A list of the status of each item. 0 indicates 'to do', 1 indicates 'complete', and 2
-    indicates 'cancelled'.
-    changed (int): A flag indicating whether the batch has been modified since the last save.
+This module provides a lightweight persistence layer and in-memory model for
+building and executing a queue of measurement steps (a “batch”). A batch may be
+a simple list of sample runs or a planchet layout; steps are stored in / loaded
+from the project’s SQLite database and processed in order.
 
-Methods:
-    read_database()
-        Reads the PyMS database for any open batches.
+Key features:
+- Create a new batch and append steps (cycle, location, identifier)
+- Load any unfinished steps from the database on startup
+- Persist batch metadata and steps (insert/update)
+- Mark the current step complete, cancel remaining steps, and advance the queue
+- Generate per-batch results output (CSV + NCC file generation)
 
-    cancel_batch()
-        Used to cancel_batch a batch. Marks all samples as cancelled and closes the batch.
-
-    new(batchtype: str, description: str)
-        Creates a new batch with the specified batch type and description.
-
-    addstep(cycle: str, location: str, identifier: str)
-        Adds a sample to the batch.
-
-    save()
-        Saves the batch details to the database.
-
-    current()
-        Returns the details of the current batch step or 'End' if there are no more steps.
-
-    completecurrent()
-        Marks the current batch step as complete.
-
-    writebatchlog()
-        Generates the batchlog.csv file for the batch.
+Notes:
+- Database paths and runtime settings are taken from the shared application
+  settings.
+- The module exposes a singleton-like `batch` instance for use by the UI and
+  control code.
 
 [cycle_edit_form](./cycle_edit_form.md)  
 UI Form for Editing Cycles

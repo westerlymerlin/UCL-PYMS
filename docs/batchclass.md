@@ -4,47 +4,25 @@
 
 # batchclass
 
-The `BatchClass` represents a batch of samples or planchets. It allows for the creation, modification, and
-completion of batch steps. The class interacts with a SQLite database to store and retrieve batch information.
+Batch management for PyMS.
 
-Attributes:
-    id (int): ID number of the batch. -1 indicates that the batch has not been saved yet, otherwise it is taken
-    from the database.
-    date (datetime): The date and time when the batch was created.
-    description (str): The description or name of the batch.
-    type (str): The type of batch. Can be either 'Simple Batch' or 'Planchet'.
-    runnumber (list[int]): A list of ID numbers of each item in the batch, including the samples.
-    cycle (list[str]): A list of the type of cycle required for each item.
-    location (list[str]): A list of the hole location if needed for each item.
-    identifier (list[str]): A list of the description of the sample or qnumber for each item.
-    status (list[int]): A list of the status of each item. 0 indicates 'to do', 1 indicates 'complete', and 2
-    indicates 'cancelled'.
-    changed (int): A flag indicating whether the batch has been modified since the last save.
+This module provides a lightweight persistence layer and in-memory model for
+building and executing a queue of measurement steps (a “batch”). A batch may be
+a simple list of sample runs or a planchet layout; steps are stored in / loaded
+from the project’s SQLite database and processed in order.
 
-Methods:
-    read_database()
-        Reads the PyMS database for any open batches.
+Key features:
+- Create a new batch and append steps (cycle, location, identifier)
+- Load any unfinished steps from the database on startup
+- Persist batch metadata and steps (insert/update)
+- Mark the current step complete, cancel remaining steps, and advance the queue
+- Generate per-batch results output (CSV + NCC file generation)
 
-    cancel_batch()
-        Used to cancel_batch a batch. Marks all samples as cancelled and closes the batch.
-
-    new(batchtype: str, description: str)
-        Creates a new batch with the specified batch type and description.
-
-    addstep(cycle: str, location: str, identifier: str)
-        Adds a sample to the batch.
-
-    save()
-        Saves the batch details to the database.
-
-    current()
-        Returns the details of the current batch step or 'End' if there are no more steps.
-
-    completecurrent()
-        Marks the current batch step as complete.
-
-    writebatchlog()
-        Generates the batchlog.csv file for the batch.
+Notes:
+- Database paths and runtime settings are taken from the shared application
+  settings.
+- The module exposes a singleton-like `batch` instance for use by the UI and
+  control code.
 
 <a id="batchclass.sqlite3"></a>
 
@@ -181,7 +159,7 @@ the object to default values after successfully processing the batch steps.
 #### new
 
 ```python
-def new(batchtype, description)
+def new(batch_type, description)
 ```
 
 Creates a new batch with the specified type and description.
@@ -192,7 +170,7 @@ has already been created (identified by an id greater than 0), it cancels the
 current batch before proceeding.
 
 Parameters:
-    batchtype: The type of the batch to be created.
+    batch_type: The type of the batch to be created.
     description: A description for the batch.
 
 <a id="batchclass.BatchClass.addstep"></a>
@@ -388,20 +366,6 @@ positions in the run. If the run number length exceeds 36, additional cycles
 are inserted at the middle of the run. This is done to ensure standardization
 across the run phases.
 
-<a id="batchclass.BatchClass.newq"></a>
-
-#### newq
-
-```python
-def newq()
-```
-
-Generates the next unique identifier for a MassSpec operation.
-
-The function retrieves the current value of the "nextQ" setting from the
-"MassSpec" configuration, increments it, updates the setting, and then
-returns the original value as a string.
-
 <a id="batchclass.BatchClass.nextlocation"></a>
 
 #### nextlocation
@@ -473,7 +437,7 @@ Formats a sample ID and initiates the imaging process for the application.
 
 This method creates a sample ID by combining a prefix with a unique run
 number and formatted sample data, then calls the `imager` function to
-carry out the imaging process. The generated `sampleid` is passed along
+carry out the imaging process. The generated `sample_id` is passed along
 with the application name, unique identifier, and description of the
 sample to the imaging function.
 
@@ -491,6 +455,34 @@ Connects to the database and calculates the total time of unfinished batch steps
 where their corresponding cycle steps have a target set to "end". Uses the current
 time and the total time retrieved from the database to compute the estimated end
 time.
+
+<a id="batchclass.next_q"></a>
+
+#### next\_q
+
+```python
+def next_q()
+```
+
+Generates the next unique identifier for a MassSpec operation.
+
+The function retrieves the current value of the "nextQ" setting from the
+"MassSpec" configuration, increments it, updates the setting, and then
+returns the original value as a string.
+
+<a id="batchclass.reset_q"></a>
+
+#### reset\_q
+
+```python
+def reset_q()
+```
+
+Resets the 'Q' number to the next available identifier.
+
+This method connects to the database, retrieves the last used identifier
+from the 'QNumbers' view, and updates the application settings with the
+next sequential number. If an error occurs during the process, it is logged.
 
 <a id="batchclass.batch"></a>
 
