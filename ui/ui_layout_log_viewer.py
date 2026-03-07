@@ -34,7 +34,9 @@ class Ui_LogDialog(object):
         icon = QIcon()
         icon.addFile(u":/main/iconGTRun.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         LogDialog.setWindowIcon(icon)
-        LogDialog.setStyleSheet(u"font: 10pt \"Segoe UI\";")
+        LogDialog.setStyleSheet(u"font: 10pt \"Segoe UI\";\n"
+"selection-background-color: rgb(121, 192, 255);\n"
+"selection-color: rgb(255, 255, 255);")
         self.txtLog = QTextEdit(LogDialog)
         self.txtLog.setObjectName(u"txtLog")
         self.txtLog.setGeometry(QRect(10, 50, 1181, 891))

@@ -36,7 +36,9 @@
     <normaloff>:/main/iconGTRun.svg</normaloff>:/main/iconGTRun.svg</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">font: 10pt &quot;Segoe UI&quot;;</string>
+   <string notr="true">font: 10pt &quot;Segoe UI&quot;;
+selection-background-color: rgb(121, 192, 255);
+selection-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QTextEdit" name="txtLog">
    <property name="geometry">
