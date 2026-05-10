@@ -208,7 +208,8 @@ __marimo__/
 
 # TST
 /logs
-settings.json
+/config.*
+/settings.json
 /SECRETS*
 /cacerts
 /QuadStarData/
