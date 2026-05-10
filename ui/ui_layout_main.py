@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.1
+## Created by: Qt User Interface Compiler version 6.11.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -557,16 +557,16 @@ class Ui_MainWindow(object):
         if (self.tableResults.columnCount() < 4):
             self.tableResults.setColumnCount(4)
         __qtablewidgetitem = QTableWidgetItem()
-        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableResults.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
-        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableResults.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableResults.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
-        __qtablewidgetitem3.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem3.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableResults.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         self.tableResults.setObjectName(u"tableResults")
         self.tableResults.setGeometry(QRect(1, 1, 500, 851))
@@ -796,13 +796,13 @@ class Ui_MainWindow(object):
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Current Command", None))
         self.btnNCCViewer.setText(QCoreApplication.translate("MainWindow", u"NCC Viewer", None))
         ___qtablewidgetitem = self.tableResults.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Date", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Date", None))
         ___qtablewidgetitem1 = self.tableResults.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Data File", None));
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Data File", None))
         ___qtablewidgetitem2 = self.tableResults.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Sample", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Sample", None))
         ___qtablewidgetitem3 = self.tableResults.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Best Fit", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Best Fit", None))
         self.lineN2Pressure.setText(QCoreApplication.translate("MainWindow", u"0.0", None))
         self.lblN2Pump.setText(QCoreApplication.translate("MainWindow", u"N2 Gauge", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))

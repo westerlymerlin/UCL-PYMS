@@ -1,15 +1,19 @@
 PySide6
 certifi
 chardet
+future
+image
+msal
+numpy
 pillow
+pip
+pyinstaller
+pyinstaller-versionfile
+pylint
 pywin32
+pyyaml
 requests
 scipy
 shiboken6
-future
-pip
-numpy
 six
-image
-msal
 
