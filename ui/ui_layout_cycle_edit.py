@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'cycleedit.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.1
+## Created by: Qt User Interface Compiler version 6.11.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -41,13 +41,13 @@ class Ui_dialogCycleEdit(object):
         if (self.tableSteps.columnCount() < 3):
             self.tableSteps.setColumnCount(3)
         __qtablewidgetitem = QTableWidgetItem()
-        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableSteps.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
-        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem1.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableSteps.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem2.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter)
         self.tableSteps.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         if (self.tableSteps.rowCount() < 10):
             self.tableSteps.setRowCount(10)
@@ -164,11 +164,11 @@ class Ui_dialogCycleEdit(object):
     def retranslateUi(self, dialogCycleEdit):
         dialogCycleEdit.setWindowTitle(QCoreApplication.translate("dialogCycleEdit", u"PyMS - Cycle Editor", None))
         ___qtablewidgetitem = self.tableSteps.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("dialogCycleEdit", u"Time (s)", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("dialogCycleEdit", u"Time (s)", None))
         ___qtablewidgetitem1 = self.tableSteps.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("dialogCycleEdit", u"Target", None));
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("dialogCycleEdit", u"Target", None))
         ___qtablewidgetitem2 = self.tableSteps.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("dialogCycleEdit", u"Command", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("dialogCycleEdit", u"Command", None))
 #if QT_CONFIG(tooltip)
         self.comboCycles.setToolTip(QCoreApplication.translate("dialogCycleEdit", u"<html><head/><body><p>Select the cycle to edit</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

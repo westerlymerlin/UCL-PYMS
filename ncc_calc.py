@@ -24,7 +24,7 @@ import csv
 from datetime import datetime
 import numpy
 from scipy import stats
-from app_control import settings, writesettings
+from app_control import settings, write_config
 
 
 class HeResults:
@@ -242,7 +242,7 @@ class HeResults:
                 self.blanks_names.append(self.files_names[-1])
                 self.blanks_he34ratios.append(bestfit[1])
                 self.blanks_he34sterrs.append(bestfit[0])
-        writesettings()
+        write_config()
 
     def calculate_blank_all(self):
         """

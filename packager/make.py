@@ -125,7 +125,7 @@ PyInstaller.__main__.run(['package.spec', '--noconfirm', '--log-level=WARN'])
 print('Pyinstaller Completed')
 
 print('copying json files for testing')
-shutil.copy('..\\settings.json', '.\\dist\\PyMS')
+shutil.copy('..\\config.yaml', '.\\dist\\PyMS')
 shutil.copy('..\\SECRETS', '.\\dist\\PyMS')
 print('copy completed')
 

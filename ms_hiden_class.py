@@ -29,7 +29,7 @@ import os
 import threading
 from time import sleep
 import sqlite3
-from app_control import settings, writesettings, friendlydirname, alarms
+from app_control import settings, write_config, friendlydirname, alarms
 from ncc_calc import linbestfit
 from logmanager import logger
 
@@ -394,7 +394,7 @@ class MsClass:
                 print(line, file=outfile)
                 line = ''
             outfile.close()
-            writesettings()
+            write_config()
             with open(filename, 'rb') as infile:
                 blobfile = infile.read()
             infile.close()
@@ -418,7 +418,7 @@ class MsClass:
                 cursor_obj.execute(sql_insert_query, datarow)
             database.commit()
             settings['MassSpec']['nextH'] = self.next_id()
-            writesettings()
+            write_config()
         except sqlite3.Error as error:
             logger.error('msHiden: failed to write to helium results database %s', error)
         self.resetclass()

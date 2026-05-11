@@ -81,9 +81,9 @@ Author: Gary Twinn
 
 ## settings
 
-<a id="ncc_calc_form.writesettings"></a>
+<a id="ncc_calc_form.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="ncc_calc_form.logger"></a>
 

@@ -11,7 +11,7 @@ from PySide6.QtCore import Qt, QRect, QMargins
 from PySide6.QtGui import QFont, QColor
 import numpy
 from ui.ui_layout_ncc_calc import Ui_dialogNccCalc
-from app_control import settings, writesettings
+from app_control import settings, write_config
 from logmanager import logger
 from ncc_calc import ncc, singlefilereader
 
@@ -93,7 +93,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         """Close event handler for the form"""
         settings['ncccalcform']['x'] = self.x()
         settings['ncccalcform']['y'] = self.y()
-        writesettings()
+        write_config()
         self.deleteLater()
 
     def columnheader(self, headertext, align):
@@ -119,7 +119,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
         settings['ncccalcform']['x'] = self.x()
         settings['ncccalcform']['y'] = self.y()
         settings['Ncc']['ncc_filepath'] = filepath
-        writesettings()
+        write_config()
         self.labelFilePath.setText(filepath)
         self.tableFileList.setRowCount(0)
         self.tableQList.setRowCount(0)
@@ -172,7 +172,7 @@ class NccCalcUI(QDialog, Ui_dialogNccCalc):
     def secondchanged(self):
         """Change the seconds to skip on the helium line data"""
         settings['Ncc']['ncc_start_seconds'] = self.spinSeconds.value()
-        writesettings()
+        write_config()
         self.refreshlist()
 
     def blankselectionhanler(self):

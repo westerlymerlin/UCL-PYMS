@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QDialog, QApplication, QTableWidgetItem, QComboBox, QLineEdit
 from ui.ui_layout_manual_batch import Ui_dialogManualBatch
-from app_control import settings, writesettings
+from app_control import settings, write_config
 from batchclass import batch
 from cycleclass import currentcycle
 from logmanager import logger
@@ -115,7 +115,7 @@ class UiManualBatch(QDialog, Ui_dialogManualBatch):
         """Form close handler"""
         settings['manualbatchform']['x'] = self.x()
         settings['manualbatchform']['y'] = self.y()
-        writesettings()
+        write_config()
         self.deleteLater()
 
 
