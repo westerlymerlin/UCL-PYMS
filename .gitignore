@@ -208,7 +208,7 @@ __marimo__/
 
 # TST
 /logs
-/config.*
+config.*
 /settings.json
 /SECRETS*
 /cacerts
