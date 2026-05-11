@@ -12,7 +12,7 @@ from tkinter import messagebox
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt, QTimer, QThreadPool
-from app_control import settings, writesettings, setrunning, alarms, VERSION
+from app_control import settings, write_config, setrunning, alarms, VERSION
 from host_queries import valvegetstatus, lasergetstatus, lasergetalarm, pressuresread, xyread
 from host_commands import lasercommand, lasersetpower, valvechange, xymoveto, xymove
 from batchclass import batch
@@ -445,7 +445,7 @@ class UiMain(QMainWindow, Ui_MainWindow):
         logger.debug('mainUIForm: Main Form close event triggered')
         settings['mainform']['x'] = self.x()
         settings['mainform']['y'] = self.y()
-        writesettings()
+        write_config()
         setrunning(False)
         self.deleteLater()
 

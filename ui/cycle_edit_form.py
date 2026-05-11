@@ -6,7 +6,7 @@ import sys
 import sqlite3
 from PySide6.QtWidgets import QDialog, QApplication, QTableWidgetItem, QMessageBox, QInputDialog, QLineEdit
 from ui.ui_layout_cycle_edit import Ui_dialogCycleEdit
-from app_control import settings, writesettings, VERSION
+from app_control import settings, write_config, VERSION
 from logmanager import  logger
 
 
@@ -74,7 +74,7 @@ class CycleEditUI(QDialog, Ui_dialogCycleEdit):
         """Form close event"""
         settings['cycleeditform']['x'] = self.x()
         settings['cycleeditform']['y'] = self.y()
-        writesettings()
+        write_config()
         self.deleteLater()
         self.close()
 

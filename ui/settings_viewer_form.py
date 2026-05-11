@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QDialog, QAbstractItemView, QTableWidget, QTableWi
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from ui.ui_layout_log_viewer import Ui_LogDialog
-from app_control import settings, SECRETS, writesettings, update_secret
+from app_control import settings, SECRETS, backup_write_config, update_secret
 from logmanager import logger
 
 
@@ -139,7 +139,7 @@ class UiSettingsViewer(QDialog, Ui_LogDialog):
                         settings[settings_ref[0]] = int(newval)
                     else:
                         settings[settings_ref[0]] = newval
-                writesettings()
+                backup_write_config()
                 logger.info('Manual Settings Update %s, %s from %s to %s', settings_ref, type(oldval), oldval, newval)
             except ValueError:
                 logger.error('Manual Settings Update Fail %s, %s from %s to %s', settings_ref,

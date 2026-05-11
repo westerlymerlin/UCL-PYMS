@@ -4,12 +4,14 @@ has appeared it will creat from the defaults in the initialise function. Has glo
 calculating a file name and removing illegal character.
 """
 
-from shutil import copyfile
+from shutil import copyfile, move
 import json
 from base64 import b64decode, b64encode
-import datetime
+from datetime import datetime
+import yaml
 
-VERSION = '3.3.3'
+
+VERSION = '3.4.0'
 RUNNING = True
 alarms = {'laserhost': 0, 'valvehost': 0, 'xyhost': 0, 'pumphost': 0, 'hidenhost': 0, 'laseralarm': 133}
 
@@ -37,24 +39,62 @@ def setrunning(state):
     RUNNING = state
 
 
-def writesettings():
+def write_config():
     """
-    Writes and saves the current settings to a JSON file.
+    Writes the current settings to a YAML file. If a config file already exists, a backup
+    of the file is created before overwriting it. Updates the 'LastSave' timestamp in the
+    settings to the current date and time before saving.
+    """
+    with open('config.yaml', 'w', encoding='utf-8') as outfile:
+        yaml.dump(settings, outfile)
 
-    This function updates the 'LastSave' field in the settings dictionary with the
-    current date and time in the format 'DD/MM/YYYY HH:MM:SS' and writes the
-    updated dictionary to a file named 'settings.json'. The JSON file is saved
-    with UTF-8 encoding and is formatted with an indent of 4 spaces and keys sorted
-    in ascending order.
+
+def backup_write_config():
     """
-    settings['LastSave'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-    with open('settings.json', 'w', encoding='utf-8') as outfile:
-        json.dump(settings, outfile, indent=4, sort_keys=True)
+    Creates a backup of the current configuration file by renaming it to 'config.bak'.
+    This function is called before any changes are made to the configuration file to
+    ensure that a previous version is available for reference or restoration.
+    """
+    try:
+        copyfile('config.yaml', 'config.bak')
+    except FileNotFoundError:
+        print('No settings file found to backup')
+    settings['LastSave'] = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+    write_config()
+
+
+def read_config_file():
+    """
+    Reads configuration data from a YAML file. If a YAML file is not found,
+    the function attempts to load configuration data from a old JSON file, converts it
+    to YAML format, and creates a new YAML file. If neither file is found, it returns
+    an empty dictionary with default settings.
+    """
+    try:
+        with open('config.yaml', 'r', encoding='utf-8') as yaml_file:
+            yaml_data = yaml.safe_load(yaml_file)
+            yaml_file.close()
+            return yaml_data
+    except FileNotFoundError:
+        print('Yaml File not found looking for json file')
+        try:
+            with open('settings.json', 'r', encoding='utf-8') as json_file:
+                print('Json file found, copying to yaml')
+                json_settings = json.load(json_file)
+                json_file.close()
+                move('settings.json', 'config.bak')
+                with open('config.yaml', 'w', encoding='utf-8') as new_yaml_file:
+                    yaml.dump(json_settings, new_yaml_file)
+                new_yaml_file.close()
+                return json_settings
+        except FileNotFoundError:
+            print('JSON file not found - using default settings')
+            return {}
 
 
 def initialise():
     """
-    Initializes the application settings and configurations.
+    Initialises the application settings and configurations.
 
     This function creates and returns a dictionary containing all default
     settings used in the application. These settings include configurations
@@ -185,35 +225,17 @@ def initialise():
     return isettings
 
 
-def readsettings():
+def load_config():
     """
-    Reads settings from a JSON file and loads them into a dictionary.
-
-    This function attempts to read a JSON configuration file named 'settings.json'
-    from the current working directory. If the file is successfully found and read,
-    it returns the parsed JSON data as a dictionary. If the file does not exist,
-    it returns an empty dictionary.
-    """
-    try:
-        with open('settings.json', 'r', encoding='utf-8') as json_file:
-            jsettings = json.load(json_file)
-            return jsettings
-    except FileNotFoundError:
-        print('File not found - settings.json')
-        return {}
-
-
-def loadsettings():
-    """
-    This function reads configuration settings from an external source using the `readsettings`
-    function and updates the global `settings` dictionary. It handles multi-level dictionary
-    structures by iterating through their keys and updating corresponding values if found in
-    the external settings. If a key is missing in the external source, a message is printed,
-    and the current value in `settings` remains unchanged.
-
+    This function reads configuration data from the config file and attempts
+    to update the global `settings` dictionary. It uses a nested dictionary structure
+    to manage settings at multiple levels of hierarchy. If any setting is not
+    found in the external source, a default value remains. The function ensures that
+    any changes trigger a call to backup the configuration for persistence.
     """
     global settings
-    fsettings = readsettings()
+    fsettings = read_config_file()
+    changed = False
     for item in settings.keys():
         if isinstance(settings[item], dict):
             for subitem in settings[item]:
@@ -224,18 +246,24 @@ def loadsettings():
                             # print('settings[%s][%s][%s] = %s' % (item, subitem, subsubitem, settings[item][subitem][subsubitem]))
                         except KeyError:
                             print('settings[%s][%s][%s] Not found in json file' % (item, subitem, subsubitem))
+                            changed = True
                 else:
                     try:
                         settings[item][subitem] = fsettings[item][subitem]
                         # print('settings[%s][%s] = %s' % (item, subitem, settings[item][subitem]))
                     except KeyError:
                         print('settings[%s][%s] Not found in json file' % (item, subitem))
+                        changed = True
         else:
             try:
                 settings[item] = fsettings[item]
                 # print('settings[%s] = %s' % (item, settings[item]))
             except KeyError:
                 print('settings[%s] Not found in json file using default' % item)
+                changed = True
+    if changed:
+        backup_write_config()
+
 
 def load_secrets():
     """
@@ -269,9 +297,9 @@ def update_secret(key, value):
     s_file.close()
 
 def list_secret_keys():
-    """Returns a list of all secret keys in the SECRETS file."""
+    """Returns a list of all key values in the SECRETS file."""
     return list(SECRETS.keys())
 
 SECRETS = load_secrets()
 settings = initialise()
-loadsettings()
+load_config()

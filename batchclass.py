@@ -22,7 +22,7 @@ Notes:
 import sqlite3
 from datetime import datetime, timedelta
 import os
-from app_control import settings, friendlydirname, writesettings
+from app_control import settings, friendlydirname, write_config
 from logmanager import logger
 from imagefiler import imager
 from ncc_calc import ncc
@@ -225,7 +225,7 @@ class BatchClass:
             item_counter = item_counter + 1
         database.commit()
         database.close()
-        writesettings()
+        write_config()
 
     def current(self):
         """
@@ -601,7 +601,7 @@ def reset_q():
         cursor_obj.execute(sql_query)
         query_result = cursor_obj.fetchone()
         settings['MassSpec']['nextQ'] = int(query_result[0]) + 1
-        writesettings()
+        write_config()
         database.close()
     except sqlite3.OperationalError:
         logger.error('BatchClass - batch reset_q error')

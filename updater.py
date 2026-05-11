@@ -12,7 +12,7 @@ from typing import Optional, Tuple
 import re
 import requests
 from requests.auth import HTTPBasicAuth
-from app_control import settings, SECRETS, writesettings
+from app_control import settings, SECRETS, write_config
 
 
 def _github_headers(token: Optional[str] = None):
@@ -157,7 +157,7 @@ def _download_lfs_object(owner: str, repo: str, oid_sha256: str, size: int, out_
     _download_stream_to_path(href, headers=action_headers, out_path=out_path, timeout=600)
 
     settings['updater']['sha'] = oid_sha256
-    writesettings()
+    write_config()
     return True
 
 
@@ -195,7 +195,7 @@ def download_file_raw_via_api():
 
     if settings['updater'].get('sha') and new_etag:
         settings['updater']['sha'] = new_etag
-        writesettings()
+        write_config()
 
     return True
 
