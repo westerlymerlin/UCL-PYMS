@@ -43,9 +43,9 @@ improve efficiency.
 
 ## SECRETS
 
-<a id="updater.writesettings"></a>
+<a id="updater.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="updater._github_headers"></a>
 

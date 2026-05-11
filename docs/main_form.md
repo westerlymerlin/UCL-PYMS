@@ -47,9 +47,9 @@ software components.
 
 ## settings
 
-<a id="main_form.writesettings"></a>
+<a id="main_form.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="main_form.setrunning"></a>
 

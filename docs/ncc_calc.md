@@ -51,9 +51,9 @@ The module supports:
 
 ## settings
 
-<a id="ncc_calc.writesettings"></a>
+<a id="ncc_calc.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="ncc_calc.HeResults"></a>
 

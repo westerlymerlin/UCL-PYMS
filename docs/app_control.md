@@ -12,6 +12,10 @@ calculating a file name and removing illegal character.
 
 ## copyfile
 
+<a id="app_control.move"></a>
+
+## move
+
 <a id="app_control.json"></a>
 
 ## json
@@ -27,6 +31,10 @@ calculating a file name and removing illegal character.
 <a id="app_control.datetime"></a>
 
 ## datetime
+
+<a id="app_control.yaml"></a>
+
+## yaml
 
 <a id="app_control.VERSION"></a>
 
@@ -64,21 +72,42 @@ def setrunning(state)
 
 Global signal to detect if app is running - used to kill off threads
 
-<a id="app_control.writesettings"></a>
+<a id="app_control.write_config"></a>
 
-#### writesettings
+#### write\_config
 
 ```python
-def writesettings()
+def write_config()
 ```
 
-Writes and saves the current settings to a JSON file.
+Writes the current settings to a YAML file. If a config file already exists, a backup
+of the file is created before overwriting it. Updates the 'LastSave' timestamp in the
+settings to the current date and time before saving.
 
-This function updates the 'LastSave' field in the settings dictionary with the
-current date and time in the format 'DD/MM/YYYY HH:MM:SS' and writes the
-updated dictionary to a file named 'settings.json'. The JSON file is saved
-with UTF-8 encoding and is formatted with an indent of 4 spaces and keys sorted
-in ascending order.
+<a id="app_control.backup_write_config"></a>
+
+#### backup\_write\_config
+
+```python
+def backup_write_config()
+```
+
+Creates a backup of the current configuration file by renaming it to 'config.bak'.
+This function is called before any changes are made to the configuration file to
+ensure that a previous version is available for reference or restoration.
+
+<a id="app_control.read_config_file"></a>
+
+#### read\_config\_file
+
+```python
+def read_config_file()
+```
+
+Reads configuration data from a YAML file. If a YAML file is not found,
+the function attempts to load configuration data from a old JSON file, converts it
+to YAML format, and creates a new YAML file. If neither file is found, it returns
+an empty dictionary with default settings.
 
 <a id="app_control.initialise"></a>
 
@@ -88,41 +117,26 @@ in ascending order.
 def initialise()
 ```
 
-Initializes the application settings and configurations.
+Initialises the application settings and configurations.
 
 This function creates and returns a dictionary containing all default
 settings used in the application. These settings include configurations
 for mass spectrometry, laser parameters, logging, forms positioning,
 database paths, vacuum measurements, and API hosts.
 
-<a id="app_control.readsettings"></a>
+<a id="app_control.load_config"></a>
 
-#### readsettings
-
-```python
-def readsettings()
-```
-
-Reads settings from a JSON file and loads them into a dictionary.
-
-This function attempts to read a JSON configuration file named 'settings.json'
-from the current working directory. If the file is successfully found and read,
-it returns the parsed JSON data as a dictionary. If the file does not exist,
-it returns an empty dictionary.
-
-<a id="app_control.loadsettings"></a>
-
-#### loadsettings
+#### load\_config
 
 ```python
-def loadsettings()
+def load_config()
 ```
 
-This function reads configuration settings from an external source using the `readsettings`
-function and updates the global `settings` dictionary. It handles multi-level dictionary
-structures by iterating through their keys and updating corresponding values if found in
-the external settings. If a key is missing in the external source, a message is printed,
-and the current value in `settings` remains unchanged.
+This function reads configuration data from the config file and attempts
+to update the global `settings` dictionary. It uses a nested dictionary structure
+to manage settings at multiple levels of hierarchy. If any setting is not
+found in the external source, a default value remains. The function ensures that
+any changes trigger a call to backup the configuration for persistence.
 
 <a id="app_control.load_secrets"></a>
 
@@ -158,7 +172,7 @@ backup of the existing storage file before writing the updated encoded secrets b
 def list_secret_keys()
 ```
 
-Returns a list of all secret keys in the SECRETS file.
+Returns a list of all key values in the SECRETS file.
 
 <a id="app_control.SECRETS"></a>
 

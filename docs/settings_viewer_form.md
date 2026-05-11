@@ -44,9 +44,9 @@ Author: Gary Twinn
 
 ## SECRETS
 
-<a id="settings_viewer_form.writesettings"></a>
+<a id="settings_viewer_form.backup_write_config"></a>
 
-## writesettings
+## backup\_write\_config
 
 <a id="settings_viewer_form.update_secret"></a>
 

@@ -54,9 +54,9 @@ Author: Gary Twinn
 
 ## settings
 
-<a id="ms_hiden_class.writesettings"></a>
+<a id="ms_hiden_class.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="ms_hiden_class.friendlydirname"></a>
 

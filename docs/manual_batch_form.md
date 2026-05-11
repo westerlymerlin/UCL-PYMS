@@ -47,9 +47,9 @@ Author: Gary Twinn
 
 ## settings
 
-<a id="manual_batch_form.writesettings"></a>
+<a id="manual_batch_form.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="manual_batch_form.batch"></a>
 

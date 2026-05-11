@@ -47,9 +47,9 @@ Author: Gary Twinn
 
 ## settings
 
-<a id="cycle_edit_form.writesettings"></a>
+<a id="cycle_edit_form.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="cycle_edit_form.VERSION"></a>
 
