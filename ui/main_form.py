@@ -229,13 +229,13 @@ class UiMain(QMainWindow, Ui_MainWindow):
             self.run = 0
             self.tbRun.setChecked(False)
         if alarms['hidenhost'] == 10:
-            status = status + 'Hiden Issue = Hiden has just returned 0 line of data, stopping processing. \n'
+            status = status + 'Hiden Issue = Hiden has just returned 0 lines of data, stopping processing. \n'
             self.secondincrement = 0
             self.run = 0
             self.tbRun.setChecked(False)
         if alarms['hidenhost'] == 11:
             status = status + ('Hiden Issue = the Hiden software has failed to unload the experiment file, please press'
-                               ' the red square on teh Hiden app to stop the experiment and then close the experiment'
+                               ' the red square on the Hiden app to stop the experiment and then close the experiment'
                                'window and re-press the run button to continue. The system is paused. \n')
             self.secondincrement = 0
             self.run = 0
