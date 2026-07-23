@@ -47,10 +47,6 @@ improve efficiency.
 
 ## write\_config
 
-<a id="updater.logger"></a>
-
-## logger
-
 <a id="updater._github_headers"></a>
 
 #### \_github\_headers
