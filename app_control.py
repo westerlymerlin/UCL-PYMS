@@ -281,7 +281,18 @@ def load_secrets():
         return json.loads(b64decode(raw_secrets))
     except FileNotFoundError:
         print('SECRETS file not found - using empty secrets')
-        return {}
+        blank_secret = {
+            "email_account": "",
+            "email_client_id": "",
+            "email_client_secret": "",
+            "email_tenant_id": "",
+            "laserhost-api-key": "",
+            "pat_token": "",
+            "pumphost-api-key": "",
+            "valvehost-api-key": "",
+            "xyhost-api-key": ""
+            }
+        return blank_secret
 
 def update_secret(key, value):
     """

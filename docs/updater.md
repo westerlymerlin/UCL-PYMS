@@ -110,6 +110,7 @@ to the caller.
 def _download_stream_to_path(url: str,
                              headers: dict,
                              out_path: Path,
+                             size: int = 0,
                              timeout: int = 300) -> Optional[str]
 ```
 

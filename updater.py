@@ -13,6 +13,7 @@ import re
 import requests
 from requests.auth import HTTPBasicAuth
 from app_control import settings, SECRETS, write_config
+from logmanager import logger
 
 
 def _github_headers(token: Optional[str] = None):
@@ -82,7 +83,7 @@ def get_file_metadata():
     return r.json()
 
 
-def _download_stream_to_path(url: str, headers: dict, out_path: Path, timeout: int = 300) -> Optional[str]:
+def _download_stream_to_path(url: str, headers: dict, out_path: Path, size: int = 0, timeout: int = 300) -> Optional[str]:
     """
     Downloads a file stream from a given URL and saves it to the specified path. The function will create
     necessary parent directories if they don't exist, and it uses a temporary file during the download
@@ -92,6 +93,8 @@ def _download_stream_to_path(url: str, headers: dict, out_path: Path, timeout: i
     """
     out_path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = out_path.with_suffix(out_path.suffix + ".part")
+
+    logger.info(f"Downloading {url} to {tmp_path} ({size} bytes)")
 
     with requests.get(url, headers=headers, stream=True, timeout=timeout) as r:
         if r.status_code == 304:
@@ -154,7 +157,7 @@ def _download_lfs_object(owner: str, repo: str, oid_sha256: str, size: int, out_
         raise RuntimeError("LFS batch response missing download href")
 
     # Download the actual bytes from LFS storage
-    _download_stream_to_path(href, headers=action_headers, out_path=out_path, timeout=600)
+    _download_stream_to_path(href, headers=action_headers, out_path=out_path, size=size, timeout=600)
 
     settings['updater']['sha'] = oid_sha256
     write_config()
@@ -182,6 +185,7 @@ def download_file_raw_via_api():
     lfs = _parse_lfs_pointer(text)
     if lfs:
         oid_sha256, size = lfs
+        logger.info(f"Detected LFS file: {oid_sha256} ({size} bytes)")
         owner, repo = _parse_owner_repo_from_contents_url(settings['updater']['url'])
         return _download_lfs_object(owner, repo, oid_sha256, size, out_path)
 
@@ -189,6 +193,7 @@ def download_file_raw_via_api():
     if settings['updater'].get('sha'):
         headers["If-None-Match"] = settings['updater']['sha']
 
+    logger.info(f"Downloading non LFS file: {download_url}")
     new_etag = _download_stream_to_path(download_url, headers=headers, out_path=out_path, timeout=300)
     if new_etag is None:
         return False
