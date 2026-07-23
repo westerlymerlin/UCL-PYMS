@@ -48,9 +48,9 @@ Notes:
 
 ## friendlydirname
 
-<a id="batchclass.writesettings"></a>
+<a id="batchclass.write_config"></a>
 
-## writesettings
+## write\_config
 
 <a id="batchclass.logger"></a>
 

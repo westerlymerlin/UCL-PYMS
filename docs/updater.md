@@ -43,9 +43,13 @@ improve efficiency.
 
 ## SECRETS
 
-<a id="updater.writesettings"></a>
+<a id="updater.write_config"></a>
 
-## writesettings
+## write\_config
+
+<a id="updater.logger"></a>
+
+## logger
 
 <a id="updater._github_headers"></a>
 
@@ -110,6 +114,7 @@ to the caller.
 def _download_stream_to_path(url: str,
                              headers: dict,
                              out_path: Path,
+                             size: int = 0,
                              timeout: int = 300) -> Optional[str]
 ```
 
